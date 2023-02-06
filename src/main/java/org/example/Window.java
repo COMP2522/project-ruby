@@ -9,7 +9,7 @@ package org.example;
  * @version 1.0, February 4, 2023
  */
 public class Window {
-d
+
 
 
 }
