@@ -10,6 +10,14 @@ package org.example;
  */
 public class Window {
 
+  int width;
+  int height;
 
+  void loadMap() {
+
+  }
+  void drawMap() {
+
+  }
 
 }
