@@ -7,7 +7,7 @@ package org.example;
  * @author ....
  * @version 1.0, February 6, 2023
  */
-public class Diamond {
+public class Ruby {
 
   /**
    * Indicates whether the diamond is displayed or not.
