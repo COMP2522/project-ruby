@@ -1,2 +1,5 @@
-package org.example;public class Wall {
+package org.example;
+
+public class Wall {
+
 }
