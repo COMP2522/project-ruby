@@ -25,14 +25,18 @@ public class Player {
     this.currentRubies = 0;
     this.currentDirection = directions.LEFT;
     this.currentStatus = status.ALIVE;
+    this.x = 0;
+    this.y = 0;
   }
 
   // Sets up the player from an existing save.
-  public Player(int rubies) {
+  public Player(int x, int y, int rubies) {
     this.currentLives = LIVES;
     this.currentRubies = rubies;
     this.currentDirection = directions.LEFT;
     this.currentStatus = status.ALIVE;
+    this.x = x;
+    this.y = y;
   }
 
   public void updateDirection(char key) {

@@ -1,15 +1,12 @@
 package org.example;
 
 /**
- * defines the "window" or the screen where all the elements of the game
- * are drawn and output.
+ * Defines the "Window" or the screen where all the elements of the game are drawn and outputted.
  *
  * @author Abhishek Chouhan
- * @author ....
- * @version 1.0, February 4, 2023
+ * @version 2023-02-04
  */
 public class Window {
-
   int width;
   int height;
 
@@ -19,5 +16,4 @@ public class Window {
   void drawMap() {
 
   }
-
 }

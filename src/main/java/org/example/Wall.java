@@ -1,13 +1,11 @@
 package org.example;
 
 /**
- * defines the non-movable blocks/boundary for the game that
- * can be assumed to be walls.
+ * Defines the non-movable blocks/boundary for the game that can be assumed to be walls.
  *
  * @author Simrat Kaur
- * @author ....
- * @version 1.0, February 6, 2023
+ * @version 2023-03-07
  */
-public class Wall {
+public class Wall extends Tile {
 
 }

@@ -1,7 +1,7 @@
 package org.example;
 
 /**
- * Abstract class for Tile.
+ * Abstract class for a immovable Tile.
  *
  * @author Nathan Bartyuk
  * @version 2023-02-07

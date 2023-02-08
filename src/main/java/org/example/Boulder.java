@@ -1,12 +1,12 @@
 package org.example;
+
 /**
  * Defines the Boulder class and the methods that will be implemented for its function.
  *
  * @author Amrit Singh
- * @author etc etc ...
- * @version 1.0, February 06, 2023
+ * @version 2023-02-06
  */
-public class Boulder {
+public class Boulder extends Sprite {
 
   // Insert methods here.
 

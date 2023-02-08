@@ -1,17 +1,14 @@
 package org.example;
 
 /**
- * defines the "Diamonds" that the player would be collecting.
+ * Defines the rubies that the player collects.
  *
  * @author Simrat Kaur
- * @author ....
- * @version 1.0, February 6, 2023
+ * @version 2023-02-07
  */
-public class Ruby {
+public class Ruby extends Sprite {
 
-  /**
-   * Indicates whether the diamond is displayed or not.
-   */
+  // Indicates whether the ruby is displayed or not.
   private boolean displayed;
 
   /**
@@ -23,10 +20,6 @@ public class Ruby {
     return false;
   }
 
-  /**
-   * makes the diamonds fall.
-   */
-  public void fall(){
-
-  }
+  // Makes the diamonds fall.
+  public void fall(){}
 }
