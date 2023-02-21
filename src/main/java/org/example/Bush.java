@@ -7,24 +7,20 @@ package org.example;
  * @version 2023-02-09
  */
 public class Bush extends Sprite implements Collidable {
-  private Image sprite;
-  private Status status;
+
+  public status bushStatus;
 
   /**
    * Constructs Bush object.
    * @param x x-position of this object, an int
    * @param y y-position of this object, an int
    */
-  public Bush(int x, int y, status) {
+  public Bush(int x, int y) {
     super(x, y);
-    this.status = status;
+    bushStatus = status.DISPLAYED;
   }
-
-  /**
-   * Checks if Bush has collided.
-   *
-   * @return true if collided
-   */
+  
+  
   public boolean collide() {
     return false;
   }

@@ -1,0 +1,22 @@
+package org.example;
+
+public class SpriteManager {
+
+  public Map map;
+  public Sprite s1;
+  public Sprite s2;
+  
+  public boolean checkCollided() {
+    if (s1.collided() && s2.collided()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public void updateMap() {}
+  
+  public void moveSprite() {}
+  
+  public void removeSprite() {}
+}
