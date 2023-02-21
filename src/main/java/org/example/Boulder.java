@@ -6,8 +6,7 @@ package org.example;
  * @author Amrit Singh
  * @version 2023-02-06
  */
-public class Boulder extends Sprite implements Collidable, Gravity {
-  
+public class Boulder extends Sprite implements Gravity {
   public status boulderStatus;
   
   /**
@@ -19,11 +18,13 @@ public class Boulder extends Sprite implements Collidable, Gravity {
     super(x, y);
     boulderStatus = status.DISPLAYED;
   }
-
-  public boolean collide() {
+  
+  @Override
+  public boolean collided() {
     return false;
   }
   
+  @Override
   public boolean fall() {
     return false;
   }
