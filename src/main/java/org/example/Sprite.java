@@ -9,6 +9,10 @@ package org.example;
 abstract class Sprite {
   private int x;
   private int y;
+  public Object sprite;
+  public enum status {DISPLAYED, INVISIBLE, DELETED}
+  
+  public Sprite(int x, int y) { this.x = x; this.y = y; }
 
   public void setX(int x) {
     this.x = x;

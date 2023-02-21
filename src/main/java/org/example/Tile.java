@@ -9,6 +9,7 @@ package org.example;
 abstract class Tile {
   private int x;
   private int y;
+  public Object sprite;
 
   public int getX() {
     return x;

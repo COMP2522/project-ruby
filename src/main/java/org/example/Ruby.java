@@ -6,20 +6,25 @@ package org.example;
  * @author Simrat Kaur
  * @version 2023-02-07
  */
-public class Ruby extends Sprite {
-
-  // Indicates whether the ruby is displayed or not.
-  private boolean displayed;
-
+public class Ruby extends Sprite implements Collidable, Gravity {
+  
+  public status rubyStatus;
+  
   /**
-   * Checks if the diamonds have been collected or not.
-   *
-   * @return 'false' if the diamond has not been collected,'true' otherwise.
+   * Constructs Ruby object.
+   * @param x x-position of this object, an int
+   * @param y y-position of this object, an int
    */
-  public boolean checkCollected(){
+  public Ruby(int x, int y) {
+    super(x, y);
+    rubyStatus = status.DISPLAYED;
+  }
+  
+  public boolean collide() {
     return false;
   }
-
-  // Makes the diamonds fall.
-  public void fall(){}
+  
+  public boolean fall() {
+    return false;
+  }
 }
