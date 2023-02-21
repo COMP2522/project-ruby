@@ -6,7 +6,7 @@ package org.example;
  * @author Simrat Kaur
  * @version 2023-02-07
  */
-public class Ruby extends Sprite implements Collidable, Gravity {
+public class Ruby extends Sprite implements Gravity {
   
   public status rubyStatus;
   
@@ -20,10 +20,10 @@ public class Ruby extends Sprite implements Collidable, Gravity {
     rubyStatus = status.DISPLAYED;
   }
   
-  public boolean collide() {
-    return false;
-  }
+  @Override
+  public boolean collided() { return false; }
   
+  @Override
   public boolean fall() {
     return false;
   }
