@@ -11,6 +11,12 @@ abstract class Tile {
   private int y;
   public Object sprite;
 
+  public Tile(int x, int y, Object sprite) {
+    this.x = x;
+    this.y = y;
+    this.sprite = sprite;
+  }
+
   public int getX() {
     return x;
   }

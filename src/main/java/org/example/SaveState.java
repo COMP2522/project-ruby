@@ -32,4 +32,8 @@ public class SaveState {
     Map map = new Map(this);
     return null;
   }
+
+  public void save() {}
+
+  public void load() {}
 }
