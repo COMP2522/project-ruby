@@ -6,8 +6,7 @@ package org.example;
  * @author Greg Song
  * @version 2023-02-09
  */
-public class Bush extends Sprite implements Collidable {
-
+public class Bush extends Sprite {
   public status bushStatus;
 
   /**
@@ -20,8 +19,8 @@ public class Bush extends Sprite implements Collidable {
     bushStatus = status.DISPLAYED;
   }
   
-  
-  public boolean collide() {
+  @Override
+  public boolean collided() {
     return false;
   }
 }
