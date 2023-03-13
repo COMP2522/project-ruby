@@ -1,15 +1,9 @@
 package org.example;
 
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JPanel;
 
-/**
- * Defines the "Window" or the screen where all the elements of the game are drawn and outputted.
- *
- * @author Abhishek Chouhan
- * @version 2023-02-04
- */
-public class Window extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable{
 
   final int originalTileSize = 16; // 16x16 tile
   final int scale = 3; // scale to 3 times to match screen resolution
@@ -24,23 +18,39 @@ public class Window extends JPanel implements Runnable{
   //  int width;
   //  int height;
 
+  Player player = new Player();
+
   Thread gameThread;
 
-  void loadMap() {}  // update map
-  void drawMap() {}  // draw map
+//  void loadMap() {}  // update map
+//  void drawMap() {}  // draw map
 
   public void update() {
-
+    if (player.upPressed == true) {
+      player.y -= player.playerSpeed;
+    } else if (player.downPressed == true) {
+      player.y += player.playerSpeed;
+    } else if (player.rightPressed == true) {
+      player.x += player.playerSpeed;
+    } else if(player.leftPressed == true) {
+      player.x -= player.playerSpeed;
+    }
   }
 
   public void paintComponent(Graphics g) {
-
+    super.paintComponent(g);
+    Graphics2D g2 = (Graphics2D) g;
+    g2.setColor(Color.white);
+    g2.fillRect(player.x, player.y, tileSize, tileSize);
+    g2.dispose();
   }
 
-  public Window() {
+  public GamePanel() {
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
+    this.addKeyListener(player);
+    this.setFocusable(true);
   }
 
   public void startGameThread() {
@@ -54,6 +64,11 @@ public class Window extends JPanel implements Runnable{
 //      System.out.println("The game loop is running"); // test, will get replaced by actual content in future
       //1 UPDATE : update information such as charater positions
       //2 DRAW: draw the screen with the updated information
+      long currentTime = System.nanoTime();
+      System.out.println("current Time" + currentTime);
+
+      update();
+      repaint();
     }
   }
 }
