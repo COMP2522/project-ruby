@@ -71,7 +71,7 @@ public class Player implements KeyListener {
   public Player() {
     this.currentLives = LIVES;
     this.currentRubies = 0;
-    this.currentDirection = directions.LEFT;
+    this.currentDirection = directions.RIGHT;
     this.currentStatus = status.ALIVE;
     this.x = 100;
     this.y = 100;
