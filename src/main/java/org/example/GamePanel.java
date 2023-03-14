@@ -27,22 +27,13 @@ public class GamePanel extends JPanel implements Runnable{
 //  void drawMap() {}  // draw map
 
   public void update() {
-    if (player.upPressed == true) {
-      player.y -= player.playerSpeed;
-    } else if (player.downPressed == true) {
-      player.y += player.playerSpeed;
-    } else if (player.rightPressed == true) {
-      player.x += player.playerSpeed;
-    } else if(player.leftPressed == true) {
-      player.x -= player.playerSpeed;
-    }
+    player.updatePosition();
   }
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    g2.setColor(Color.white);
-    g2.fillRect(player.x, player.y, tileSize, tileSize);
+    player.draw(g2, this);
     g2.dispose();
   }
 

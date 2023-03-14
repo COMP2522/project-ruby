@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.JFrame;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.management.GarbageCollectorMXBean;
@@ -117,9 +118,22 @@ public class Player implements KeyListener {
     return currentRubies;
   }
 
-  public void updatePosition(int x, int y) {
-    this.x = x;
-    this.y = y;
+  public void updatePosition() {
+    if (upPressed == true) {
+      y -= playerSpeed;
+    } else if (downPressed == true) {
+      y += playerSpeed;
+    } else if (rightPressed == true) {
+      x += playerSpeed;
+    } else if(leftPressed == true) {
+      x -= playerSpeed;
+    }
+  }
+
+  // to draw the player sprite
+  public void draw(Graphics2D g2, GamePanel p) {
+    g2.setColor(Color.white);
+    g2.fillRect(x, y, p.tileSize, p.tileSize);
   }
 
   public static void main(String[] args) {
