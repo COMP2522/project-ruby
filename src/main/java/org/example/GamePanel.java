@@ -59,28 +59,52 @@ public class GamePanel extends JPanel implements Runnable{
     gameThread.start();
   }
 
+  // sleep method to set FPS
+//  @Override
+//  public void run() {
+//    double drawInterval = 1000000000 / FPS;  // gives exactly how many nanoseconds should each frame last where FPS = 60?
+//    double nextDrawTime = System.nanoTime() + drawInterval; // this tells the system when to draw the next frame
+//
+//    while(gameThread != null) {  // this is the game loop that will keep the game running, until the window is closed
+//
+//      //      System.out.println("The game loop is running"); // test, will get replaced by actual content in future
+//      //1 UPDATE : update information such as charater positions
+//      //2 DRAW: draw the screen with the updated information
+//      update();
+//      repaint();
+//
+//      try {
+//        double remainingTime = nextDrawTime - System.nanoTime(); // we need the system to hold the process or sleep for this time
+//        remainingTime /= 1000000; // convert nano time to milli time
+//        if (remainingTime < 0) {
+//          remainingTime = 0;
+//        }
+//        Thread.sleep((long) remainingTime);  // this method accepts milli seconds, not nanoseconds
+//        nextDrawTime += drawInterval;
+//      } catch (InterruptedException e) {
+//        throw new RuntimeException(e);
+//      }
+//    }
+//  }
+
+  // second implementation to set FPS
   @Override
   public void run() {
-    double drawInterval = 1000000000 / FPS;  // gives exactly how many nanoseconds should each frame last where FPS = 60?
-    double nextDrawTime = System.nanoTime() + drawInterval; // this tells the system when to draw the next frame
+    double drawInterval = 1000000000/FPS;
+    double delta = 0;
+    long lastTime = System.nanoTime();
+    long currentTime;
 
-    while(gameThread != null) {  // this is the game loop that will keep the game running, until the window is closed
+    while(gameThread != null) {
+      currentTime = System.nanoTime();
+      delta += (currentTime - lastTime) / drawInterval;
 
-      //      System.out.println("The game loop is running"); // test, will get replaced by actual content in future
-      //1 UPDATE : update information such as charater positions
-      //2 DRAW: draw the screen with the updated information
-      update();
-      repaint();
+      lastTime = currentTime;
 
-      try {
-        double remainingTime = nextDrawTime - System.nanoTime(); // we need the system to hold the process or sleep for this time
-        remainingTime /= 1000000; // convert nano time to milli time
-        if (remainingTime < 0) {
-          remainingTime = 0;
-        }
-        Thread.sleep((long) remainingTime);  // this method accepts milli seconds, not nanoseconds
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
+      if (delta >= 1) {
+        update();
+        repaint();
+        delta--;
       }
     }
   }

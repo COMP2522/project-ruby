@@ -13,7 +13,7 @@ import java.lang.management.GarbageCollectorMXBean;
  */
 public class Player implements KeyListener {
 
-  public boolean upPressed, downPressed, leftPressed, rightPressed;
+  public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
 
   @Override
   public void keyTyped(KeyEvent e) {}  // not using this one garbage
@@ -50,6 +50,8 @@ public class Player implements KeyListener {
     if (code == KeyEvent.VK_D) {
       rightPressed = false;
     }
+    updateDirection(e);
+//    System.out.println(currentDirection);
   }
 
   public enum directions {LEFT, RIGHT, UP, DOWN}
@@ -85,14 +87,15 @@ public class Player implements KeyListener {
     this.y = y;
   }
 
-  public void updateDirection(char key) {
-    if (key == 'l') {
+  public void updateDirection(KeyEvent e) {
+    int code = e.getKeyCode();
+    if (code == KeyEvent.VK_A) {
       currentDirection = directions.LEFT;
-    } else if (key == 'r') {
+    } else if (code == KeyEvent.VK_D) {
       currentDirection = directions.RIGHT;
-    } else if (key == 'u') {
+    } else if (code == KeyEvent.VK_W) {
       currentDirection = directions.UP;
-    } else if (key == 'd') {
+    } else if (code == KeyEvent.VK_S) {
       currentDirection = directions.DOWN;
     }
   }
