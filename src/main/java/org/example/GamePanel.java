@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
 //    while(gameThread != null) {  // this is the game loop that will keep the game running, until the window is closed
 //
 //      //      System.out.println("The game loop is running"); // test, will get replaced by actual content in future
-//      //1 UPDATE : update information such as charater positions
+//      //1 UPDATE : update information such as character positions
 //      //2 DRAW: draw the screen with the updated information
 //      update();
 //      repaint();
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
 //        if (remainingTime < 0) {
 //          remainingTime = 0;
 //        }
-//        Thread.sleep((long) remainingTime);  // this method accepts milli seconds, not nanoseconds
+//        Thread.sleep((long) remainingTime);  // this method accepts milliseconds, not nanoseconds
 //        nextDrawTime += drawInterval;
 //      } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
@@ -87,24 +87,32 @@ public class GamePanel extends JPanel implements Runnable{
 //    }
 //  }
 
-  // second implementation to set FPS
+  // second implementation to set FPS, better as far as I know
   @Override
   public void run() {
     double drawInterval = 1000000000/FPS;
     double delta = 0;
     long lastTime = System.nanoTime();
     long currentTime;
+    long timer = 0;
+    int drawCount = 0;
 
     while(gameThread != null) {
       currentTime = System.nanoTime();
       delta += (currentTime - lastTime) / drawInterval;
-
+      timer += (currentTime - lastTime);
       lastTime = currentTime;
 
       if (delta >= 1) {
         update();
         repaint();
         delta--;
+        drawCount++;
+      }
+      if (timer >= 1000000000) {
+//        System.out.println("FPS: " + drawCount);  // shows FPS
+        drawCount = 0;
+        timer = 0;
       }
     }
   }
