@@ -1,4 +1,4 @@
-package org.example;
+package org.sourceCode;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -111,14 +111,14 @@ public class Player implements KeyListener {
 
   public void getPlayerImage() {
     try{
-      downR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-      downL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
-      upR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-      upL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
-      leftR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-      leftL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
-      rightR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-      rightL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
+      downR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
+      downL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
+      upR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
+      upL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
+      leftR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
+      leftL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
+      rightR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
+      rightL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
     } catch(IOException e) {
       System.out.println("Image can't be read");
       e.printStackTrace();
@@ -154,7 +154,7 @@ public class Player implements KeyListener {
         x -= playerSpeed;
       }
       spriteCounter++;
-      if(spriteCounter > 16) {
+      if(spriteCounter > 14) {
         if (spriteNum == 1) {
           spriteNum = 2;
         } else if (spriteNum == 2) {
