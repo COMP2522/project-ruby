@@ -10,7 +10,7 @@ public class Server {
   private SaveState currentSave;
 
   public void newGame() {
-    Map map = new Map();
+//    Map map = new Map();
     Player player = new Player();
   }
 

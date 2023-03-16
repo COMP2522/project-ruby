@@ -1,9 +1,12 @@
 package org.sourceCode;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.Buffer;
+import java.util.Arrays;
 
 /**
  * Defines the game map, which consists of both a Tile array and Sprite array
@@ -20,14 +23,15 @@ public class Map {
 
 //  public Tile[][] tileMap = new Tile[MAPSIZE][MAPSIZE];
 //  public Sprite[][] spriteMap = new Sprite[MAPSIZE][MAPSIZE];
-  public Map() {
-
-  }
+//  public Map() {
+//
+//  }
 
   public Map(GamePanel gp) {
     tiles = new Tile[10];
-    getTileImage();
     map = new int[gp.maxScreenCol][gp.maxScreenRow];
+    getTileImage();
+    loadMap(gp);
   }
   public Map(SaveState save) {}
 
@@ -45,6 +49,33 @@ public class Map {
     }
   }
 
+  public void loadMap(@NotNull GamePanel gp) {
+    try {
+      InputStream is = new FileInputStream("assets/mapData/maps/map1.txt");
+      BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+      int col = 0;
+      int row = 0;
+
+      while (col< gp.maxScreenCol && row < gp.maxScreenRow) {
+        String line = br.readLine();
+        String numbers[] = line.split(" ");
+        while(col < gp.maxScreenCol) {
+          int num = Integer.parseInt(numbers[col]);
+          map[col][row] = num;
+          col++;
+        }
+        if (col == gp.maxScreenCol) {
+          col = 0;
+          row++;
+        }
+      }
+      br.close();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public void draw(Graphics2D g2, GamePanel gp) {
 //    g2.drawImage(tiles[1].sprite, 0, 0, gp.tileSize, gp.tileSize, null);  // null is image observer IDK what that is tho
     int col = 0;
@@ -53,7 +84,8 @@ public class Map {
     int y = 0;
 
     while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
-      g2.drawImage(tiles[1].sprite, x, y, gp.tileSize, gp.tileSize, null);
+      int tileNum = map[col][row];
+      g2.drawImage(tiles[tileNum].sprite, x, y, gp.tileSize, gp.tileSize, null);
       col++;
       x += gp.tileSize;
       if (col == gp.maxScreenCol) {
@@ -64,4 +96,8 @@ public class Map {
       }
     }
   }
+
+//  public static void main(String[] args) {
+//    Map test = new Map();
+//  }
 }
