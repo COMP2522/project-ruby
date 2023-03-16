@@ -1,25 +1,27 @@
-package org.example;
+package org.sourceCode;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
-  final int originalTileSize = 16; // 16x16 tile
-  final int scale = 3; // scale to 3 times to match screen resolution
+  public final int originalTileSize = 16; // 16x16 tile
+  public final int scale = 3; // scale to 3 times to match screen resolution
 
-  final int tileSize = originalTileSize * scale; // 48x48 tile
+  public final int tileSize = originalTileSize * scale; // 48x48 tile
 
-  final int maxScreenCol = 16;
-  final int maxScreenRow = 12; // ratio is 4:3 for the whole window
+  public final int maxScreenCol = 16;
+  public final int maxScreenRow = 12; // ratio is 4:3 for the whole window
 
-  final int screenWidth = tileSize * maxScreenCol;  // 768 pixels wide
-  final int screenHeight = tileSize * maxScreenRow;  // 576 pixels height
+  public final int screenWidth = tileSize * maxScreenCol;  // 768 pixels wide
+  public final int screenHeight = tileSize * maxScreenRow;  // 576 pixels height
   //  int width;
   //  int height;
   int FPS = 60;
 
   Player player = new Player();
+
+  Map map = new Map(this); // this is actually like the manager of map
 
   Thread gameThread;
 
@@ -33,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
+    map.draw(g2, this);
     player.draw(g2, this);
     g2.dispose();
   }

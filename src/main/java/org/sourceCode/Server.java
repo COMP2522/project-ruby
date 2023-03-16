@@ -1,4 +1,4 @@
-package org.example;
+package org.sourceCode;
 
 /**
  * Defines the server, which manages game state.
