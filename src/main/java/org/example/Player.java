@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.management.GarbageCollectorMXBean;
 
 /**
  * The player that the user can control.
@@ -71,7 +70,9 @@ public class Player implements KeyListener {
   private directions currentDirection;
   private status currentStatus;
 
-  public BufferedImage down, up, right, left;
+  public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
+  public int spriteCounter = 0;
+  public int spriteNum = 1;
 
 
   // Sets up fresh player upon starting a new game.
@@ -110,11 +111,14 @@ public class Player implements KeyListener {
 
   public void getPlayerImage() {
     try{
-      down = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-      up = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-      left = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
-      right = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
-//      downRight = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/Player_DRight.png"));
+      downR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
+      downL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
+      upR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
+      upL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
+      leftR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
+      leftL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
+      rightR = ImageIO.read(new FileInputStream("res/player/Player_DRight.png"));
+      rightL = ImageIO.read(new FileInputStream("res/player/Player_DLeft.png"));
     } catch(IOException e) {
       System.out.println("Image can't be read");
       e.printStackTrace();
@@ -139,15 +143,27 @@ public class Player implements KeyListener {
   }
 
   public void updatePosition() {
-    if (upPressed == true) {
-      y -= playerSpeed;
-    } else if (downPressed == true) {
-      y += playerSpeed;
-    } else if (rightPressed == true) {
-      x += playerSpeed;
-    } else if(leftPressed == true) {
-      x -= playerSpeed;
+    if (upPressed || downPressed || leftPressed || rightPressed) {
+      if (upPressed) {
+        y -= playerSpeed;
+      } else if (downPressed) {
+        y += playerSpeed;
+      } else if (rightPressed) {
+        x += playerSpeed;
+      } else if(leftPressed) {
+        x -= playerSpeed;
+      }
+      spriteCounter++;
+      if(spriteCounter > 16) {
+        if (spriteNum == 1) {
+          spriteNum = 2;
+        } else if (spriteNum == 2) {
+          spriteNum = 1;
+        }
+        spriteCounter = 0;
+      }
     }
+
   }
 
   // to draw the player sprite
@@ -156,16 +172,20 @@ public class Player implements KeyListener {
 
     switch(currentDirection) {
       case UP:
-        image = up;
+        if (spriteNum == 1) {image = upR;}
+        if (spriteNum == 2) {image = upL;}
         break;
       case DOWN:
-        image = down;
+        if (spriteNum == 1) {image = downR;}
+        if (spriteNum == 2) {image = downL;}
         break;
       case LEFT:
-        image = left;
+        if (spriteNum == 1) {image = leftR;}
+        if (spriteNum == 2) {image = leftL;}
         break;
       case RIGHT:
-        image = right;
+        if (spriteNum == 1) {image = rightR;}
+        if (spriteNum == 2) {image = rightL;}
         break;
       default:
         break;
