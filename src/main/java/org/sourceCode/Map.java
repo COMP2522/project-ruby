@@ -44,6 +44,8 @@ public class Map {
       tiles[1].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/wall.png"));
       tiles[2] = new Tile();
       tiles[2].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/bush.png"));
+      tiles[3] = new Tile();
+      tiles[3].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/water.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
