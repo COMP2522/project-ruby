@@ -1,4 +1,4 @@
-package org.example;
+package org.sourceCode;
 
 /**
  * Defines the server, which manages game state.
@@ -10,7 +10,7 @@ public class Server {
   private SaveState currentSave;
 
   public void newGame() {
-    Map map = new Map();
+//    Map map = new Map();
     Player player = new Player();
   }
 

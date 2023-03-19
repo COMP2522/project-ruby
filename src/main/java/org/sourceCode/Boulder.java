@@ -1,4 +1,4 @@
-package org.example;
+package org.sourceCode;
 
 /**
  * Defines the Boulder class and the methods that will be implemented for its function.
