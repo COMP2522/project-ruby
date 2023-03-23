@@ -22,8 +22,6 @@ public class Collision_Detection {
 
     int tileNum1, tileNum2;
 
-    // i was trying not to let the arrayoutofbounds error to occur here
-    if (playerDownRow < gp.maxScreenRow && playerLeftCol >= 0 && playerRightCol < gp.maxScreenCol) {
       //checking the player's direction
       if (p.currentDirection == UP) {
         playerTopRow = (playerUpY - p.playerSpeed) / gp.tileSize;
@@ -58,7 +56,6 @@ public class Collision_Detection {
           p.collision = true;
         }
       }
-    }
   }
 
 

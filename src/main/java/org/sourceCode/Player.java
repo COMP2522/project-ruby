@@ -91,8 +91,8 @@ public class Player implements KeyListener {
     solidArea = new Rectangle();
     solidArea.x = 0;
     solidArea.y = 0;
-    solidArea.width = 48;
-    solidArea.height = 48;
+    solidArea.width = 32;
+    solidArea.height = 32;
     this.x = 150;
     this.y = 50;
     getPlayerImage();
@@ -170,14 +170,14 @@ public class Player implements KeyListener {
       if (x < 0) {
         x = 0;
       }
-      if (x + solidArea.width > gp.getScreenWidth()) {
-        x = gp.getScreenWidth();
+      if (x + 48 >= gp.getScreenWidth()) {
+        x = gp.getScreenWidth() - 48;
       }
       if (y < 0) {
         y = 0;
       }
-      if (y + solidArea.height >= gp.getScreenHeight()) {
-        y = gp.getScreenHeight();
+      if (y + 48 >= gp.getScreenHeight()) {
+        y = gp.getScreenHeight() - 48;
       }
 
         //checking tile collision
