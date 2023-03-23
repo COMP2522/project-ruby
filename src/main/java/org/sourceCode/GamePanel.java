@@ -19,6 +19,14 @@ public class GamePanel extends JPanel implements Runnable{
   //  int height;
   int FPS = 60;
 
+  public int getScreenWidth() {
+    return screenWidth;
+  }
+
+  public int getScreenHeight() {
+    return screenHeight;
+  }
+
   Player player = new Player();
 
   public Map map1 = new Map(this); // this is actually like the manager of map

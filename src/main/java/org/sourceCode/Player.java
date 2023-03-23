@@ -89,10 +89,10 @@ public class Player implements KeyListener {
     this.currentDirection = directions.DOWN;
     this.currentStatus = status.ALIVE;
     solidArea = new Rectangle();
-    solidArea.x = 8;
-    solidArea.y = 8;
-    solidArea.width = 32;
-    solidArea.height = 32;
+    solidArea.x = 0;
+    solidArea.y = 0;
+    solidArea.width = 48;
+    solidArea.height = 48;
     this.x = 150;
     this.y = 50;
     getPlayerImage();
@@ -165,9 +165,25 @@ public class Player implements KeyListener {
 //      } else if(leftPressed) {
 //        x -= playerSpeed;
 //      }
-      //checking tile collision
-      collision = false;
-      gp.cChecker.checkTile(this);
+
+      //checking for collision with the window boundary
+      if (x < 0) {
+        x = 0;
+      }
+      if (x + solidArea.width > gp.getScreenWidth()) {
+        x = gp.getScreenWidth();
+      }
+      if (y < 0) {
+        y = 0;
+      }
+      if (y + solidArea.height >= gp.getScreenHeight()) {
+        y = gp.getScreenHeight();
+      }
+
+        //checking tile collision
+        collision = false;
+        gp.cChecker.checkTile(this);
+
 
       //if collision is false, player can move
       if (collision == false) {
