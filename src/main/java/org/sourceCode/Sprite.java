@@ -1,5 +1,9 @@
 package org.sourceCode;
 
+
+import java.awt.*;
+import java.awt.Rectangle;
+
 /**
  * Abstract class for Sprite.
  *
@@ -9,7 +13,7 @@ package org.sourceCode;
 abstract class Sprite implements Collidable {
   private int x;
   private int y;
-  
+
   public Object sprite;
   public enum status {DISPLAYED, INVISIBLE, DELETED}
   

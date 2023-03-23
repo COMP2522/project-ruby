@@ -8,6 +8,9 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.awt.Rectangle;
+
+import static org.sourceCode.Player.directions.*;
 
 /**
  * The player that the user can control.
@@ -17,7 +20,11 @@ import java.io.IOException;
  */
 public class Player implements KeyListener {
 
+  GamePanel gp;
   public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
+
+  protected Rectangle solidArea;
+  public boolean collision = false;
 
   @Override
   public void keyTyped(KeyEvent e) {}  // not using this one garbage
@@ -67,7 +74,7 @@ public class Player implements KeyListener {
   public final int playerSpeed = 4;
   private int currentLives;
   private int currentRubies;
-  private directions currentDirection;
+  public directions currentDirection;
   private status currentStatus;
 
   public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
@@ -81,6 +88,7 @@ public class Player implements KeyListener {
     this.currentRubies = 0;
     this.currentDirection = directions.DOWN;
     this.currentStatus = status.ALIVE;
+    solidArea = new Rectangle(0,0,48,48);
     this.x = 150;
     this.y = 50;
     getPlayerImage();
@@ -103,7 +111,7 @@ public class Player implements KeyListener {
     } else if (code == KeyEvent.VK_D) {
       currentDirection = directions.RIGHT;
     } else if (code == KeyEvent.VK_W) {
-      currentDirection = directions.UP;
+      currentDirection = UP;
     } else if (code == KeyEvent.VK_S) {
       currentDirection = directions.DOWN;
     }
@@ -142,7 +150,7 @@ public class Player implements KeyListener {
     return currentRubies;
   }
 
-  public void updatePosition() {
+  public void updatePosition(GamePanel gp) {
     if (upPressed || downPressed || leftPressed || rightPressed) {
       if (upPressed) {
         y -= playerSpeed;
@@ -152,6 +160,22 @@ public class Player implements KeyListener {
         x += playerSpeed;
       } else if(leftPressed) {
         x -= playerSpeed;
+      }
+      //checking tile collision
+      collision = false;
+      gp.cChecker.checkTile(this);
+
+      //if collision is false, player can move
+      if (collision == false) {
+        if (this.currentDirection == UP) {
+          y -= playerSpeed;
+        } else if (this.currentDirection == DOWN) {
+          y += playerSpeed;
+        } else if (this.currentDirection == RIGHT) {
+          x += playerSpeed;
+        } else if (this.currentDirection == LEFT) {
+          x -= playerSpeed;
+        }
       }
       spriteCounter++;
       if(spriteCounter > 14) {

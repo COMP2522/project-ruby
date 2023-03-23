@@ -21,21 +21,25 @@ public class GamePanel extends JPanel implements Runnable{
 
   Player player = new Player();
 
-  Map map = new Map(this); // this is actually like the manager of map
+  public Map map1 = new Map(this); // this is actually like the manager of map
 
   Thread gameThread;
+
 
 //  void loadMap() {}  // update map
 //  void drawMap() {}  // draw map
 
   public void update() {
-    player.updatePosition();
+    player.updatePosition(this);
   }
+
+  //instantiating the collision checker class here.
+  public Collision_Detection cChecker = new Collision_Detection(this);
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    map.draw(g2, this);
+    map1.draw(g2, this);
     player.draw(g2, this);
     g2.dispose();
   }
