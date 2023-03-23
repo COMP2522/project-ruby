@@ -88,7 +88,11 @@ public class Player implements KeyListener {
     this.currentRubies = 0;
     this.currentDirection = directions.DOWN;
     this.currentStatus = status.ALIVE;
-    solidArea = new Rectangle(0,0,48,48);
+    solidArea = new Rectangle();
+    solidArea.x = 8;
+    solidArea.y = 8;
+    solidArea.width = 32;
+    solidArea.height = 32;
     this.x = 150;
     this.y = 50;
     getPlayerImage();

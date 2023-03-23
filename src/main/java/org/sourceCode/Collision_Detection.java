@@ -32,11 +32,29 @@ public class Collision_Detection {
         p.collision = true;
       }
     } else if (p.currentDirection == DOWN) {
-
+      playerDownRow = (playerDownY + p.playerSpeed) / gp.tileSize;
+      tileNum1 = gp.map1.map[playerLeftCol][playerDownRow];
+      tileNum2 = gp.map1.map[playerRightCol][playerDownRow];
+      //if one of this is true that means player is hitting the wall.
+      if(gp.map1.tiles[tileNum1].collision == true || gp.map1.tiles[tileNum2].collision == true) {
+        p.collision = true;
+      }
     } else if (p.currentDirection == LEFT) {
-
+      playerLeftCol = (playerLeftX - p.playerSpeed) / gp.tileSize;
+      tileNum1 = gp.map1.map[playerLeftCol][playerTopRow];
+      tileNum2 = gp.map1.map[playerRightCol][playerDownRow];
+      //if one of this is true that means player is hitting the wall.
+      if(gp.map1.tiles[tileNum1].collision == true || gp.map1.tiles[tileNum2].collision == true) {
+        p.collision = true;
+      }
     } else if (p.currentDirection == RIGHT){
-
+      playerRightCol = (playerRightX + p.playerSpeed) / gp.tileSize;
+      tileNum1 = gp.map1.map[playerLeftCol][playerTopRow];
+      tileNum2 = gp.map1.map[playerRightCol][playerDownRow];
+      //if one of this is true that means player is hitting the wall.
+      if(gp.map1.tiles[tileNum1].collision == true || gp.map1.tiles[tileNum2].collision == true) {
+        p.collision = true;
+      }
     }
   }
 
