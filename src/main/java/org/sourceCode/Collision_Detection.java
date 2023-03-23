@@ -24,7 +24,7 @@ public class Collision_Detection {
 
     //checking the player's direction
     if(p.currentDirection == UP) {
-      playerTopRow = (playerUpY - p.playerSpeed) / gp.originalTileSize;
+      playerTopRow = (playerUpY - p.playerSpeed) / gp.tileSize;
       tileNum1 = gp.map1.map[playerLeftCol][playerTopRow];
       tileNum2 = gp.map1.map[playerRightCol][playerTopRow];
       //if one of this is true that means player is hitting the wall.

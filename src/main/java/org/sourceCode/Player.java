@@ -152,15 +152,15 @@ public class Player implements KeyListener {
 
   public void updatePosition(GamePanel gp) {
     if (upPressed || downPressed || leftPressed || rightPressed) {
-      if (upPressed) {
-        y -= playerSpeed;
-      } else if (downPressed) {
-        y += playerSpeed;
-      } else if (rightPressed) {
-        x += playerSpeed;
-      } else if(leftPressed) {
-        x -= playerSpeed;
-      }
+//      if (upPressed) {
+//        y -= playerSpeed;
+//      } else if (downPressed) {
+//        y += playerSpeed;
+//      } else if (rightPressed) {
+//        x += playerSpeed;
+//      } else if(leftPressed) {
+//        x -= playerSpeed;
+//      }
       //checking tile collision
       collision = false;
       gp.cChecker.checkTile(this);
