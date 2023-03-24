@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Defines the non-movable blocks/boundary for the game that can be assumed to be walls.

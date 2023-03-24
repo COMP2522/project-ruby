@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Manages the status and position of each sprite.

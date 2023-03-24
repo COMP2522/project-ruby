@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Defines reachable checkpoints in game by the Player. Player to be

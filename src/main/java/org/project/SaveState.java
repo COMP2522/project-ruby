@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Defines a save object which stores the current game state in a file

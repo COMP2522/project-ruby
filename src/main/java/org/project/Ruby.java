@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Defines the rubies that the player collects.

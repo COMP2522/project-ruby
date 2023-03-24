@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Abstract class for Sprite.

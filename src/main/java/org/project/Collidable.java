@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Interface implementing the collided method.

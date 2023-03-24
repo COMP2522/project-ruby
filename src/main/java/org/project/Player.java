@@ -1,16 +1,12 @@
-package org.sourceCode;
+package org.project;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -162,75 +158,30 @@ public class Player extends PApplet {
   public void draw(PGraphics g, Window window) {
     BufferedImage image = null;
   
-    switch(currentDirection) {
-      case UP:
+    switch (currentDirection) {
+      case UP -> {
         if (spriteNum == 1) {image = upR;}
         if (spriteNum == 2) {image = upL;}
-        break;
-      case DOWN:
+      }
+      case DOWN -> {
         if (spriteNum == 1) {image = downR;}
         if (spriteNum == 2) {image = downL;}
-        break;
-      case LEFT:
+      }
+      case LEFT -> {
         if (spriteNum == 1) {image = leftR;}
         if (spriteNum == 2) {image = leftL;}
-        break;
-      case RIGHT:
+      }
+      case RIGHT -> {
         if (spriteNum == 1) {image = rightR;}
         if (spriteNum == 2) {image = rightL;}
-        break;
-      default:
-        break;
+      }
+      default -> {}
     }
     g.image(new PImage(image),x,y,window.tileSize,window.tileSize);
   }
   
 
-  // to draw the player sprite
-  public void draw(Graphics2D g2, GamePanel p) {
-    BufferedImage image = null;
-
-    switch(currentDirection) {
-      case UP:
-        if (spriteNum == 1) {image = upR;}
-        if (spriteNum == 2) {image = upL;}
-        break;
-      case DOWN:
-        if (spriteNum == 1) {image = downR;}
-        if (spriteNum == 2) {image = downL;}
-        break;
-      case LEFT:
-        if (spriteNum == 1) {image = leftR;}
-        if (spriteNum == 2) {image = leftL;}
-        break;
-      case RIGHT:
-        if (spriteNum == 1) {image = rightR;}
-        if (spriteNum == 2) {image = rightL;}
-        break;
-      default:
-        break;
-    }
-    g2.drawImage(image, x, y, p.tileSize, p.tileSize, null);
-
-    // below is the stupid code for rectangle I used for testing
-//    g2.setColor(Color.white);
-//    g2.fillRect(x, y, p.tileSize, p.tileSize);
-  }
-
   public static void main(String[] args) {
-    JFrame window = new JFrame();
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    window.setResizable(false);
-    window.setTitle("Ruby Rush");
-
-    GamePanel gamePanel = new GamePanel();
-    window.add(gamePanel);
-    window.pack(); // causes the "window" declared in this player class main method to fit the preferred size and layouts of its subcomponents (i.e. become equal to gamePanel);
-
-    // the window from this class can display a 16 * 12 tiles, where each tile is (48 by 48 pixels itself).
-    window.setLocationRelativeTo(null);
-    window.setVisible(true);
-
-    gamePanel.startGameThread();
+    println("At least it runs haha");
   }
 }

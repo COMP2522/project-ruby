@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
