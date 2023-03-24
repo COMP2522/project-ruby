@@ -1,7 +1,13 @@
 package org.sourceCode;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import javax.swing.*;
+
+import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PGraphics;
+import processing.core.PImage;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,59 +15,21 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+
 /**
  * The player that the user can control.
  *
  * @author Nathan Bartyuk
  * @version 2023-02-07
  */
-public class Player implements KeyListener {
+public class Player extends PApplet {
 
   public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
-
-  @Override
-  public void keyTyped(KeyEvent e) {}  // not using this one garbage
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_W) {
-      upPressed = true;
-    }
-    if (code == KeyEvent.VK_S) {
-      downPressed = true;
-    }
-    if (code == KeyEvent.VK_A) {
-      leftPressed = true;
-    }
-    if (code == KeyEvent.VK_D) {
-      rightPressed = true;
-    }
-    updateDirection(e);
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_W) {
-      upPressed = false;
-    }
-    if (code == KeyEvent.VK_S) {
-      downPressed = false;
-    }
-    if (code == KeyEvent.VK_A) {
-      leftPressed = false;
-    }
-    if (code == KeyEvent.VK_D) {
-      rightPressed = false;
-    }
-//    System.out.println(currentDirection);
-  }
-
+  
   public enum directions {LEFT, RIGHT, UP, DOWN}
   public enum status {ALIVE, DEAD}
   public static int LIVES = 3;
-
+  
   public int x; // initial position
   public int y; // initial y position
   public final int playerSpeed = 4;
@@ -69,10 +37,46 @@ public class Player implements KeyListener {
   private int currentRubies;
   private directions currentDirection;
   private status currentStatus;
-
+  
   public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
+  
   public int spriteCounter = 0;
   public int spriteNum = 1;
+
+
+  public void move(int keyCode) {
+    if (keyCode == PConstants.LEFT) {
+      currentDirection = directions.LEFT;
+      leftPressed = true;
+    }
+    if (keyCode == PConstants.RIGHT) {
+      currentDirection = directions.RIGHT;
+      rightPressed = true;
+    }
+    if (keyCode == PConstants.UP) {
+      currentDirection = directions.UP;
+      upPressed = true;
+    }
+    if (keyCode == PConstants.DOWN) {
+      currentDirection = directions.DOWN;
+      downPressed = true;
+    }
+  }
+  
+  public void stop(int keyCode) {
+    if (keyCode == PConstants.LEFT) {
+      leftPressed = false;
+    }
+    if (keyCode == PConstants.RIGHT) {
+      rightPressed = false;
+    }
+    if (keyCode == PConstants.UP) {
+      upPressed = false;
+    }
+    if (keyCode == PConstants.DOWN) {
+      downPressed = false;
+    }
+  }
 
 
   // Sets up fresh player upon starting a new game.
@@ -95,19 +99,7 @@ public class Player implements KeyListener {
     this.x = x;
     this.y = y;
   }
-
-  public void updateDirection(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_A) {
-      currentDirection = directions.LEFT;
-    } else if (code == KeyEvent.VK_D) {
-      currentDirection = directions.RIGHT;
-    } else if (code == KeyEvent.VK_W) {
-      currentDirection = directions.UP;
-    } else if (code == KeyEvent.VK_S) {
-      currentDirection = directions.DOWN;
-    }
-  }
+  
 
   public void getPlayerImage() {
     try{
@@ -165,6 +157,34 @@ public class Player implements KeyListener {
     }
 
   }
+  
+  
+  public void draw(PGraphics g, Window window) {
+    BufferedImage image = null;
+  
+    switch(currentDirection) {
+      case UP:
+        if (spriteNum == 1) {image = upR;}
+        if (spriteNum == 2) {image = upL;}
+        break;
+      case DOWN:
+        if (spriteNum == 1) {image = downR;}
+        if (spriteNum == 2) {image = downL;}
+        break;
+      case LEFT:
+        if (spriteNum == 1) {image = leftR;}
+        if (spriteNum == 2) {image = leftL;}
+        break;
+      case RIGHT:
+        if (spriteNum == 1) {image = rightR;}
+        if (spriteNum == 2) {image = rightL;}
+        break;
+      default:
+        break;
+    }
+    g.image(new PImage(image),x,y,window.tileSize,window.tileSize);
+  }
+  
 
   // to draw the player sprite
   public void draw(Graphics2D g2, GamePanel p) {

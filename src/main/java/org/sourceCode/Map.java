@@ -1,6 +1,8 @@
 package org.sourceCode;
 
 import org.jetbrains.annotations.NotNull;
+import processing.core.PGraphics;
+import processing.core.PImage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,7 +21,7 @@ public class Map {
 
   public Tile[] tiles; // stores the different kinds of tiles that can be displayed
 
-  int map[][];
+  int[][] map;
 
 //  public Tile[][] tileMap = new Tile[MAPSIZE][MAPSIZE];
 //  public Sprite[][] spriteMap = new Sprite[MAPSIZE][MAPSIZE];
@@ -33,8 +35,15 @@ public class Map {
     getTileImage();
     loadMap(gp);
   }
+  
   public Map(SaveState save) {}
-
+  
+  public Map(Window window) {
+    tiles = new Tile[10];
+    map = new int[window.maxScreenCol][window.maxScreenRow];
+    getTileImage();
+    loadMap(window);
+  }
 
   public void getTileImage() {
     try {
@@ -50,6 +59,35 @@ public class Map {
       e.printStackTrace();
     }
   }
+
+  public void loadMap(Window window) {
+    try {
+      InputStream is = new FileInputStream("assets/mapData/maps/map1.txt");
+      BufferedReader br = new BufferedReader(new InputStreamReader(is));
+    
+      int col = 0;
+      int row = 0;
+    
+      while (col< window.maxScreenCol && row < window.maxScreenRow) {
+        String line = br.readLine();
+        String[] numbers = line.split(" ");
+        while(col < window.maxScreenCol) {
+          int num = Integer.parseInt(numbers[col]);
+          map[col][row] = num;
+          col++;
+        }
+        if (col == window.maxScreenCol) {
+          col = 0;
+          row++;
+        }
+      }
+      br.close();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+
 
   public void loadMap(@NotNull GamePanel gp) {
     try {
@@ -77,6 +115,27 @@ public class Map {
       throw new RuntimeException(e);
     }
   }
+  
+  public void draw(PGraphics g, Window window) {
+    int col = 0;
+    int row = 0;
+    int x = 0;
+    int y = 0;
+  
+    while(col < window.maxScreenCol && row < window.maxScreenRow) {
+      int tileNum = map[col][row];
+      g.image(new PImage(tiles[tileNum].sprite), x, y, window.tileSize, window.tileSize);
+      col++;
+      x += window.tileSize;
+      if (col == window.maxScreenCol) {
+        col = 0;
+        x = 0;
+        row++;
+        y += window.tileSize;
+      }
+    }
+  }
+  
 
   public void draw(Graphics2D g2, GamePanel gp) {
 //    g2.drawImage(tiles[1].sprite, 0, 0, gp.tileSize, gp.tileSize, null);  // null is image observer IDK what that is tho
@@ -98,8 +157,4 @@ public class Map {
       }
     }
   }
-
-//  public static void main(String[] args) {
-//    Map test = new Map();
-//  }
 }
