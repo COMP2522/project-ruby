@@ -38,22 +38,6 @@ public class Map {
   }
   public Map(SaveState save) {}
 
-//  public Map(GamePanel2 gamePanel2) {
-//    tiles2 = new Tile[10]; //we are gonna store 10 different kinds of tiles.
-//    map = new int[gamePanel2.maxScreenCol][gamePanel2.maxScreenRow];
-//    getTile2Image();
-//    loadMap2();
-//  }
-
-  private void loadMap2() {
-
-  }
-
-  private void getTile2Image() {
-
-  }
-
-
   public void getTileImage() {
     try {
       tiles[0] = new Tile();
