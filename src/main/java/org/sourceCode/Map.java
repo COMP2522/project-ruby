@@ -18,8 +18,11 @@ public class Map {
 //  public static int MAPSIZE = 20;
 
   public Tile[] tiles; // stores the different kinds of tiles that can be displayed
+  public Tile[] tiles2; // stores the different kinds of tiles that can be displayed
 
-  int map[][];
+  public int map[][];
+
+  int map2[][];
 
 //  public Tile[][] tileMap = new Tile[MAPSIZE][MAPSIZE];
 //  public Sprite[][] spriteMap = new Sprite[MAPSIZE][MAPSIZE];
@@ -35,15 +38,16 @@ public class Map {
   }
   public Map(SaveState save) {}
 
-
   public void getTileImage() {
     try {
       tiles[0] = new Tile();
       tiles[0].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/background.png"));
       tiles[1] = new Tile();
       tiles[1].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/wall.png"));
+      tiles[1].collision = true;
+
       tiles[2] = new Tile();
-      tiles[2].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/bush.png"));
+      tiles[2].sprite = ImageIO.read(new FileInputStream("assets/grass.png"));
       tiles[3] = new Tile();
       tiles[3].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/water.png"));
     } catch (IOException e) {
@@ -53,7 +57,7 @@ public class Map {
 
   public void loadMap(@NotNull GamePanel gp) {
     try {
-      InputStream is = new FileInputStream("assets/mapData/maps/map1.txt");
+      InputStream is = new FileInputStream("assets/mapData/maps/map2.txt");
       BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
       int col = 0;
@@ -98,6 +102,9 @@ public class Map {
       }
     }
   }
+
+//  public void draw(Graphics2D g2, GamePanel2 gamePanel2) {
+//  }
 
 //  public static void main(String[] args) {
 //    Map test = new Map();

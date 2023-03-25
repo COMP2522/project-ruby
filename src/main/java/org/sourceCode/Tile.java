@@ -17,6 +17,8 @@ public class Tile {
 //  public Object sprite;    // don't need this one
   public BufferedImage sprite;
 
+  public boolean collision = false;
+
   public Tile() {
   }
 
