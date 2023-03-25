@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
   // below data will be fetched from the map data file and we don't need variables for each tile, these are static
-  private int x;
-  private int y;
+  protected int x;
+  protected int y;
 
 //  public Object sprite;    // don't need this one
   public BufferedImage sprite;
