@@ -2,8 +2,12 @@ package org.sourceCode;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
+
+  // In the GamePanel class
+  public Player player = new Player();
 
   public final int originalTileSize = 16; // 16x16 tile
   public final int scale = 3; // scale to 3 times to match screen resolution
@@ -19,6 +23,9 @@ public class GamePanel extends JPanel implements Runnable{
   //  int height;
   int FPS = 60;
 
+  // Add a variable to control the fire animation frame update interval
+  private int fireAnimationFrameUpdateInterval = 10;
+  private int fireAnimationFrameUpdateCounter = 0;
 
   public Asset_Handler assetHandler = new Asset_Handler(this);
   public Object objects[] = new Object[10];
@@ -35,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
     return screenHeight;
   }
 
-  Player player = new Player();
+//  Player player = new Player();
 
   public Map map1 = new Map(this); // this is actually like the manager of map
 
@@ -45,9 +52,21 @@ public class GamePanel extends JPanel implements Runnable{
 //  void loadMap() {}  // update map
 //  void drawMap() {}  // draw map
 
-  public void update() {
-
+  public void update(){
     player.updatePosition(this);
+    updateFireAnimationFrames();
+  }
+
+  public void updateFireAnimationFrames() {
+    fireAnimationFrameUpdateCounter++;
+    if (fireAnimationFrameUpdateCounter >= fireAnimationFrameUpdateInterval) {
+      fireAnimationFrameUpdateCounter = 0;
+      for (Object object : objects) {
+        if (object != null && object.name != null && object.name.equals("fire")) {
+          object.currentFrame = (object.currentFrame + 1) % 4;
+        }
+      }
+    }
   }
 
   //instantiating the collision checker class here.

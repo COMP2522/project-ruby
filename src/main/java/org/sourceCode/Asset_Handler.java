@@ -1,5 +1,9 @@
 package org.sourceCode;
 
+import javax.imageio.ImageIO;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class Asset_Handler {
   GamePanel gp;
 
@@ -19,6 +23,10 @@ public class Asset_Handler {
     gp.objects[2] = new Door();
     gp.objects[2].x = 6 * gp.tileSize;
     gp.objects[2].y = 6 * gp.tileSize;
+
+    gp.objects[3] = new Fire();
+    gp.objects[3].x = 5 * gp.tileSize;
+    gp.objects[3].y = 7 * gp.tileSize;
 
   }
 }
