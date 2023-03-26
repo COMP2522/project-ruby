@@ -28,5 +28,8 @@ public class Asset_Handler {
     gp.objects[3].x = 5 * gp.tileSize;
     gp.objects[3].y = 7 * gp.tileSize;
 
+    gp.objects[4] = new PowerUp();
+    gp.objects[4].x = 4 * gp.tileSize;
+    gp.objects[4].y = 4 * gp.tileSize;
   }
 }
