@@ -24,7 +24,9 @@ public class Player implements KeyListener {
   public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
 
   protected Rectangle solidArea;
+  public int solidAreaDefaultX, solidAreaDefaultY;
   public boolean collision = false;
+  int hasRuby = 0;
 
   @Override
   public void keyTyped(KeyEvent e) {}  // not using this one garbage
@@ -91,6 +93,8 @@ public class Player implements KeyListener {
     solidArea = new Rectangle();
     solidArea.x = 0;
     solidArea.y = 0;
+    solidAreaDefaultX = solidArea.x;
+    solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
     this.x = 150;
@@ -184,6 +188,8 @@ public class Player implements KeyListener {
         collision = false;
         gp.cChecker.checkTile(this);
 
+        int objectIndex = gp.cChecker.checkObject(this, true );
+        pickupObject(objectIndex, gp);
 
       //if collision is false, player can move
       if (collision == false) {
@@ -241,6 +247,26 @@ public class Player implements KeyListener {
 //    g2.fillRect(x, y, p.tileSize, p.tileSize);
   }
 
+  public void pickupObject(int index, GamePanel gp) {
+    if(index != 999) {
+
+      String objectName = gp.objects[index].name;
+
+      switch(objectName) {
+        case "Ruby":
+          hasRuby++;
+          gp.objects[index] = null;
+          System.out.println("Rubies: " + hasRuby);
+          break;
+        case "Door":
+          if(hasRuby > 1) {
+            gp.objects[index] = null;
+            hasRuby--;
+          }
+          break;
+      }
+    }
+  }
   public static void main(String[] args) {
     JFrame window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -255,6 +281,7 @@ public class Player implements KeyListener {
     window.setLocationRelativeTo(null);
     window.setVisible(true);
 
+    gamePanel.setUpGame();
     gamePanel.startGameThread();
   }
 }

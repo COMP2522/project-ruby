@@ -19,6 +19,14 @@ public class GamePanel extends JPanel implements Runnable{
   //  int height;
   int FPS = 60;
 
+
+  public Asset_Handler assetHandler = new Asset_Handler(this);
+  public Object objects[] = new Object[10];
+
+  public void setUpGame() {
+    assetHandler.setObject();
+  }
+
   public int getScreenWidth() {
     return screenWidth;
   }
@@ -38,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
 //  void drawMap() {}  // draw map
 
   public void update() {
+
     player.updatePosition(this);
   }
 
@@ -48,6 +57,12 @@ public class GamePanel extends JPanel implements Runnable{
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
     map1.draw(g2, this);
+    //for objects
+    for(int i = 0; i < objects.length; i++) {
+      if(objects[i] != null) {
+        objects[i].draw(g2,this);
+      }
+    }
     player.draw(g2, this);
     g2.dispose();
   }
