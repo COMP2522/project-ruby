@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Rectangle;
 
@@ -18,9 +19,10 @@ import static org.sourceCode.Player.directions.*;
  * @author Nathan Bartyuk
  * @version 2023-02-07
  */
-public class Player implements KeyListener {
+public class Player extends Object implements KeyListener {
 
   GamePanel gp;
+  BufferedImage ashImage;
   public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
 
   protected Rectangle solidArea;
@@ -73,7 +75,7 @@ public class Player implements KeyListener {
 
   public int x; // initial position
   public int y; // initial y position
-  public final int playerSpeed = 4;
+  public int playerSpeed = 4;
   private int currentLives;
   private int currentRubies;
   public directions currentDirection;
@@ -158,7 +160,7 @@ public class Player implements KeyListener {
     return currentRubies;
   }
 
-  public void updatePosition(GamePanel gp) {
+  public void updatePosition(GamePanel gp){
     if (upPressed || downPressed || leftPressed || rightPressed) {
 //      if (upPressed) {
 //        y -= playerSpeed;
@@ -213,7 +215,6 @@ public class Player implements KeyListener {
         spriteCounter = 0;
       }
     }
-
   }
 
   // to draw the player sprite
@@ -247,7 +248,7 @@ public class Player implements KeyListener {
 //    g2.fillRect(x, y, p.tileSize, p.tileSize);
   }
 
-  public void pickupObject(int index, GamePanel gp) {
+  public void pickupObject(int index, GamePanel gp){
     if(index != 999) {
 
       String objectName = gp.objects[index].name;
