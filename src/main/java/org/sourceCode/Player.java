@@ -265,6 +265,10 @@ public class Player extends Object implements KeyListener {
             hasRuby--;
           }
           break;
+        case "Fast":
+          playerSpeed += 2;
+          gp.objects[index] = null;
+          break;
       }
     }
   }
