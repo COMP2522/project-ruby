@@ -7,7 +7,7 @@ import java.io.IOException;
 public class GamePanel extends JPanel implements Runnable{
 
   // In the GamePanel class
-  public Player player = new Player();
+  public Player player = new Player(this);
 
   public final int originalTileSize = 16; // 16x16 tile
   public final int scale = 3; // scale to 3 times to match screen resolution
@@ -46,6 +46,8 @@ public class GamePanel extends JPanel implements Runnable{
 
   public Map map1 = new Map(this); // this is actually like the manager of map
 
+  public KeyHandler kh = new KeyHandler();
+
   Thread gameThread;
 
 
@@ -53,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
 //  void drawMap() {}  // draw map
 
   public void update(){
-    player.updatePosition(this);
+    player.updatePosition(this, this.kh);
     updateFireAnimationFrames();
   }
 
@@ -90,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable{
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
-    this.addKeyListener(player);
+    this.addKeyListener(kh);
     this.setFocusable(true);
   }
 
