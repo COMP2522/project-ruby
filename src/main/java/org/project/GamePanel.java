@@ -11,8 +11,8 @@ public class GamePanel extends JPanel implements Runnable {
   
   // SCREEN SETTINGS
   public static final int TILE_SIZE = 48;
-  public static final int SCREEN_COL = 18;
-  public static final int SCREEN_ROW = 14;
+  public static final int SCREEN_COL = 16;
+  public static final int SCREEN_ROW = 12;
   public final int screenWidth = TILE_SIZE * SCREEN_COL;  // 768 pixels wide
   public final int screenHeight = TILE_SIZE * SCREEN_ROW;  // 576 pixels height
   int FPS = 60;
@@ -25,19 +25,21 @@ public class GamePanel extends JPanel implements Runnable {
   
   
   private int fireFrameUpdateCounter = 0;
+  
+  
+  public TileManager tManager = new TileManager(this); // this is actually like the manager of map
+  public CollisionDetector cDetector = new CollisionDetector(this);
+  public KeyHandler kHandler = new KeyHandler();
+  public Thread gameThread;
 
   public AssetHandler assetHandler = new AssetHandler(this);
   public Object[] objects = new Object[10];
-
-  public void setUpGame() {assetHandler.setObject();}
-  public TileManager map1 = new TileManager(this); // this is actually like the manager of map
-  public KeyHandler kh = new KeyHandler();
-
-  Thread gameThread;
   
+  
+  public void setUpGame() {assetHandler.setObject();}
 
   public void update(){
-    player.update(this, this.kh);
+    player.update(this, this.kHandler);
     updateFire();
   }
 
@@ -54,13 +56,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
   }
 
-  //instantiating the collision checker class here.
-  public CollisionDetector cChecker = new CollisionDetector(this);
-
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    map1.draw(g2);
+    tManager.draw(g2);
     //for objects
     for (Object object : objects) {
       if (object != null) {
@@ -75,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
-    this.addKeyListener(kh);
+    this.addKeyListener(kHandler);
     this.setFocusable(true);
   }
 

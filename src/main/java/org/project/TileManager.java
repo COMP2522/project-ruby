@@ -27,17 +27,25 @@ public class TileManager {
   public void getTileImage() {
     try {
       tiles[0] = new Tile();
-      tiles[0].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/grass.png"));
+      tiles[0].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/grass.png"));
+      
       tiles[1] = new Tile();
-      tiles[1].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/wall.png"));
+      tiles[1].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/wall.png"));
+      tiles[1].collision = true;
+      
       tiles[2] = new Tile();
-      tiles[2].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/water.png"));
+      tiles[2].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/water.png"));
+      tiles[2].collision = true;
+      
       tiles[3] = new Tile();
-      tiles[3].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/earth.png"));
+      tiles[3].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/earth.png"));
+      
       tiles[4] = new Tile();
-      tiles[4].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/tree.png"));
+      tiles[4].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/tree.png"));
+      tiles[4].collision = true;
+      
       tiles[5] = new Tile();
-      tiles[5].sprite = ImageIO.read(new FileInputStream("assets/mapData/images/sand.png"));
+      tiles[5].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/sand.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }

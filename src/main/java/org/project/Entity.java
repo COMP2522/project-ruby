@@ -15,17 +15,15 @@ public class Entity {
   public int speed;
 
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
-  
   public enum directions {LEFT, RIGHT, UP, DOWN}
   public directions direction;
 
   public int spriteCounter = 0;
   public int spriteNum = 1;
 
-  public Rectangle solidArea = new Rectangle(8, 8, 32, 32);
-
+  public Rectangle solidArea;
   public int solidAreaDefaultX, solidAreaDefaultY;
-
+  
   public Entity(GamePanel gp) {
     this.gp = gp;
   }
@@ -34,9 +32,8 @@ public class Entity {
 
   public void update() {
     setAction();
-
     collision = false;
-    gp.cChecker.checkTile(this);
+    gp.cDetector.checkTile(this);
   }
 
   public void draw(Graphics2D g2) {

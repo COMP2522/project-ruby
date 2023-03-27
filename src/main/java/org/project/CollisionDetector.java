@@ -43,10 +43,10 @@ public class CollisionDetector {
   
   private void collide(Entity entity) {
     int tileNum1, tileNum2;
-    tileNum1 = gp.map1.map[leftCol][upRow];
-    tileNum2 = gp.map1.map[rightCol][downRow];
+    tileNum1 = gp.tManager.map[leftCol][upRow];
+    tileNum2 = gp.tManager.map[rightCol][downRow];
     
-    if (gp.map1.tiles[tileNum1].collision || gp.map1.tiles[tileNum2].collision) {
+    if (gp.tManager.tiles[tileNum1].collision || gp.tManager.tiles[tileNum2].collision) {
       entity.collision = true;
     }
   }
@@ -58,7 +58,7 @@ public class CollisionDetector {
         //get entity/player's solid area position
         p.solidArea.x = p.worldX + p.solidArea.x;
         p.solidArea.y = p.worldY + p.solidArea.y;
-        //get teh object's solid area position
+        //get the object's solid area position
         gp.objects[i].solidArea.x = gp.objects[i].x + gp.objects[i].solidArea.x;
         gp.objects[i].solidArea.y = gp.objects[i].y + gp.objects[i].solidArea.y;
 

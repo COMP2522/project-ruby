@@ -1,8 +1,6 @@
 package org.project;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.awt.Rectangle;
@@ -34,24 +32,18 @@ public class Player extends Entity {
     this.gp = gp;
     this.handler = kh;
     
-    this.worldX = GamePanel.TILE_SIZE * 16;
-    this.worldY = GamePanel.TILE_SIZE * 12;
+    this.worldX = GamePanel.TILE_SIZE * 10;
+    this.worldY = GamePanel.TILE_SIZE * 10;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
+    this.solidArea = new Rectangle(8,16,32,32);
+    
     this.speed = 4;
     this.direction = directions.DOWN;
     
     this.currentLives = LIVES;
     this.currentRubies = 0;
     this.currentStatus = status.ALIVE;
-    
-    solidArea = new Rectangle();
-    solidArea.x = 8;
-    solidArea.y = 8;
-    solidAreaDefaultX = solidArea.x;
-    solidAreaDefaultY = solidArea.y;
-    solidArea.width = 32;
-    solidArea.height = 32;
     getPlayerImage();
   }
   
@@ -59,16 +51,12 @@ public class Player extends Entity {
   public void updateDirection(KeyHandler kh) {
     if (kh.leftPressed) {
       direction = LEFT;
-      if (!collision) {worldX -= speed;}
     } else if (kh.rightPressed) {
       direction = RIGHT;
-      if (!collision) {worldX += speed;}
     } else if (kh.upPressed) {
       direction = UP;
-      if (!collision) {worldY -= speed;}
-    } else if (kh.downPressed) {
+    } else {
       direction = DOWN;
-      if (!collision) {worldY += speed;}
     }
   }
 
@@ -107,6 +95,8 @@ public class Player extends Entity {
 
   public void update(GamePanel gp, KeyHandler kh){
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
+      updateDirection(kh);
+    
       //checking for collision with the window boundary
       if (worldX < 0) { worldX = 0; }
       if (worldX + 48 >= gp.mapWidth) { worldX = gp.mapWidth - 48; }
@@ -115,11 +105,21 @@ public class Player extends Entity {
 
       //checking tile collision
       collision = false;
-      gp.cChecker.checkTile(this);
-      int objectIndex = gp.cChecker.checkObject(this, true );
+      gp.cDetector.checkTile(this);
+      if (!collision) {
+        if (direction == LEFT) {
+          worldX -= speed;
+        } else if (direction == RIGHT) {
+          worldX += speed;
+        } else if (direction == UP) {
+          worldY -= speed;
+        } else {
+          worldY += speed;
+        }
+      }
+      
+      int objectIndex = gp.cDetector.checkObject(this, true );
       pickupObject(objectIndex, gp);
-  
-      updateDirection(kh);
       
       spriteCounter++;
       if(spriteCounter > 14) {
