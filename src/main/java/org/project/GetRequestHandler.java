@@ -1,11 +1,8 @@
-package org.sourceCode;
+package org.project;
 
 import org.bson.Document;
-import org.json.simple.JSONObject;
-
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import org.json.simple.*;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -15,9 +12,9 @@ import java.net.Socket;
  * @version 2023-03-27
  */
 public class GetRequestHandler implements Runnable {
-  private DatabaseHandler databaseHandler;
-  private Socket socket;
-  private JSONObject obj;
+  private final DatabaseHandler databaseHandler;
+  private final Socket socket;
+  private final JSONObject obj;
 
   /**
    * Constructs a new GetRequestHandler
@@ -32,8 +29,7 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Sends response to client.
-   * @param message
-   * @throws IOException
+   * @param message - Message to be sent to Client
    */
   public void sendResponse(String message) throws Exception {
     OutputStream outputStream = this.socket.getOutputStream();
@@ -54,14 +50,15 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Creates JSON response to send to Client.
-   * @param message a String, message to be sent to Client
+   * @param message - Message to be sent to Client
    * @return response, a JSON string
    */
   private String createJSONRes(String message) throws Exception {
+  
     JSONObject res = new JSONObject();
-
     res.put("status", "success");
     res.put("message", message);
+    
     // get doc
     Document doc = this.databaseHandler.get("uid", String.valueOf(this.obj.get("uid")));
     if (doc == null) {
@@ -79,11 +76,6 @@ public class GetRequestHandler implements Runnable {
     res.put("rubies", rubies);
     res.put("lives", lives);
     res.put("spriteMap", spriteMap);
-
-//    // put data
-//    res.put("rubies", doc.getInteger("rubies"));
-//    res.put("lives", doc.getInteger("lives"));
-//    res.put("spriteMap", doc.getInteger("spriteMap"));
 
     return res.toJSONString();
   }

@@ -1,16 +1,9 @@
-package org.sourceCode;
+package org.project;
 
 import org.bson.Document;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import org.json.simple.*;
+import java.io.*;
 import java.net.Socket;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Class that handles POST Requests received by Server.
@@ -19,9 +12,9 @@ import java.util.Map;
  * @version 2023-03-27
  */
 public class PostRequestHandler implements Runnable {
-  private DatabaseHandler databaseHandler;
-  private Socket socket;
-  private JSONObject obj;
+  private final DatabaseHandler databaseHandler;
+  private final Socket socket;
+  private final JSONObject obj;
 
   /**
    * Constructs a new PostRequestHandler.
@@ -42,7 +35,6 @@ public class PostRequestHandler implements Runnable {
   public void sendResponse(String message) throws IOException {
     OutputStream outputStream = this.socket.getOutputStream();
     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-
     String res = createJSONRes(message);
 
     // Write data to the ObjectOutputStream

@@ -1,16 +1,9 @@
-package org.sourceCode;
+package org.project;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
+import org.json.simple.*;
+import org.json.simple.parser.*;
 import java.io.*;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.net.*;
 
 /**
  * Client handles interactions with Server, sends and receives data.
@@ -25,7 +18,7 @@ public class Client {
 
   /* Instance Variables */
   private String host;
-  private int port;
+  private final int port;
 
   /**
    * Constructs new Client
@@ -42,9 +35,8 @@ public class Client {
 
   /**
    * Sends JSONObject to Server
-   * @param request a JSONObject
-   * @return response a JSONObject
-   * @throws ParseException
+   * @param request, a JSONObject
+   * @return response, a JSONObject
    */
   public JSONObject sendRequest(String request) throws ParseException, IOException {
     // setup
@@ -61,6 +53,7 @@ public class Client {
 
     // open output stream
     try {
+      assert socket != null;
       oos = new ObjectOutputStream(socket.getOutputStream());
     } catch (Exception e) {
       System.err.println("Can't connect to Out stream socket.");
@@ -69,6 +62,7 @@ public class Client {
 
     // write to socket output stream
     try {
+      assert oos != null;
       oos.writeObject(request);
     } catch (Exception e) {
       System.err.println("Can't write object request: num");
@@ -84,6 +78,7 @@ public class Client {
     // create jsonString from server response
     String jsonString = null;
     try {
+      assert ois != null;
       jsonString = (String) ois.readObject();
     } catch (RuntimeException | ClassNotFoundException e) {
       System.err.println("Can't read message from Server.");
@@ -121,20 +116,14 @@ public class Client {
     req.put("reqType", reqType);
 
     // for POST request
-    if (reqType.equals(this.POST)) {
-//      Map data = new LinkedHashMap();
-//      data.put("rubies", saveState.rubies());
-//    data.put("lives", player.lives());
-
-      // rowArray for spriteMap (2d array)
+    if (reqType.equals(POST)) {
       JSONArray rowArray = new JSONArray();
-
-      //test
+      
       // TODO: replace values with saveState.value
       System.out.println("creating request");
       req.put("uid", "1");
-      req.put("rubies", Integer.valueOf(3));
-      req.put("lives", Integer.valueOf(2));
+      req.put("rubies", 3);
+      req.put("lives", 2);
       // add spriteMap rows to rowArray
 //      for (String row : saveState.spriteMap) {
 //        rowArray.add(row);
@@ -145,9 +134,9 @@ public class Client {
 
       req.put("spriteMap", rowArray);
 
-    } else if (reqType.equals(this.GET)) {
+    } else if (reqType.equals(GET)) {
       // create GET request JSONObject
-      req.put("reqType", this.GET);
+      req.put("reqType", GET);
       req.put("uid", "1");
     } else {
       System.err.println("Invalid request type");
@@ -156,16 +145,7 @@ public class Client {
     // return JSONObject as String
     return req.toJSONString();
   }
-
-  /**
-   * TODO: maybe move somewhere else
-   */
-  public void loadGame() {
-    // send request - returns JSONObject
-    // take JSONObject and parse data
-    // save to savestate
-    // init window with savestate data
-  }
+  
 
   /**
    *

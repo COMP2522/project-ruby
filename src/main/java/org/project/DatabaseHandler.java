@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
@@ -44,8 +44,9 @@ public class DatabaseHandler {
             .version(ServerApiVersion.V1)
             .build())
         .build();
-    MongoClient mongoClient = MongoClients.create(settings);
-    this.database = mongoClient.getDatabase(this.dbName);
+    try (MongoClient mongoClient = MongoClients.create(settings)) {
+      this.database = mongoClient.getDatabase(this.dbName);
+    }
     // test if collection exists
     try {
       this.database.createCollection(this.myCollection);
@@ -66,16 +67,11 @@ public class DatabaseHandler {
     }
     return instance;
   }
-
-//  public void put(String key, String value) {
-//    Document document = new Document();
-//    document.append(key, value);
-//    executor.execute(() -> database.getCollection("savestate").insertOne(document));
-//  }
+  
 
   /**
    * Writes new Document to collection.
-   * @param document
+   * @param document - Document to be written
    */
   public void put(Document document) {
     database.getCollection("savestate").insertOne(document);
@@ -83,14 +79,13 @@ public class DatabaseHandler {
 
   /**
    * Gets first Document in collection with key value.
-   * @param key
-   * @param value
+   * @param key, existing key of document
+   * @param value, existing value of kv pair in document
    * @return Document
    * TODO: need to make this async/take a callback
    */
   public Document get(String key, String value) {
-    Document find = this.database.getCollection(this.myCollection).find(eq(key, value)).first();
-    return find;
+    return this.database.getCollection(this.myCollection).find(eq(key, value)).first();
   }
 
   /**
@@ -101,22 +96,5 @@ public class DatabaseHandler {
    */
   public void update(String key, String value, Document doc) {
     this.database.getCollection(this.myCollection).updateOne(eq(key, value), new Document("$set", doc));
-  }
-
-//  public boolean userExists(String username) {
-//    Document user = this.database.getCollection("users").find(eq("username", username)).first();
-//    return user != null;
-//  }
-
-
-  public static void main(String[] args) {
-    DatabaseHandler db = new DatabaseHandler();
-
-    // find
-//    Document find = db.database.getCollection("students").find(eq("name", "Ram")).first();
-//    db.put("hello", "world");
-    Document found = db.get("hello", "world");
-
-    System.out.println(found);
   }
 }
