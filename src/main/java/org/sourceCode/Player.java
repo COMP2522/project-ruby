@@ -7,7 +7,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.awt.Rectangle;
+
+import static org.sourceCode.Entity.directions.*;
 
 /**
  * The player that the user can control.
@@ -15,86 +19,105 @@ import java.io.IOException;
  * @author Nathan Bartyuk
  * @version 2023-02-07
  */
-public class Player implements KeyListener {
+public class Player extends Entity {
 
-  public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
+//  GamePanel gp;
+//  BufferedImage ashImage;
+//  public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
 
-  @Override
-  public void keyTyped(KeyEvent e) {}  // not using this one garbage
+//  protected Rectangle solidArea;
+//  public int solidAreaDefaultX, solidAreaDefaultY;
+//  public boolean collision = false;
 
-  @Override
-  public void keyPressed(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_W) {
-      upPressed = true;
-    }
-    if (code == KeyEvent.VK_S) {
-      downPressed = true;
-    }
-    if (code == KeyEvent.VK_A) {
-      leftPressed = true;
-    }
-    if (code == KeyEvent.VK_D) {
-      rightPressed = true;
-    }
-    updateDirection(e);
-  }
 
-  @Override
-  public void keyReleased(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_W) {
-      upPressed = false;
-    }
-    if (code == KeyEvent.VK_S) {
-      downPressed = false;
-    }
-    if (code == KeyEvent.VK_A) {
-      leftPressed = false;
-    }
-    if (code == KeyEvent.VK_D) {
-      rightPressed = false;
-    }
-//    System.out.println(currentDirection);
-  }
+//  @Override
+//  public void keyTyped(KeyEvent e) {}  // not using this one garbage
+//
+//  @Override
+//  public void keyPressed(KeyEvent e) {
+//    int code = e.getKeyCode();
+//    if (code == KeyEvent.VK_W) {
+//      upPressed = true;
+//    }
+//    if (code == KeyEvent.VK_S) {
+//      downPressed = true;
+//    }
+//    if (code == KeyEvent.VK_A) {
+//      leftPressed = true;
+//    }
+//    if (code == KeyEvent.VK_D) {
+//      rightPressed = true;
+//    }
+//    updateDirection(e);
+//  }
+//
+//  @Override
+//  public void keyReleased(KeyEvent e) {
+//    int code = e.getKeyCode();
+//    if (code == KeyEvent.VK_W) {
+//      upPressed = false;
+//    }
+//    if (code == KeyEvent.VK_S) {
+//      downPressed = false;
+//    }
+//    if (code == KeyEvent.VK_A) {
+//      leftPressed = false;
+//    }
+//    if (code == KeyEvent.VK_D) {
+//      rightPressed = false;
+//    }
+////    System.out.println(currentDirection);
+//  }
 
-  public enum directions {LEFT, RIGHT, UP, DOWN}
+//  public enum directions {LEFT, RIGHT, UP, DOWN}
+
+  int hasRuby = 0;
   public enum status {ALIVE, DEAD}
   public static int LIVES = 3;
 
-  public int x; // initial position
-  public int y; // initial y position
-  public final int playerSpeed = 4;
+//  public int x; // initial position
+//  public int y; // initial y position
+//  public int playerSpeed = 4;
   private int currentLives;
   private int currentRubies;
-  private directions currentDirection;
+//  public directions currentDirection;
   private status currentStatus;
 
-  public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
-  public int spriteCounter = 0;
-  public int spriteNum = 1;
+//  public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
+//  public int spriteCounter = 0;
+//  public int spriteNum = 1;
 
 
   // Sets up fresh player upon starting a new game.
-  public Player() {
+  public Player(GamePanel gp) {
+    super(gp);
+    this.gp = gp;
     this.currentLives = LIVES;
     this.currentRubies = 0;
     this.currentDirection = directions.DOWN;
     this.currentStatus = status.ALIVE;
+    solidArea = new Rectangle();
+    solidArea.x = 8;
+    solidArea.y = 8;
+    solidAreaDefaultX = solidArea.x;
+    solidAreaDefaultY = solidArea.y;
+    solidArea.width = 32;
+    solidArea.height = 32;
     this.x = 150;
     this.y = 50;
+    this.speed = 4;
     getPlayerImage();
   }
 
   // Sets up the player from an existing save.
-  public Player(int x, int y, int rubies) {
-    this.currentLives = LIVES;
-    this.currentRubies = rubies;
-    this.currentDirection = directions.LEFT;
-    this.currentStatus = status.ALIVE;
-    this.x = x;
-    this.y = y;
-  }
+//  public Player(int x, int y, int rubies) {
+//    this.currentLives = LIVES;
+//    this.currentRubies = rubies;
+//    this.currentDirection = directions.LEFT;
+//    this.currentStatus = status.ALIVE;
+//    this.x = x;
+//    this.y = y;
+//  }
 
   public void updateDirection(KeyEvent e) {
     int code = e.getKeyCode();
@@ -103,7 +126,7 @@ public class Player implements KeyListener {
     } else if (code == KeyEvent.VK_D) {
       currentDirection = directions.RIGHT;
     } else if (code == KeyEvent.VK_W) {
-      currentDirection = directions.UP;
+      currentDirection = UP;
     } else if (code == KeyEvent.VK_S) {
       currentDirection = directions.DOWN;
     }
@@ -142,16 +165,51 @@ public class Player implements KeyListener {
     return currentRubies;
   }
 
-  public void updatePosition() {
-    if (upPressed || downPressed || leftPressed || rightPressed) {
-      if (upPressed) {
-        y -= playerSpeed;
-      } else if (downPressed) {
-        y += playerSpeed;
-      } else if (rightPressed) {
-        x += playerSpeed;
-      } else if(leftPressed) {
-        x -= playerSpeed;
+  public void updatePosition(GamePanel gp, KeyHandler kh){
+    if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
+//      if (upPressed) {
+//        y -= playerSpeed;
+//      } else if (downPressed) {
+//        y += playerSpeed;
+//      } else if (rightPressed) {
+//        x += playerSpeed;
+//      } else if(leftPressed) {
+//        x -= playerSpeed;
+//      }
+      updateDirection(kh.e);
+
+      //checking for collision with the window boundary
+      if (x < 0) {
+        x = 0;
+      }
+      if (x + 48 >= gp.getScreenWidth()) {
+        x = gp.getScreenWidth() - 48;
+      }
+      if (y < 0) {
+        y = 0;
+      }
+      if (y + 48 >= gp.getScreenHeight()) {
+        y = gp.getScreenHeight() - 48;
+      }
+
+        //checking tile collision
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+
+        int objectIndex = gp.cChecker.checkObject(this, true );
+        pickupObject(objectIndex, gp);
+
+      //if collision is false, player can move
+      if (collisionOn == false) {
+        if (this.currentDirection == UP) {
+          y -= speed;
+        } else if (this.currentDirection == DOWN) {
+          y += speed;
+        } else if (this.currentDirection == RIGHT) {
+          x += speed;
+        } else if (this.currentDirection == LEFT) {
+          x -= speed;
+        }
       }
       spriteCounter++;
       if(spriteCounter > 14) {
@@ -163,7 +221,6 @@ public class Player implements KeyListener {
         spriteCounter = 0;
       }
     }
-
   }
 
   // to draw the player sprite
@@ -197,6 +254,30 @@ public class Player implements KeyListener {
 //    g2.fillRect(x, y, p.tileSize, p.tileSize);
   }
 
+  public void pickupObject(int index, GamePanel gp){
+    if(index != 999) {
+
+      String objectName = gp.objects[index].name;
+
+      switch(objectName) {
+        case "Ruby":
+          hasRuby++;
+          gp.objects[index] = null;
+          System.out.println("Rubies: " + hasRuby);
+          break;
+        case "Door":
+          if(hasRuby > 1) {
+            gp.objects[index] = null;
+            hasRuby--;
+          }
+          break;
+        case "Fast":
+          speed += 2;
+          gp.objects[index] = null;
+          break;
+      }
+    }
+  }
   public static void main(String[] args) {
     JFrame window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -211,6 +292,7 @@ public class Player implements KeyListener {
     window.setLocationRelativeTo(null);
     window.setVisible(true);
 
+    gamePanel.setUpGame();
     gamePanel.startGameThread();
   }
 }

@@ -2,8 +2,12 @@ package org.sourceCode;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
+
+  // In the GamePanel class
+  public Player player = new Player(this);
 
   public final int originalTileSize = 16; // 16x16 tile
   public final int scale = 3; // scale to 3 times to match screen resolution
@@ -19,23 +23,67 @@ public class GamePanel extends JPanel implements Runnable{
   //  int height;
   int FPS = 60;
 
-  Player player = new Player();
+  // Add a variable to control the fire animation frame update interval
+  private int fireAnimationFrameUpdateInterval = 10;
+  private int fireAnimationFrameUpdateCounter = 0;
 
-  Map map = new Map(this); // this is actually like the manager of map
+  public Asset_Handler assetHandler = new Asset_Handler(this);
+  public Object objects[] = new Object[10];
+
+  public void setUpGame() {
+    assetHandler.setObject();
+  }
+
+  public int getScreenWidth() {
+    return screenWidth;
+  }
+
+  public int getScreenHeight() {
+    return screenHeight;
+  }
+
+//  Player player = new Player();
+
+  public Map map1 = new Map(this); // this is actually like the manager of map
+
+  public KeyHandler kh = new KeyHandler();
 
   Thread gameThread;
+
 
 //  void loadMap() {}  // update map
 //  void drawMap() {}  // draw map
 
-  public void update() {
-    player.updatePosition();
+  public void update(){
+    player.updatePosition(this, this.kh);
+    updateFireAnimationFrames();
   }
+
+  public void updateFireAnimationFrames() {
+    fireAnimationFrameUpdateCounter++;
+    if (fireAnimationFrameUpdateCounter >= fireAnimationFrameUpdateInterval) {
+      fireAnimationFrameUpdateCounter = 0;
+      for (Object object : objects) {
+        if (object != null && object.name != null && object.name.equals("fire")) {
+          object.currentFrame = (object.currentFrame + 1) % 4;
+        }
+      }
+    }
+  }
+
+  //instantiating the collision checker class here.
+  public Collision_Detection cChecker = new Collision_Detection(this);
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    map.draw(g2, this);
+    map1.draw(g2, this);
+    //for objects
+    for(int i = 0; i < objects.length; i++) {
+      if(objects[i] != null) {
+        objects[i].draw(g2,this);
+      }
+    }
     player.draw(g2, this);
     g2.dispose();
   }
@@ -44,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable{
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
-    this.addKeyListener(player);
+    this.addKeyListener(kh);
     this.setFocusable(true);
   }
 
