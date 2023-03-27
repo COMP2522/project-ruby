@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 /**
  * Defines a save object which stores the current game state in a file
@@ -26,11 +26,6 @@ public class SaveState {
 
   public int rubies() {
     return playerRubies;
-  }
-
-  public Map translateMap() {
-    Map map = new Map(this);
-    return null;
   }
 
   public void save() {}

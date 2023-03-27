@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,6 +11,7 @@ public class Entity {
   GamePanel gp;
   public int worldX, worldY;
   public int screenX, screenY;
+  public boolean collision = false;
   public int speed;
 
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
@@ -25,8 +26,6 @@ public class Entity {
 
   public int solidAreaDefaultX, solidAreaDefaultY;
 
-  public boolean collisionOn = false;
-
   public Entity(GamePanel gp) {
     this.gp = gp;
   }
@@ -36,11 +35,11 @@ public class Entity {
   public void update() {
     setAction();
 
-    collisionOn = false;
+    collision = false;
     gp.cChecker.checkTile(this);
   }
 
-  public void draw(Graphics2D g2, GamePanel gp) {
+  public void draw(Graphics2D g2) {
     BufferedImage image = null;
 
     switch(direction) {
@@ -63,7 +62,7 @@ public class Entity {
       default:
         break;
     }
-    g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
+    g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
   }
 
 

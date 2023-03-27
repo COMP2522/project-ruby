@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 import java.awt.image.BufferedImage;
 

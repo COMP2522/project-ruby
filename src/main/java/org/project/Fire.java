@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -36,6 +36,6 @@ public class Fire extends Object{
       image = fires[currentFrame];
       lastFrameTime = currentTime;
     }
-    g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+    g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
   }
 }

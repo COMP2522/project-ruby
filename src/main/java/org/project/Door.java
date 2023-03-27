@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;

@@ -1,4 +1,4 @@
-package org.sourceCode;
+package org.project;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,10 +14,9 @@ public class Object {
   public int solidAreaDefaultY = 0;
   public void draw(Graphics2D g2, GamePanel gp) {
     if (name != null && name.equals("fire")) {
-      g2.drawImage(gp.objects[5 + currentFrame].image, x, y, gp.tileSize, gp.tileSize, null);
+      g2.drawImage(gp.objects[5 + currentFrame].image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     } else {
-      g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+      g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
-//    g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
   }
 }
