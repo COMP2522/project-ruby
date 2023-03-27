@@ -41,20 +41,6 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void update(){
     player.update(this, this.kHandler);
-    updateFire();
-  }
-
-  public void updateFire() {
-    fireFrameUpdateCounter++;
-    int fireFrameUpdateInterval = 10;
-    if (fireFrameUpdateCounter >= fireFrameUpdateInterval) {
-      fireFrameUpdateCounter = 0;
-      for (Object object : objects) {
-        if (object != null && object.name != null && object.name.equals("fire")) {
-          object.currentFrame = (object.currentFrame + 1) % 4;
-        }
-      }
-    }
   }
 
   public void paintComponent(Graphics g) {
