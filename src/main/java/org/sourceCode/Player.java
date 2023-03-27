@@ -19,7 +19,7 @@ import static org.sourceCode.Player.directions.*;
  * @author Nathan Bartyuk
  * @version 2023-02-07
  */
-public class Player extends Object implements KeyListener {
+public class Player extends Object {
 
   GamePanel gp;
   BufferedImage ashImage;
@@ -30,44 +30,44 @@ public class Player extends Object implements KeyListener {
   public boolean collision = false;
   int hasRuby = 0;
 
-  @Override
-  public void keyTyped(KeyEvent e) {}  // not using this one garbage
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_W) {
-      upPressed = true;
-    }
-    if (code == KeyEvent.VK_S) {
-      downPressed = true;
-    }
-    if (code == KeyEvent.VK_A) {
-      leftPressed = true;
-    }
-    if (code == KeyEvent.VK_D) {
-      rightPressed = true;
-    }
-    updateDirection(e);
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    int code = e.getKeyCode();
-    if (code == KeyEvent.VK_W) {
-      upPressed = false;
-    }
-    if (code == KeyEvent.VK_S) {
-      downPressed = false;
-    }
-    if (code == KeyEvent.VK_A) {
-      leftPressed = false;
-    }
-    if (code == KeyEvent.VK_D) {
-      rightPressed = false;
-    }
-//    System.out.println(currentDirection);
-  }
+//  @Override
+//  public void keyTyped(KeyEvent e) {}  // not using this one garbage
+//
+//  @Override
+//  public void keyPressed(KeyEvent e) {
+//    int code = e.getKeyCode();
+//    if (code == KeyEvent.VK_W) {
+//      upPressed = true;
+//    }
+//    if (code == KeyEvent.VK_S) {
+//      downPressed = true;
+//    }
+//    if (code == KeyEvent.VK_A) {
+//      leftPressed = true;
+//    }
+//    if (code == KeyEvent.VK_D) {
+//      rightPressed = true;
+//    }
+//    updateDirection(e);
+//  }
+//
+//  @Override
+//  public void keyReleased(KeyEvent e) {
+//    int code = e.getKeyCode();
+//    if (code == KeyEvent.VK_W) {
+//      upPressed = false;
+//    }
+//    if (code == KeyEvent.VK_S) {
+//      downPressed = false;
+//    }
+//    if (code == KeyEvent.VK_A) {
+//      leftPressed = false;
+//    }
+//    if (code == KeyEvent.VK_D) {
+//      rightPressed = false;
+//    }
+////    System.out.println(currentDirection);
+//  }
 
   public enum directions {LEFT, RIGHT, UP, DOWN}
   public enum status {ALIVE, DEAD}
