@@ -32,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
   public KeyHandler kHandler = new KeyHandler();
   public Thread gameThread;
   public Object[] objects = new Object[10];
+
+  public Entity npc[] = new Entity[10];
   public ObjectHandler aHandler = new ObjectHandler(this);
   
   
