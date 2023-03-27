@@ -1,174 +1,171 @@
 package org.sourceCode;
 
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.sourceCode.EventListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ClassNotFoundException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- * Defines the server, which manages game state.
+ * This class implements java Socket server
+ * @author pankaj
  *
- * @author Nathan Bartyuk, Greg Song
- * @version 2023-03-17
  */
 public class Server {
-  /* Static variables */
-  private static int PORT = 5000;
-  private List<Socket> clientSockets = new ArrayList<Socket>();
-  private List<EventListener> eventListeners = new ArrayList<EventListener>();
+  /* Constants */
+  private static final int PORT = 5000;
+  private static final int POOLSIZE = 10;
+  private static final String POST = "POST";
+  private static final String GET = "GET";
 
-  // thread pool
-  /**
-   * paul note: can let threads run if modular enough
-   * - otherwise need to manage threads
-   */
+  // static ServerSocket variable
+  private static ServerSocket server;
+  private ExecutorService executor = null;
+  private DatabaseHandler databasehandler;
 
-
-  /* Game specific */
-  private SaveState currentSave;
 
   /**
-   * Constructs Server.
+   * Constructs a Server.
    */
   public Server() throws IOException {
-    // init EventListeners
-
+    this.server = new ServerSocket(PORT);
+    this.executor = Executors.newFixedThreadPool(POOLSIZE);
+    this.databasehandler = new DatabaseHandler();
   }
 
-  /* Methods */
+  public String createJSON(String reqType, SaveState saveState) {
+    JSONObject req = new JSONObject();
+
+    req.put("reqType", reqType);
+
+    if (reqType.equals(this.POST)) {
+      Map data = new LinkedHashMap();
+//      data.put("rubies", saveState.rubies);
+
+//    data.put("lives", saveState.lives);
+
+      JSONArray rowArray = new JSONArray();
+      // TODO: parse tileMap
+//    for (String row : saveState.spriteMap) {
+//      rowArray.add(row);
+//    }
+      // data.put("tileMap", rowArray);
+
+
+      //test
+      System.out.println("creating request");
+      data.put("rubies", Integer.valueOf(3));
+      data.put("lives", Integer.valueOf(2));
+      rowArray.add("1111");
+      rowArray.add("2222");
+      rowArray.add("3333");
+//      String[] tempMap = {"11111", "2222", "33333"};
+      data.put("tileMap", rowArray);
+      req.put("data", data);
+
+    } else if (reqType.equals(this.GET)) {
+      req.put("data", null);
+    } else {
+      System.err.println("Invalid request type");
+    }
+
+    // test print
+//    System.out.println(req);
+    return req.toJSONString();
+  }
 
   /**
-   * Runs Server
-   * @throws IOException
+   * Parses JSONString Request
+   * @return JSONObject
    */
-  public void start() throws IOException {
-    // Initialization
-    ServerSocket server = null;
-    try {
-      // Starts server
-      server = new ServerSocket(PORT);
-      // print
-      System.out.println("Server started");
-      System.out.println("Waiting for Client..");
-    } catch (IOException e){
-      throw new IOException(e);
-    }
+  public JSONObject parseJSON(String JSONstr) {
+    JSONObject obj = (JSONObject) JSONValue.parse(JSONstr);
+    return obj;
+  }
 
-    // Event Listeners
-    // TODO: make EventListeners for requests (saveGame - POST, loadGame - GET)
-    PostEventListener postListener = new PostEventListener();
-    GetEventListener getListener = new GetEventListener();
+  /**
+   * Starts Server
+   * @throws IOException
+   * @throws InterruptedException
+   * @throws ClassNotFoundException
+   */
+  public void start() throws IOException, InterruptedException, ClassNotFoundException {
+    // to test random delays
+    Random random = new Random();
+    // keep listens indefinitely until receives 'exit' call or program terminates
+    while(true){
+      // take out later
+      Thread.sleep(random.nextInt(5000));
 
-    // test
-    System.out.println("Server started on " + server.getInetAddress().getHostAddress() + ":" + server.getLocalPort());
+      System.out.println("Waiting for the client request");
 
-    // runs until termination
-    while(true) {
-      // read object from socket - need to read requestType
+      // creating socket and waiting for client connection
+      Socket socket = server.accept();
+
+      // read from socket to ObjectInputStream object
+      ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+      String jsonString = null;
       try {
-        System.out.println("Waiting for the client request");
+        jsonString = (String) ois.readObject();
+      } catch (RuntimeException | ClassNotFoundException e) {
+        System.err.println("Can't read message from Server.");
+      }
+      JSONObject obj = parseJSON(jsonString);
 
-        // creating socket and waiting for client connection
-        Socket socket = server.accept();
-
-        // read from socket to ObjectInputStream object
-        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-        // sn: above,
-        // convert ObjectInputStream object to String
-        String message = (String) ois.readObject();
-        System.out.println("Message Received: " + message);
-
-        // create ObjectOutputStream object
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-
-        // write object to Socket
-        oos.writeObject("Hi Client "+message);
-
-        // close resources
-        ois.close();
-        oos.close();
-        socket.close();
-
-        // terminate the server if client sends exit request
-        if(message.equalsIgnoreCase("exit")) break;
-
-        // initialize socket waiting for client connection
-//        Socket socket = server.accept();
-//        socket.setSoTimeout(5000);
-//
-//      // test print
-//        System.out.println("in while loop");
-
-        // read object from socket
-//        InputStreamReader in = new InputStreamReader(socket.getInputStream());
-//        BufferedReader reader = new BufferedReader(in);
-//        int c;
-//        StringBuilder reqBuilder = new StringBuilder();
-//        while((c = reader.read()) != -1) {
-//          reqBuilder.append((char) c);
-//        }
-//        String json = reqBuilder.toString();
-//        JSONObject req = (JSONObject) JSONValue.parse(json);
-
-
-        //test print json
-//        System.out.println("json obj: " + req);
-//
-//        String reqType = (String) req.get("requestType");
-//
-//        // handleRequest
-//        if (reqType.equals("POST")) {
-//          new Thread(() -> postListener.onTrigger()).start();
-//          // onTrigger creates response and then send from here?
-//        } else if (reqType.equals("GET")) {
-//          new Thread(() -> getListener.onTrigger()).start();
-//          // send response
-//        }
-
-
-
-        // test print
-        System.out.println("Message Received:");
-
-      } catch (IOException e) {
-        System.err.println("Error: Client Connection");
-      } catch (ClassNotFoundException e) {
-        throw new RuntimeException(e); // for readobject
+      // handle request
+      if(obj.get("reqType").equals(this.POST)) {
+        //thread
+        System.out.println("RequestType:" + obj.get("reqType"));
+        Runnable task = new PostRequestHandler(socket, obj);
+        executor.submit(task);
+      } else if (obj.get("reqType").equals(this.GET)){
+        // handle
+        System.out.println("RequestType:" + obj.get("reqType"));
+        Runnable task = (Runnable) new GetRequestHandler(socket, obj);
+        executor.submit(task);
+      } else {
+        System.err.println("ReqType Invalid" + obj.get("reqType"));
       }
 
+      // create ObjectOutputStream object
+      ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+      // send response
 
-      // save to file in some directory?
-      // return status?
-      // also need one for returning data and client would need to parse data
+      //test
+      SaveState savestate = new SaveState();
+      String response = createJSON("POST",savestate);
+
+      // write object to Socket
+      oos.writeObject(response);
 
       // close resources
-//      socket.close();
+      ois.close();
+      oos.close();
+      socket.close();
 
-      // close ServerSocket
-      server.close();
+      // terminate the server if client sends exit request
+      String s1 = "no";
+      if(s1.equalsIgnoreCase("exit")) break;
     }
+    System.out.println("Shutting down Socket server!!");
+
+    // close the ServerSocket object
+    server.close();
   }
 
-  public void newGame() {
-//    Map map = new Map();
-    Player player = new Player();
-  }
-
-  public void loadGame() {
-    Map map = currentSave.translateMap();
-    Player player = new Player(currentSave.x(), currentSave.y(), currentSave.rubies());
-  }
-
-  public static void main (String args[]) throws IOException {
+  public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException {
     Server server = new Server();
     server.start();
   }
-
 
 }
