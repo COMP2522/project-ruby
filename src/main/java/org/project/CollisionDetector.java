@@ -126,11 +126,11 @@ public class CollisionDetector {
     for(int i = 0; i < target.length; i++) {
       if(target[i] != null) {
         //get entity/player's solid area position
-        entity.solidArea.x = entity.x + entity.solidArea.x;
-        entity.solidArea.y = entity.y + entity.solidArea.y;
+        entity.solidArea.x = entity.worldX + entity.solidArea.x;
+        entity.solidArea.y = entity.worldY + entity.solidArea.y;
         //get teh object's solid area position
-        target[i].solidArea.x = target[i].x + target[i].solidArea.x;
-        target[i].solidArea.y = target[i].y + target[i].solidArea.y;
+        target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+        target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
 
         if (entity.direction == UP) {
           entity.solidArea.y -= entity.speed;

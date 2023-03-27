@@ -31,8 +31,8 @@ public class NPC_Villager extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
-        this.x = 90;
-        this.y = 50;
+        this.worldX = GamePanel.TILE_SIZE * 10;
+        this.worldY = GamePanel.TILE_SIZE * 10;
         this.speed = 4;
         direction = directions.DOWN;
         speed = 2;
