@@ -46,6 +46,8 @@ public class GamePanel extends JPanel implements Runnable{
 
   public Map map1 = new Map(this); // this is actually like the manager of map
 
+  public KeyHandler kh = new KeyHandler();
+
   Thread gameThread;
 
 
@@ -90,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable{
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
-    this.addKeyListener(player);
+    this.addKeyListener(kh);
     this.setFocusable(true);
   }
 
