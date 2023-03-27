@@ -120,6 +120,10 @@ public class Player extends Entity {
       
       int objectIndex = gp.cDetector.checkObject(this, true );
       pickupObject(objectIndex, gp);
+
+      // Checking NPC collision
+      int npcIndex = gp.cDetector.checkEntity(this, gp.npc);
+      interactNPC(npcIndex);
       
       spriteCounter++;
       if(spriteCounter > 14) {
@@ -154,6 +158,12 @@ public class Player extends Entity {
           gp.objects[index] = null;
         }
       }
+    }
+  }
+
+  public void interactNPC(int index) {
+    if(index != 999) {
+      System.out.println("Colliding with NPC!");
     }
   }
 }

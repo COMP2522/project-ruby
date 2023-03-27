@@ -118,4 +118,57 @@ public class CollisionDetector {
     }
     return index;
   }
+
+  // NPC and for Future use will include Monster
+  public int checkEntity(Entity entity, Entity[] target){
+
+    int index = 999;
+    for(int i = 0; i < target.length; i++) {
+      if(target[i] != null) {
+        //get entity/player's solid area position
+        entity.solidArea.x = entity.worldX + entity.solidArea.x;
+        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        //get teh object's solid area position
+        target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+        target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+
+        if (entity.direction == UP) {
+          entity.solidArea.y -= entity.speed;
+          if(entity.solidArea.intersects(target[i].solidArea)){
+            System.out.println("up collision");
+            entity.collision = true;
+          }
+        } else if (entity.direction == DOWN) {
+          entity.solidArea.y += entity.speed;
+          if(entity.solidArea.intersects(target[i].solidArea)){
+            System.out.println("down collision");
+            entity.collision = true;
+            index = i;
+          }
+        } else if (entity.direction == LEFT) {
+          entity.solidArea.x -= entity.speed;
+          if(entity.solidArea.intersects(target[i].solidArea)){
+            System.out.println("left collision");
+            entity.collision = true;
+            index = i;
+          }
+        } else if (entity.direction == RIGHT) {
+          entity.solidArea.x += entity.speed;
+          if(entity.solidArea.intersects(target[i].solidArea)){
+            System.out.println("right collision");
+            entity.collision = true;
+            index = i;
+          }
+        }
+        entity.solidArea.x = entity.solidAreaDefaultX;
+        entity.solidArea.y = entity.solidAreaDefaultY;
+
+        target[i].solidArea.x = target[i].solidAreaDefaultX;
+        target[i].solidArea.y = target[i].solidAreaDefaultY;
+
+      }
+    }
+    return index;
+  }
+
 }

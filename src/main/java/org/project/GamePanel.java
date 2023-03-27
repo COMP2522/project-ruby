@@ -32,15 +32,25 @@ public class GamePanel extends JPanel implements Runnable {
   public KeyHandler kHandler = new KeyHandler();
   public Thread gameThread;
   public Object[] objects = new Object[10];
+
+  public Entity npc[] = new Entity[10];
   public ObjectHandler aHandler = new ObjectHandler(this);
   
   
   public void setUpGame() {
     aHandler.setObject();
+    aHandler.setNPC();
   }
 
   public void update(){
     player.update(this, this.kHandler);
+
+    // NPC
+    for(int i = 0; i < npc.length; i++) {
+      if (npc[i] != null) {
+        npc[i].update();
+      }
+    }
   }
 
   public void paintComponent(Graphics g) {
@@ -56,11 +66,20 @@ public class GamePanel extends JPanel implements Runnable {
         object.draw(g2,this);
       }
     }
+
+    //NPC
+    for(int i = 0; i < npc.length; i++) {
+      if (npc[i] != null) {
+        npc[i].draw(g2);
+      }
+    }
+
     
     // DRAW PLAYER
     player.draw(g2);
     g2.dispose();
   }
+
 
   public GamePanel() {
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));

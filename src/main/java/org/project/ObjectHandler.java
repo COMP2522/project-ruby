@@ -28,4 +28,11 @@ public class ObjectHandler {
     gp.objects[4].worldX = 10 * GamePanel.TILE_SIZE;
     gp.objects[4].worldY = 14 * GamePanel.TILE_SIZE;
   }
+
+  public void setNPC() {
+    gp.npc[0] = new NPC_Villager(gp);
+    gp.npc[0].worldX = 10* GamePanel.TILE_SIZE;
+    gp.npc[0].worldY = 10* GamePanel.TILE_SIZE;
+
+  }
 }
