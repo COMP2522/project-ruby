@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Rectangle;
 
-import static org.sourceCode.Player.directions.*;
+import static org.sourceCode.Entity.directions.*;
 
 /**
  * The player that the user can control.
@@ -19,16 +19,16 @@ import static org.sourceCode.Player.directions.*;
  * @author Nathan Bartyuk
  * @version 2023-02-07
  */
-public class Player extends Object {
+public class Player extends Entity {
 
-  GamePanel gp;
-  BufferedImage ashImage;
-  public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
+//  GamePanel gp;
+//  BufferedImage ashImage;
+//  public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
 
-  protected Rectangle solidArea;
-  public int solidAreaDefaultX, solidAreaDefaultY;
-  public boolean collision = false;
-  int hasRuby = 0;
+//  protected Rectangle solidArea;
+//  public int solidAreaDefaultX, solidAreaDefaultY;
+//  public boolean collision = false;
+
 
 //  @Override
 //  public void keyTyped(KeyEvent e) {}  // not using this one garbage
@@ -69,50 +69,55 @@ public class Player extends Object {
 ////    System.out.println(currentDirection);
 //  }
 
-  public enum directions {LEFT, RIGHT, UP, DOWN}
+//  public enum directions {LEFT, RIGHT, UP, DOWN}
+
+  int hasRuby = 0;
   public enum status {ALIVE, DEAD}
   public static int LIVES = 3;
 
-  public int x; // initial position
-  public int y; // initial y position
-  public int playerSpeed = 4;
+//  public int x; // initial position
+//  public int y; // initial y position
+//  public int playerSpeed = 4;
   private int currentLives;
   private int currentRubies;
-  public directions currentDirection;
+//  public directions currentDirection;
   private status currentStatus;
 
-  public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
-  public int spriteCounter = 0;
-  public int spriteNum = 1;
+//  public BufferedImage downR, downL, upR, upL, rightR, rightL, leftR, leftL;
+//  public int spriteCounter = 0;
+//  public int spriteNum = 1;
 
 
   // Sets up fresh player upon starting a new game.
-  public Player() {
+  public Player(GamePanel gp) {
+    super(gp);
+    this.gp = gp;
     this.currentLives = LIVES;
     this.currentRubies = 0;
     this.currentDirection = directions.DOWN;
     this.currentStatus = status.ALIVE;
     solidArea = new Rectangle();
-    solidArea.x = 0;
-    solidArea.y = 0;
+    solidArea.x = 8;
+    solidArea.y = 8;
     solidAreaDefaultX = solidArea.x;
     solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
     this.x = 150;
     this.y = 50;
+    this.speed = 4;
     getPlayerImage();
   }
 
   // Sets up the player from an existing save.
-  public Player(int x, int y, int rubies) {
-    this.currentLives = LIVES;
-    this.currentRubies = rubies;
-    this.currentDirection = directions.LEFT;
-    this.currentStatus = status.ALIVE;
-    this.x = x;
-    this.y = y;
-  }
+//  public Player(int x, int y, int rubies) {
+//    this.currentLives = LIVES;
+//    this.currentRubies = rubies;
+//    this.currentDirection = directions.LEFT;
+//    this.currentStatus = status.ALIVE;
+//    this.x = x;
+//    this.y = y;
+//  }
 
   public void updateDirection(KeyEvent e) {
     int code = e.getKeyCode();
@@ -160,8 +165,8 @@ public class Player extends Object {
     return currentRubies;
   }
 
-  public void updatePosition(GamePanel gp){
-    if (upPressed || downPressed || leftPressed || rightPressed) {
+  public void updatePosition(GamePanel gp, KeyHandler kh){
+    if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
 //      if (upPressed) {
 //        y -= playerSpeed;
 //      } else if (downPressed) {
@@ -171,6 +176,7 @@ public class Player extends Object {
 //      } else if(leftPressed) {
 //        x -= playerSpeed;
 //      }
+      updateDirection(kh.e);
 
       //checking for collision with the window boundary
       if (x < 0) {
@@ -187,22 +193,22 @@ public class Player extends Object {
       }
 
         //checking tile collision
-        collision = false;
+        collisionOn = false;
         gp.cChecker.checkTile(this);
 
         int objectIndex = gp.cChecker.checkObject(this, true );
         pickupObject(objectIndex, gp);
 
       //if collision is false, player can move
-      if (collision == false) {
+      if (collisionOn == false) {
         if (this.currentDirection == UP) {
-          y -= playerSpeed;
+          y -= speed;
         } else if (this.currentDirection == DOWN) {
-          y += playerSpeed;
+          y += speed;
         } else if (this.currentDirection == RIGHT) {
-          x += playerSpeed;
+          x += speed;
         } else if (this.currentDirection == LEFT) {
-          x -= playerSpeed;
+          x -= speed;
         }
       }
       spriteCounter++;
@@ -266,7 +272,7 @@ public class Player extends Object {
           }
           break;
         case "Fast":
-          playerSpeed += 2;
+          speed += 2;
           gp.objects[index] = null;
           break;
       }
