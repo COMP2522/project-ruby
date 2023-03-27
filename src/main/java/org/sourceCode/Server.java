@@ -1,98 +1,119 @@
 package org.sourceCode;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import org.json.simple.JSONArray;
 /**
- * Defines the server, which manages game state.
+ * Server that handles requests and interactions with MongoDB.
  *
- * @author Nathan Bartyuk, Greg Song
- * @version 2023-03-17
+ * @author Greg Song
+ * @version 2023-03-27
  */
 public class Server {
-  /* Static variables */
-  private static int PORT = 5000;
-  private List<Socket> clientSockets = new ArrayList<Socket>();
-  private List<EventListener> eventListeners = new ArrayList<EventListener>();
+  /* Constants */
+  private static final int PORT = 5000;
+  private static final int POOLSIZE = 10;
+  private static final String POST = "POST";
+  private static final String GET = "GET";
 
+  // static ServerSocket variable
+  private static ServerSocket server;
+  private ExecutorService executor = null;
+  private DatabaseHandler databasehandler;
 
-  /* Game specific */
-  private SaveState currentSave;
 
   /**
-   * Constructs Server.
+   * Constructs a Server.
    */
   public Server() throws IOException {
-
-
+    this.server = new ServerSocket(PORT);
+    this.executor = Executors.newFixedThreadPool(POOLSIZE);
+    this.databasehandler = DatabaseHandler.getInstance();
   }
 
-  /* Methods */
+  /**
+   * Parses JSONString Request
+   * @return JSONObject
+   */
+  public JSONObject parseJSON(String JSONstr) {
+    JSONObject obj = (JSONObject) JSONValue.parse(JSONstr);
+    return obj;
+  }
 
   /**
-   * Runs Server
+   * Starts Server
    * @throws IOException
+   * @throws InterruptedException
    */
-  public void start() throws IOException {
-    // Initialization
-    ServerSocket server = null;
-    try {
-      // Starts server
-      server = new ServerSocket(PORT);
-      // print
-      System.out.println("Server started");
-      System.out.println("Waiting for Client..");
-    } catch (IOException e){
-      throw new IOException(e);
-    }
+  public void start() throws IOException, InterruptedException {
+    // to test random delays
+    Random random = new Random();
+    // runs indefinitely
+    while(true){
+      // take out later -
+      Thread.sleep(random.nextInt(5000));
 
-    // Event Listeners
-    // TODO: make EventListeners for requests (saveGame - POST, loadGame - GET)
+      System.out.println("Waiting for the client requests..");
 
+      // creating socket and waiting for client connection
+      Socket socket = server.accept();
 
-    // runs until termination
-    while(true) {
-      // read object from socket - need to read requestType
+      // read from socket to ObjectInputStream object
+      ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+      String jsonString = null;
       try {
-        // initialize socket waiting for client connection
-        Socket socket = server.accept();
+        jsonString = (String) ois.readObject();
+      } catch (RuntimeException | ClassNotFoundException e) {
+        System.err.println("Can't read message from Server.");
+      }
+      JSONObject obj = parseJSON(jsonString);
 
-        // read object from socket - need to read requestType
-        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-        // parse JSON
-
-        // get requestType
-        String message = (String) in.readObject();
-
-
-
-        // test print
-        System.out.println("Message Recieved:");
-        System.out.println(message);
-      } catch (IOException e) {
-        System.err.println("Error: Client Connection");
-      } catch (ClassNotFoundException e) {
-        throw new RuntimeException(e);
+      // handle request
+      if(obj.get("reqType").equals(this.POST)) {
+        //thread
+        System.out.println("RequestType:" + obj.get("reqType"));
+        Runnable task = new PostRequestHandler(socket, obj);
+        executor.submit(task);
+      } else if (obj.get("reqType").equals(this.GET)){
+        // handle
+        System.out.println("RequestType:" + obj.get("reqType"));
+        Runnable task = (Runnable) new GetRequestHandler(socket, obj);
+        executor.submit(task);
+      } else {
+        System.err.println("ReqType Invalid" + obj.get("reqType"));
       }
 
+//      test
+      SaveState savestate = new SaveState();
 
+      // close resources TODO: close ois this without crashing
+      // crashing when closing ois here with postreqhandler
+//      ois.close();
+      // handled in Handler
+//      oos.close();
+//      socket.close();
 
-      // save to file in some directory?
-      // return status?
-      // also need one for returning data and client would need to parse data
-
-      // close resources
-      socket.close();
-
-      // close ServerSocket
-      server.close();
+      // terminate the server if client sends exit request
+      String s1 = "no";
+      if(s1.equalsIgnoreCase("exit")) break;
     }
+    System.out.println("Shutting down Socket server!!");
+
+    // close the ServerSocket object
+    server.close();
   }
 
   public void newGame() {
@@ -101,13 +122,13 @@ public class Server {
   }
 
   public void loadGame() {
-    Map map = currentSave.translateMap();
+    org.sourceCode.Map map = currentSave.translateMap();
 //    Player player = new Player(currentSave.x(), currentSave.y(), currentSave.rubies());
   }
 
-  public static void main (String args[]) throws IOException {
+  public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException {
     Server server = new Server();
+    server.start();
   }
-
 
 }
