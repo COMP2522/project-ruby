@@ -31,12 +31,13 @@ public class GamePanel extends JPanel implements Runnable {
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
   public Thread gameThread;
-
-  public AssetHandler assetHandler = new AssetHandler(this);
   public Object[] objects = new Object[10];
+  public ObjectHandler aHandler = new ObjectHandler(this);
   
   
-  public void setUpGame() {assetHandler.setObject();}
+  public void setUpGame() {
+    aHandler.setObject();
+  }
 
   public void update(){
     player.update(this, this.kHandler);
@@ -59,13 +60,18 @@ public class GamePanel extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
+    
+    // DRAW TILES
     tManager.draw(g2);
-    //for objects
+    
+    // DRAW OBJECTS
     for (Object object : objects) {
       if (object != null) {
-        object.draw(g2, this);
+        object.draw(g2,this);
       }
     }
+    
+    // DRAW PLAYER
     player.draw(g2);
     g2.dispose();
   }
@@ -91,7 +97,6 @@ public class GamePanel extends JPanel implements Runnable {
     long lastTime = System.nanoTime();
     long currentTime;
     long timer = 0;
-    int drawCount = 0;
 
     while(gameThread != null) {
       currentTime = System.nanoTime();
@@ -103,11 +108,8 @@ public class GamePanel extends JPanel implements Runnable {
         update();
         repaint();
         delta--;
-        drawCount++;
       }
       if (timer >= 1000000000) {
-//        System.out.println("FPS: " + drawCount);  // shows FPS
-        drawCount = 0;
         timer = 0;
       }
     }

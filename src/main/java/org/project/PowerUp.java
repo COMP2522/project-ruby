@@ -8,7 +8,7 @@ public class PowerUp extends Object{
   public PowerUp() {
     name = "Fast";
     try {
-      image = ImageIO.read(new FileInputStream("assets/mapData/images/powerup2.png"));
+      image = ImageIO.read(new FileInputStream("assets/mapData/objects/powerup2.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }

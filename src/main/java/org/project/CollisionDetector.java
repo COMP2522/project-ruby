@@ -59,8 +59,8 @@ public class CollisionDetector {
         p.solidArea.x = p.worldX + p.solidArea.x;
         p.solidArea.y = p.worldY + p.solidArea.y;
         //get the object's solid area position
-        gp.objects[i].solidArea.x = gp.objects[i].x + gp.objects[i].solidArea.x;
-        gp.objects[i].solidArea.y = gp.objects[i].y + gp.objects[i].solidArea.y;
+        gp.objects[i].solidArea.x = gp.objects[i].worldX + gp.objects[i].solidArea.x;
+        gp.objects[i].solidArea.y = gp.objects[i].worldY + gp.objects[i].solidArea.y;
 
         if (p.direction == UP) {
           p.solidArea.y -= p.speed;
