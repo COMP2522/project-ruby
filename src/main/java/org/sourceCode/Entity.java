@@ -4,18 +4,19 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Entity {
 
   GamePanel gp;
-  public int x, y;
+  public int worldX, worldY;
+  public int screenX, screenY;
   public int speed;
 
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
-
+  
   public enum directions {LEFT, RIGHT, UP, DOWN}
-
-  public directions currentDirection;
+  public directions direction;
 
   public int spriteCounter = 0;
   public int spriteNum = 1;
@@ -42,7 +43,7 @@ public class Entity {
   public void draw(Graphics2D g2, GamePanel gp) {
     BufferedImage image = null;
 
-    switch(currentDirection) {
+    switch(direction) {
       case UP:
         if (spriteNum == 1) {image = upR;}
         if (spriteNum == 2) {image = upL;}
@@ -62,15 +63,14 @@ public class Entity {
       default:
         break;
     }
-    g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+    g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
   }
 
 
   public BufferedImage setup(String imagePath){
     BufferedImage image = null;
-
     try {
-      image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+      image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
     } catch(IOException e) {
       e.printStackTrace();
     }

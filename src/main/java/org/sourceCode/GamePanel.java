@@ -2,12 +2,12 @@ package org.sourceCode;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
 
   // In the GamePanel class
-  public Player player = new Player(this);
+  public final KeyHandler handler = new KeyHandler();
+  public Player player = new Player(this, handler);
 
   public final int originalTileSize = 16; // 16x16 tile
   public final int scale = 3; // scale to 3 times to match screen resolution
@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
   private int fireAnimationFrameUpdateCounter = 0;
 
   public Asset_Handler assetHandler = new Asset_Handler(this);
-  public Object objects[] = new Object[10];
+  public Object[] objects = new Object[10];
 
   public void setUpGame() {
     assetHandler.setObject();
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
 //  void drawMap() {}  // draw map
 
   public void update(){
-    player.updatePosition(this, this.kh);
+    player.update(this, this.kh);
     updateFireAnimationFrames();
   }
 
@@ -72,16 +72,16 @@ public class GamePanel extends JPanel implements Runnable{
   }
 
   //instantiating the collision checker class here.
-  public Collision_Detection cChecker = new Collision_Detection(this);
+  public CollisionDetector cChecker = new CollisionDetector(this);
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
     map1.draw(g2, this);
     //for objects
-    for(int i = 0; i < objects.length; i++) {
-      if(objects[i] != null) {
-        objects[i].draw(g2,this);
+    for (Object object : objects) {
+      if (object != null) {
+        object.draw(g2, this);
       }
     }
     player.draw(g2, this);
@@ -100,34 +100,6 @@ public class GamePanel extends JPanel implements Runnable{
     gameThread = new Thread(this);
     gameThread.start();
   }
-
-  // sleep method to set FPS
-//  @Override
-//  public void run() {
-//    double drawInterval = 1000000000 / FPS;  // gives exactly how many nanoseconds should each frame last where FPS = 60?
-//    double nextDrawTime = System.nanoTime() + drawInterval; // this tells the system when to draw the next frame
-//
-//    while(gameThread != null) {  // this is the game loop that will keep the game running, until the window is closed
-//
-//      //      System.out.println("The game loop is running"); // test, will get replaced by actual content in future
-//      //1 UPDATE : update information such as character positions
-//      //2 DRAW: draw the screen with the updated information
-//      update();
-//      repaint();
-//
-//      try {
-//        double remainingTime = nextDrawTime - System.nanoTime(); // we need the system to hold the process or sleep for this time
-//        remainingTime /= 1000000; // convert nano time to milli time
-//        if (remainingTime < 0) {
-//          remainingTime = 0;
-//        }
-//        Thread.sleep((long) remainingTime);  // this method accepts milliseconds, not nanoseconds
-//        nextDrawTime += drawInterval;
-//      } catch (InterruptedException e) {
-//        throw new RuntimeException(e);
-//      }
-//    }
-//  }
 
   // second implementation to set FPS, better as far as I know
   @Override

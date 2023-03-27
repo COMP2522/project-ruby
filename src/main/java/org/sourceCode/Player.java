@@ -20,60 +20,12 @@ import static org.sourceCode.Entity.directions.*;
  * @version 2023-02-07
  */
 public class Player extends Entity {
-
-//  GamePanel gp;
-//  BufferedImage ashImage;
-//  public boolean upPressed, downPressed, leftPressed, rightPressed; // keys
-
-//  protected Rectangle solidArea;
-//  public int solidAreaDefaultX, solidAreaDefaultY;
-//  public boolean collision = false;
-
-
-//  @Override
-//  public void keyTyped(KeyEvent e) {}  // not using this one garbage
-//
-//  @Override
-//  public void keyPressed(KeyEvent e) {
-//    int code = e.getKeyCode();
-//    if (code == KeyEvent.VK_W) {
-//      upPressed = true;
-//    }
-//    if (code == KeyEvent.VK_S) {
-//      downPressed = true;
-//    }
-//    if (code == KeyEvent.VK_A) {
-//      leftPressed = true;
-//    }
-//    if (code == KeyEvent.VK_D) {
-//      rightPressed = true;
-//    }
-//    updateDirection(e);
-//  }
-//
-//  @Override
-//  public void keyReleased(KeyEvent e) {
-//    int code = e.getKeyCode();
-//    if (code == KeyEvent.VK_W) {
-//      upPressed = false;
-//    }
-//    if (code == KeyEvent.VK_S) {
-//      downPressed = false;
-//    }
-//    if (code == KeyEvent.VK_A) {
-//      leftPressed = false;
-//    }
-//    if (code == KeyEvent.VK_D) {
-//      rightPressed = false;
-//    }
-////    System.out.println(currentDirection);
-//  }
-
-//  public enum directions {LEFT, RIGHT, UP, DOWN}
-
+  
   int hasRuby = 0;
   public enum status {ALIVE, DEAD}
   public static int LIVES = 3;
+  
+  KeyHandler handler;
 
 //  public int x; // initial position
 //  public int y; // initial y position
@@ -89,13 +41,18 @@ public class Player extends Entity {
 
 
   // Sets up fresh player upon starting a new game.
-  public Player(GamePanel gp) {
+  public Player(GamePanel gp, KeyHandler kh) {
     super(gp);
     this.gp = gp;
+    this.handler = kh;
+    this.worldX = 150;
+    this.worldY = 50;
+    this.speed = 4;
+    this.direction = directions.DOWN;
     this.currentLives = LIVES;
     this.currentRubies = 0;
-    this.currentDirection = directions.DOWN;
     this.currentStatus = status.ALIVE;
+    
     solidArea = new Rectangle();
     solidArea.x = 8;
     solidArea.y = 8;
@@ -103,32 +60,20 @@ public class Player extends Entity {
     solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
-    this.x = 150;
-    this.y = 50;
-    this.speed = 4;
     getPlayerImage();
   }
-
-  // Sets up the player from an existing save.
-//  public Player(int x, int y, int rubies) {
-//    this.currentLives = LIVES;
-//    this.currentRubies = rubies;
-//    this.currentDirection = directions.LEFT;
-//    this.currentStatus = status.ALIVE;
-//    this.x = x;
-//    this.y = y;
-//  }
+  
 
   public void updateDirection(KeyEvent e) {
     int code = e.getKeyCode();
     if (code == KeyEvent.VK_A) {
-      currentDirection = directions.LEFT;
+      direction = LEFT;
     } else if (code == KeyEvent.VK_D) {
-      currentDirection = directions.RIGHT;
+      direction = RIGHT;
     } else if (code == KeyEvent.VK_W) {
-      currentDirection = UP;
+      direction = UP;
     } else if (code == KeyEvent.VK_S) {
-      currentDirection = directions.DOWN;
+      direction = DOWN;
     }
   }
 
@@ -165,7 +110,7 @@ public class Player extends Entity {
     return currentRubies;
   }
 
-  public void updatePosition(GamePanel gp, KeyHandler kh){
+  public void update(GamePanel gp, KeyHandler kh){
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
 //      if (upPressed) {
 //        y -= playerSpeed;
@@ -179,36 +124,27 @@ public class Player extends Entity {
       updateDirection(kh.e);
 
       //checking for collision with the window boundary
-      if (x < 0) {
-        x = 0;
-      }
-      if (x + 48 >= gp.getScreenWidth()) {
-        x = gp.getScreenWidth() - 48;
-      }
-      if (y < 0) {
-        y = 0;
-      }
-      if (y + 48 >= gp.getScreenHeight()) {
-        y = gp.getScreenHeight() - 48;
-      }
+      if (worldX < 0) { worldX = 0; }
+      if (worldX + 48 >= gp.getScreenWidth()) { worldX = gp.getScreenWidth() - 48; }
+      if (worldY < 0) { worldY = 0; }
+      if (worldY + 48 >= gp.getScreenHeight()) { worldY = gp.getScreenHeight() - 48; }
 
-        //checking tile collision
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
-
-        int objectIndex = gp.cChecker.checkObject(this, true );
-        pickupObject(objectIndex, gp);
+      //checking tile collision
+      collisionOn = false;
+      gp.cChecker.checkTile(this);
+      int objectIndex = gp.cChecker.checkObject(this, true );
+      pickupObject(objectIndex, gp);
 
       //if collision is false, player can move
-      if (collisionOn == false) {
-        if (this.currentDirection == UP) {
-          y -= speed;
-        } else if (this.currentDirection == DOWN) {
-          y += speed;
-        } else if (this.currentDirection == RIGHT) {
-          x += speed;
-        } else if (this.currentDirection == LEFT) {
-          x -= speed;
+      if (!collisionOn) {
+        if (this.direction == UP) {
+          worldY -= speed;
+        } else if (this.direction == DOWN) {
+          worldY += speed;
+        } else if (this.direction == RIGHT) {
+          worldX += speed;
+        } else if (this.direction == LEFT) {
+          worldX -= speed;
         }
       }
       spriteCounter++;
@@ -221,37 +157,6 @@ public class Player extends Entity {
         spriteCounter = 0;
       }
     }
-  }
-
-  // to draw the player sprite
-  public void draw(Graphics2D g2, GamePanel p) {
-    BufferedImage image = null;
-
-    switch(currentDirection) {
-      case UP:
-        if (spriteNum == 1) {image = upR;}
-        if (spriteNum == 2) {image = upL;}
-        break;
-      case DOWN:
-        if (spriteNum == 1) {image = downR;}
-        if (spriteNum == 2) {image = downL;}
-        break;
-      case LEFT:
-        if (spriteNum == 1) {image = leftR;}
-        if (spriteNum == 2) {image = leftL;}
-        break;
-      case RIGHT:
-        if (spriteNum == 1) {image = rightR;}
-        if (spriteNum == 2) {image = rightL;}
-        break;
-      default:
-        break;
-    }
-    g2.drawImage(image, x, y, p.tileSize, p.tileSize, null);
-
-    // below is the stupid code for rectangle I used for testing
-//    g2.setColor(Color.white);
-//    g2.fillRect(x, y, p.tileSize, p.tileSize);
   }
 
   public void pickupObject(int index, GamePanel gp){
@@ -278,6 +183,9 @@ public class Player extends Entity {
       }
     }
   }
+  
+  
+  
   public static void main(String[] args) {
     JFrame window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
