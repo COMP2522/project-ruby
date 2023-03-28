@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Ruby extends Object {
+public class Ruby extends Element {
   public Ruby() {
     name = "Ruby";
     try {

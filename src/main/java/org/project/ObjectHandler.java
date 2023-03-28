@@ -8,25 +8,25 @@ public class ObjectHandler {
   }
 
   public void setObject() {
-    gp.objects[0] = new Ruby();
-    gp.objects[0].worldX = 9 * GamePanel.TILE_SIZE;
-    gp.objects[0].worldY = 7 * GamePanel.TILE_SIZE;
+    gp.elements[0] = new Ruby();
+    gp.elements[0].worldX = 9 * GamePanel.TILE_SIZE;
+    gp.elements[0].worldY = 7 * GamePanel.TILE_SIZE;
 
-    gp.objects[1] = new Ruby();
-    gp.objects[1].worldX = 11 * GamePanel.TILE_SIZE;
-    gp.objects[1].worldY = 7 * GamePanel.TILE_SIZE;
+    gp.elements[1] = new Ruby();
+    gp.elements[1].worldX = 11 * GamePanel.TILE_SIZE;
+    gp.elements[1].worldY = 7 * GamePanel.TILE_SIZE;
 
-    gp.objects[2] = new Door();
-    gp.objects[2].worldX = 10 * GamePanel.TILE_SIZE;
-    gp.objects[2].worldY = 11 * GamePanel.TILE_SIZE;
+    gp.elements[2] = new Door();
+    gp.elements[2].worldX = 10 * GamePanel.TILE_SIZE;
+    gp.elements[2].worldY = 11 * GamePanel.TILE_SIZE;
 
-    gp.objects[3] = new Fire();
-    gp.objects[3].worldX = 10 * GamePanel.TILE_SIZE;
-    gp.objects[3].worldY = 31 * GamePanel.TILE_SIZE;
+    gp.elements[3] = new Fire();
+    gp.elements[3].worldX = 10 * GamePanel.TILE_SIZE;
+    gp.elements[3].worldY = 31 * GamePanel.TILE_SIZE;
 
-    gp.objects[4] = new PowerUp();
-    gp.objects[4].worldX = 10 * GamePanel.TILE_SIZE;
-    gp.objects[4].worldY = 14 * GamePanel.TILE_SIZE;
+    gp.elements[4] = new PowerUp();
+    gp.elements[4].worldX = 10 * GamePanel.TILE_SIZE;
+    gp.elements[4].worldY = 14 * GamePanel.TILE_SIZE;
   }
 
   public void setNPC() {

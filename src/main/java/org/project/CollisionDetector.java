@@ -53,20 +53,20 @@ public class CollisionDetector {
   
   public int checkObject(Player p, boolean player) {
     int index = 999;
-    for(int i = 0; i < gp.objects.length; i++) {
-      if(gp.objects[i] != null) {
+    for(int i = 0; i < gp.elements.length; i++) {
+      if(gp.elements[i] != null) {
         //get entity/player's solid area position
         p.solidArea.x = p.worldX + p.solidArea.x;
         p.solidArea.y = p.worldY + p.solidArea.y;
         //get the object's solid area position
-        gp.objects[i].solidArea.x = gp.objects[i].worldX + gp.objects[i].solidArea.x;
-        gp.objects[i].solidArea.y = gp.objects[i].worldY + gp.objects[i].solidArea.y;
+        gp.elements[i].solidArea.x = gp.elements[i].worldX + gp.elements[i].solidArea.x;
+        gp.elements[i].solidArea.y = gp.elements[i].worldY + gp.elements[i].solidArea.y;
 
         if (p.direction == UP) {
           p.solidArea.y -= p.speed;
-          if(p.solidArea.intersects(gp.objects[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].solidArea)){
             System.out.println("up collision");
-            if(gp.objects[i].collision) {
+            if(gp.elements[i].collision) {
               p.collision = true;
             }
             if(player) {
@@ -75,9 +75,9 @@ public class CollisionDetector {
           }
         } else if (p.direction == DOWN) {
           p.solidArea.y += p.speed;
-          if(p.solidArea.intersects(gp.objects[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].solidArea)){
             System.out.println("down collision");
-            if(gp.objects[i].collision) {
+            if(gp.elements[i].collision) {
               p.collision = true;
             }
             if(player) {
@@ -86,9 +86,9 @@ public class CollisionDetector {
           }
         } else if (p.direction == LEFT) {
           p.solidArea.x -= p.speed;
-          if(p.solidArea.intersects(gp.objects[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].solidArea)){
             System.out.println("left collision");
-            if(gp.objects[i].collision) {
+            if(gp.elements[i].collision) {
               p.collision = true;
             }
             if(player) {
@@ -98,9 +98,9 @@ public class CollisionDetector {
 
         } else if (p.direction == RIGHT) {
           p.solidArea.x += p.speed;
-          if(p.solidArea.intersects(gp.objects[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].solidArea)){
             System.out.println("right collision");
-            if(gp.objects[i].collision) {
+            if(gp.elements[i].collision) {
               p.collision = true;
             }
             if(player) {
@@ -111,8 +111,8 @@ public class CollisionDetector {
         p.solidArea.x = p.solidAreaDefaultX;
         p.solidArea.y = p.solidAreaDefaultY;
 
-        gp.objects[i].solidArea.x = gp.objects[i].solidAreaDefaultX;
-        gp.objects[i].solidArea.y = gp.objects[i].solidAreaDefaultY;
+        gp.elements[i].solidArea.x = gp.elements[i].solidAreaDefaultX;
+        gp.elements[i].solidArea.y = gp.elements[i].solidAreaDefaultY;
 
       }
     }
