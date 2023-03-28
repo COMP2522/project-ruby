@@ -5,16 +5,20 @@ import java.awt.*;
 import java.io.*;
 
 /**
- * Defines the game map, which consists of both a Tile array and Sprite array
+ * Manages the static elements on the map
  *
  * @author Nathan Bartyuk
- * @version 2023-02-07
+ * @version 2023-03-28
  */
 public class TileManager {
   GamePanel gp;
   public Tile[] tiles;
   public int[][] map;
-
+  
+  /**
+   * Constructs a new TileManager object
+   * @param gp the GamePanel it belongs to
+   */
   public TileManager(GamePanel gp) {
     this.gp = gp;
     tiles = new Tile[10];
@@ -22,8 +26,8 @@ public class TileManager {
     getTileImage();
     loadMap(gp);
   }
-
-
+  
+  /** Reads the map and gets assets for each tile */
   public void getTileImage() {
     try {
       tiles[0] = new Tile();
@@ -50,8 +54,11 @@ public class TileManager {
       e.printStackTrace();
     }
   }
-
-
+  
+  /**
+   * Parses map assets from file
+   * @param gp the GamePanel to display to
+   */
   public void loadMap(GamePanel gp) {
     try {
       InputStream is = new FileInputStream("assets/mapData/maps/map2.txt");
@@ -78,7 +85,11 @@ public class TileManager {
       throw new RuntimeException(e);
     }
   }
-
+  
+  /**
+   * Draws the map to screen
+   * @param g2 the GamePanel to draw to
+   */
   public void draw(Graphics2D g2) {
     int worldCol = 0;
     int worldRow = 0;

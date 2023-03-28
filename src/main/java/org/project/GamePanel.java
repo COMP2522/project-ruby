@@ -3,11 +3,16 @@ package org.project;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Manages every other manager and displays the game on screen
+ *
+ * @author Nathan Bartyuk
+ * @version 2023-03-28
+ */
 public class GamePanel extends JPanel implements Runnable {
 
   // GAME PANEL SETTINGS
   public final KeyHandler handler = new KeyHandler();
-
   public Player player = Player.getInstance(this, handler);
   
   // SCREEN SETTINGS
@@ -31,37 +36,50 @@ public class GamePanel extends JPanel implements Runnable {
   public Thread gameThread;
   public Element[] elements = new Element[10];
 
-  public Entity npc[] = new Entity[10];
-  public Entity monster[] = new Entity[10];
+  public Entity[] npc = new Entity[10];
+  public Entity[] monster = new Entity[10];
   public ElementHandler aHandler = new ElementHandler(this);
   
+  /** Constructor for the GamePanel */
+  public GamePanel() {
+    this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+    this.setBackground(Color.black);
+    this.setDoubleBuffered(true);
+    this.addKeyListener(kHandler);
+    this.setFocusable(true);
+  }
   
+  /** Instantiates the game upon launch */
   public void setUpGame() {
     aHandler.setElement();
     aHandler.setNPC();
     aHandler.setMonster();
   }
-
+  
+  /** Updates the player, npc, and monster positions */
   public void update(){
     player.update(this, this.kHandler);
 
     // NPC
-    for(int i = 0; i < npc.length; i++) {
-      if (npc[i] != null) {
+    for (Entity entity : npc) {
+      if (entity != null) {
         // Checks if it is null, if not then it calls for update.
-        npc[i].update();
+        entity.update();
       }
     }
     // MONSTER
-    for(int i = 0; i < monster.length; i++) {
-      if (monster[i] != null) {
-        monster[i].update();
+    for (Entity entity : monster) {
+      if (entity != null) {
+        entity.update();
       }
     }
-
-
   }
-
+  
+  /**
+   * Draws every component on the screen.
+   * @param g the Graphics object to protect
+   */
+  @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
@@ -77,40 +95,31 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     //NPC
-    for(int i = 0; i < npc.length; i++) {
-      if (npc[i] != null) {
-        npc[i].draw(g2);
+    for (Entity entity : npc) {
+      if (entity != null) {
+        entity.draw(g2);
       }
     }
 
     // MONSTER
-    for(int i = 0; i < monster.length; i++) {
-      if (monster[i] != null) {
-        monster[i].draw(g2);
+    for (Entity entity : monster) {
+      if (entity != null) {
+        entity.draw(g2);
       }
     }
-
     
     // DRAW PLAYER
     player.draw(g2);
     g2.dispose();
   }
-
-
-  public GamePanel() {
-    this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-    this.setBackground(Color.black);
-    this.setDoubleBuffered(true);
-    this.addKeyListener(kHandler);
-    this.setFocusable(true);
-  }
-
+  
+  /** Starts the game thread */
   public void startGameThread() {
     gameThread = new Thread(this);
     gameThread.start();
   }
-
-  // second implementation to set FPS, better as far as I know
+  
+  /** Runs the game thread */
   @Override
   public void run() {
     double drawInterval = 1000000000.0/FPS;
