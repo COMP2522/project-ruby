@@ -24,9 +24,6 @@ public class GamePanel extends JPanel implements Runnable {
   public final int mapHeight = TILE_SIZE * MAP_ROW;
   
   
-  private int fireFrameUpdateCounter = 0;
-  
-  
   public TileManager tManager = new TileManager(this); // this is actually like the manager of map
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
@@ -35,11 +32,11 @@ public class GamePanel extends JPanel implements Runnable {
 
   public Entity npc[] = new Entity[10];
   public Entity monster[] = new Entity[10];
-  public ObjectHandler aHandler = new ObjectHandler(this);
+  public ElementHandler aHandler = new ElementHandler(this);
   
   
   public void setUpGame() {
-    aHandler.setObject();
+    aHandler.setElement();
     aHandler.setNPC();
     aHandler.setMonster();
   }
@@ -71,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
     // DRAW TILES
     tManager.draw(g2);
     
-    // DRAW OBJECTS
+    // DRAW Elements
     for (Element element : elements) {
       if (element != null) {
         element.draw(g2,this);
