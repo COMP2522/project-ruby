@@ -54,7 +54,7 @@ public class TileManager {
 
   public void loadMap(GamePanel gp) {
     try {
-      InputStream is = new FileInputStream("assets/mapData/maps/map1.txt");
+      InputStream is = new FileInputStream("assets/mapData/maps/map2.txt");
       BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
       int col = 0;
