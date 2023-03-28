@@ -73,8 +73,8 @@ public class Player extends Entity {
     try{
       downR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
       downL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
-      upR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
-      upL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
+      upR = ImageIO.read(new FileInputStream("assets/player/Player_URight.png"));
+      upL = ImageIO.read(new FileInputStream("assets/player/Player_ULeft.png"));
       leftR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
       leftL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
       rightR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
