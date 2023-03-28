@@ -6,6 +6,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Monster class for Beast is slated to be in the same vein as NPC.
+ * The collision for this end will revolve around the player's lives.
+ * Entity class is extended by this monster class, and al following monster classes.
+ * Entity, GamePanel, ObjectHandler and CollisionDetector will all require code
+ * May use pathfinding algorithm if I can develop it to be functional.
+ * Update the coordinates for future use to have it in different sections of the map to guard rubies.
+ *
+ * @author Amrit Singh
+ * @version 2023-03-27
+ */
+
 public class MON_Beast extends Entity {
 
   public MON_Beast(GamePanel gp) {
