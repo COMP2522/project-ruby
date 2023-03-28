@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
   public Thread gameThread;
-  public Element[] elements = new Element[10];
+  public Element[] elements = new Element[20];
 
   public Entity[] npc = new Entity[10];
   public Entity[] monster = new Entity[10];
