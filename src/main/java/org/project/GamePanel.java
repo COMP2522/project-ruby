@@ -7,7 +7,8 @@ public class GamePanel extends JPanel implements Runnable {
 
   // GAME PANEL SETTINGS
   public final KeyHandler handler = new KeyHandler();
-  public Player player = new Player(this, handler);
+
+  public Player player = Player.getInstance(this, handler);
   
   // SCREEN SETTINGS
   public static final int TILE_SIZE = 48;
