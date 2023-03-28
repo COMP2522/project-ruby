@@ -106,6 +106,11 @@ public class Player extends Entity {
       //checking tile collision
       collision = false;
       gp.cDetector.checkTile(this);
+
+      //this is where the collision with the player is detected.
+      int objectIndex = gp.cDetector.checkObject(this, true );
+      pickupObject(objectIndex, gp);
+
       if (!collision) {
         if (direction == LEFT) {
           worldX -= speed;
@@ -117,9 +122,6 @@ public class Player extends Entity {
           worldY += speed;
         }
       }
-      
-      int objectIndex = gp.cDetector.checkObject(this, true );
-      pickupObject(objectIndex, gp);
 
       // Checking NPC collision
       int npcIndex = gp.cDetector.checkEntity(this, gp.npc);
@@ -147,6 +149,7 @@ public class Player extends Entity {
           gp.objects[index] = null;
           System.out.println("Rubies: " + hasRuby);
         }
+        //this is where the door is removed from the array.
         case "Door" -> {
           if (hasRuby > 1) {
             gp.objects[index] = null;
