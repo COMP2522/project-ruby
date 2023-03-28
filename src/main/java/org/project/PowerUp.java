@@ -17,12 +17,12 @@ public class PowerUp extends Element {
    Constructs a Power-up object and sets its name, image, and collision properties.   * Loads the power-up image from file and sets its collision to true.
    */
   public PowerUp() {
-    name = "Fast";
+    setName("Fast");
     try {
-      image = ImageIO.read(new FileInputStream("assets/mapData/objects/powerup2.png"));
+      setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/powerup2.png")));
     } catch (IOException e) {
       e.printStackTrace();
     }
-    collision = true;
+    setCollision(true);
   }
 }

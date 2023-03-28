@@ -150,7 +150,7 @@ public class Player extends Entity {
 
   public void pickupObject(int index, GamePanel gp){
     if(index != 999) {
-      String objectName = gp.elements[index].name;
+      String objectName = gp.elements[index].getName();
   
       switch (objectName) {
         case "Ruby" -> {
