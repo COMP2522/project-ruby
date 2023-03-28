@@ -4,7 +4,16 @@ import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * The Door class represents a door element in the game that can only be opened
+ * when the player has collected all the rubies.
+ * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
+ * @version 2023-02-07
+ */
 public class Door extends Element {
+  /**
+   * Constructs a Door object and sets its name, image, and collision properties.
+   */
   public Door() {
     name = "Door";
     try {

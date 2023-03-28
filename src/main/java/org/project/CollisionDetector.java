@@ -2,6 +2,14 @@ package org.project;
 
 import static org.project.Entity.directions.*;
 
+/**
+ * The CollisionDetector class provides methods for detecting
+ * collisions between the player, tiles, and intractable elements
+ * in the game.
+ *
+ * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
+ * @version 2023-02-07
+ */
 public class CollisionDetector {
   GamePanel gp;
   int leftCol;
@@ -13,7 +21,11 @@ public class CollisionDetector {
   public CollisionDetector(GamePanel gp) {
     this.gp = gp;
   }
-
+  /**
+   * Checks for collision between the player and tiles in the game world.
+   *
+   * @param entity The Entity object representing the player
+   */
   public void checkTile(Entity entity) {
     int leftX = entity.worldX + entity.solidArea.x;
     int rightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
@@ -50,7 +62,15 @@ public class CollisionDetector {
       entity.collision = true;
     }
   }
-  
+
+  /**
+   * Checks for collision between the player and intractable elements in the game world,
+   * such as rubies, doors, and power-ups.
+   *
+   * @param p The Player object
+   * @param player A boolean indicating whether the collision is with the player or not
+   * @return The index of the element with which the player is colliding, or 999 if no collision occurs.
+   */
   public int checkObject(Player p, boolean player) {
     int index = 999;
     for(int i = 0; i < gp.elements.length; i++) {
@@ -118,6 +138,7 @@ public class CollisionDetector {
     }
     return index;
   }
+
 
   // NPC and for Future use will include Monster
   public int checkEntity(Entity entity, Entity[] target){
