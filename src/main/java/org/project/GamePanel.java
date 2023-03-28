@@ -34,12 +34,14 @@ public class GamePanel extends JPanel implements Runnable {
   public Object[] objects = new Object[10];
 
   public Entity npc[] = new Entity[10];
+  public Entity monster[] = new Entity[10];
   public ObjectHandler aHandler = new ObjectHandler(this);
   
   
   public void setUpGame() {
     aHandler.setObject();
     aHandler.setNPC();
+    aHandler.setMonster();
   }
 
   public void update(){
@@ -48,9 +50,18 @@ public class GamePanel extends JPanel implements Runnable {
     // NPC
     for(int i = 0; i < npc.length; i++) {
       if (npc[i] != null) {
+        // Checks if it is null, if not then it calls for update.
         npc[i].update();
       }
     }
+    // MONSTER
+    for(int i = 0; i < monster.length; i++) {
+      if (monster[i] != null) {
+        monster[i].update();
+      }
+    }
+
+
   }
 
   public void paintComponent(Graphics g) {
@@ -71,6 +82,13 @@ public class GamePanel extends JPanel implements Runnable {
     for(int i = 0; i < npc.length; i++) {
       if (npc[i] != null) {
         npc[i].draw(g2);
+      }
+    }
+
+    // MONSTER
+    for(int i = 0; i < monster.length; i++) {
+      if (monster[i] != null) {
+        monster[i].draw(g2);
       }
     }
 
