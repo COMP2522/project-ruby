@@ -24,10 +24,12 @@ public class Player extends Entity {
   private int currentLives;
   private int currentRubies;
   private status currentStatus;
+
+  private static Player instance = null;
   
 
   // Sets up fresh player upon starting a new game.
-  public Player(GamePanel gp, KeyHandler kh) {
+  private Player(GamePanel gp, KeyHandler kh) {
     super(gp);
     this.gp = gp;
     this.handler = kh;
@@ -45,6 +47,13 @@ public class Player extends Entity {
     this.currentRubies = 0;
     this.currentStatus = status.ALIVE;
     getPlayerImage();
+  }
+
+  public static Player getInstance(GamePanel gp, KeyHandler kh) {
+    if (instance == null) {
+      instance = new Player(gp, kh);
+    }
+    return instance;
   }
   
 
