@@ -30,8 +30,8 @@ public class MON_Beast extends Entity {
     solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
-    this.worldX = GamePanel.TILE_SIZE * 10;
-    this.worldY = GamePanel.TILE_SIZE * 10;
+    this.worldX = GamePanel.TILE_SIZE * 24;
+    this.worldY = GamePanel.TILE_SIZE * 15;
     direction = directions.DOWN;
 
     getImage();
@@ -39,14 +39,14 @@ public class MON_Beast extends Entity {
 
   public void getImage() {
     try {
-      downR = ImageIO.read(new FileInputStream("assets/player/oldman_down_right.png"));
-      downL = ImageIO.read(new FileInputStream("assets/player/oldman_down_left.png"));
-      upR = ImageIO.read(new FileInputStream("assets/player/oldman_up_right.png"));
-      upL = ImageIO.read(new FileInputStream("assets/player/oldman_up_left.png"));
-      leftR = ImageIO.read(new FileInputStream("assets/player/oldman_left_right.png"));
-      leftL = ImageIO.read(new FileInputStream("assets/player/oldman_left_left.png"));
-      rightR = ImageIO.read(new FileInputStream("assets/player/oldman_right_right.png"));
-      rightL = ImageIO.read(new FileInputStream("assets/player/oldman_right_left.png"));
+      downR = ImageIO.read(new FileInputStream("assets/monsters/beast_down_right.png"));
+      downL = ImageIO.read(new FileInputStream("assets/monsters/beast_down_left.png"));
+      upR = ImageIO.read(new FileInputStream("assets/monsters/beast_up_right.png"));
+      upL = ImageIO.read(new FileInputStream("assets/monsters/beast_up_left.png"));
+      leftR = ImageIO.read(new FileInputStream("assets/monsters/beast_left_right.png"));
+      leftL = ImageIO.read(new FileInputStream("assets/monsters/beast_left_left.png"));
+      rightR = ImageIO.read(new FileInputStream("assets/monsters/beast_right_right.png"));
+      rightL = ImageIO.read(new FileInputStream("assets/monsters/beast_right_left.png"));
     } catch (IOException e) {
       System.out.println("Image can't be read ...");
       e.printStackTrace();

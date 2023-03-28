@@ -64,12 +64,12 @@ public class ElementHandler {
    */
   public void setMonster(){
     gp.monster[0] = new MON_Beast(gp);
-    gp.monster[0].worldX = 10* GamePanel.TILE_SIZE;
-    gp.monster[0].worldY = 10* GamePanel.TILE_SIZE;
+    gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
+    gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
 
     gp.monster[0] = new MON_Beast(gp);
-    gp.monster[0].worldX = 10* GamePanel.TILE_SIZE;
-    gp.monster[0].worldY = 10* GamePanel.TILE_SIZE;
+    gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
+    gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
 
   }
 }
