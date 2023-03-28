@@ -141,24 +141,24 @@ public class Player extends Entity {
 
   public void pickupObject(int index, GamePanel gp){
     if(index != 999) {
-      String objectName = gp.objects[index].name;
+      String objectName = gp.elements[index].name;
   
       switch (objectName) {
         case "Ruby" -> {
           hasRuby++;
-          gp.objects[index] = null;
+          gp.elements[index] = null;
           System.out.println("Rubies: " + hasRuby);
         }
         //this is where the door is removed from the array.
         case "Door" -> {
           if (hasRuby > 1) {
-            gp.objects[index] = null;
+            gp.elements[index] = null;
             hasRuby--;
           }
         }
         case "Fast" -> {
           speed += 2;
-          gp.objects[index] = null;
+          gp.elements[index] = null;
         }
       }
     }

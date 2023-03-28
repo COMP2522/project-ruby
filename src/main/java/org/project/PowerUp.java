@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class PowerUp extends Object{
+public class PowerUp extends Element {
   public PowerUp() {
     name = "Fast";
     try {

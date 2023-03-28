@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Fire extends Object{
+public class Fire extends Element {
   public BufferedImage[] fires;
 
   private long lastFrameTime;

@@ -9,7 +9,7 @@ Our team's project will be a 2D adventure-puzzle game, similar to Diamond Rush.
 1. As a 2D video game, our project will make heavy use of Processing.orgs libraries for the visuals.
 2. We will need to constantly process the game state and fetch information from the console.
 3. Along with requirement 2, we will need to store the position of objects in the game, so if the player reaches a checkpoint, they can save their progress.
-4. When the player breaks a breakable object, it delete itself from the data structure.
+4. When the player breaks a breakable element, it delete itself from the data structure.
 5. We will constantly check our requirements, test boundaries, and write javadocs for every method.
 
 

@@ -3,7 +3,7 @@ package org.project;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Object {
+public class Element {
   public BufferedImage image;
   public int currentFrame = 0;
   public String name;
@@ -29,7 +29,7 @@ public class Object {
   
   
     if (name != null && name.equals("fire")) {
-      g2.drawImage(gp.objects[5 + currentFrame].image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+      g2.drawImage(gp.elements[5 + currentFrame].image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     } else {
       g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }

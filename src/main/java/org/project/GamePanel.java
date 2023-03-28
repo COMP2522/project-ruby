@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
   public Thread gameThread;
-  public Object[] objects = new Object[10];
+  public Element[] elements = new Element[10];
 
   public Entity npc[] = new Entity[10];
   public ObjectHandler aHandler = new ObjectHandler(this);
@@ -61,9 +61,9 @@ public class GamePanel extends JPanel implements Runnable {
     tManager.draw(g2);
     
     // DRAW OBJECTS
-    for (Object object : objects) {
-      if (object != null) {
-        object.draw(g2,this);
+    for (Element element : elements) {
+      if (element != null) {
+        element.draw(g2,this);
       }
     }
 
