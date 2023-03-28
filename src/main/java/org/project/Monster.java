@@ -18,9 +18,9 @@ import java.util.Random;
  * @version 2023-03-27
  */
 
-public class MON_Beast extends Entity {
+public class Monster extends Entity {
 
-  public MON_Beast(GamePanel gp) {
+  public Monster(GamePanel gp) {
     super(gp);
     speed = 1;
     solidArea = new Rectangle();

@@ -12,16 +12,14 @@ import java.awt.image.BufferedImage;
  * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
  * @version 2023-02-07
  */
-public class Element {
+public abstract class Element {
   //setting instance variables.
   private BufferedImage image;
   private int currentFrame = 0;
   private String name;
   private boolean collision = false;
   private int worldX, worldY;
-  private Rectangle solidArea = new Rectangle(0, 0, 48, 48);
-  private int solidAreaDefaultX = 0;
-  private int solidAreaDefaultY = 0;
+  private final Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
   //setters and getters for the instance variables.
   public BufferedImage getImage() {
@@ -74,14 +72,6 @@ public class Element {
 
   public Rectangle getSolidArea() {
     return solidArea;
-  }
-
-  public int getSolidAreaDefaultX() {
-    return solidAreaDefaultX;
-  }
-
-  public int getSolidAreaDefaultY() {
-    return solidAreaDefaultY;
   }
 
 

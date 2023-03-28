@@ -20,7 +20,6 @@ public class CollisionDetector {
   /**
    * Constructs a CollisionDetector object with a reference to
    * the GamePanel it is being used in.
-   *
    * @param gp The GamePanel object.
    */
   public CollisionDetector(GamePanel gp) {
@@ -29,11 +28,9 @@ public class CollisionDetector {
 
   /**
    * Checks for collision between the player and tiles in the game world.
-   *
    * @param entity The Entity object representing the player
    */
   public void checkTile(Entity entity) {
-
     int leftX = entity.worldX + entity.solidArea.x;
     int rightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
     int upY = entity.worldY + entity.solidArea.y;
@@ -62,7 +59,6 @@ public class CollisionDetector {
   }
 
   private void collide(Entity entity) {
-
     int tileNum1, tileNum2;
 
     tileNum1 = gp.tManager.map[leftCol][upRow];
@@ -76,9 +72,7 @@ public class CollisionDetector {
   /**
    * Checks for collision between the player and intractable elements in the game world,
    * such as rubies, doors, and power-ups.
-   *
    * @param p      The Player object
-   * @param player A boolean indicating whether the collision is with the player or not
    * @return The index of the element with which the player is colliding, or 999 if no collision occurs.
    */
   public int checkObject(Player p, boolean player) {
@@ -97,7 +91,6 @@ public class CollisionDetector {
         if (p.direction == UP) {
           p.solidArea.y -= p.speed;
           if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
-            System.out.println("up collision");
             if (gp.elements[i].getCollision()) {
               p.collision = true;
             }
@@ -108,7 +101,6 @@ public class CollisionDetector {
         } else if (p.direction == DOWN) {
           p.solidArea.y += p.speed;
           if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
-            System.out.println("down collision");
             if (gp.elements[i].getCollision()) {
               p.collision = true;
             }
@@ -119,7 +111,6 @@ public class CollisionDetector {
         } else if (p.direction == LEFT) {
           p.solidArea.x -= p.speed;
           if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
-            System.out.println("left collision");
             if (gp.elements[i].getCollision()) {
               p.collision = true;
             }
@@ -127,7 +118,6 @@ public class CollisionDetector {
               index = i;
             }
           }
-
         } else if (p.direction == RIGHT) {
           p.solidArea.x += p.speed;
           if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
@@ -143,12 +133,21 @@ public class CollisionDetector {
         p.solidArea.x = p.solidAreaDefaultX;
         p.solidArea.y = p.solidAreaDefaultY;
 
-        gp.elements[i].getSolidArea().x = gp.elements[i].getSolidAreaDefaultX();
-        gp.elements[i].getSolidArea().y = gp.elements[i].getSolidAreaDefaultY();
-
+        gp.elements[i].getSolidArea().x = 0;
+        gp.elements[i].getSolidArea().y = 0;
       }
     }
     return index;
+  }
+  
+  
+  public void checkCollide(int i, int index, boolean player, Player p) {
+    if (gp.elements[i].getCollision()) {
+      p.collision = true;
+    }
+    if (player) {
+      index = i;
+    }
   }
 
 

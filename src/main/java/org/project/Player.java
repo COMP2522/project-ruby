@@ -27,7 +27,9 @@ public class Player extends Entity {
 
   private static Player instance = null;
   
-
+  @Override
+  public void setAction() {}
+  
   // Sets up fresh player upon starting a new game.
   private Player(GamePanel gp, KeyHandler kh) {
     super(gp);
@@ -117,7 +119,7 @@ public class Player extends Entity {
       gp.cDetector.checkTile(this);
 
       //this is where the collision with the player is detected.
-      int objectIndex = gp.cDetector.checkObject(this, true );
+      int objectIndex = gp.cDetector.checkObject(this,true);
       pickupObject(objectIndex, gp);
 
       if (!collision) {

@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
   public static final int SCREEN_ROW = 12;
   public final int screenWidth = TILE_SIZE * SCREEN_COL;  // 768 pixels wide
   public final int screenHeight = TILE_SIZE * SCREEN_ROW;  // 576 pixels height
-  int FPS = 60;
+  public final double drawInterval = 1000000000.0 / 60;
   
   // WORLD MAP SETTINGS
   public static final int MAP_COL = 50;
@@ -122,7 +122,6 @@ public class GamePanel extends JPanel implements Runnable {
   /** Runs the game thread */
   @Override
   public void run() {
-    double drawInterval = 1000000000.0/FPS;
     double delta = 0;
     long lastTime = System.nanoTime();
     long currentTime;
@@ -139,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable {
         repaint();
         delta--;
       }
-      if (timer >= 1000000000) {
+      if (timer >= drawInterval) {
         timer = 0;
       }
     }

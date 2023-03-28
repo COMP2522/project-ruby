@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * NPC_Villager is docile. Just randomly moves around.
+ * Villager is docile. Just randomly moves around.
  * This is the base file code independent of anything else.
  * Entity class will need to be made.
  * Sprite, GamePanel and SpriteManager will all require code
@@ -17,10 +17,10 @@ import java.util.Random;
  * @author Amrit Singh
  * @version 2023-02-07
  */
-public class NPC_Villager extends Entity {
+public class Villager extends Entity {
 
 
-    public NPC_Villager(GamePanel gp) {
+    public Villager(GamePanel gp) {
         super(gp);
         this.gp = gp;
         solidArea = new Rectangle();

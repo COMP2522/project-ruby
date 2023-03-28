@@ -52,7 +52,7 @@ public class ElementHandler {
    * Sets the positions of the non-player characters (NPCs) within the game panel.
    */
   public void setNPC() {
-    gp.npc[0] = new NPC_Villager(gp);
+    gp.npc[0] = new Villager(gp);
     gp.npc[0].worldX = 10 * GamePanel.TILE_SIZE;
     gp.npc[0].worldY = 10 * GamePanel.TILE_SIZE;
 
@@ -62,11 +62,11 @@ public class ElementHandler {
    * Sets the positions of the monsters within the game panel.
    */
   public void setMonster() {
-    gp.monster[0] = new MON_Beast(gp);
+    gp.monster[0] = new Monster(gp);
     gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
     gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
 
-    gp.monster[0] = new MON_Beast(gp);
+    gp.monster[0] = new Monster(gp);
     gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
     gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
 
