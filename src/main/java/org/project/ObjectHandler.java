@@ -35,4 +35,15 @@ public class ObjectHandler {
     gp.npc[0].worldY = 10* GamePanel.TILE_SIZE;
 
   }
+
+  public void setMonster(){
+    gp.monster[0] = new MON_Beast(gp);
+    gp.monster[0].worldX = 10* GamePanel.TILE_SIZE;
+    gp.monster[0].worldY = 10* GamePanel.TILE_SIZE;
+
+    gp.monster[0] = new MON_Beast(gp);
+    gp.monster[0].worldX = 10* GamePanel.TILE_SIZE;
+    gp.monster[0].worldY = 10* GamePanel.TILE_SIZE;
+
+  }
 }

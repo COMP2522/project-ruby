@@ -23,7 +23,6 @@ public class NPC_Villager extends Entity {
     public NPC_Villager(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        this.direction = directions.DOWN;
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 8;
@@ -33,7 +32,6 @@ public class NPC_Villager extends Entity {
         solidArea.height = 32;
         this.worldX = GamePanel.TILE_SIZE * 10;
         this.worldY = GamePanel.TILE_SIZE * 10;
-        this.speed = 4;
         direction = directions.DOWN;
         speed = 2;
         getImage();
