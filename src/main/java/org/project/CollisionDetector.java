@@ -17,10 +17,16 @@ public class CollisionDetector {
   int upRow;
   int downRow;
 
-
+  /**
+   * Constructs a CollisionDetector object with a reference to
+   * the GamePanel it is being used in.
+   *
+   * @param gp The GamePanel object.
+   */
   public CollisionDetector(GamePanel gp) {
     this.gp = gp;
   }
+
   /**
    * Checks for collision between the player and tiles in the game world.
    *
@@ -79,14 +85,14 @@ public class CollisionDetector {
         p.solidArea.x = p.worldX + p.solidArea.x;
         p.solidArea.y = p.worldY + p.solidArea.y;
         //get the object's solid area position
-        gp.elements[i].solidArea.x = gp.elements[i].worldX + gp.elements[i].solidArea.x;
-        gp.elements[i].solidArea.y = gp.elements[i].worldY + gp.elements[i].solidArea.y;
+        gp.elements[i].getSolidArea().x = gp.elements[i].getWorldX() + gp.elements[i].getSolidArea().x;
+        gp.elements[i].getSolidArea().y = gp.elements[i].getWorldY() + gp.elements[i].getSolidArea().y;
 
         if (p.direction == UP) {
           p.solidArea.y -= p.speed;
-          if(p.solidArea.intersects(gp.elements[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].getSolidArea())){
             System.out.println("up collision");
-            if(gp.elements[i].collision) {
+            if(gp.elements[i].getCollision()) {
               p.collision = true;
             }
             if(player) {
@@ -95,9 +101,9 @@ public class CollisionDetector {
           }
         } else if (p.direction == DOWN) {
           p.solidArea.y += p.speed;
-          if(p.solidArea.intersects(gp.elements[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].getSolidArea())){
             System.out.println("down collision");
-            if(gp.elements[i].collision) {
+            if(gp.elements[i].getCollision()) {
               p.collision = true;
             }
             if(player) {
@@ -106,9 +112,9 @@ public class CollisionDetector {
           }
         } else if (p.direction == LEFT) {
           p.solidArea.x -= p.speed;
-          if(p.solidArea.intersects(gp.elements[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].getSolidArea())){
             System.out.println("left collision");
-            if(gp.elements[i].collision) {
+            if(gp.elements[i].getCollision()) {
               p.collision = true;
             }
             if(player) {
@@ -118,9 +124,9 @@ public class CollisionDetector {
 
         } else if (p.direction == RIGHT) {
           p.solidArea.x += p.speed;
-          if(p.solidArea.intersects(gp.elements[i].solidArea)){
+          if(p.solidArea.intersects(gp.elements[i].getSolidArea())){
             System.out.println("right collision");
-            if(gp.elements[i].collision) {
+            if(gp.elements[i].getCollision()) {
               p.collision = true;
             }
             if(player) {
@@ -131,8 +137,8 @@ public class CollisionDetector {
         p.solidArea.x = p.solidAreaDefaultX;
         p.solidArea.y = p.solidAreaDefaultY;
 
-        gp.elements[i].solidArea.x = gp.elements[i].solidAreaDefaultX;
-        gp.elements[i].solidArea.y = gp.elements[i].solidAreaDefaultY;
+        gp.elements[i].getSolidArea().x  = gp.elements[i].getSolidAreaDefaultX();
+        gp.elements[i].getSolidArea().y = gp.elements[i].getSolidAreaDefaultY();
 
       }
     }
