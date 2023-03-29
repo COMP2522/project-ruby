@@ -36,13 +36,13 @@ public class Player extends Entity {
     this.gp = gp;
     this.handler = kh;
     
-    this.worldX = GamePanel.TILE_SIZE * 10;
-    this.worldY = GamePanel.TILE_SIZE * 10;
+    this.worldX = GamePanel.TILE_SIZE * 37;
+    this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
     this.solidArea = new Rectangle(8,16,32,32);
     
-    this.speed = 4;
+    this.speed = 6;
     this.direction = directions.DOWN;
     
     this.currentLives = LIVES;

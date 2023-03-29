@@ -18,7 +18,7 @@ public class Door extends Element {
   public Door() {
     setName("Door");
     try {
-      setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/door2.png")));
+      setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/door1.png")));
     } catch (IOException e) {
       e.printStackTrace();
     }
