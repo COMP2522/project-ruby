@@ -24,27 +24,38 @@ public class Player extends Entity {
   private int currentLives;
   private int currentRubies;
   private status currentStatus;
-  
 
+  private static Player instance = null;
+  
+  @Override
+  public void setAction() {}
+  
   // Sets up fresh player upon starting a new game.
-  public Player(GamePanel gp, KeyHandler kh) {
+  private Player(GamePanel gp, KeyHandler kh) {
     super(gp);
     this.gp = gp;
     this.handler = kh;
     
-    this.worldX = GamePanel.TILE_SIZE * 10;
-    this.worldY = GamePanel.TILE_SIZE * 10;
+    this.worldX = GamePanel.TILE_SIZE * 37;
+    this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
     this.solidArea = new Rectangle(8,16,32,32);
     
-    this.speed = 4;
+    this.speed = 6;
     this.direction = directions.DOWN;
     
     this.currentLives = LIVES;
     this.currentRubies = 0;
     this.currentStatus = status.ALIVE;
     getPlayerImage();
+  }
+
+  public static Player getInstance(GamePanel gp, KeyHandler kh) {
+    if (instance == null) {
+      instance = new Player(gp, kh);
+    }
+    return instance;
   }
   
 
@@ -64,8 +75,8 @@ public class Player extends Entity {
     try{
       downR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
       downL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
-      upR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
-      upL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
+      upR = ImageIO.read(new FileInputStream("assets/player/Player_URight.png"));
+      upL = ImageIO.read(new FileInputStream("assets/player/Player_ULeft.png"));
       leftR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
       leftL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
       rightR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
@@ -108,7 +119,7 @@ public class Player extends Entity {
       gp.cDetector.checkTile(this);
 
       //this is where the collision with the player is detected.
-      int objectIndex = gp.cDetector.checkObject(this, true );
+      int objectIndex = gp.cDetector.checkObject(this,true);
       pickupObject(objectIndex, gp);
 
       if (!collision) {
@@ -141,7 +152,7 @@ public class Player extends Entity {
 
   public void pickupObject(int index, GamePanel gp){
     if(index != 999) {
-      String objectName = gp.elements[index].name;
+      String objectName = gp.elements[index].getName();
   
       switch (objectName) {
         case "Ruby" -> {
