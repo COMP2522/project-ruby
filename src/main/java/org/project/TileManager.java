@@ -5,16 +5,25 @@ import java.awt.*;
 import java.io.*;
 
 /**
- * Defines the game map, which consists of both a Tile array and Sprite array
+ * Manages the static elements on the map
  *
  * @author Nathan Bartyuk
- * @version 2023-02-07
+ * @version 2023-03-28
  */
 public class TileManager {
   GamePanel gp;
   public Tile[] tiles;
   public int[][] map;
-
+  
+  protected String mapPath = "assets/mapData/maps/map2.txt";
+  protected String tilePath = "assets/mapData/tiles/";
+  protected String[] tileName = {"grass.png", "wall.png", "water.png", "earth.png", "tree.png", "sand.png"};
+  protected boolean[] tileCollide = {false, true, true, false, true, false};
+  
+  /**
+   * Constructs a new TileManager object
+   * @param gp the GamePanel it belongs to
+   */
   public TileManager(GamePanel gp) {
     this.gp = gp;
     tiles = new Tile[10];
@@ -22,41 +31,29 @@ public class TileManager {
     getTileImage();
     loadMap(gp);
   }
-
-
+  
+  /** Reads the map and gets assets for each tile */
   public void getTileImage() {
     try {
-      tiles[0] = new Tile();
-      tiles[0].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/grass.png"));
-      
-      tiles[1] = new Tile();
-      tiles[1].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/wall.png"));
-      tiles[1].collision = true;
-      
-      tiles[2] = new Tile();
-      tiles[2].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/water.png"));
-      tiles[2].collision = true;
-      
-      tiles[3] = new Tile();
-      tiles[3].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/earth.png"));
-      
-      tiles[4] = new Tile();
-      tiles[4].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/tree.png"));
-      tiles[4].collision = true;
-      
-      tiles[5] = new Tile();
-      tiles[5].sprite = ImageIO.read(new FileInputStream("assets/mapData/tiles/sand.png"));
+      for (int i = 0; i < 6; i++) {
+        tiles[i] = new Tile();
+        tiles[i].sprite = ImageIO.read(new FileInputStream(tilePath + tileName[i]));
+        tiles[i].collision = tileCollide[i];
+      }
     } catch (IOException e) {
+      System.out.println("Invalid tile image");
       e.printStackTrace();
     }
   }
-
-
+  
+  /**
+   * Parses map assets from file
+   * @param gp the GamePanel to display to
+   */
   public void loadMap(GamePanel gp) {
     try {
-      InputStream is = new FileInputStream("assets/mapData/maps/map2.txt");
+      InputStream is = new FileInputStream(mapPath);
       BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
       int col = 0;
       int row = 0;
 
@@ -78,11 +75,16 @@ public class TileManager {
       throw new RuntimeException(e);
     }
   }
-
+  
+  /**
+   * Draws the map to screen
+   * @param g2 the GamePanel to draw to
+   */
   public void draw(Graphics2D g2) {
     int worldCol = 0;
     int worldRow = 0;
-
+    
+    // Only processes sprites in the parsed map
     while(worldCol < GamePanel.MAP_COL && worldRow < GamePanel.MAP_ROW) {
       int tileNum = map[worldCol][worldRow];
       int worldX = worldCol * GamePanel.TILE_SIZE;
@@ -90,6 +92,7 @@ public class TileManager {
       int screenX = worldX - gp.player.worldX + gp.player.screenX;
       int screenY = worldY - gp.player.worldY + gp.player.screenY;
       
+      // Only draws sprites in the window view
       if (worldX + GamePanel.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
           worldX - GamePanel.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
           worldY + GamePanel.TILE_SIZE > gp.player.worldY - gp.player.screenY &&

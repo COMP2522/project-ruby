@@ -5,10 +5,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-
 import static org.project.Entity.directions.*;
 
-public class Entity {
+public abstract class Entity {
 
   GamePanel gp;
   public int worldX, worldY;
@@ -19,7 +18,7 @@ public class Entity {
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
   public enum directions {LEFT, RIGHT, UP, DOWN}
   public directions direction;
-
+  
   public int spriteCounter = 0;
   public int spriteNum = 1;
 
@@ -27,14 +26,13 @@ public class Entity {
   public Rectangle solidArea;
   public int solidAreaDefaultX, solidAreaDefaultY;
   
+  
+  public abstract void setAction();
   public Entity(GamePanel gp) {
     this.gp = gp;
   }
 
-  public void setAction() {}
-
   public void update() {
-    setAction();
     collision = false;
     gp.cDetector.checkTile(this);
 
@@ -65,9 +63,6 @@ public class Entity {
 
   public void draw(Graphics2D g2) {
     BufferedImage image = null;
-
-
-
     int screenX = worldX - gp.player.worldX + gp.player.screenX;
     int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
