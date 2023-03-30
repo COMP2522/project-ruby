@@ -34,6 +34,10 @@ public class GamePanel extends JPanel implements Runnable {
   public TileManager tManager = new TileManager(this); // this is actually like the manager of map
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
+
+  //sound
+  Sound sound = new Sound();
+
   public Thread gameThread;
   public Element[] elements = new Element[20];
 
@@ -41,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
   public Entity[] monster = new Entity[10];
   public ArrayList<Entity> projectileList = new ArrayList<>();
   public ElementHandler aHandler = new ElementHandler(this);
-  
+
   /** Constructor for the GamePanel */
   public GamePanel() {
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -56,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     aHandler.setElement();
     aHandler.setNPC();
     aHandler.setMonster();
+    playMusic(0);
   }
   
   /** Updates the player, npc, and monster positions */
@@ -115,7 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
     player.draw(g2);
     g2.dispose();
   }
-  
+
   /** Starts the game thread */
   public void startGameThread() {
     gameThread = new Thread(this);
@@ -145,5 +150,19 @@ public class GamePanel extends JPanel implements Runnable {
         timer = 0;
       }
     }
+  }
+  public void playMusic(int i) {
+    sound.setFile(i);
+    sound.play();
+    sound.loop();
+  }
+
+  public void stopMusic() {
+    sound.stop();
+  }
+
+  public void playSE(int i) {
+    sound.setFile(i);
+    sound.play();
   }
 }
