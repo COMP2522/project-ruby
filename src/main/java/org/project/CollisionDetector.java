@@ -204,4 +204,46 @@ public class CollisionDetector {
     return index;
   }
 
+  public void checkPlayerCollide( Entity entity) {
+
+    //get entity/player's solid area position
+    entity.solidArea.x = entity.worldX + entity.solidArea.x;
+    entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+    //get teh object's solid area position
+    gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+    gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+
+    if (entity.direction == UP) {
+      entity.solidArea.y -= entity.speed;
+      if (entity.solidArea.intersects(gp.player.solidArea)) {
+        System.out.println("up collision");
+        entity.collision = true;
+      }
+    } else if (entity.direction == DOWN) {
+      entity.solidArea.y += entity.speed;
+      if (entity.solidArea.intersects(gp.player.solidArea)) {
+        System.out.println("down collision");
+        entity.collision = true;
+      }
+    } else if (entity.direction == LEFT) {
+      entity.solidArea.x -= entity.speed;
+      if (entity.solidArea.intersects(gp.player.solidArea)) {
+        System.out.println("left collision");
+        entity.collision = true;
+      }
+    } else if (entity.direction == RIGHT) {
+      entity.solidArea.x += entity.speed;
+      if (entity.solidArea.intersects(gp.player.solidArea)) {
+        System.out.println("right collision");
+        entity.collision = true;
+      }
+    }
+    entity.solidArea.x = entity.solidAreaDefaultX;
+    entity.solidArea.y = entity.solidAreaDefaultY;
+
+    gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+    gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+  }
+
 }

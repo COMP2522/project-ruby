@@ -2,6 +2,7 @@ package org.project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Manages every other manager and displays the game on screen
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   public Entity[] npc = new Entity[10];
   public Entity[] monster = new Entity[10];
+  public ArrayList<Entity> projectileList = new ArrayList<>();
   public ElementHandler aHandler = new ElementHandler(this);
   
   /** Constructor for the GamePanel */
@@ -58,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
   
   /** Updates the player, npc, and monster positions */
   public void update(){
+
     player.update(this, this.kHandler);
 
     // NPC

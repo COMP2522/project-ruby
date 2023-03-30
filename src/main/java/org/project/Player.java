@@ -126,6 +126,10 @@ public class Player extends Entity {
       int npcIndex = gp.cDetector.checkEntity(this, gp.npc);
       interactNPC(npcIndex);
 
+      // Checking monster collision
+        int monsterIndex = gp.cDetector.checkEntity(this, gp.monster);
+        interactMonster(monsterIndex);
+
       if (!collision) {
         if (direction == LEFT) {
           worldX -= speed;
@@ -178,6 +182,11 @@ public class Player extends Entity {
   public void interactNPC(int index) {
     if(index != 999) {
       System.out.println("Colliding with NPC!");
+    }
+  }
+  public void interactMonster(int index) {
+    if(index != 999) {
+      System.out.println("Colliding with Monster!");
     }
   }
 }
