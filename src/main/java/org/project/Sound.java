@@ -1,5 +1,7 @@
 package org.project;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -9,7 +11,12 @@ public class Sound {
   URL soundURL[] = new URL[30];
 
   public Sound() {
-    soundURL[0] = getClass().getResource("assets/sound/fire2.wav");
+    try {
+      soundURL[0] = new File("assets/sound/fire2.wav").toURI().toURL();
+    } catch (MalformedURLException e) {
+      throw new RuntimeException(e);
+    }
+    System.out.println(soundURL[0]);
   }
 
   public void setFile(int i) {
@@ -21,7 +28,7 @@ public class Sound {
         System.out.println("error");
       }
     } catch (Exception e) {
-      System.out.println("unable to open file.");
+      System.out.println("unable to open file:  " + e + i);
     }
   }
 
