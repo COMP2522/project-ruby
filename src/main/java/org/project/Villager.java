@@ -30,8 +30,6 @@ public class Villager extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
-        this.worldX = GamePanel.TILE_SIZE * 10;
-        this.worldY = GamePanel.TILE_SIZE * 10;
         direction = directions.DOWN;
         speed = 2;
         getImage();

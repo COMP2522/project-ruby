@@ -30,8 +30,6 @@ public class Monster extends Entity {
     solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
-    this.worldX = GamePanel.TILE_SIZE * 24;
-    this.worldY = GamePanel.TILE_SIZE * 15;
     direction = directions.DOWN;
 
     getImage();
