@@ -122,6 +122,10 @@ public class Player extends Entity {
       int objectIndex = gp.cDetector.checkObject(this,true);
       pickupObject(objectIndex, gp);
 
+      // Checking NPC collision
+      int npcIndex = gp.cDetector.checkEntity(this, gp.npc);
+      interactNPC(npcIndex);
+
       if (!collision) {
         if (direction == LEFT) {
           worldX -= speed;
@@ -134,9 +138,6 @@ public class Player extends Entity {
         }
       }
 
-      // Checking NPC collision
-      int npcIndex = gp.cDetector.checkEntity(this, gp.npc);
-      interactNPC(npcIndex);
       
       spriteCounter++;
       if(spriteCounter > 14) {
