@@ -33,6 +33,7 @@ public abstract class Entity {
   }
 
   public void update() {
+    setAction();
     collision = false;
     gp.cDetector.checkTile(this);
 
