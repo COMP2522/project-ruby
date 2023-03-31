@@ -45,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   //sound
   Sound sound = new Sound();
+  Sound soundEffect = new Sound();
 
   public Thread gameThread;
   public Element[] elements = new Element[20];
@@ -61,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     this.setDoubleBuffered(true);
     this.addKeyListener(kHandler);
     this.setFocusable(true);
+    playSE(5);
   }
   
   /** Instantiates the game upon launch */
@@ -171,7 +173,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void playSE(int i) {
-    sound.setFile(i);
-    sound.play();
+    soundEffect.setFile(i);
+    soundEffect.play();
   }
 }
