@@ -177,18 +177,24 @@ public class Player extends Entity {
         case "Ruby" -> {
           currentRubies++;
           gp.elements[index] = null;
-          System.out.println("Rubies: " + currentRubies);
+          gp.ui.showMessage("You got a ruby");
+//          System.out.println("Rubies: " + currentRubies);
         }
         //this is where the door is removed from the array.
         case "Door" -> {
           if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
             gp.elements[index] = null;
+            gp.ui.showMessage("You opened a door");
             currentRubies--;
+          }
+          else {
+            gp.ui.showMessage("You need a ruby to do this");
           }
         }
         case "Fast" -> {
           speed += 2;
           gp.elements[index] = null;
+          gp.ui.showMessage("Speed mode ON");
         }
       }
     }
