@@ -22,6 +22,12 @@ public class GamePanel extends JPanel implements Runnable {
   public static final int SCREEN_ROW = 12;
   public final int screenWidth = TILE_SIZE * SCREEN_COL;  // 768 pixels wide
   public final int screenHeight = TILE_SIZE * SCREEN_ROW;  // 576 pixels height
+
+  /* Since we want to run the game at 60 fps, i.e. 60 frames per second, we divide 1 second by 60
+   * to determine the interval after which next frame should be drawn.
+   * The interval is actually in nanoseconds, hence why we have 1 billion / 60
+   * (1 Billion nanoseconds OR (10^-9 * 1,000,000,000) / 60) gives the interval in nanoseconds
+   */
   public final double drawInterval = 1000000000.0 / 60;
   
   // WORLD MAP SETTINGS
@@ -34,6 +40,8 @@ public class GamePanel extends JPanel implements Runnable {
   public TileManager tManager = new TileManager(this); // this is actually like the manager of map
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
+
+  public UI ui = new UI(this);
 
   //sound
   Sound sound = new Sound();
@@ -95,21 +103,21 @@ public class GamePanel extends JPanel implements Runnable {
     // DRAW TILES
     tManager.draw(g2);
     
-    // DRAW Elements
+    // Draw Elements - OBJECTs
     for (Element element : elements) {
       if (element != null) {
         element.draw(g2,this);
       }
     }
 
-    //NPC
+    // Draw docile characters - NPCs
     for (Entity entity : npc) {
       if (entity != null) {
         entity.draw(g2);
       }
     }
 
-    // MONSTER
+    // Draw hostile characters - MONSTERs
     for (Entity entity : monster) {
       if (entity != null) {
         entity.draw(g2);
@@ -118,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
     
     // DRAW PLAYER
     player.draw(g2);
+    ui.draw(g2);
     g2.dispose();
   }
 
