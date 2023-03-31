@@ -15,7 +15,7 @@ import static org.project.Entity.directions.*;
  */
 public class Player extends Entity {
   
-  int hasRuby = 0;
+//  int hasRuby = 0;
   public enum status {ALIVE, DEAD}
   public static int LIVES = 3;
   
@@ -51,6 +51,13 @@ public class Player extends Entity {
     getPlayerImage();
   }
 
+  /**
+   * method to get an instance of the player class from the private constructor.
+   * This method ensures only one instance of player can exist at a time.
+   * @param gp the GamePanel used in the game thread
+   * @param kh the keyhandler object handling all key inputs
+   * @return new player object if new instance, else return previously instantiated instance.
+   */
   public static Player getInstance(GamePanel gp, KeyHandler kh) {
     if (instance == null) {
       instance = new Player(gp, kh);
@@ -101,6 +108,14 @@ public class Player extends Entity {
   public int updateRubies(boolean touch) {
     if (touch)
       currentRubies++;
+    return currentRubies;
+  }
+
+  /**
+   * returns the current number of rubies the player possesses.
+   * @return the current number of rubies.
+   */
+  public int getCurrentRubies() {
     return currentRubies;
   }
 
@@ -160,15 +175,15 @@ public class Player extends Entity {
   
       switch (objectName) {
         case "Ruby" -> {
-          hasRuby++;
+          currentRubies++;
           gp.elements[index] = null;
-          System.out.println("Rubies: " + hasRuby);
+          System.out.println("Rubies: " + currentRubies);
         }
         //this is where the door is removed from the array.
         case "Door" -> {
-          if (hasRuby > 1) {
+          if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
             gp.elements[index] = null;
-            hasRuby--;
+            currentRubies--;
           }
         }
         case "Fast" -> {
@@ -179,11 +194,20 @@ public class Player extends Entity {
     }
   }
 
+  /**
+   * method to handle player interaction with NPC- docile characters.
+   * @param index the hit area passed by index******
+   */
   public void interactNPC(int index) {
     if(index != 999) {
       System.out.println("Colliding with NPC!");
     }
   }
+
+  /**
+   * method to handle player interaction with hostile characters.
+   * @param index the hit area passed by index******
+   */
   public void interactMonster(int index) {
     if(index != 999) {
       System.out.println("Colliding with Monster!");
