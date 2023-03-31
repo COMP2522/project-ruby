@@ -25,6 +25,8 @@ public class Player extends Entity {
   private int currentRubies;
   private status currentStatus;
 
+  private Sound running;
+
   private static Player instance = null;
   
   @Override
@@ -35,6 +37,10 @@ public class Player extends Entity {
     super(gp);
     this.gp = gp;
     this.handler = kh;
+
+    //initializing the running sound
+    running = new Sound();
+    running.setFile(6);
     
     this.worldX = GamePanel.TILE_SIZE * 37;
     this.worldY = GamePanel.TILE_SIZE * 9;
@@ -121,8 +127,8 @@ public class Player extends Entity {
 
   public void update(GamePanel gp, KeyHandler kh){
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
+//      running.play();
       updateDirection(kh);
-    
       //checking for collision with the window boundary
       if (worldX < 0) { worldX = 0; }
       if (worldX + 48 >= gp.mapWidth) { worldX = gp.mapWidth - 48; }
@@ -166,6 +172,8 @@ public class Player extends Entity {
         }
         spriteCounter = 0;
       }
+    } else {
+//      running.stop();
     }
   }
 
@@ -175,6 +183,7 @@ public class Player extends Entity {
   
       switch (objectName) {
         case "Ruby" -> {
+          gp.playSE(1);
           currentRubies++;
           gp.elements[index] = null;
           gp.ui.showMessage("You got a ruby");
@@ -183,6 +192,7 @@ public class Player extends Entity {
         //this is where the door is removed from the array.
         case "Door" -> {
           if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
+            gp.playSE(2);
             gp.elements[index] = null;
             gp.ui.showMessage("You opened a door");
             currentRubies--;
@@ -191,11 +201,15 @@ public class Player extends Entity {
             gp.ui.showMessage("You need a ruby to do this");
           }
         }
-        case "Fast" -> {
+        case "PowerUp" -> {
+          gp.playSE(3);
           speed += 2;
           gp.elements[index] = null;
           gp.ui.showMessage("Speed mode ON");
         }
+//        case "Fire" -> {
+//          gp.playSE(4);
+//        }
       }
     }
   }

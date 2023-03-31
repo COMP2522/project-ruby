@@ -7,12 +7,20 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 public class Sound {
-  Clip clip;
-  URL soundURL[] = new URL[30];
+  private Clip clip;
+  private URL soundURL[] = new URL[30];
 
   public Sound() {
     try {
-      soundURL[0] = new File("assets/sound/fire2.wav").toURI().toURL();
+      soundURL[0] = new File("assets/sound/background.wav").toURI().toURL();
+      soundURL[1] = new File("assets/sound/rubycollection.wav").toURI().toURL();
+      soundURL[2] = new File("assets/sound/doorOpening.wav").toURI().toURL();
+      soundURL[3] = new File("assets/sound/powerup.wav").toURI().toURL();
+//      soundURL[4] = new File("assets/sound/fire.wav").toURI().toURL();
+      soundURL[5] = new File("assets/sound/initial.wav").toURI().toURL();
+      soundURL[6] = new File("assets/sound/running.wav").toURI().toURL();
+
+
     } catch (MalformedURLException e) {
       throw new RuntimeException(e);
     }
@@ -37,6 +45,7 @@ public class Sound {
   }
 
   public void loop() {
+    clip.setFramePosition(0);
     clip.loop(Clip.LOOP_CONTINUOUSLY);
   }
 
