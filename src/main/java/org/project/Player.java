@@ -180,4 +180,12 @@ public class Player extends Entity {
       System.out.println("Colliding with NPC!");
     }
   }
+
+   public int getCurrentLives() {
+     return this.currentLives;
+   }
+
+   public int getCurrentRubies() {
+     return this.currentRubies;
+   }
 }

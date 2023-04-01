@@ -1,5 +1,7 @@
 package org.project;
 
+import org.json.simple.JSONObject;
+
 /**
  * Defines a save object which stores the current game state in a file
  *
@@ -7,28 +9,70 @@ package org.project;
  * @version 2023-02-07
  */
 public class SaveState {
-  public enum tile {BG, WA, CH}
-  public enum sprite {BU, BO, RU}
+  JSONObject playerData;
+  JSONObject gamePanelData;
 
-  public tile[][] tileMap;
-  public sprite[][] spriteMap;
-  private int playerX;
-  private int playerY;
-  private int playerRubies;
-
-  public int x() {
-    return playerX;
+  /**
+   * Returns JSON data representing state of Player.
+   * @return a JSONObject
+   */
+  public JSONObject getPlayerData() {
+    return this.playerData;
   }
 
-  public int y() {
-    return playerY;
+  /**
+   * Returns JSON data representing state of GamePanel.
+   * @return a JSONObject
+   */
+  public JSONObject getGamePanelData() {
+    return this.gamePanelData;
   }
 
-  public int rubies() {
-    return playerRubies;
+  /**
+   * Sets SaveState data.
+   * @param player a Player instance
+   * @param gp a GamePanel instance
+   */
+  public void setSaveState(Player player, GamePanel gp) {
+    setPlayerData(player);
+    setGamePanelData(gp);
   }
 
-  public void save() {}
+  /* Helper methods */
+  /**
+   * Helper method to set the player data as a JSONObject.
+   * @param player, current instance of Player
+   */
+  private void setPlayerData(Player player) {
+    if (player == null) {
+      throw new NullPointerException("Player object is null.");
+    }
+    JSONObject playerData = new JSONObject();
+    playerData.put("worldX", player.worldX);
+    playerData.put("worldY", player.worldY);
+    playerData.put("screenX", player.screenX);
+    playerData.put("screenY", player.screenY);
+    playerData.put("speed", player.speed);
+    playerData.put("direction", player.direction.ordinal());
+    playerData.put("spriteCounter", player.spriteCounter);
+    playerData.put("spriteNum", player.spriteNum);
+    playerData.put("lives", player.getCurrentLives());
+    playerData.put("rubies", player.getCurrentRubies());
+    this.playerData = playerData;
+  }
 
-  public void load() {}
+  /**
+   * Helper method to set the Game Panel data as a JSONObject.
+   * @param gp, current instance of GamePanel
+   */
+  private void setGamePanelData(GamePanel gp) {
+    if (gp == null) {
+      throw new NullPointerException("GamePanel object is null.");
+    }
+    JSONObject gamePanelData = new JSONObject();
+    gamePanelData.put("elementArr", gp.elements);
+    gamePanelData.put("npcArr", gp.npc);
+    gamePanelData.put("monsterArr", gp.monster);
+    this.gamePanelData = gamePanelData;
+  }
 }
