@@ -2,6 +2,7 @@ package org.project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Manages every other manager and displays the game on screen
@@ -21,6 +22,12 @@ public class GamePanel extends JPanel implements Runnable {
   public static final int SCREEN_ROW = 12;
   public final int screenWidth = TILE_SIZE * SCREEN_COL;  // 768 pixels wide
   public final int screenHeight = TILE_SIZE * SCREEN_ROW;  // 576 pixels height
+
+  /* Since we want to run the game at 60 fps, i.e. 60 frames per second, we divide 1 second by 60
+   * to determine the interval after which next frame should be drawn.
+   * The interval is actually in nanoseconds, hence why we have 1 billion / 60
+   * (1 Billion nanoseconds OR (10^-9 * 1,000,000,000) / 60) gives the interval in nanoseconds
+   */
   public final double drawInterval = 1000000000.0 / 60;
   
   // WORLD MAP SETTINGS
@@ -33,13 +40,21 @@ public class GamePanel extends JPanel implements Runnable {
   public TileManager tManager = new TileManager(this); // this is actually like the manager of map
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
+
+  public UI ui = new UI(this);
+
+  //sound
+  Sound sound = new Sound();
+  Sound soundEffect = new Sound();
+
   public Thread gameThread;
   public Element[] elements = new Element[20];
 
   public Entity[] npc = new Entity[10];
   public Entity[] monster = new Entity[10];
+  public ArrayList<Entity> projectileList = new ArrayList<>();
   public ElementHandler aHandler = new ElementHandler(this);
-  
+
   /** Constructor for the GamePanel */
   public GamePanel() {
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -47,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     this.setDoubleBuffered(true);
     this.addKeyListener(kHandler);
     this.setFocusable(true);
+    playSE(5);
   }
   
   /** Instantiates the game upon launch */
@@ -54,10 +70,12 @@ public class GamePanel extends JPanel implements Runnable {
     aHandler.setElement();
     aHandler.setNPC();
     aHandler.setMonster();
+    playMusic(0);
   }
   
   /** Updates the player, npc, and monster positions */
   public void update(){
+
     player.update(this, this.kHandler);
 
     // NPC
@@ -87,21 +105,21 @@ public class GamePanel extends JPanel implements Runnable {
     // DRAW TILES
     tManager.draw(g2);
     
-    // DRAW Elements
+    // Draw Elements - OBJECTs
     for (Element element : elements) {
       if (element != null) {
         element.draw(g2,this);
       }
     }
 
-    //NPC
+    // Draw docile characters - NPCs
     for (Entity entity : npc) {
       if (entity != null) {
         entity.draw(g2);
       }
     }
 
-    // MONSTER
+    // Draw hostile characters - MONSTERs
     for (Entity entity : monster) {
       if (entity != null) {
         entity.draw(g2);
@@ -110,9 +128,10 @@ public class GamePanel extends JPanel implements Runnable {
     
     // DRAW PLAYER
     player.draw(g2);
+    ui.draw(g2);
     g2.dispose();
   }
-  
+
   /** Starts the game thread */
   public void startGameThread() {
     gameThread = new Thread(this);
@@ -142,5 +161,19 @@ public class GamePanel extends JPanel implements Runnable {
         timer = 0;
       }
     }
+  }
+  public void playMusic(int i) {
+    sound.setFile(i);
+    sound.play();
+    sound.loop();
+  }
+
+  public void stopMusic() {
+    sound.stop();
+  }
+
+  public void playSE(int i) {
+    soundEffect.setFile(i);
+    soundEffect.play();
   }
 }

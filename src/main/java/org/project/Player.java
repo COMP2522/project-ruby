@@ -15,7 +15,7 @@ import static org.project.Entity.directions.*;
  */
 public class Player extends Entity {
   
-  int hasRuby = 0;
+//  int hasRuby = 0;
   public enum status {ALIVE, DEAD}
   public static int LIVES = 3;
   
@@ -24,6 +24,8 @@ public class Player extends Entity {
   private int currentLives;
   private int currentRubies;
   private status currentStatus;
+
+  private Sound running;
 
   private static Player instance = null;
   
@@ -35,6 +37,10 @@ public class Player extends Entity {
     super(gp);
     this.gp = gp;
     this.handler = kh;
+
+    //initializing the running sound
+    running = new Sound();
+    running.setFile(6);
     
     this.worldX = GamePanel.TILE_SIZE * 37;
     this.worldY = GamePanel.TILE_SIZE * 9;
@@ -51,6 +57,13 @@ public class Player extends Entity {
     getPlayerImage();
   }
 
+  /**
+   * method to get an instance of the player class from the private constructor.
+   * This method ensures only one instance of player can exist at a time.
+   * @param gp the GamePanel used in the game thread
+   * @param kh the keyhandler object handling all key inputs
+   * @return new player object if new instance, else return previously instantiated instance.
+   */
   public static Player getInstance(GamePanel gp, KeyHandler kh) {
     if (instance == null) {
       instance = new Player(gp, kh);
@@ -104,10 +117,18 @@ public class Player extends Entity {
     return currentRubies;
   }
 
+  /**
+   * returns the current number of rubies the player possesses.
+   * @return the current number of rubies.
+   */
+  public int getCurrentRubies() {
+    return currentRubies;
+  }
+
   public void update(GamePanel gp, KeyHandler kh){
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
+//      running.play();
       updateDirection(kh);
-    
       //checking for collision with the window boundary
       if (worldX < 0) { worldX = 0; }
       if (worldX + 48 >= gp.mapWidth) { worldX = gp.mapWidth - 48; }
@@ -123,8 +144,12 @@ public class Player extends Entity {
       pickupObject(objectIndex, gp);
 
       // Checking NPC collision
-      int npcIndex = gp.cDetector.checkEntity(this, gp.npc);
+      int npcIndex = gp.cDetector.checkEntityCollide(this, gp.npc);
       interactNPC(npcIndex);
+
+      // Checking monster collision
+        int monsterIndex = gp.cDetector.checkEntityCollide(this, gp.monster);
+        interactMonster(monsterIndex);
 
       if (!collision) {
         if (direction == LEFT) {
@@ -147,6 +172,8 @@ public class Player extends Entity {
         }
         spriteCounter = 0;
       }
+    } else {
+//      running.stop();
     }
   }
 
@@ -156,28 +183,54 @@ public class Player extends Entity {
   
       switch (objectName) {
         case "Ruby" -> {
-          hasRuby++;
+          gp.playSE(1);
+          currentRubies++;
           gp.elements[index] = null;
-          System.out.println("Rubies: " + hasRuby);
+          gp.ui.showMessage("You got a ruby");
+//          System.out.println("Rubies: " + currentRubies);
         }
         //this is where the door is removed from the array.
         case "Door" -> {
-          if (hasRuby > 1) {
+          if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
+            gp.playSE(2);
             gp.elements[index] = null;
-            hasRuby--;
+            gp.ui.showMessage("You opened a door");
+            currentRubies--;
+          }
+          else {
+            gp.ui.showMessage("You need a ruby to do this");
           }
         }
-        case "Fast" -> {
+        case "PowerUp" -> {
+          gp.playSE(3);
           speed += 2;
           gp.elements[index] = null;
+          gp.ui.showMessage("Speed mode ON");
         }
+//        case "Fire" -> {
+//          gp.playSE(4);
+//        }
       }
     }
   }
 
+  /**
+   * method to handle player interaction with NPC- docile characters.
+   * @param index the hit area passed by index******
+   */
   public void interactNPC(int index) {
     if(index != 999) {
       System.out.println("Colliding with NPC!");
+    }
+  }
+
+  /**
+   * method to handle player interaction with hostile characters.
+   * @param index the hit area passed by index******
+   */
+  public void interactMonster(int index) {
+    if(index != 999) {
+      System.out.println("Colliding with Monster!");
     }
   }
 }

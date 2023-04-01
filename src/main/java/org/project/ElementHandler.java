@@ -80,7 +80,7 @@ public class ElementHandler {
   public void setNPC() {
     gp.npc[0] = new Villager(gp);
     gp.npc[0].worldX = 24 * GamePanel.TILE_SIZE;
-    gp.npc[0].worldY = 15 * GamePanel.TILE_SIZE;
+    gp.npc[0].worldY = 10 * GamePanel.TILE_SIZE;
 
   }
 
