@@ -125,6 +125,10 @@ public class Player extends Entity {
     return currentRubies;
   }
 
+  /**
+   * Returns current lives of Player.
+   * @return currentLives, an int
+   */
   public int getCurrentLives() {
     return this.currentLives;
   }
@@ -237,5 +241,4 @@ public class Player extends Entity {
       System.out.println("Colliding with Monster!");
     }
   }
-
 }

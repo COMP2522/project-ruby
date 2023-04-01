@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 /**
  * Defines a save object which stores the current game state in a file
  *
- * @author Nathan Bartyuk
- * @version 2023-02-07
+ * @author Nathan Bartyuk, Greg Song
+ * @version 2023-03-31
  */
 public class SaveState {
   JSONObject playerData;
