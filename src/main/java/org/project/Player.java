@@ -41,7 +41,7 @@ public class Player extends Entity {
     //initializing the running sound
     running = new Sound();
     running.setFile(6);
-    
+
     this.worldX = GamePanel.TILE_SIZE * 37;
     this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
@@ -123,6 +123,14 @@ public class Player extends Entity {
    */
   public int getCurrentRubies() {
     return currentRubies;
+  }
+
+  /**
+   * Returns current lives of Player.
+   * @return currentLives, an int
+   */
+  public int getCurrentLives() {
+    return this.currentLives;
   }
 
   public void update(GamePanel gp, KeyHandler kh){
