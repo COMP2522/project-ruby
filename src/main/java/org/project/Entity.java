@@ -27,6 +27,23 @@ public abstract class Entity {
   public int actionLockCounter = 0;
   public Rectangle solidArea;
   public int solidAreaDefaultX, solidAreaDefaultY;
+  // Getter and setters for worldX and worldY below.
+  public int getWorldX() {
+    return worldX;
+  }
+
+  public void setWorldX(int worldX) {
+    this.worldX = worldX;
+  }
+
+  public int getWorldY() {
+    return worldY;
+  }
+
+  public void setWorldY(int worldY) {
+    this.worldY = worldY;
+  }
+
 
 //  public Projectile projectile;
 
