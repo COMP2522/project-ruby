@@ -94,13 +94,15 @@ public abstract class Element {
    *
    * @param g2 graphics object used to draw element
    * @param gp game panel on which the element is drawn
+   * @return
    */
-  public void drawIfVisible(Graphics2D g2, GamePanel gp, int screenX, int screenY) {
+  public boolean drawIfVisible(Graphics2D g2, GamePanel gp, int screenX, int screenY) {
     if (((worldX + GamePanel.TILE_SIZE) > (gp.player.worldX - gp.player.screenX)) &&
         ((worldX - GamePanel.TILE_SIZE) < (gp.player.worldX + gp.player.screenX)) &&
         ((worldY + GamePanel.TILE_SIZE) > (gp.player.worldY - gp.player.screenY)) &&
         ((worldY - GamePanel.TILE_SIZE) < (gp.player.worldY + gp.player.screenY))) {
       g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
+    return false;
   }
 }
