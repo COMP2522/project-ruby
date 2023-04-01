@@ -96,11 +96,29 @@ public class UI {
     int y = gp.TILE_SIZE / 3; // y coordinate of the lives display on screen
     int i = 0; // counts the number of heart displayed already on screen respect to max lives
 
+    // DRAW MAX LIFE
     while (i < gp.player.getLives() / 2) { // display half the max lives because each heart is 2 sub-lives
-      g2.drawImage(fullHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+      g2.drawImage(emptyHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
       i++;
       x += gp.TILE_SIZE;
     }
+
+    // RESET after drawing emptyHearts (displaying full life but BLANK)
+    x = gp.TILE_SIZE * 10;
+    y = gp.TILE_SIZE / 3;
+    i = 0;
+
+    // DRAW CURRENT LIFE
+    while(i < gp.player.getLives()) {
+      g2.drawImage(halfHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+      i++;
+      if (i < gp.player.getLives()) {
+        g2.drawImage(fullHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+      }
+      i++;
+      x += gp.TILE_SIZE;
+    }
+
   }
 
 }

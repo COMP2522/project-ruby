@@ -16,7 +16,7 @@ import static org.project.Entity.directions.*;
 public class Player extends Entity {
 
   private enum status {ALIVE, DEAD}
-  private static final int MAXLIVES = 12;
+  private static final int MAXLIVES = 6;
   
   public KeyHandler handler;
 
@@ -49,7 +49,7 @@ public class Player extends Entity {
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
     this.solidArea = new Rectangle(8,16,32,32);
     
-    this.speed = 6;
+    this.speed = 5;
     this.direction = directions.DOWN; // initial direction of the player
     
     this.currentLives = MAXLIVES;
@@ -206,6 +206,7 @@ public class Player extends Entity {
           currentRubies++;
           gp.elements[index] = null;
           gp.ui.showMessage("You got a ruby");
+          currentLives -= 1;
 //          System.out.println("Rubies: " + currentRubies);
         }
         //this is where the door is removed from the array.
