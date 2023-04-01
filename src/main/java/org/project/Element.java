@@ -94,6 +94,7 @@ public abstract class Element {
    *
    * @param g2 graphics object used to draw element
    * @param gp game panel on which the element is drawn
+   * @return
    */
   public void drawIfVisible(Graphics2D g2, GamePanel gp, int screenX, int screenY) {
     if (((worldX + GamePanel.TILE_SIZE) > (gp.player.worldX - gp.player.screenX)) &&
