@@ -207,9 +207,10 @@ public class Player extends Entity {
           gp.elements[index] = null;
           gp.ui.showMessage("Speed mode ON");
         }
-//        case "Fire" -> {
-//          gp.playSE(4);
-//        }
+        case "Fire" -> {
+          gp.playSE(4);
+          gp.ui.showMessage("Fire Hazard!!!");
+        }
       }
     }
   }
@@ -230,7 +231,8 @@ public class Player extends Entity {
    */
   public void interactMonster(int index) {
     if(index != 999) {
-      System.out.println("Colliding with Monster!");
+//      System.out.println("Colliding with Monster!");
+      gp.ui.showMessage("Monster, RUN!");
     }
   }
 }
