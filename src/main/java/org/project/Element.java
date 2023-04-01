@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
  * @version 2023-02-07
  */
-public abstract class Element {
+public abstract class Element implements Positionable {
   //setting instance variables.
   private BufferedImage image;
   private int currentFrame = 0;

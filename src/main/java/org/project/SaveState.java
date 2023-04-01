@@ -1,6 +1,10 @@
 package org.project;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+import java.util.Arrays;
 
 /**
  * Defines a save object which stores the current game state in a file
@@ -29,13 +33,22 @@ public class SaveState {
   }
 
   /**
-   * Sets SaveState data.
+   * Sets SaveState data from Object instances.
    * @param player a Player instance
    * @param gp a GamePanel instance
    */
   public void setSaveState(Player player, GamePanel gp) {
     setPlayerData(player);
     setGamePanelData(gp);
+  }
+
+  /**
+   * Sets SaveState data from JSONObject
+   * @param json
+   */
+  public void setSaveState(JSONObject json) {
+    this.gamePanelData = (JSONObject) json.get("gamePanelData");
+    this.playerData = (JSONObject) json.get("playerData");
   }
 
   /* Helper methods */
@@ -70,9 +83,34 @@ public class SaveState {
       throw new NullPointerException("GamePanel object is null.");
     }
     JSONObject gamePanelData = new JSONObject();
+    JSONArray elementsArr = arrToJSON(gp.elements);
+    JSONArray npcArr = arrToJSON(gp.npc);
+    JSONArray monsterArr = arrToJSON(gp.monster);
+
     gamePanelData.put("elementArr", gp.elements);
     gamePanelData.put("npcArr", gp.npc);
     gamePanelData.put("monsterArr", gp.monster);
     this.gamePanelData = gamePanelData;
+  }
+
+  /**
+   * Creates a JSONArray of Positionable objects consisting of each
+   * Positionable's worldX and worldY.
+   * @param Positionables, a Positionable array
+   * @return a JSONArray of JSONObjects with x and y properties
+   */
+  private JSONArray arrToJSON(Positionable[] Positionables) {
+    JSONArray jsonArr = new JSONArray();
+    Arrays.stream(Positionables)
+        .map(positionable -> {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("x", ((Positionable) positionable).getWorldX());
+            jsonObject.put("y", ((Positionable) positionable).getWorldY());
+            return jsonObject;
+        })
+        .forEach((obj) -> {
+          jsonArr.add(obj);
+        });
+      return jsonArr;
   }
 }
