@@ -59,28 +59,28 @@ public class Villager extends Entity {
 
         actionLockCounter++;
         // Adjust the number within the if statement to control NPC's directional change interval based on frames.
-        if(actionLockCounter == 120) {
+        if (actionLockCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
 
-            if(i <= 25) {
-                direction = directions.UP;
+            switch(i/25) {
+                case 0:
+                    direction = directions.UP;
+                    break;
+                case 1:
+                    direction = directions.DOWN;
+                    break;
+                case 2:
+                    direction = directions.LEFT;
+                    break;
+                case 3:
+                    direction = directions.RIGHT;
+                    break;
             }
-            if (i > 25 && i <= 50) {
-                direction = directions.DOWN;
-            }
-            if(i > 50 && i <= 75) {
-                direction = directions.LEFT;
-            }
-            if(i > 75 && i <= 100) {
-                direction = directions.RIGHT;
-            }
+
             // Reset the counter so when the next direction is selected
             // It will have to await the duration of the interval before changing again.
             actionLockCounter = 0;
         }
     }
-
-
-
 }
