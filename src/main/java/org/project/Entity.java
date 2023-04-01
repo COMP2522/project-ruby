@@ -18,27 +18,33 @@ public abstract class Entity {
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
   public enum directions {LEFT, RIGHT, UP, DOWN}
   public directions direction;
-  
+
+  public boolean alive = true;
+
   public int spriteCounter = 0;
   public int spriteNum = 1;
 
   public int actionLockCounter = 0;
   public Rectangle solidArea;
   public int solidAreaDefaultX, solidAreaDefaultY;
-  
-  
+
+//  public Projectile projectile;
+
+  public int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
+
+
   public abstract void setAction();
   public Entity(GamePanel gp) {
     this.gp = gp;
   }
 
   public void update() {
-    collision = false;
-    gp.cDetector.checkTile(this);
+    setAction();
 
     //checking tile collision
     collision = false;
     gp.cDetector.checkTile(this);
+    gp.cDetector.checkPlayerCollide(this);
     if (!collision) {
       if (direction == LEFT) {
         worldX -= speed;

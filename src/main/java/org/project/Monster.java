@@ -30,8 +30,6 @@ public class Monster extends Entity {
     solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
-    this.worldX = GamePanel.TILE_SIZE * 24;
-    this.worldY = GamePanel.TILE_SIZE * 15;
     direction = directions.DOWN;
 
     getImage();
@@ -60,18 +58,21 @@ public class Monster extends Entity {
       Random random = new Random();
       int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
 
-      if (i <= 25) {
-        direction = directions.UP;
+      switch(i/25) {
+        case 0:
+          direction = directions.UP;
+          break;
+        case 1:
+          direction = directions.DOWN;
+          break;
+        case 2:
+          direction = directions.LEFT;
+          break;
+        case 3:
+          direction = directions.RIGHT;
+          break;
       }
-      if (i > 25 && i <= 50) {
-        direction = directions.DOWN;
-      }
-      if (i > 50 && i <= 75) {
-        direction = directions.LEFT;
-      }
-      if (i > 75 && i <= 100) {
-        direction = directions.RIGHT;
-      }
+
       // Reset the counter so when the next direction is selected
       // It will have to await the duration of the interval before changing again.
       actionLockCounter = 0;
