@@ -152,7 +152,7 @@ public class CollisionDetector {
 
 
   // NPC and for Future use will include Monster
-  public int checkEntity(Entity entity, Entity[] target) {
+  public int checkEntityCollide(Entity entity, Entity[] target) {
 
     int index = 999;
     for (int i = 0; i < target.length; i++) {
