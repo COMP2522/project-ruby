@@ -21,4 +21,22 @@ public class ElementHandlerTest {
     Assertions.assertEquals(17 * GamePanel.TILE_SIZE, gp.elements[0].getWorldX());
     Assertions.assertEquals(38 * GamePanel.TILE_SIZE, gp.elements[0].getWorldY());
   }
+
+  @Test
+  public void testSetNPC() {
+    elementHandler.setNPC();
+    Assertions.assertTrue(gp.npc[0] instanceof Villager);
+    Assertions.assertEquals(24 * GamePanel.TILE_SIZE, gp.npc[0].getWorldX());
+    Assertions.assertEquals(10 * GamePanel.TILE_SIZE, gp.npc[0].getWorldY());
+  }
+
+  @Test
+  public void testSetMonster() {
+    elementHandler.setMonster();
+    Assertions.assertTrue(gp.monster[0] instanceof Monster);
+    Assertions.assertEquals(24 * GamePanel.TILE_SIZE, gp.monster[0].getWorldX());
+    Assertions.assertEquals(15 * GamePanel.TILE_SIZE, gp.monster[0].getWorldY());
+  }
+  // Add more tests here for the BOSS if required.
+
 }
