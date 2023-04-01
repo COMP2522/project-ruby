@@ -17,7 +17,9 @@ public class UI {
   // Arial font with 40 size
   private Font arial_40;
 
+  // declaring all image components below
   BufferedImage keyImage;
+  BufferedImage fullHeart, halfHeart, emptyHeart;
 
   private boolean displayMessage = false;
 
@@ -36,8 +38,16 @@ public class UI {
     this.gp = gp;
     // initialize Window's font to Arial type and 40 size
     this.arial_40 = new Font("Arial", Font.PLAIN, 40);
+    // Creating HUD Objects
     Ruby key = new Ruby();
+    Life life = new Life();
+
+    // Set all imageVariables to respective PNGs
     this.keyImage = key.getImage();
+    this.fullHeart = life.getImage();
+    this.halfHeart = life.halfLife;
+    this.emptyHeart = life.emptyLife;
+
   }
 
   /**
@@ -60,6 +70,8 @@ public class UI {
     // 50, 50 are the (x, y) coordinates of the box displaying number of rubies
     g2.drawString("x " + gp.player.getCurrentRubies(), 74, 65);
 
+    drawPlayerLife(g2);
+
     // popping message on window
     if (displayMessage) {
       g2.setFont(g2.getFont().deriveFont(30F));
@@ -74,6 +86,21 @@ public class UI {
         displayMessage = false;
       }
     }
-
   }
+
+  /**
+   * used to draw the heart images, showing the status of current amount of lives.
+   */
+  public void drawPlayerLife(Graphics2D g2) {
+    int x = gp.TILE_SIZE * 10; // x coordinate of the lives display on screen
+    int y = gp.TILE_SIZE / 3; // y coordinate of the lives display on screen
+    int i = 0; // counts the number of heart displayed already on screen respect to max lives
+
+    while (i < gp.player.getLives() / 2) { // display half the max lives because each heart is 2 sub-lives
+      g2.drawImage(fullHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+      i++;
+      x += gp.TILE_SIZE;
+    }
+  }
+
 }

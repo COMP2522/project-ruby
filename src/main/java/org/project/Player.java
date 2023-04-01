@@ -14,12 +14,13 @@ import static org.project.Entity.directions.*;
  * @version 2023-02-07
  */
 public class Player extends Entity {
-  
-//  int hasRuby = 0;
-  public enum status {ALIVE, DEAD}
-  public static int LIVES = 3;
+
+  private enum status {ALIVE, DEAD}
+  private static final int MAXLIVES = 12;
   
   public KeyHandler handler;
+
+  private int maxLife;
   
   private int currentLives;
   private int currentRubies;
@@ -49,9 +50,9 @@ public class Player extends Entity {
     this.solidArea = new Rectangle(8,16,32,32);
     
     this.speed = 6;
-    this.direction = directions.DOWN;
+    this.direction = directions.DOWN; // initial direction of the player
     
-    this.currentLives = LIVES;
+    this.currentLives = MAXLIVES;
     this.currentRubies = 0;
     this.currentStatus = status.ALIVE;
     getPlayerImage();
@@ -111,11 +112,19 @@ public class Player extends Entity {
     return currentLives;
   }
 
-  public int updateRubies(boolean touch) {
-    if (touch)
-      currentRubies++;
-    return currentRubies;
+  /**
+   * returns the current number of lives player has.
+   * @return currentLives
+   */
+  public int getLives() {
+    return currentLives;
   }
+
+//  public int updateRubies(boolean touch) {
+//    if (touch)
+//      currentRubies++;
+//    return currentRubies;
+//  }
 
   /**
    * returns the current number of rubies the player possesses.
@@ -125,6 +134,11 @@ public class Player extends Entity {
     return currentRubies;
   }
 
+  /**
+   * method to update the player state in the game based on direction and collision status
+   * @param gp the gamepanel player is being displayed in
+   * @param kh the keyhandler passing in keyinputs and updating direction (attached to gamepanel object)
+   */
   public void update(GamePanel gp, KeyHandler kh){
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
 //      running.play();
@@ -177,6 +191,11 @@ public class Player extends Entity {
     }
   }
 
+  /**
+   * method to show interaction between player and object
+   * @param index
+   * @param gp
+   */
   public void pickupObject(int index, GamePanel gp){
     if(index != 999) {
       String objectName = gp.elements[index].getName();
