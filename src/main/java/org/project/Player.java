@@ -21,7 +21,7 @@ public class Player extends Entity {
   public KeyHandler handler;
 
   private int maxLife;
-  
+
   private int currentLives;
   private int currentRubies;
   private status currentStatus;
@@ -42,7 +42,7 @@ public class Player extends Entity {
     //initializing the running sound
     running = new Sound();
     running.setFile(6);
-    
+
     this.worldX = GamePanel.TILE_SIZE * 37;
     this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
@@ -135,10 +135,13 @@ public class Player extends Entity {
   }
 
   /**
-   * method to update the player state in the game based on direction and collision status
-   * @param gp the gamepanel player is being displayed in
-   * @param kh the keyhandler passing in keyinputs and updating direction (attached to gamepanel object)
+   * Returns current lives of Player.
+   * @return currentLives, an int
    */
+  public int getCurrentLives() {
+    return this.currentLives;
+  }
+
   public void update(GamePanel gp, KeyHandler kh){
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
 //      running.play();
