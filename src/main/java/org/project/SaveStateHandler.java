@@ -49,20 +49,4 @@ public class SaveStateHandler {
     SaveState saveState = new SaveState();
     saveState.setSaveState(jsonSave);
   }
-
-  public static void main(String[] args) throws IOException {
-    GamePanel gp = new GamePanel();
-    KeyHandler kh = new KeyHandler();
-    Player player = Player.getInstance(gp, kh);
-    gp.setUpGame();
-
-    SaveState saveState = new SaveState();
-    saveState.setSaveState(gp);
-
-    SaveStateHandler ssh = new SaveStateHandler();
-
-    ssh.save(saveState);
-    System.out.println("File saved");
-  }
-
 }
