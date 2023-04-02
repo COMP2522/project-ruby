@@ -96,12 +96,14 @@ public abstract class Entity implements Positionable {
     }
     
     spriteCounter++;
-    if (spriteCounter > spriteLimit && spriteNum == 1) {
-      spriteNum = 2;
-    } else if (spriteCounter > spriteLimit && spriteNum == 2) {
-      spriteNum = 1;
+    if(spriteCounter > 14) {
+      if (spriteNum == 1) {
+        spriteNum = 2;
+      } else if (spriteNum == 2) {
+        spriteNum = 1;
+      }
+      spriteCounter = 0;
     }
-    spriteCounter = 0;
   }
 
   public void draw(Graphics2D g2) {
