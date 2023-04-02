@@ -3,7 +3,6 @@ package org.project;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,7 +52,7 @@ public class ElementTest {
   @Test
   public void testGetSolidArea() {
     Element element = new ConcreteElement();
-    assertEquals(new Rectangle(0, 0, 48, 48), element.getSolidArea());
+    assertEquals(new Rectangle(0, 0, 48, 48), element.getHitbox());
   }
 
   // Concrete subclass of Element for testing

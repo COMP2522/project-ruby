@@ -12,10 +12,10 @@ import java.awt.image.BufferedImage;
 public class UI {
 
   // JPanel attached to the game window
-  private GamePanel gp;
+  private static GamePanel gp;
 
   // Arial font with 40 size
-  private Font arial_40;
+  private static Font font;
 
   // declaring all image components below
   BufferedImage keyImage;
@@ -35,9 +35,9 @@ public class UI {
    * @param gp the panel attached to game window in which stats are drawn.
    */
   public UI(GamePanel gp) {
-    this.gp = gp;
+    UI.gp = gp;
     // initialize Window's font to Arial type and 40 size
-    this.arial_40 = new Font("Arial", Font.PLAIN, 40);
+    UI.font = new Font("Arial", Font.PLAIN, 40);
     // Creating HUD Objects
     Ruby key = new Ruby();
     Life life = new Life();
@@ -64,7 +64,7 @@ public class UI {
    * @param g2 the panel attached to game window.
    */
   public void draw(Graphics2D g2) {
-    g2.setFont(arial_40);
+    g2.setFont(font);
     g2.setColor(Color.white);
     g2.drawImage(keyImage, gp.TILE_SIZE / 2, gp.TILE_SIZE/2, gp.TILE_SIZE, gp.TILE_SIZE, null);
     // 50, 50 are the (x, y) coordinates of the box displaying number of rubies
@@ -92,31 +92,30 @@ public class UI {
    * used to draw the heart images, showing the status of current amount of lives.
    */
   public void drawPlayerLife(Graphics2D g2) {
-    int x = gp.TILE_SIZE * 10; // x coordinate of the lives display on screen
-    int y = gp.TILE_SIZE / 3; // y coordinate of the lives display on screen
+    int x = GamePanel.TILE_SIZE * 10; // x coordinate of the lives display on screen
+    int y = GamePanel.TILE_SIZE / 3; // y coordinate of the lives display on screen
     int i = 0; // counts the number of heart displayed already on screen respect to max lives
 
     // DRAW MAX LIFE
     while (i < gp.player.getLives() / 2) { // display half the max lives because each heart is 2 sub-lives
-      g2.drawImage(emptyHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+      g2.drawImage(emptyHeart, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
       i++;
-      x += gp.TILE_SIZE;
+      x += GamePanel.TILE_SIZE;
     }
 
     // RESET after drawing emptyHearts (displaying full life but BLANK)
-    x = gp.TILE_SIZE * 10;
-    y = gp.TILE_SIZE / 3;
+    x = GamePanel.TILE_SIZE * 10;
     i = 0;
 
     // DRAW CURRENT LIFE
     while(i < gp.player.getLives()) {
-      g2.drawImage(halfHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+      g2.drawImage(halfHeart, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
       i++;
       if (i < gp.player.getLives()) {
-        g2.drawImage(fullHeart, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
+        g2.drawImage(fullHeart, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
       }
       i++;
-      x += gp.TILE_SIZE;
+      x += GamePanel.TILE_SIZE;
     }
 
   }

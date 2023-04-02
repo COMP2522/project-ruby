@@ -16,7 +16,7 @@ public class VillagerTest {
   @BeforeEach
   public void setUp() {
     testGamePanel = new GamePanel();
-    testVillager = new Villager(testGamePanel);
+    testVillager = new Villager(testGamePanel,10,10);
   }
 
   @Test
@@ -56,7 +56,7 @@ public class VillagerTest {
   @Test
   public void testSolidArea() {
     // Check the box !
-    Rectangle solidArea = testVillager.solidArea;
+    Rectangle solidArea = testVillager.hitbox;
     assertEquals(8, solidArea.x);
     assertEquals(8, solidArea.y);
     assertEquals(32, solidArea.width);
