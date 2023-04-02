@@ -41,7 +41,7 @@ public class Player extends Entity {
 
     //initializing the running sound
     running = new Sound();
-    running.setFile(6);
+    running.setFile(4);
 
     this.worldX = GamePanel.TILE_SIZE * 37;
     this.worldY = GamePanel.TILE_SIZE * 9;
@@ -231,7 +231,6 @@ public class Player extends Entity {
           gp.ui.showMessage("Speed mode ON");
         }
         case "Fire" -> {
-          gp.playSE(4);
           gp.ui.showMessage("Fire Hazard!!!");
         }
       }
