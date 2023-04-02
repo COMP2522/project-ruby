@@ -34,11 +34,10 @@ public class SaveState {
 
   /**
    * Sets SaveState data from Object instances.
-   * @param player a Player instance
    * @param gp a GamePanel instance
    */
-  public void setSaveState(Player player, GamePanel gp) {
-    setPlayerData(player);
+  public void setSaveState(GamePanel gp) {
+    setPlayerData(gp.player);
     setGamePanelData(gp);
   }
 
@@ -92,21 +91,24 @@ public class SaveState {
   /**
    * Creates a JSONArray of Positionable objects consisting of each
    * Positionable's worldX and worldY.
-   * @param Positionables, a Positionable array
+   * @param positionables, a Positionable array
    * @return a JSONArray of JSONObjects with x and y properties
    */
-  private JSONArray arrToJSON(Positionable[] Positionables) {
+  private JSONArray arrToJSON(Positionable[] positionables) {
     JSONArray jsonArr = new JSONArray();
-    Arrays.stream(Positionables)
+    Arrays.stream(positionables)
+        .filter(n -> n != null)
         .map(positionable -> {
+          if (positionable != null) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("x", ((Positionable) positionable).getWorldX());
             jsonObject.put("y", ((Positionable) positionable).getWorldY());
             return jsonObject;
+          } else {
+            return null;
+          }
         })
-        .forEach((obj) -> {
-          jsonArr.add(obj);
-        });
+        .forEach(jsonArr::add);
       return jsonArr;
   }
 }

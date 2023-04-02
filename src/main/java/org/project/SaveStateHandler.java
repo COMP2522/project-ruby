@@ -57,7 +57,7 @@ public class SaveStateHandler {
     gp.setUpGame();
 
     SaveState saveState = new SaveState();
-    saveState.setSaveState(player, gp);
+    saveState.setSaveState(gp);
 
     SaveStateHandler ssh = new SaveStateHandler();
 
