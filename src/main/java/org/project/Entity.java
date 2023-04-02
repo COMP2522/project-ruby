@@ -64,6 +64,13 @@ public abstract class Entity {
     collision = false;
     gp.cDetector.checkTile(this);
     gp.cDetector.checkPlayerCollide(this);
+    boolean contactPlayer = gp.cDetector.checkPlayerCollide(this);
+    if (this.type == 2 && contactPlayer == true) {
+      if (gp.player.invincible == false){
+        gp.player.currentLives -= 1;
+        gp.player.invincible = true;
+      }
+    }
     if (!collision) {
       if (direction == LEFT) {
         worldX -= speed;

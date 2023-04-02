@@ -22,7 +22,7 @@ public class Player extends Entity {
 
   private int maxLife;
 
-  private int currentLives;
+  public int currentLives;
   private int currentRubies;
   private status currentStatus;
 
@@ -165,8 +165,8 @@ public class Player extends Entity {
       interactNPC(npcIndex);
 
       // Checking monster collision
-        int monsterIndex = gp.cDetector.checkEntityCollide(this, gp.monster);
-        interactMonster(monsterIndex);
+      int monsterIndex = gp.cDetector.checkEntityCollide(this, gp.monster);
+      interactMonster(monsterIndex);
 
       if (!collision) {
         if (direction == LEFT) {
