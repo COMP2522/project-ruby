@@ -191,6 +191,13 @@ public class Player extends Entity {
       }
     } else {
 //      running.stop();
+      if (invincible == true) {
+        invincibleCounter ++;
+        if (invincibleCounter > 60) {
+          invincible = false;
+          invincibleCounter = 0;
+        }
+      }
     }
   }
 
@@ -254,7 +261,10 @@ public class Player extends Entity {
    */
   public void interactMonster(int index) {
     if(index != 999) {
-//      System.out.println("Colliding with Monster!");
+      if (invincible == false) {
+        currentLives -= 1;
+        invincible = true;
+      }
       gp.ui.showMessage("Monster, RUN!");
     }
   }

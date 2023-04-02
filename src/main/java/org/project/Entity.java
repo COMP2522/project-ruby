@@ -13,6 +13,8 @@ public abstract class Entity {
   public int worldX, worldY;
   public int screenX, screenY;
   public boolean collision = false;
+  public boolean invincible = false;
+  public int invincibleCounter = 0;
   public int speed;
 
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
