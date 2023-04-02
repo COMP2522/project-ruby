@@ -1,189 +1,242 @@
 package org.project;
 
-import org.intellij.lang.annotations.Flow;
-import org.jetbrains.annotations.NotNull;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
+/**
+ * MenuHandler provides menu interface to user. On interaction requests
+ * save data, and loads GamePanel.
+ */
+public class Menu {
+  private static final Dimension PANELSIZE = new Dimension(768, 576);
+  private static final Dimension BUTTONSIZE = new Dimension(300,120);
+  private static final Dimension LABELSIZE = new Dimension(300, 50);
+  private static final Dimension TEXTFIELDSIZE = new Dimension(300, 200);
+  private static final Dimension BUTTONPANELSIZE = new Dimension(600,576);
+  private static final Dimension TITLESIZE = new Dimension(700, 150);
+  private static final String TITLEIMG = "assets/menu/title.png";
 
-public class Menu implements ActionListener {
+  SaveStateHandler saveStateHandler;
+  GamePanel gamePanel;
 
-  /* Menu Settings */
-  public final KeyHandler handler = new KeyHandler();
-
-  /* Screen Settings */
-  public static final int screenWidth = 768;
-  public static final int screenHeight = 576;
-
-
-  private CardLayout cardLayout;
-  private JPanel cardPanel;
-  private ImagePanel backgroundPanel;
-//  private ImagePanel backgroundImage;
-//  private ImagePanel = new ImagePanel(new ImageIcon("assets/mapData/tiles/bush.png").getImage());
-
-
-  /**
-   * Constructs Menu
-   */
   public Menu() {
-    // init
-//    this.cardLayout = new CardLayout();
-    this.cardPanel = new JPanel(new CardLayout());
-    // sets CardPanel's layout
-//    this.cardPanel.setLayout(cardLayout);
-
-    // settings
-    this.cardPanel.setPreferredSize(new Dimension(screenWidth, screenHeight));
-    this.cardPanel.setDoubleBuffered(true);
-    this.cardPanel.addKeyListener(handler); // maybe take out
-//    this.cardPanel.setBackground(Color.BLUE);
-
-
-    ImagePanel backgroundPanel = new ImagePanel(new ImageIcon("assets/mapData/tiles/water.png").getImage());
-    backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
-
-    JButton newGameButton = new JButton("New Game");
-    newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    newGameButton.setPreferredSize(new Dimension(300, 100));
-
-    JButton loadGameButton = new JButton("Load Game");
-    loadGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    loadGameButton.setPreferredSize(new Dimension(300, 100));
-
-    backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
-    backgroundPanel.add(newGameButton);
-    backgroundPanel.add(loadGameButton);
-
-    backgroundPanel.add(Box.createVerticalGlue()); // add some vertical space at the top
-    backgroundPanel.add(newGameButton);
-    backgroundPanel.add(Box.createRigidArea(new Dimension(0, 50))); // add some vertical space between the buttons
-    backgroundPanel.add(loadGameButton);
-    backgroundPanel.add(Box.createVerticalGlue()); // add some vertical space at the bottom
-//
-
-
-    this.cardPanel.add(backgroundPanel);
-//      this.cardPanel.add(createMainMenu());
-
+    this.saveStateHandler = new SaveStateHandler();
   }
 
   /**
-   * Creates Main menu
-   * @return JPanel, to be added as card in cardPanel
+   * Creates JPanel with background image and adds param JComponents.
+   * @param components JComponents, JButton, JLabel, JTextField
+   * @return a JPanel, to be added to MenuPanel
    */
-  private @NotNull JPanel createMainMenu() {
-    JPanel mainMenu = new JPanel();
-    // TODO: take out background color -- just for testing
-    mainMenu.setBackground(Color.BLUE);
+  private JPanel createPanel(JComponent... components) {
+    JPanel backgroundPanel = new ImagePanel();
 
-//    ImageIcon img = new ImageIcon(this.getClass().getResource("assets/mapData/tiles/water.png"));
-//    JLabel label= new JLabel(img);
-//    label.setSize(768, 576);
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setPreferredSize(BUTTONPANELSIZE);
+    buttonPanel.setLayout(new FlowLayout());
+    buttonPanel.setOpaque(false);
 
+    // add title Label
+    JLabel title = new JLabel();
+    ImageIcon imageIcon = new ImageIcon(TITLEIMG);
+    title.setIcon(imageIcon);
+    title.setHorizontalAlignment(SwingConstants.CENTER);
+    title.setPreferredSize(TITLESIZE);
+    title.setOpaque(false);
+    buttonPanel.add(title);
 
+    // add components
+    for (JComponent component : components) {
+      buttonPanel.add(component);
+    }
+    backgroundPanel.add(buttonPanel, BorderLayout.CENTER);
 
-    JPanel panel = new JPanel();
-    panel.setOpaque(false);
-    JButton newGameButton = new JButton("New Game");
-    newGameButton.setPreferredSize(new Dimension(200, 100));
-
-    JButton loadGameButton = new JButton("Load Game");
-    loadGameButton.setPreferredSize(new Dimension(200, 100));
-    // test
-    panel.add(newGameButton);
-    panel.add(loadGameButton);
-
-//    backgroundPanel.add(newGameButton);
-//    backgroundPanel.add(loadGameButton);
-
-//    mainMenu.setLayout(new BorderLayout());
-
-
-
-//    mainMenu.add(newGameButton);
-//    mainMenu.add(loadGameButton);
-//    JPanel buttonPanel = new JPanel();
-//    buttonPanel.setOpaque(false); // make it transparent
-//    buttonPanel.add(new JButton("New Game"));
-//    buttonPanel.add(new JButton("Load Game"));
-//
-//    mainMenu.add(buttonPanel, BorderLayout.PAGE_END);
-
-//    JPanel mainMenu = new JPanel(new BorderLayout());
-//    ImagePanel backgroundImage = new ImagePanel(new ImageIcon("assets/mapData/tiles/bush.png").getImage());
-//    mainMenu.add(backgroundImage, BorderLayout.CENTER);
-//
-//    JButton newGameButton = new JButton("New Game");
-//    newGameButton.setPreferredSize(new Dimension(200, 100));
-//    mainMenu.add(newGameButton, BorderLayout.CENTER);
-//
-//    JButton loadGameButton = new JButton("Load Game");
-//    loadGameButton.setPreferredSize(new Dimension(200, 100));
-//    mainMenu.add(loadGameButton, BorderLayout.CENTER);
-//    mainMenu.paintComponents();
-
-//    JPanel container = new JPanel();
-//    OverlayLayout overlayLayout = new OverlayLayout(container);
-//    container.setLayout(overlayLayout);
-//
-//    JPanel panel1 = new JPanel();
-//    panel1.setPreferredSize(new Dimension(200, 200));
-//    panel1.setBackground(Color.BLUE);
-//
-//    JPanel panel2 = new JPanel();
-//    panel2.setPreferredSize(new Dimension(150, 150));
-//    panel2.setBackground(Color.RED);
-//
-//    container.add(panel1);
-//    container.add(panel2);
-
-//    return mainMenu;
-//    return backgroundPanel;
-      return panel;
+    return backgroundPanel;
   }
 
-
-
-  public JPanel getCardPanel() {
-    return this.cardPanel;
+  /**
+   * Creates Username Label.
+   */
+  private JLabel createUserLabel() {
+    JLabel label = new JLabel("Username:");
+    label.setPreferredSize(LABELSIZE);
+    label.setForeground(Color.ORANGE);
+    Font font = label.getFont();
+    label.setFont(new Font(font.getName(), font.getStyle(),30));
+    return label;
   }
 
-  public void show(String cardType) {
-    this.cardLayout.show(cardPanel, cardType);
+  /**
+   * Creates standard JTextField for this menu.
+   */
+  private JTextField createTextField() {
+    JTextField textField = new JTextField(18);
+    Font font = new Font("Serif", Font.BOLD, 18);
+    textField.setFont(font);
+    return textField;
   }
 
+  /**
+   * Creates standard menu JButton.
+   * @return JButton
+   */
+  private JButton createButton(String text) {
+    JButton button = new JButton(text);
+    button.setPreferredSize(BUTTONSIZE);
+    return button;
+  }
+
+  /**
+   * Starts MenuHandler.
+   */
+  public void startMenu() {
+    JFrame frame = new JFrame("Ruby Rush");
+    JPanel menu = createMenu();
+    frame.add(menu);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(500, 500);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+  }
+
+  /**
+   * Creates New Game Panel.
+   * @param mainPanel, JPanel this should be added to
+   * @return NewGamePanel, a JPanel
+   */
+  private JPanel createNewGameCard(JPanel mainPanel) {
+    JButton newSubmitButton = createButton("Submit");
+    JButton newBackButton = createButton("Back");
+    JLabel userLabel = createUserLabel();
+    JTextField newTextInput = createTextField();
+
+    // onclick submit
+    newSubmitButton.addActionListener(e -> {
+      // take uid
+      String input = newTextInput.getText();
+      if (input.length() > 30){
+        input = input.substring(0, 30);
+      }
+      System.out.println(input);
+      // TODO: save uid, run GamePanel
+      // call savestateHandler/client and store uid
+      // start GamePanel
+
+    });
+
+    // onclick back
+    newBackButton.addActionListener(e -> {
+      CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+      cardLayout.show(mainPanel, "menu");
+    });
+
+    // on enter keypress
+    newTextInput.addActionListener(e -> {
+      String input = newTextInput.getText().trim();
+      if (input.length() > 30) {
+        input = input.substring(0, 30);
+      }
+      // TODO: save uid, run GamePanel
+      System.out.println("Input: " + input);
+    });
+
+    return createPanel(userLabel, newTextInput, newSubmitButton, newBackButton);
+  }
+
+  /**
+   * Creates New Game Panel.
+   * @param mainPanel, JPanel this should be added to
+   * @return NewGamePanel, a JPanel
+   */
+  private JPanel createLoadGameCard(JPanel mainPanel) {
+    JButton loadSubmitButton = createButton("Submit");
+    JButton loadBackButton = createButton("Back");
+    JTextField loadTextInput = createTextField();
+    JLabel userLabel = createUserLabel();
+
+    loadSubmitButton.addActionListener(e -> {
+      // take uid
+      String input = loadTextInput.getText();
+      if (input.length() > 30) {
+        input = input.substring(0, 30);
+      }
+      // FIXME: testing
+      System.out.println(input);
+      // TODO: take uid, run Client, send Get Request, load, run GamePanel
+      // call savestatehandler/client send request for doc
+      // wait, load into GamePanel
+      // start GamePanel
+    });
+
+    loadBackButton.addActionListener(e -> {
+      CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+      cardLayout.show(mainPanel, "menu");
+    });
+
+    loadTextInput.addActionListener(e -> {
+      String input = loadTextInput.getText().trim();
+      if (input.length() > 30) {
+        input = input.substring(0, 30);
+      }
+      // TODO: take uid, get request from Client, load savestate, run GamePanel
+      System.out.println("Input: " + input);
+    });
+
+    return createPanel(userLabel, loadTextInput, loadSubmitButton, loadBackButton);
+  }
+
+  /**
+   * Creates Main menu Panel.
+   * @param mainPanel, JPanel this should be added to
+   * @return Main Menu Panel, a JPanel
+   */
+  private JPanel createMenuCard(JPanel mainPanel) {
+    JButton newGameButton = createButton("New Game");
+    JButton loadGameButton = createButton("Load Game");
+    CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+
+    newGameButton.addActionListener(e -> {
+      cardLayout.show(mainPanel, "new");
+    });
+    loadGameButton.addActionListener(e -> {
+      cardLayout.show(mainPanel, "load");
+    });
+
+    return createPanel(newGameButton, loadGameButton);
+  }
+
+  /**
+   * Creates Menu JPanel.
+   * @return a JPanel with menu interface
+   */
+  public JPanel createMenu(){
+    JPanel mainPanel = new JPanel(new CardLayout());
+    mainPanel.setPreferredSize(PANELSIZE);
+
+    CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+
+    JPanel newGamePanel = createNewGameCard(mainPanel);
+    JPanel loadGamePanel = createLoadGameCard(mainPanel);
+    JPanel menuPanel = createMenuCard(mainPanel);
+
+    mainPanel.add(menuPanel, "menu");
+    mainPanel.add(newGamePanel, "new");
+    mainPanel.add(loadGamePanel, "load");
+
+    cardLayout.show(mainPanel, "background");
+    return mainPanel;
+  }
+
+    // TODO: for testing, take out and implement in Main
   public static void main(String[] args) {
-    JFrame window = new JFrame();
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    window.setResizable(false);
-    window.setTitle("Ruby Rush");
-
-    ImagePanel imagePanel = new ImagePanel(new ImageIcon("assets/mapData/tiles/bush.png").getImage());
-    window.getContentPane().add(imagePanel);
-
-    Menu menu = new Menu();
-    window.add(menu.getCardPanel());
-
-    window.pack();
-
-    window.setLocationRelativeTo(null);
-    window.setVisible(true);
-
-
+    JFrame frame = new JFrame();
+    Menu menuhandler = new Menu();
+    JPanel mainPanel = menuhandler.createMenu();
+    frame.add(mainPanel);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(PANELSIZE);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
   }
 
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.println(e);
-  }
 }
