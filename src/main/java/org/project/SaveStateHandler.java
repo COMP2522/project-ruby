@@ -5,6 +5,9 @@ import org.json.simple.JSONValue;
 
 import java.io.*;
 
+/**
+ * SaveStateHandler manages reading and writing SaveState. Files saved in JSON format.
+ */
 public class SaveStateHandler {
   private String dirPath = "save/";
   private String fileName = "save_2.json";
@@ -29,6 +32,11 @@ public class SaveStateHandler {
     }
   }
 
+  /**
+   * Loads save data JSON file from directory.
+   * @param fileName a String, name of the file
+   * @throws FileNotFoundException
+   */
   public void load(String fileName) throws FileNotFoundException {
     File saveFile = new File(fileName);
     JSONObject jsonSave;
@@ -46,6 +54,7 @@ public class SaveStateHandler {
     GamePanel gp = new GamePanel();
     KeyHandler kh = new KeyHandler();
     Player player = Player.getInstance(gp, kh);
+    gp.setUpGame();
 
     SaveState saveState = new SaveState();
     saveState.setSaveState(player, gp);

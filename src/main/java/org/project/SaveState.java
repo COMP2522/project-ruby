@@ -83,13 +83,9 @@ public class SaveState {
       throw new NullPointerException("GamePanel object is null.");
     }
     JSONObject gamePanelData = new JSONObject();
-    JSONArray elementsArr = arrToJSON(gp.elements);
-    JSONArray npcArr = arrToJSON(gp.npc);
-    JSONArray monsterArr = arrToJSON(gp.monster);
-
-    gamePanelData.put("elementArr", gp.elements);
-    gamePanelData.put("npcArr", gp.npc);
-    gamePanelData.put("monsterArr", gp.monster);
+    gamePanelData.put("elementArr", arrToJSON(gp.elements));
+    gamePanelData.put("npcArr", arrToJSON(gp.npc));
+    gamePanelData.put("monsterArr", arrToJSON(gp.monster));
     this.gamePanelData = gamePanelData;
   }
 
