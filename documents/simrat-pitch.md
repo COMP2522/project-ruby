@@ -1,5 +1,6 @@
-As a member of the team, I will be responsible for managing the Tile abstract class that extends Background, 
-Wall, and Checkpoint classes. Additionally, I will be handling the implementation of the collidable interface.
+As a member of the team, my responsibilities include managing the Element class, which is the super class for Fire,
+Ruby, PowerUp, and Door elements in the game. I will also be responsible for implementing the CollisionDetector 
+class specifically for the parts where the player collides with the elements.
 My primary focus will be on developing the necessary functionality for these classes, with the expectation that
 these sections will be completed by the end of the semester.
 
