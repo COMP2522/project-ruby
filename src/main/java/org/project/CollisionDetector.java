@@ -204,7 +204,9 @@ public class CollisionDetector {
     return index;
   }
 
-  public void checkPlayerCollide( Entity entity) {
+  public boolean checkPlayerCollide( Entity entity) {
+
+    boolean contactPlayer = false;
 
     //get entity/player's solid area position
     entity.solidArea.x = entity.worldX + entity.solidArea.x;
@@ -219,24 +221,28 @@ public class CollisionDetector {
       if (entity.solidArea.intersects(gp.player.solidArea)) {
         System.out.println("up collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     } else if (entity.direction == DOWN) {
       entity.solidArea.y += entity.speed;
       if (entity.solidArea.intersects(gp.player.solidArea)) {
         System.out.println("down collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     } else if (entity.direction == LEFT) {
       entity.solidArea.x -= entity.speed;
       if (entity.solidArea.intersects(gp.player.solidArea)) {
         System.out.println("left collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     } else if (entity.direction == RIGHT) {
       entity.solidArea.x += entity.speed;
       if (entity.solidArea.intersects(gp.player.solidArea)) {
         System.out.println("right collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     }
     entity.solidArea.x = entity.solidAreaDefaultX;
@@ -244,6 +250,8 @@ public class CollisionDetector {
 
     gp.player.solidArea.x = gp.player.solidAreaDefaultX;
     gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+
+    return contactPlayer;
   }
 
 }

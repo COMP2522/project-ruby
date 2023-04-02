@@ -22,6 +22,7 @@ public class Monster extends Entity {
 
   public Monster(GamePanel gp) {
     super(gp);
+    type = 2;
     speed = 1;
     solidArea = new Rectangle();
     solidArea.x = 8;

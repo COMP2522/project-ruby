@@ -22,7 +22,7 @@ public class Player extends Entity {
 
   private int maxLife;
 
-  private int currentLives;
+  public int currentLives;
   private int currentRubies;
   private status currentStatus;
 
@@ -165,8 +165,8 @@ public class Player extends Entity {
       interactNPC(npcIndex);
 
       // Checking monster collision
-        int monsterIndex = gp.cDetector.checkEntityCollide(this, gp.monster);
-        interactMonster(monsterIndex);
+      int monsterIndex = gp.cDetector.checkEntityCollide(this, gp.monster);
+      interactMonster(monsterIndex);
 
       if (!collision) {
         if (direction == LEFT) {
@@ -191,6 +191,13 @@ public class Player extends Entity {
       }
     } else {
 //      running.stop();
+      if (invincible == true) {
+        invincibleCounter ++;
+        if (invincibleCounter > 60) {
+          invincible = false;
+          invincibleCounter = 0;
+        }
+      }
     }
   }
 
@@ -253,7 +260,10 @@ public class Player extends Entity {
    */
   public void interactMonster(int index) {
     if(index != 999) {
-//      System.out.println("Colliding with Monster!");
+      if (invincible == false) {
+        currentLives -= 1;
+        invincible = true;
+      }
       gp.ui.showMessage("Monster, RUN!");
     }
   }
