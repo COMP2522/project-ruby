@@ -31,10 +31,10 @@ public class CollisionDetector {
    * @param entity The Entity object representing the player
    */
   public void checkTile(Entity entity) {
-    int leftX = entity.worldX + entity.solidArea.x;
-    int rightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
-    int upY = entity.worldY + entity.solidArea.y;
-    int downY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
+    int leftX = entity.worldX + entity.hitbox.x;
+    int rightX = entity.worldX + entity.hitbox.x + entity.hitbox.width;
+    int upY = entity.worldY + entity.hitbox.y;
+    int downY = entity.worldY + entity.hitbox.y + entity.hitbox.height;
 
     leftCol = leftX / GamePanel.TILE_SIZE;
     rightCol = rightX / GamePanel.TILE_SIZE;
@@ -81,16 +81,16 @@ public class CollisionDetector {
       if (gp.elements[i] != null) {
 
         //get entity/player's solid area position
-        p.solidArea.x = p.worldX + p.solidArea.x;
-        p.solidArea.y = p.worldY + p.solidArea.y;
+        p.hitbox.x = p.worldX + p.hitbox.x;
+        p.hitbox.y = p.worldY + p.hitbox.y;
 
         //get the object's solid area position
-        gp.elements[i].getSolidArea().x = gp.elements[i].getWorldX() + gp.elements[i].getSolidArea().x;
-        gp.elements[i].getSolidArea().y = gp.elements[i].getWorldY() + gp.elements[i].getSolidArea().y;
+        gp.elements[i].getHitbox().x = gp.elements[i].getWorldX() + gp.elements[i].getHitbox().x;
+        gp.elements[i].getHitbox().y = gp.elements[i].getWorldY() + gp.elements[i].getHitbox().y;
 
         if (p.direction == UP) {
-          p.solidArea.y -= p.speed;
-          if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
+          p.hitbox.y -= p.speed;
+          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
             if (gp.elements[i].getCollision()) {
               p.collision = true;
             }
@@ -99,8 +99,8 @@ public class CollisionDetector {
             }
           }
         } else if (p.direction == DOWN) {
-          p.solidArea.y += p.speed;
-          if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
+          p.hitbox.y += p.speed;
+          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
             if (gp.elements[i].getCollision()) {
               p.collision = true;
             }
@@ -109,8 +109,8 @@ public class CollisionDetector {
             }
           }
         } else if (p.direction == LEFT) {
-          p.solidArea.x -= p.speed;
-          if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
+          p.hitbox.x -= p.speed;
+          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
             if (gp.elements[i].getCollision()) {
               p.collision = true;
             }
@@ -119,8 +119,8 @@ public class CollisionDetector {
             }
           }
         } else if (p.direction == RIGHT) {
-          p.solidArea.x += p.speed;
-          if (p.solidArea.intersects(gp.elements[i].getSolidArea())) {
+          p.hitbox.x += p.speed;
+          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
             System.out.println("right collision");
             if (gp.elements[i].getCollision()) {
               p.collision = true;
@@ -130,11 +130,11 @@ public class CollisionDetector {
             }
           }
         }
-        p.solidArea.x = p.solidAreaDefaultX;
-        p.solidArea.y = p.solidAreaDefaultY;
+        p.hitbox.x = p.hitboxDefaultX;
+        p.hitbox.y = p.hitboxDefaultY;
 
-        gp.elements[i].getSolidArea().x = 0;
-        gp.elements[i].getSolidArea().y = 0;
+        gp.elements[i].getHitbox().x = 0;
+        gp.elements[i].getHitbox().y = 0;
       }
     }
     return index;
@@ -159,91 +159,99 @@ public class CollisionDetector {
       if (target[i] != null) {
 
         //get entity/player's solid area position
-        entity.solidArea.x = entity.worldX + entity.solidArea.x;
-        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        entity.hitbox.x = entity.worldX + entity.hitbox.x;
+        entity.hitbox.y = entity.worldY + entity.hitbox.y;
 
         //get teh object's solid area position
-        target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
-        target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+        target[i].hitbox.x = target[i].worldX + target[i].hitbox.x;
+        target[i].hitbox.y = target[i].worldY + target[i].hitbox.y;
 
         if (entity.direction == UP) {
-          entity.solidArea.y -= entity.speed;
-          if (entity.solidArea.intersects(target[i].solidArea)) {
+          entity.hitbox.y -= entity.speed;
+          if (entity.hitbox.intersects(target[i].hitbox)) {
             System.out.println("up collision");
             entity.collision = true;
           }
         } else if (entity.direction == DOWN) {
-          entity.solidArea.y += entity.speed;
-          if (entity.solidArea.intersects(target[i].solidArea)) {
+          entity.hitbox.y += entity.speed;
+          if (entity.hitbox.intersects(target[i].hitbox)) {
             System.out.println("down collision");
             entity.collision = true;
             index = i;
           }
         } else if (entity.direction == LEFT) {
-          entity.solidArea.x -= entity.speed;
-          if (entity.solidArea.intersects(target[i].solidArea)) {
+          entity.hitbox.x -= entity.speed;
+          if (entity.hitbox.intersects(target[i].hitbox)) {
             System.out.println("left collision");
             entity.collision = true;
             index = i;
           }
         } else if (entity.direction == RIGHT) {
-          entity.solidArea.x += entity.speed;
-          if (entity.solidArea.intersects(target[i].solidArea)) {
+          entity.hitbox.x += entity.speed;
+          if (entity.hitbox.intersects(target[i].hitbox)) {
             System.out.println("right collision");
             entity.collision = true;
             index = i;
           }
         }
-        entity.solidArea.x = entity.solidAreaDefaultX;
-        entity.solidArea.y = entity.solidAreaDefaultY;
+        entity.hitbox.x = entity.hitboxDefaultX;
+        entity.hitbox.y = entity.hitboxDefaultY;
 
-        target[i].solidArea.x = target[i].solidAreaDefaultX;
-        target[i].solidArea.y = target[i].solidAreaDefaultY;
+        target[i].hitbox.x = target[i].hitboxDefaultX;
+        target[i].hitbox.y = target[i].hitboxDefaultY;
       }
     }
     return index;
   }
 
-  public void checkPlayerCollide( Entity entity) {
+  public boolean checkPlayerCollide( Entity entity) {
+
+    boolean contactPlayer = false;
 
     //get entity/player's solid area position
-    entity.solidArea.x = entity.worldX + entity.solidArea.x;
-    entity.solidArea.y = entity.worldY + entity.solidArea.y;
+    entity.hitbox.x = entity.worldX + entity.hitbox.x;
+    entity.hitbox.y = entity.worldY + entity.hitbox.y;
 
     //get teh object's solid area position
-    gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-    gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+    gp.player.hitbox.x = gp.player.worldX + gp.player.hitbox.x;
+    gp.player.hitbox.y = gp.player.worldY + gp.player.hitbox.y;
 
     if (entity.direction == UP) {
-      entity.solidArea.y -= entity.speed;
-      if (entity.solidArea.intersects(gp.player.solidArea)) {
+      entity.hitbox.y -= entity.speed;
+      if (entity.hitbox.intersects(gp.player.hitbox)) {
         System.out.println("up collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     } else if (entity.direction == DOWN) {
-      entity.solidArea.y += entity.speed;
-      if (entity.solidArea.intersects(gp.player.solidArea)) {
+      entity.hitbox.y += entity.speed;
+      if (entity.hitbox.intersects(gp.player.hitbox)) {
         System.out.println("down collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     } else if (entity.direction == LEFT) {
-      entity.solidArea.x -= entity.speed;
-      if (entity.solidArea.intersects(gp.player.solidArea)) {
+      entity.hitbox.x -= entity.speed;
+      if (entity.hitbox.intersects(gp.player.hitbox)) {
         System.out.println("left collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     } else if (entity.direction == RIGHT) {
-      entity.solidArea.x += entity.speed;
-      if (entity.solidArea.intersects(gp.player.solidArea)) {
+      entity.hitbox.x += entity.speed;
+      if (entity.hitbox.intersects(gp.player.hitbox)) {
         System.out.println("right collision");
         entity.collision = true;
+        contactPlayer = true;
       }
     }
-    entity.solidArea.x = entity.solidAreaDefaultX;
-    entity.solidArea.y = entity.solidAreaDefaultY;
+    entity.hitbox.x = entity.hitboxDefaultX;
+    entity.hitbox.y = entity.hitboxDefaultY;
 
-    gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-    gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+    gp.player.hitbox.x = gp.player.hitboxDefaultX;
+    gp.player.hitbox.y = gp.player.hitboxDefaultY;
+
+    return contactPlayer;
   }
 
 }

@@ -104,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
     // DRAW TILES
     tManager.draw(g2);
     
-    // Draw Elements - OBJECTs
+    // Draw Elements - OBJECTS
     for (Element element : elements) {
       if (element != null) {
         element.draw(g2,this);
@@ -118,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
-    // Draw hostile characters - MONSTERs
+    // Draw hostile characters - MONSTERS
     for (Entity entity : monster) {
       if (entity != null) {
         entity.draw(g2);

@@ -12,14 +12,14 @@ import java.awt.image.BufferedImage;
  * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
  * @version 2023-02-07
  */
-public abstract class Element {
+public abstract class Element implements Positionable {
   //setting instance variables.
   private BufferedImage image;
   private int currentFrame = 0;
   private String name;
   private boolean collision = false;
   private int worldX, worldY;
-  private final Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+  private final Rectangle hitbox = new Rectangle(0, 0, 46, 46);
 
   //setters and getters for the instance variables.
   public BufferedImage getImage() {
@@ -70,8 +70,8 @@ public abstract class Element {
     this.worldY = worldY;
   }
 
-  public Rectangle getSolidArea() {
-    return solidArea;
+  public Rectangle getHitbox() {
+    return hitbox;
   }
 
 

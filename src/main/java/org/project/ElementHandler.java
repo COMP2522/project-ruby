@@ -16,7 +16,6 @@ public class ElementHandler {
 
   /**
    * Constructs an ElementHandler object with the specified GamePanel.
-   *
    * @param gp game panel in which the elements are placed
    */
   public ElementHandler(GamePanel gp) {
@@ -78,9 +77,9 @@ public class ElementHandler {
    * Sets the positions of the non-player characters (NPCs) within the game panel.
    */
   public void setNPC() {
-    gp.npc[0] = new Villager(gp);
-    gp.npc[0].worldX = 24 * GamePanel.TILE_SIZE;
-    gp.npc[0].worldY = 10 * GamePanel.TILE_SIZE;
+    gp.npc[0] = new Villager(gp,24,10);
+    gp.npc[0].setWorldX(((Villager)gp.npc[0]).posX * GamePanel.TILE_SIZE);
+    gp.npc[0].setWorldY(((Villager)gp.npc[0]).posY * GamePanel.TILE_SIZE);
 
   }
 
@@ -88,13 +87,9 @@ public class ElementHandler {
    * Sets the positions of the monsters within the game panel.
    */
   public void setMonster() {
-    gp.monster[0] = new Monster(gp);
-    gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
-    gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
-
-    gp.monster[0] = new Monster(gp);
-    gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
-    gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
+    gp.monster[0] = new Monster(gp, 24,15);
+    gp.monster[0].setWorldX(((Monster)gp.monster[0]).posX * GamePanel.TILE_SIZE);
+    gp.monster[0].setWorldY(((Monster)gp.monster[0]).posY * GamePanel.TILE_SIZE);
 
   }
 }
