@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Objects;
 import static org.project.Entity.directions.*;
 
-public abstract class Entity {
+public abstract class Entity implements Positionable {
 
   GamePanel gp;
   public int worldX, worldY;

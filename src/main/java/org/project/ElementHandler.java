@@ -79,8 +79,8 @@ public class ElementHandler {
    */
   public void setNPC() {
     gp.npc[0] = new Villager(gp);
-    gp.npc[0].worldX = 24 * GamePanel.TILE_SIZE;
-    gp.npc[0].worldY = 10 * GamePanel.TILE_SIZE;
+    gp.npc[0].setWorldX(24 * GamePanel.TILE_SIZE);
+    gp.npc[0].setWorldY(10 * GamePanel.TILE_SIZE);
 
   }
 
@@ -89,12 +89,12 @@ public class ElementHandler {
    */
   public void setMonster() {
     gp.monster[0] = new Monster(gp);
-    gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
-    gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
+    gp.monster[0].setWorldX(24* GamePanel.TILE_SIZE);
+    gp.monster[0].setWorldY(15* GamePanel.TILE_SIZE);
 
     gp.monster[0] = new Monster(gp);
-    gp.monster[0].worldX = 24* GamePanel.TILE_SIZE;
-    gp.monster[0].worldY = 15* GamePanel.TILE_SIZE;
+    gp.monster[0].setWorldX(24* GamePanel.TILE_SIZE);
+    gp.monster[0].setWorldY(15* GamePanel.TILE_SIZE);
 
   }
 }
