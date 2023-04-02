@@ -14,13 +14,14 @@ import static org.project.Entity.directions.*;
  * @version 2023-02-07
  */
 public class Player extends Entity {
-  
-//  int hasRuby = 0;
-  public enum status {ALIVE, DEAD}
-  public static int LIVES = 3;
+
+  private enum status {ALIVE, DEAD}
+  private static final int MAXLIVES = 6;
   
   public KeyHandler handler;
-  
+
+  private int maxLife;
+
   private int currentLives;
   private int currentRubies;
   private status currentStatus;
@@ -40,7 +41,7 @@ public class Player extends Entity {
 
     //initializing the running sound
     running = new Sound();
-    running.setFile(6);
+    running.setFile(4);
 
     this.worldX = GamePanel.TILE_SIZE * 37;
     this.worldY = GamePanel.TILE_SIZE * 9;
@@ -48,10 +49,10 @@ public class Player extends Entity {
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
     this.solidArea = new Rectangle(8,16,32,32);
     
-    this.speed = 6;
-    this.direction = directions.DOWN;
+    this.speed = 5;
+    this.direction = directions.DOWN; // initial direction of the player
     
-    this.currentLives = LIVES;
+    this.currentLives = MAXLIVES;
     this.currentRubies = 0;
     this.currentStatus = status.ALIVE;
     getPlayerImage();
@@ -111,11 +112,19 @@ public class Player extends Entity {
     return currentLives;
   }
 
-  public int updateRubies(boolean touch) {
-    if (touch)
-      currentRubies++;
-    return currentRubies;
+  /**
+   * returns the current number of lives player has.
+   * @return currentLives
+   */
+  public int getLives() {
+    return currentLives;
   }
+
+//  public int updateRubies(boolean touch) {
+//    if (touch)
+//      currentRubies++;
+//    return currentRubies;
+//  }
 
   /**
    * returns the current number of rubies the player possesses.
@@ -185,6 +194,11 @@ public class Player extends Entity {
     }
   }
 
+  /**
+   * method to show interaction between player and object
+   * @param index
+   * @param gp
+   */
   public void pickupObject(int index, GamePanel gp){
     if(index != 999) {
       String objectName = gp.elements[index].getName();
@@ -195,6 +209,7 @@ public class Player extends Entity {
           currentRubies++;
           gp.elements[index] = null;
           gp.ui.showMessage("You got a ruby");
+          currentLives -= 1;
 //          System.out.println("Rubies: " + currentRubies);
         }
         //this is where the door is removed from the array.
@@ -215,9 +230,9 @@ public class Player extends Entity {
           gp.elements[index] = null;
           gp.ui.showMessage("Speed mode ON");
         }
-//        case "Fire" -> {
-//          gp.playSE(4);
-//        }
+        case "Fire" -> {
+          gp.ui.showMessage("Fire Hazard!!!");
+        }
       }
     }
   }
@@ -238,7 +253,8 @@ public class Player extends Entity {
    */
   public void interactMonster(int index) {
     if(index != 999) {
-      System.out.println("Colliding with Monster!");
+//      System.out.println("Colliding with Monster!");
+      gp.ui.showMessage("Monster, RUN!");
     }
   }
 }

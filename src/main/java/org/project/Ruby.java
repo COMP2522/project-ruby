@@ -10,7 +10,6 @@ import java.io.IOException;
  * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
  * @version 2023-02-07
  */
-
 public class Ruby extends Element {
 
   /**

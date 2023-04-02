@@ -56,7 +56,7 @@ public class SaveState {
     playerData.put("direction", player.direction.ordinal());
     playerData.put("spriteCounter", player.spriteCounter);
     playerData.put("spriteNum", player.spriteNum);
-    playerData.put("lives", player.getCurrentLives());
+    playerData.put("lives", player.getLives());
     playerData.put("rubies", player.getCurrentRubies());
     this.playerData = playerData;
   }
