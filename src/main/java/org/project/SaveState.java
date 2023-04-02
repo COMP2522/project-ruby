@@ -68,7 +68,7 @@ public class SaveState {
     playerData.put("direction", player.direction.ordinal());
     playerData.put("spriteCounter", player.spriteCounter);
     playerData.put("spriteNum", player.spriteNum);
-    playerData.put("lives", player.getCurrentLives());
+    playerData.put("lives", player.getLives());
     playerData.put("rubies", player.getCurrentRubies());
     this.playerData = playerData;
   }
@@ -99,14 +99,10 @@ public class SaveState {
     Arrays.stream(positionables)
         .filter(n -> n != null)
         .map(positionable -> {
-          if (positionable != null) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("x", ((Positionable) positionable).getWorldX());
             jsonObject.put("y", ((Positionable) positionable).getWorldY());
             return jsonObject;
-          } else {
-            return null;
-          }
         })
         .forEach(jsonArr::add);
       return jsonArr;

@@ -62,7 +62,6 @@ public class GamePanel extends JPanel implements Runnable {
     this.setDoubleBuffered(true);
     this.addKeyListener(kHandler);
     this.setFocusable(true);
-    playSE(5);
   }
   
   /** Instantiates the game upon launch */
@@ -166,10 +165,6 @@ public class GamePanel extends JPanel implements Runnable {
     sound.setFile(i);
     sound.play();
     sound.loop();
-  }
-
-  public void stopMusic() {
-    sound.stop();
   }
 
   public void playSE(int i) {
