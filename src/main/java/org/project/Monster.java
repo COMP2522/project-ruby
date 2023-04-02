@@ -19,20 +19,23 @@ import java.util.Random;
  */
 
 public class Monster extends Entity {
+  public int posX;
+  public int posY;
 
-  public Monster(GamePanel gp) {
+  public Monster(GamePanel gp, int posX, int posY) {
     super(gp);
     type = 2;
     speed = 1;
-    solidArea = new Rectangle();
-    solidArea.x = 8;
-    solidArea.y = 8;
-    solidAreaDefaultX = solidArea.x;
-    solidAreaDefaultY = solidArea.y;
-    solidArea.width = 32;
-    solidArea.height = 32;
+    hitbox = new Rectangle();
+    hitbox.x = 8;
+    hitbox.y = 8;
+    hitboxDefaultX = hitbox.x;
+    hitboxDefaultY = hitbox.y;
+    hitbox.width = 32;
+    hitbox.height = 32;
+    this.posX = posX;
+    this.posY = posY;
     direction = directions.DOWN;
-
     getImage();
   }
 
@@ -51,32 +54,5 @@ public class Monster extends Entity {
       e.printStackTrace();
     }
   }
-
-  public void setAction() {
-    actionLockCounter++;
-    // Adjust the number within the if statement to control NPC's directional change interval based on frames.
-    if (actionLockCounter == 120) {
-      Random random = new Random();
-      int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
-
-      switch(i/25) {
-        case 0:
-          direction = directions.UP;
-          break;
-        case 1:
-          direction = directions.DOWN;
-          break;
-        case 2:
-          direction = directions.LEFT;
-          break;
-        case 3:
-          direction = directions.RIGHT;
-          break;
-      }
-
-      // Reset the counter so when the next direction is selected
-      // It will have to await the duration of the interval before changing again.
-      actionLockCounter = 0;
-    }
-  }
+  
 }

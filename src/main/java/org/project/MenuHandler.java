@@ -193,7 +193,7 @@ public class MenuHandler {
     JPanel mainPanel = menuhandler.createMenu();
     frame.add(mainPanel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(menuhandler.PANELSIZE);
+    frame.setSize(PANELSIZE);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
   }

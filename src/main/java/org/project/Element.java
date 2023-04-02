@@ -19,7 +19,7 @@ public abstract class Element implements Positionable {
   private String name;
   private boolean collision = false;
   private int worldX, worldY;
-  private final Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+  private final Rectangle hitbox = new Rectangle(0, 0, 46, 46);
 
   //setters and getters for the instance variables.
   public BufferedImage getImage() {
@@ -70,8 +70,8 @@ public abstract class Element implements Positionable {
     this.worldY = worldY;
   }
 
-  public Rectangle getSolidArea() {
-    return solidArea;
+  public Rectangle getHitbox() {
+    return hitbox;
   }
 
 

@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Random;
+
 import static org.project.Entity.directions.*;
 
 public abstract class Entity implements Positionable {
 
-  GamePanel gp;
+  public GamePanel gp;
   public int worldX, worldY;
   public int screenX, screenY;
   public boolean collision = false;
@@ -20,39 +22,50 @@ public abstract class Entity implements Positionable {
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
   public enum directions {LEFT, RIGHT, UP, DOWN}
   public directions direction;
-
-  public boolean alive = true;
-
+  
+  public final int spriteLimit = 14; // Should only update every 14 frames, not every frame
+  public final int indexMax = 999; // Max number of elements that can be displayed in tile array
   public int spriteCounter = 0;
   public int spriteNum = 1;
 
   public int actionLockCounter = 0;
-  public Rectangle solidArea;
-  public int solidAreaDefaultX, solidAreaDefaultY;
+  public Rectangle hitbox;
+  public int hitboxDefaultX, hitboxDefaultY;
+  
   // Getter and setters for worldX and worldY below.
-  public int getWorldX() {
-    return worldX;
-  }
-
-  public void setWorldX(int worldX) {
-    this.worldX = worldX;
-  }
-
-  public int getWorldY() {
-    return worldY;
-  }
-
-  public void setWorldY(int worldY) {
-    this.worldY = worldY;
-  }
-
-
-//  public Projectile projectile;
-
+  public int getWorldX() { return worldX; }
+  public void setWorldX(int worldX) { this.worldX = worldX; }
+  public int getWorldY() { return worldY; }
+  public void setWorldY(int worldY) { this.worldY = worldY; }
+  
+  
   public int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
-
-
-  public abstract void setAction();
+  
+  
+  public void setAction() {
+    actionLockCounter++;
+    if (actionLockCounter == 120) {
+      Random random = new Random();
+      int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
+      
+      switch(i/25) {
+        case 0:
+          direction = directions.UP;
+          break;
+        case 1:
+          direction = directions.DOWN;
+          break;
+        case 2:
+          direction = directions.LEFT;
+          break;
+        case 3:
+          direction = directions.RIGHT;
+          break;
+      }
+      actionLockCounter = 0;
+    }
+  }
+  
   public Entity(GamePanel gp) {
     this.gp = gp;
   }
@@ -65,12 +78,11 @@ public abstract class Entity implements Positionable {
     gp.cDetector.checkTile(this);
     gp.cDetector.checkPlayerCollide(this);
     boolean contactPlayer = gp.cDetector.checkPlayerCollide(this);
-    if (this.type == 2 && contactPlayer == true) {
-      if (gp.player.invincible == false){
-        gp.player.currentLives -= 1;
-        gp.player.invincible = true;
-      }
+    if (this.type == 2 && contactPlayer && !gp.player.invincible) {
+      gp.player.currentLives -= 1;
+      gp.player.invincible = true;
     }
+    
     if (!collision) {
       if (direction == LEFT) {
         worldX -= speed;
@@ -82,6 +94,7 @@ public abstract class Entity implements Positionable {
         worldY += speed;
       }
     }
+    
     spriteCounter++;
     if(spriteCounter > 14) {
       if (spriteNum == 1) {
