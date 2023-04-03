@@ -14,6 +14,7 @@ public class PathFinder {
 
   public PathFinder(GamePanel gp) {
     this.gp = gp;
+    instantiateNodes();
 //        nodes = new Node[GamePanel.MAP_COL][GamePanel.MAP_ROW];
 //        for (int i = 0; i < GamePanel.MAP_COL; i++) {
 //        for (int j = 0; j < GamePanel.MAP_ROW; j++) {

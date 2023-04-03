@@ -54,5 +54,39 @@ public class Monster extends Entity {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public void setAction() {
+    onPath = true;
+    if(onPath == true){
+      int goalCol = (gp.player.worldX + gp.player.hitbox.x/gp.TILE_SIZE);
+      int goalRow = (gp.player.worldY + gp.player.hitbox.y/gp.TILE_SIZE);
+      searchPath(goalCol, goalRow);
+    }
+
+    else {
+      actionLockCounter++;
+      if (actionLockCounter == 120) {
+        Random random = new Random();
+        int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
+
+        switch (i / 25) {
+          case 0:
+            direction = directions.UP;
+            break;
+          case 1:
+            direction = directions.DOWN;
+            break;
+          case 2:
+            direction = directions.LEFT;
+            break;
+          case 3:
+            direction = directions.RIGHT;
+            break;
+        }
+        actionLockCounter = 0;
+      }
+    }
+  }
   
 }
