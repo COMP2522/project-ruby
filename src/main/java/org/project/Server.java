@@ -86,7 +86,7 @@ public class Server {
       }
 
 //      test
-      SaveState savestate = SaveState.getInstance();
+      SaveState savestate = new SaveState();
       
       // close resources TODO: close ois this without crashing
       // crashing when closing ois here with postreqhandler
@@ -104,7 +104,13 @@ public class Server {
     // close the ServerSocket object
     server.close();
   }
-
+  
+  public void newGame() {
+  }
+  
+  public void loadGame() {
+  }
+  
   public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException {
     Server server = new Server();
     server.start();

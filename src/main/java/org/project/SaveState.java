@@ -13,19 +13,8 @@ import java.util.Arrays;
  * @version 2023-03-31
  */
 public class SaveState {
-  private static SaveState instance;
   JSONObject playerData;
   JSONObject gamePanelData;
-
-  private SaveState() {
-
-  }
-  public static SaveState getInstance() {
-    if (instance == null) {
-      instance = new SaveState();
-    }
-    return instance;
-  }
 
   /**
    * Returns JSON data representing state of Player.
@@ -73,6 +62,8 @@ public class SaveState {
     JSONObject playerData = new JSONObject();
     playerData.put("worldX", player.worldX);
     playerData.put("worldY", player.worldY);
+    playerData.put("screenX", player.screenX);
+    playerData.put("screenY", player.screenY);
     playerData.put("speed", player.speed);
     playerData.put("direction", player.direction.ordinal());
     playerData.put("spriteCounter", player.spriteCounter);

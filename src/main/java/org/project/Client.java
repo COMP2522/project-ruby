@@ -19,7 +19,6 @@ public class Client {
   /* Instance Variables */
   private String host;
   private final int port;
-  private String uid;
 
   /**
    * Constructs new Client
@@ -146,10 +145,6 @@ public class Client {
     // return JSONObject as String
     return req.toJSONString();
   }
-
-  public void setUid(String uid) {
-    this.uid = uid;
-  }
   
 
   /**
@@ -162,7 +157,7 @@ public class Client {
   public static void main(String[] args) throws ParseException, IOException {
     Client client = new Client(5000);
 
-    SaveState saveState = SaveState.getInstance();
+    SaveState saveState = new SaveState();
     String request = client.createJSON("GET", saveState);
 
     // testing multiple requests
