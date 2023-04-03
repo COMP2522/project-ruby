@@ -46,7 +46,7 @@ public class Player extends Entity {
     this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
-    this.hitbox = new Rectangle(8,16,32,32);
+    this.hitbox = new Rectangle(8,24,24,32);
     
     this.speed = 5;
     this.direction = directions.DOWN; // initial direction of the player
@@ -86,14 +86,14 @@ public class Player extends Entity {
 
   public void getPlayerImage() {
     try{
-      downR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
-      downL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
-      upR = ImageIO.read(new FileInputStream("assets/player/Player_URight.png"));
-      upL = ImageIO.read(new FileInputStream("assets/player/Player_ULeft.png"));
-      leftR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
-      leftL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
-      rightR = ImageIO.read(new FileInputStream("assets/player/Player_DRight.png"));
-      rightL = ImageIO.read(new FileInputStream("assets/player/Player_DLeft.png"));
+      downR = ImageIO.read(new FileInputStream("assets/player/PlayerDownR.png"));
+      downL = ImageIO.read(new FileInputStream("assets/player/PlayerDownL.png"));
+      upR = ImageIO.read(new FileInputStream("assets/player/PlayerUpR.png"));
+      upL = ImageIO.read(new FileInputStream("assets/player/PlayerUpL.png"));
+      leftR = ImageIO.read(new FileInputStream("assets/player/PlayerLeftR.png"));
+      leftL = ImageIO.read(new FileInputStream("assets/player/PlayerLeftL.png"));
+      rightR = ImageIO.read(new FileInputStream("assets/player/PlayerRightR.png"));
+      rightL = ImageIO.read(new FileInputStream("assets/player/PlayerRightL.png"));
     } catch(IOException e) {
       System.out.println("Image can't be read");
       e.printStackTrace();
@@ -296,6 +296,7 @@ public class Player extends Entity {
       gp.ui.showMessage("Monster, RUN!");
     }
   }
+
 
   /**
    * Sets Player variables from JSON playerData

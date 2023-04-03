@@ -203,7 +203,7 @@ public class Menu {
       handleTextInput(loadTextInput);
       SaveState saveState;
       try {
-        saveState = saveStateHandler.load(null);
+        saveState = saveStateHandler.load();
       } catch (FileNotFoundException ex) {
         throw new RuntimeException(ex);
       }

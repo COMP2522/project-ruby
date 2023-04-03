@@ -36,14 +36,14 @@ public class SaveStateHandler {
 
   /**
    * Loads save data JSON file from directory and returns saveState.
-   * @param username a String, name of the file
+//   * @param username a String, name of the file
    * @throws FileNotFoundException
    * @return SaveState object
    */
-  public SaveState load(String username) throws FileNotFoundException {
-    System.out.println(username);
-    setUsername(username);
-    System.out.println(username);
+  public SaveState load() throws FileNotFoundException {
+//    System.out.println(username);
+//    setUsername(username);
+//    System.out.println(username);
     File saveFile = new File(dirPath + username + extension);
     JSONObject jsonSave;
     try {

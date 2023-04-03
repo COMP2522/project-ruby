@@ -9,6 +9,7 @@ public class GameLoader {
   private JPanel menuPanel;
   private GamePanel gamePanel;
   private SaveStateHandler saveStateHandler;
+//  CardLayout cardLayout;
 
   public GameLoader() {
     this.saveStateHandler = new SaveStateHandler();
@@ -19,6 +20,8 @@ public class GameLoader {
     window.setTitle("Ruby Rush");
 
     this.gamePanel = new GamePanel();
+//    gamePanel.setUpGame();
+//    gamePanel.startGameThread();
 
     Menu menu = new Menu(this, window, gamePanel, saveStateHandler);
     this.menuPanel = menu.createMenu();
@@ -48,9 +51,5 @@ public class GameLoader {
     this.window.add(menuPanel);
     window.revalidate();
     window.repaint();
-  }
-
-  public static void main(String[] args) {
-    new GameLoader();
   }
 }
