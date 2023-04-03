@@ -2,6 +2,8 @@ package org.project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 /**
  * MenuHandler provides menu interface to user. On interaction requests
@@ -18,9 +20,16 @@ public class Menu {
 
   SaveStateHandler saveStateHandler;
   GamePanel gamePanel;
+  JFrame window;
+  GameLoader gameLoader;
+  Client client;
 
-  public Menu() {
-    this.saveStateHandler = new SaveStateHandler();
+  public Menu(GameLoader gameLoader, JFrame window, GamePanel gamePanel, SaveStateHandler saveStateHandler) {
+    this.saveStateHandler = saveStateHandler;
+    this.window = window;
+    this.gamePanel = gamePanel;
+    this.gameLoader = gameLoader;
+    this.client = new Client(5000);
   }
 
   /**
@@ -71,6 +80,7 @@ public class Menu {
    */
   private JTextField createTextField() {
     JTextField textField = new JTextField(18);
+    textField.setPreferredSize(TEXTFIELDSIZE);
     Font font = new Font("Serif", Font.BOLD, 18);
     textField.setFont(font);
     return textField;
@@ -87,19 +97,6 @@ public class Menu {
   }
 
   /**
-   * Starts MenuHandler.
-   */
-  public void startMenu() {
-    JFrame frame = new JFrame("Ruby Rush");
-    JPanel menu = createMenu();
-    frame.add(menu);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(500, 500);
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-  }
-
-  /**
    * Creates New Game Panel.
    * @param mainPanel, JPanel this should be added to
    * @return NewGamePanel, a JPanel
@@ -110,21 +107,13 @@ public class Menu {
     JLabel userLabel = createUserLabel();
     JTextField newTextInput = createTextField();
 
-    // onclick submit
+    // onclick submit button
     newSubmitButton.addActionListener(e -> {
-      // take uid
-      String input = newTextInput.getText();
-      if (input.length() > 30){
-        input = input.substring(0, 30);
-      }
-      System.out.println(input);
-      // TODO: save uid, run GamePanel
-      // call savestateHandler/client and store uid
-      // start GamePanel
-
+      handleTextInput(newTextInput);
+      gameLoader.switchToGamePanel();
     });
 
-    // onclick back
+    // onclick back button
     newBackButton.addActionListener(e -> {
       CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
       cardLayout.show(mainPanel, "menu");
@@ -132,12 +121,8 @@ public class Menu {
 
     // on enter keypress
     newTextInput.addActionListener(e -> {
-      String input = newTextInput.getText().trim();
-      if (input.length() > 30) {
-        input = input.substring(0, 30);
-      }
-      // TODO: save uid, run GamePanel
-      System.out.println("Input: " + input);
+      handleTextInput(newTextInput);
+      gameLoader.switchToGamePanel();
     });
 
     return createPanel(userLabel, newTextInput, newSubmitButton, newBackButton);
@@ -154,33 +139,14 @@ public class Menu {
     JTextField loadTextInput = createTextField();
     JLabel userLabel = createUserLabel();
 
-    loadSubmitButton.addActionListener(e -> {
-      // take uid
-      String input = loadTextInput.getText();
-      if (input.length() > 30) {
-        input = input.substring(0, 30);
-      }
-      // FIXME: testing
-      System.out.println(input);
-      // TODO: take uid, run Client, send Get Request, load, run GamePanel
-      // call savestatehandler/client send request for doc
-      // wait, load into GamePanel
-      // start GamePanel
-    });
+    loadSubmitButton.addActionListener(handleLoadGame(client, gamePanel, loadTextInput));
 
     loadBackButton.addActionListener(e -> {
       CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
       cardLayout.show(mainPanel, "menu");
     });
 
-    loadTextInput.addActionListener(e -> {
-      String input = loadTextInput.getText().trim();
-      if (input.length() > 30) {
-        input = input.substring(0, 30);
-      }
-      // TODO: take uid, get request from Client, load savestate, run GamePanel
-      System.out.println("Input: " + input);
-    });
+    loadTextInput.addActionListener(handleLoadGame(client, gamePanel, loadTextInput));
 
     return createPanel(userLabel, loadTextInput, loadSubmitButton, loadBackButton);
   }
@@ -227,16 +193,34 @@ public class Menu {
     return mainPanel;
   }
 
-    // TODO: for testing, take out and implement in Main
-  public static void main(String[] args) {
-    JFrame frame = new JFrame();
-    Menu menuhandler = new Menu();
-    JPanel mainPanel = menuhandler.createMenu();
-    frame.add(mainPanel);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(PANELSIZE);
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
+  /**
+   * Helper method to handle loading game.
+   * @return ActionListener
+   */
+  private ActionListener handleLoadGame(Client client, GamePanel gamePanel, JTextField loadTextInput) {
+    return e -> {
+      handleTextInput(loadTextInput);
+      SaveState saveState;
+      try {
+        saveState = saveStateHandler.load(null);
+      } catch (FileNotFoundException ex) {
+        throw new RuntimeException(ex);
+      }
+      gamePanel.player.loadPlayerData(saveState.getPlayerData());
+      // wait, load into GamePanel
+      gameLoader.switchToGamePanel();
+    };
   }
 
+  /**
+   * Helper method for handling JTextField input.
+   * @param textField
+   */
+  private void handleTextInput(JTextField textField) {
+    String username = textField.getText().trim();
+    if (username.length() > 30) {
+      username = username.substring(0, 30);
+    }
+    saveStateHandler.setUsername(username);
+  }
 }
