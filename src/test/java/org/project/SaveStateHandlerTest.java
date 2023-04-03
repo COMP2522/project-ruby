@@ -17,7 +17,7 @@ public class SaveStateHandlerTest {
 
   @Test
   public void testSaveStateHandler() {
-    SaveState saveState = new SaveState();
+    SaveState saveState = SaveState.getInstance();
     saveState.setSaveState(gamePanel);
 
   }

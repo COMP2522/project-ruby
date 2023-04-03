@@ -91,5 +91,17 @@ public class ElementHandler {
     gp.monster[0].setWorldX(((Monster)gp.monster[0]).posX * GamePanel.TILE_SIZE);
     gp.monster[0].setWorldY(((Monster)gp.monster[0]).posY * GamePanel.TILE_SIZE);
 
+    gp.monster[1] = new Monster(gp, 13, 9);
+    gp.monster[1].setWorldX(((Monster)gp.monster[1]).posX * GamePanel.TILE_SIZE);
+    gp.monster[1].setWorldY(((Monster)gp.monster[1]).posY * GamePanel.TILE_SIZE);
+
+    gp.monster[2] = new Monster(gp, 24, 40);
+    gp.monster[2].setWorldX(((Monster)gp.monster[2]).posX * GamePanel.TILE_SIZE);
+    gp.monster[2].setWorldY(((Monster)gp.monster[2]).posY * GamePanel.TILE_SIZE);
+
+    gp.monster[3] = new Monster(gp, 30, 38);
+    gp.monster[3].setWorldX(((Monster)gp.monster[3]).posX * GamePanel.TILE_SIZE);
+    gp.monster[3].setWorldY(((Monster)gp.monster[3]).posY * GamePanel.TILE_SIZE);
+
   }
 }

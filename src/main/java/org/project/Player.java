@@ -3,9 +3,10 @@ package org.project;
 import org.json.simple.JSONObject;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.awt.Rectangle;
 
 import static org.project.Entity.directions.*;
 
@@ -97,6 +98,47 @@ public class Player extends Entity {
       System.out.println("Image can't be read");
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void draw(Graphics2D g2) {
+    BufferedImage image = null;
+    int screenX = worldX - gp.player.worldX + gp.player.screenX;
+    int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+    if (worldX + GamePanel.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+        worldX - GamePanel.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+        worldY + GamePanel.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+        worldY - GamePanel.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+      switch(direction) {
+        case UP:
+          if (spriteNum == 1) {image = upR;}
+          if (spriteNum == 2) {image = upL;}
+          break;
+        case DOWN:
+          if (spriteNum == 1) {image = downR;}
+          if (spriteNum == 2) {image = downL;}
+          break;
+        case LEFT:
+          if (spriteNum == 1) {image = leftR;}
+          if (spriteNum == 2) {image = leftL;}
+          break;
+        case RIGHT:
+          if (spriteNum == 1) {image = rightR;}
+          if (spriteNum == 2) {image = rightL;}
+          break;
+        default:
+          break;
+      }
+    }
+
+    if (invincible == true) {
+      g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+    }
+    g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+
+    // Reset Opacity
+    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
   }
 
   public void updateStatus(char stat) {
