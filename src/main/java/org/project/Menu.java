@@ -11,10 +11,10 @@ import java.io.FileNotFoundException;
  */
 public class Menu {
   private static final Dimension PANELSIZE = new Dimension(768, 576);
-  private static final Dimension BUTTONSIZE = new Dimension(300,120);
+  private static final Dimension BUTTONSIZE = new Dimension(300,100);
   private static final Dimension LABELSIZE = new Dimension(300, 50);
   private static final Dimension TEXTFIELDSIZE = new Dimension(300, 200);
-  private static final Dimension BUTTONPANELSIZE = new Dimension(600,576);
+  private static final Dimension BUTTONPANELSIZE = new Dimension(500,576);
   private static final Dimension TITLESIZE = new Dimension(700, 150);
   private static final String TITLEIMG = "assets/menu/title.png";
 
@@ -80,8 +80,8 @@ public class Menu {
    */
   private JTextField createTextField() {
     JTextField textField = new JTextField(18);
-    textField.setPreferredSize(TEXTFIELDSIZE);
-    Font font = new Font("Serif", Font.BOLD, 18);
+//    textField.setPreferredSize(TEXTFIELDSIZE);
+    Font font = new Font("Arial", Font.BOLD, 18);
     textField.setFont(font);
     return textField;
   }
@@ -93,6 +93,7 @@ public class Menu {
   private JButton createButton(String text) {
     JButton button = new JButton(text);
     button.setPreferredSize(BUTTONSIZE);
+    button.setFont(new Font("Arial", Font.BOLD, 20));
     return button;
   }
 
