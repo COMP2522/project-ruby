@@ -96,7 +96,7 @@ public abstract class Entity implements Positionable {
     }
     
     spriteCounter++;
-    if(spriteCounter > 14) {
+    if(spriteCounter > 20) {
       if (spriteNum == 1) {
         spriteNum = 2;
       } else if (spriteNum == 2) {

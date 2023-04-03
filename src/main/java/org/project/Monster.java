@@ -25,7 +25,7 @@ public class Monster extends Entity {
   public Monster(GamePanel gp, int posX, int posY) {
     super(gp);
     type = 2;
-    speed = 1;
+    speed = 2;
     hitbox = new Rectangle();
     hitbox.x = 8;
     hitbox.y = 8;
@@ -41,14 +41,14 @@ public class Monster extends Entity {
 
   public void getImage() {
     try {
-      downR = ImageIO.read(new FileInputStream("assets/monsters/beast_down_right.png"));
-      downL = ImageIO.read(new FileInputStream("assets/monsters/beast_down_left.png"));
-      upR = ImageIO.read(new FileInputStream("assets/monsters/beast_up_right.png"));
-      upL = ImageIO.read(new FileInputStream("assets/monsters/beast_up_left.png"));
-      leftR = ImageIO.read(new FileInputStream("assets/monsters/beast_left_right.png"));
-      leftL = ImageIO.read(new FileInputStream("assets/monsters/beast_left_left.png"));
-      rightR = ImageIO.read(new FileInputStream("assets/monsters/beast_right_right.png"));
-      rightL = ImageIO.read(new FileInputStream("assets/monsters/beast_right_left.png"));
+      downR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
+      downL = ImageIO.read(new FileInputStream("assets/monsters/Slime_Relaxed.png"));
+      upR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
+      upL = ImageIO.read(new FileInputStream("assets/monsters/Slime_Relaxed.png"));
+      leftR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
+      leftL = ImageIO.read(new FileInputStream("assets/monsters/Slime_Relaxed.png"));
+      rightR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
+      rightL = ImageIO.read(new FileInputStream("assets/monsters/Slime_Relaxed.png"));
     } catch (IOException e) {
       System.out.println("Image can't be read ...");
       e.printStackTrace();
