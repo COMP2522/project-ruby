@@ -204,7 +204,7 @@ public class CollisionDetector {
     return index;
   }
 
-  public boolean checkPlayerCollide( Entity entity) {
+  public boolean checkPlayerCollide(Entity entity) {
 
     boolean contactPlayer = false;
 
@@ -218,33 +218,19 @@ public class CollisionDetector {
 
     if (entity.direction == UP) {
       entity.hitbox.y -= entity.speed;
-      if (entity.hitbox.intersects(gp.player.hitbox)) {
-        System.out.println("up collision");
-        entity.collision = true;
-        contactPlayer = true;
-      }
     } else if (entity.direction == DOWN) {
       entity.hitbox.y += entity.speed;
-      if (entity.hitbox.intersects(gp.player.hitbox)) {
-        System.out.println("down collision");
-        entity.collision = true;
-        contactPlayer = true;
-      }
     } else if (entity.direction == LEFT) {
       entity.hitbox.x -= entity.speed;
-      if (entity.hitbox.intersects(gp.player.hitbox)) {
-        System.out.println("left collision");
-        entity.collision = true;
-        contactPlayer = true;
-      }
     } else if (entity.direction == RIGHT) {
       entity.hitbox.x += entity.speed;
-      if (entity.hitbox.intersects(gp.player.hitbox)) {
-        System.out.println("right collision");
-        entity.collision = true;
-        contactPlayer = true;
-      }
     }
+
+    if (entity.hitbox.intersects(gp.player.hitbox)) {
+      entity.collision = true;
+      contactPlayer = true;
+    }
+
     entity.hitbox.x = entity.hitboxDefaultX;
     entity.hitbox.y = entity.hitboxDefaultY;
 
