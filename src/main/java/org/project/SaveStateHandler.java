@@ -19,6 +19,7 @@ public class SaveStateHandler {
    * @param saveState, current saveState of the game
    */
   public void save(SaveState saveState) {
+    setUsername(username);
     JSONObject jsonSave = new JSONObject();
     jsonSave.put("playerData", saveState.getPlayerData());
     jsonSave.put("gamePanelData", saveState.getGamePanelData());
@@ -40,8 +41,10 @@ public class SaveStateHandler {
    * @return SaveState object
    */
   public SaveState load(String username) throws FileNotFoundException {
-    this.username = username;
-    File saveFile = new File(pathName);
+    System.out.println(username);
+    setUsername(username);
+    System.out.println(username);
+    File saveFile = new File(dirPath + username + extension);
     JSONObject jsonSave;
     try {
       FileReader fileReader = new FileReader(saveFile);

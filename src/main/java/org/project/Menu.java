@@ -222,6 +222,6 @@ public class Menu {
     if (username.length() > 30) {
       username = username.substring(0, 30);
     }
-    saveStateHandler.setUsername(username);
+//    saveStateHandler.setUsername(username);
   }
 }
