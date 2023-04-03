@@ -16,6 +16,8 @@ public abstract class Entity implements Positionable {
   public int screenX, screenY;
   public boolean collision = false;
   public boolean invincible = false;
+
+  public boolean onPath = false;
   public int invincibleCounter = 0;
   public int speed;
 
