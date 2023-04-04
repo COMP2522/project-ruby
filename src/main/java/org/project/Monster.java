@@ -19,8 +19,8 @@ import java.util.Random;
  */
 
 public class Monster extends Entity {
-  public int posX;
-  public int posY;
+//  public int posX;
+//  public int posY;
 
   public Monster(GamePanel gp, int posX, int posY) {
     super(gp);
@@ -33,8 +33,8 @@ public class Monster extends Entity {
     hitboxDefaultY = hitbox.y;
     hitbox.width = 32;
     hitbox.height = 32;
-    this.posX = posX;
-    this.posY = posY;
+    this.worldX = posX;
+    this.worldY = posY;
     direction = directions.DOWN;
     getImage();
   }
