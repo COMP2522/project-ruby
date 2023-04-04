@@ -59,8 +59,8 @@ public class Monster extends Entity {
   public void setAction() {
     onPath = true;
     if(onPath == true){
-      int goalCol = (gp.player.worldX + gp.player.hitbox.x/gp.TILE_SIZE);
-      int goalRow = (gp.player.worldY + gp.player.hitbox.y/gp.TILE_SIZE);
+      int goalCol = (gp.player.worldX + gp.player.hitbox.x) /gp.TILE_SIZE;
+      int goalRow = (gp.player.worldY + gp.player.hitbox.y) /gp.TILE_SIZE;
       searchPath(goalCol, goalRow);
     }
 
