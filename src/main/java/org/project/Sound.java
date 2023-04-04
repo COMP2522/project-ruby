@@ -7,7 +7,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 public class Sound {
-  private Clip clip;
+  public Clip clip;
   private final URL[] soundURL = new URL[30];
 
   public Sound() {

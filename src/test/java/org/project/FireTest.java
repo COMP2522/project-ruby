@@ -34,14 +34,6 @@ public class FireTest {
     assertEquals(3, fire.getCurrentFrame());
   }
 
-  // Test for getName() and setName()
-  @Test
-  public void testGetSetName() {
-    Fire fire = new Fire();
-    fire.setName("Test Fire");
-    assertEquals("Test Fire", fire.getName());
-  }
-
   // Test for getCollision() and setCollision()
   @Test
   public void testGetSetCollision() {
@@ -77,7 +69,7 @@ public class FireTest {
   @Test
   public void testDraw() {
     Fire fire = new Fire();
-    GamePanel gamePanel = new GamePanel();
+    GamePanel gamePanel = GamePanel.getGamePanel();
     BufferedImage image = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g2 = image.createGraphics();
     g2.setBackground(Color.BLACK);

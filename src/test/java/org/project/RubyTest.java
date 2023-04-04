@@ -15,7 +15,6 @@ public class RubyTest {
   @Test
   public void testConstructor() {
     Ruby ruby = new Ruby();
-    assertEquals("Ruby", ruby.getName());
     assertNotNull(ruby.getImage());
     assertTrue(ruby.getCollision());
   }

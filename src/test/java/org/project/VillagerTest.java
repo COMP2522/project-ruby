@@ -2,8 +2,7 @@ package org.project;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.project.Entity.directions;
-
+import static org.project.SystemVariables.*;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,11 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VillagerTest {
 
   private Villager testVillager;
-  private GamePanel testGamePanel;
-
+  
   @BeforeEach
   public void setUp() {
-    testGamePanel = new GamePanel();
+    GamePanel testGamePanel = GamePanel.getGamePanel();
     testVillager = new Villager(testGamePanel,10,10);
   }
 
