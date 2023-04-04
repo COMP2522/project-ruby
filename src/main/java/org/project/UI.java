@@ -2,6 +2,7 @@ package org.project;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import static org.project.SystemVariables.*;
 
 /**
  * UI class that is responsible for drawing/displaying the player stats and other important messages.
@@ -11,12 +12,9 @@ import java.awt.image.BufferedImage;
  */
 public class UI {
 
-  // JPanel attached to the game window
-  private static GamePanel gp;
-
-  // Arial font with 40 size
-  private static Font font;
-
+  private static GamePanel gp; // JPanel attached to the game window
+  private static Font font; // Arial font with 40 size
+  
   // declaring all image components below
   BufferedImage keyImage;
   BufferedImage fullHeart, halfHeart, emptyHeart;
@@ -36,9 +34,7 @@ public class UI {
    */
   public UI(GamePanel gp) {
     UI.gp = gp;
-    // initialize Window's font to Arial type and 40 size
     UI.font = new Font("Arial", Font.PLAIN, 40);
-    // Creating HUD Objects
     Ruby key = new Ruby();
     Life life = new Life();
 
@@ -66,22 +62,18 @@ public class UI {
   public void draw(Graphics2D g2) {
     g2.setFont(font);
     g2.setColor(Color.white);
-    g2.drawImage(keyImage, gp.TILE_SIZE / 2, gp.TILE_SIZE/2, gp.TILE_SIZE, gp.TILE_SIZE, null);
-    // 50, 50 are the (x, y) coordinates of the box displaying number of rubies
+    g2.drawImage(keyImage, TILE_SIZE/2, TILE_SIZE/2, TILE_SIZE, TILE_SIZE, null);
     g2.drawString("x " + gp.player.getCurrentRubies(), 74, 65);
-
     drawPlayerLife(g2);
 
     // popping message on window
     if (displayMessage) {
       g2.setFont(g2.getFont().deriveFont(30F));
-      g2.drawString(message, gp.TILE_SIZE/2, gp.TILE_SIZE*5);
+      g2.drawString(message, TILE_SIZE/2, TILE_SIZE*5);
       messageFrameCounter++;
-
-      // when message is drawn 120 times, it would have been drawn/displayed for 2 seconds
-      // how? Our game functions at 60 frames per second, only 60 frames drawn each second
-      // so when 120 frames have been drawn, message has stayed for a total of 2 seconds on screen
-      if (messageFrameCounter > 120) {
+      // Amount of time a message displays
+      int messageLength = 120;
+      if (messageFrameCounter > messageLength) {
         messageFrameCounter = 0;
         displayMessage = false;
       }
@@ -92,30 +84,30 @@ public class UI {
    * used to draw the heart images, showing the status of current amount of lives.
    */
   public void drawPlayerLife(Graphics2D g2) {
-    int x = GamePanel.TILE_SIZE * 10; // x coordinate of the lives display on screen
-    int y = GamePanel.TILE_SIZE / 3; // y coordinate of the lives display on screen
+    int x = TILE_SIZE * 10; // x coordinate of the lives display on screen
+    int y = TILE_SIZE / 3; // y coordinate of the lives display on screen
     int i = 0; // counts the number of heart displayed already on screen respect to max lives
 
     // DRAW MAX LIFE
     while (i < gp.player.getLives() / 2) { // display half the max lives because each heart is 2 sub-lives
-      g2.drawImage(emptyHeart, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+      g2.drawImage(emptyHeart, x, y, TILE_SIZE, TILE_SIZE, null);
       i++;
-      x += GamePanel.TILE_SIZE;
+      x += TILE_SIZE;
     }
 
     // RESET after drawing emptyHearts (displaying full life but BLANK)
-    x = GamePanel.TILE_SIZE * 10;
+    x = TILE_SIZE * 10;
     i = 0;
 
     // DRAW CURRENT LIFE
     while(i < gp.player.getLives()) {
-      g2.drawImage(halfHeart, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+      g2.drawImage(halfHeart, x, y, TILE_SIZE, TILE_SIZE, null);
       i++;
       if (i < gp.player.getLives()) {
-        g2.drawImage(fullHeart, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+        g2.drawImage(fullHeart, x, y, TILE_SIZE, TILE_SIZE, null);
       }
       i++;
-      x += GamePanel.TILE_SIZE;
+      x += TILE_SIZE;
     }
 
   }

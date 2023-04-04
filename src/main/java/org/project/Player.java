@@ -2,11 +2,10 @@ package org.project;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static org.project.Entity.directions.*;
+import static org.project.SystemVariables.*;
 
 /**
  * The player that the user can control.
@@ -15,8 +14,6 @@ import static org.project.Entity.directions.*;
  * @version 2023-02-07
  */
 public class Player extends Entity {
-
-  public enum status {ALIVE, DEAD}
   public static final int MAX_LIVES = 6;
   public final KeyHandler handler;
   public static Player instance;
@@ -38,10 +35,10 @@ public class Player extends Entity {
     Sound running = new Sound();
     running.setFile(4);
 
-    this.worldX = GamePanel.TILE_SIZE * 37;
-    this.worldY = GamePanel.TILE_SIZE * 9;
-    this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
-    this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
+    this.worldX = TILE_SIZE * 37;
+    this.worldY = TILE_SIZE * 9;
+    this.screenX = gp.screenWidth/2 - TILE_SIZE/2;
+    this.screenY = gp.screenHeight/2 - TILE_SIZE/2;
     this.hitbox = new Rectangle(10, 16,28,28);
     this.hitboxDefaultX = 10;
     this.hitboxDefaultY = 16;
@@ -72,13 +69,13 @@ public class Player extends Entity {
 
   public void updateDirection(KeyHandler kh) {
     if (kh.leftPressed) {
-      direction = LEFT;
+      direction = directions.LEFT;
     } else if (kh.rightPressed) {
-      direction = RIGHT;
+      direction = directions.RIGHT;
     } else if (kh.upPressed) {
-      direction = UP;
+      direction = directions.UP;
     } else {
-      direction = DOWN;
+      direction = directions.DOWN;
     }
   }
 
@@ -96,43 +93,6 @@ public class Player extends Entity {
       System.out.println("Image can't be read");
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public void draw(Graphics2D g2) {
-    super.draw(g2);
-
-    // Draw hitbox for debugging purposes
-    // g2.setColor(Color.red);
-    // g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
-
-    // Reset Opacity
-    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-  }
-  
-
-  /**
-   * returns the current number of lives player has.
-   * @return currentLives
-   */
-  public int getLives() {
-    return currentLives;
-  }
-  public void setLives(int lives) {
-    this.currentLives = lives;
-  }
-  
-
-  /**
-   * returns the current number of rubies the player possesses.
-   * @return the current number of rubies.
-   */
-  public int getCurrentRubies() {
-    return currentRubies;
-  }
-
-  public void setCurrentRubies(int rubies) {
-    this.currentRubies = rubies;
   }
 
   public void update(GamePanel gp, KeyHandler kh) {
@@ -168,11 +128,11 @@ public class Player extends Entity {
       interactMonster(monsterIndex);
   
       if (!collision) {
-        if (direction == LEFT) {
+        if (direction == directions.LEFT) {
           worldX -= speed;
-        } else if (direction == RIGHT) {
+        } else if (direction == directions.RIGHT) {
           worldX += speed;
-        } else if (direction == UP) {
+        } else if (direction == directions.UP) {
           worldY -= speed;
         } else {
           worldY += speed;
@@ -244,7 +204,7 @@ public class Player extends Entity {
    */
   public void interactNPC(int index) {
     if(index != this.indexMax) {
-      System.out.println("Watch where you're going!");
+      gp.ui.showMessage("Watch where you're going!");
     }
   }
 
@@ -258,7 +218,21 @@ public class Player extends Entity {
         currentLives--;
         invincible = true;
       }
-      gp.ui.showMessage("Monster, RUN!");
+      gp.ui.showMessage("Monster.. RUN!!");
     }
+  }
+  
+  // A bunch of getters and setters for instance variables
+  public int getLives() {
+    return currentLives;
+  }
+  public void setLives(int lives) {
+    this.currentLives = lives;
+  }
+  public int getCurrentRubies() {
+    return currentRubies;
+  }
+  public void setCurrentRubies(int rubies) {
+    this.currentRubies = rubies;
   }
 }

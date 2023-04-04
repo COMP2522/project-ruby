@@ -3,6 +3,11 @@ package org.project;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Manages all key input from the player
+ * @author Nathan Bartyuk
+ * @version 2023-04-04
+ */
 public class KeyHandler implements KeyListener {
 
   public static KeyEvent e;

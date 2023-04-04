@@ -1,6 +1,6 @@
 package org.project;
 
-import static org.project.Entity.directions.*;
+import static org.project.SystemVariables.*;
 
 /**
  * The CollisionDetector class provides methods for detecting
@@ -13,7 +13,6 @@ import static org.project.Entity.directions.*;
 public class CollisionDetector {
   public static GamePanel gp;
   public static CollisionDetector instance;
-  public static int MAX_INDEX = 999;
   
   private int leftCol;
   private int rightCol;
@@ -46,24 +45,24 @@ public class CollisionDetector {
     int upY = entity.worldY + entity.hitbox.y;
     int downY = entity.worldY + entity.hitbox.y + entity.hitbox.height;
 
-    leftCol = leftX / GamePanel.TILE_SIZE;
-    rightCol = rightX / GamePanel.TILE_SIZE;
-    upRow = upY / GamePanel.TILE_SIZE;
-    downRow = downY / GamePanel.TILE_SIZE;
+    leftCol = leftX / TILE_SIZE;
+    rightCol = rightX / TILE_SIZE;
+    upRow = upY / TILE_SIZE;
+    downRow = downY / TILE_SIZE;
 
 
     //checking the player's direction
-    if (entity.direction == UP) {
-      upRow = (upY - entity.speed) / GamePanel.TILE_SIZE;
+    if (entity.direction == directions.UP) {
+      upRow = (upY - entity.speed) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == DOWN) {
-      downRow = (downY + entity.speed) / GamePanel.TILE_SIZE;
+    } else if (entity.direction == directions.DOWN) {
+      downRow = (downY + entity.speed) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == LEFT) {
-      leftCol = (leftX - entity.speed) / GamePanel.TILE_SIZE;
+    } else if (entity.direction == directions.LEFT) {
+      leftCol = (leftX - entity.speed) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == RIGHT) {
-      rightCol = (rightX + entity.speed) / GamePanel.TILE_SIZE;
+    } else if (entity.direction == directions.RIGHT) {
+      rightCol = (rightX + entity.speed) / TILE_SIZE;
       collide(entity);
     }
   }
@@ -98,16 +97,16 @@ public class CollisionDetector {
         gp.elements[i].getHitbox().x = gp.elements[i].getWorldX() + gp.elements[i].getHitbox().x;
         gp.elements[i].getHitbox().y = gp.elements[i].getWorldY() + gp.elements[i].getHitbox().y;
 
-        if (p.direction == UP) {
+        if (p.direction == directions.UP) {
           p.hitbox.y -= p.speed;
           index = handleCollision(p,gp, player, i, index);
-        } else if (p.direction == DOWN) {
+        } else if (p.direction == directions.DOWN) {
           p.hitbox.y += p.speed;
           index = handleCollision(p, gp,player, i, index);
-        } else if (p.direction == LEFT) {
+        } else if (p.direction == directions.LEFT) {
           p.hitbox.x -= p.speed;
           index = handleCollision(p,gp, player, i, index);
-        } else if (p.direction == RIGHT) {
+        } else if (p.direction == directions.RIGHT) {
           p.hitbox.x += p.speed;
           index = handleCollision(p,gp, player, i, index);
         }
@@ -170,14 +169,12 @@ public class CollisionDetector {
         entity.hitbox.y += moveY;
 
         if (entity.hitbox.intersects(target[i].hitbox)) {
-          System.out.println(entity.direction + " collision");
           entity.collision = true;
           index = i;
         }
 
         entity.hitbox.x = entity.hitboxDefaultX;
         entity.hitbox.y = entity.hitboxDefaultY;
-
         target[i].hitbox.x = target[i].hitboxDefaultX;
         target[i].hitbox.y = target[i].hitboxDefaultY;
       }

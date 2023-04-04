@@ -2,10 +2,8 @@ package org.project;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import java.util.Arrays;
-
-import static org.project.Entity.directions.values;
+import java.util.Objects;
 
 /**
  * Defines a save object which stores the current game state in a file
@@ -41,53 +39,14 @@ public class SaveState {
     player.worldX = ((Long) playerData.get("worldX")).intValue();
     player.worldY = ((Long) playerData.get("worldY")).intValue();
     player.speed = ((Long) playerData.get("speed")).intValue();
-    int directionOrdinal = ((Long) playerData.get("direction")).intValue();
-    player.direction = values()[directionOrdinal];
     player.spriteCounter = ((Long) playerData.get("spriteCounter")).intValue();
     player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
     player.setLives(((Long) playerData.get("lives")).intValue());
     player.setCurrentRubies(((Long) playerData.get("rubies")).intValue());
-
-
+    
     gamePanel.elements = parseElementArr((JSONArray) this.gamePanelData.get("elementArr"));
     gamePanel.npc = parseNPCArr((JSONArray) this.gamePanelData.get("npcArr"));
     gamePanel.monster = parseMonsterArr((JSONArray) this.gamePanelData.get("monsterArr"));
-
-  }
-
-  /**
-   * Returns JSON data representing state of Player.
-   * @return a JSONObject
-   */
-  public JSONObject getPlayerData() {
-    return this.playerData;
-  }
-
-  /**
-   * Returns JSON data representing state of GamePanel.
-   * @return a JSONObject
-   */
-  public JSONObject getGamePanelData() {
-    return this.gamePanelData;
-  }
-
-  /**
-   * Sets SaveState data from Object instances.
-   * @param gp a GamePanel instance
-   */
-  public void setSaveState(GamePanel gp) {
-    this.gamePanel = gp;
-    setPlayerData(gp.player);
-    setGamePanelData(gp);
-  }
-
-  /**
-   * Sets SaveState data from JSONObject
-   * @param json a JSONObject, of data to save
-   */
-  public void setSaveState(JSONObject json) {
-    this.gamePanelData = (JSONObject) json.get("gamePanelData");
-    this.playerData = (JSONObject) json.get("playerData");
   }
 
   /* Helper methods */
@@ -127,15 +86,14 @@ public class SaveState {
   }
 
   /**
-   * Creates a JSONArray of Positionable objects consisting of each
-   * Positionable's worldX and worldY.
+   * Creates a JSONArray of Positionable objects consisting of each worldX and worldY.
    * @param positionables, a Positionable array
    * @return a JSONArray of JSONObjects with x and y properties
    */
   private JSONArray arrToJSON(Positionable[] positionables) {
     JSONArray jsonArr = new JSONArray();
     Arrays.stream(positionables)
-        .filter(n -> n != null)
+        .filter(Objects::nonNull)
         .map(positionable -> {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("type", positionable.getClass().getSimpleName());
@@ -163,7 +121,7 @@ public class SaveState {
 
   /**
    * Parse JSONArray and returns Monster array.
-   * @param objs JSONArray, in save file
+   * @param objs a JSONObject representing Monster
    * @return Entity[]
    */
   private Entity[] parseMonsterArr(JSONArray objs) {
@@ -180,7 +138,7 @@ public class SaveState {
 
   /**
    * Parse JSONArray and return NPC array.
-   * @param objs
+   * @param objs a JSONObject representing NPC
    * @return Entity[]
    */
   private Entity[] parseNPCArr(JSONArray objs) {
@@ -203,29 +161,47 @@ public class SaveState {
   private Element jsonToElement(JSONObject obj) {
     String type = (String) obj.get("type");
     switch (type) {
-      case "Ruby":
+      case "Ruby" -> {
         Ruby ruby = new Ruby();
         ((Positionable) ruby).setWorldX(((Number) obj.get("x")).intValue());
         ((Positionable) ruby).setWorldY(((Number) obj.get("y")).intValue());
         return ruby;
-      case "PowerUp":
+      }
+      case "PowerUp" -> {
         PowerUp powerUp = new PowerUp();
         ((Positionable) powerUp).setWorldX(((Number) obj.get("x")).intValue());
         ((Positionable) powerUp).setWorldY(((Number) obj.get("y")).intValue());
         return powerUp;
-      case "Fire":
+      }
+      case "Fire" -> {
         Fire fire = new Fire();
         ((Positionable) fire).setWorldX(((Number) obj.get("x")).intValue());
         ((Positionable) fire).setWorldY(((Number) obj.get("y")).intValue());
         return fire;
-      case "Door":
+      }
+      case "Door" -> {
         Door door = new Door();
         ((Positionable) door).setWorldX(((Number) obj.get("x")).intValue());
         ((Positionable) door).setWorldY(((Number) obj.get("y")).intValue());
         return door;
-      default:
-        throw new IllegalArgumentException("Invalid entity type: " + type);
+      }
+      default -> throw new IllegalArgumentException("Invalid entity type: " + type);
     }
   }
-
+  
+  public JSONObject getPlayerData() {
+    return this.playerData;
+  }
+  public JSONObject getGamePanelData() {
+    return this.gamePanelData;
+  }
+  public void setSaveState(GamePanel gp) {
+    this.gamePanel = gp;
+    setPlayerData(gp.player);
+    setGamePanelData(gp);
+  }
+  public void setSaveState(JSONObject json) {
+    this.gamePanelData = (JSONObject) json.get("gamePanelData");
+    this.playerData = (JSONObject) json.get("playerData");
+  }
 }

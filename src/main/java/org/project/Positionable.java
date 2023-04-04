@@ -1,8 +1,13 @@
 package org.project;
 
+/**
+ * Interface to unite all entities and savable elements
+ * @author Greg Song
+ * @version 2023-04-04
+ */
 public interface Positionable {
-  public int getWorldX();
-  public int getWorldY();
-  public void setWorldX(int worldX);
-  public void setWorldY(int worldY);
+  int getWorldX();
+  int getWorldY();
+  void setWorldX(int worldX);
+  void setWorldY(int worldY);
 }

@@ -12,15 +12,10 @@ import java.io.IOException;
  * @version 2023-03-31
  */
 public class Life extends Element {
-
-  // defining two extra buffered images to display a half and empty life on UI
-  // one buffered image is already being inherited from the superclass
   public BufferedImage halfLife;
   public BufferedImage emptyLife;
 
-  /**
-   * Constructs a heart object and sets its name, image, and collision properties.
-   */
+  /** Constructs a heart object and sets its name, image, and collision properties. */
   public Life() {
     try {
       setImage(ImageIO.read(new FileInputStream("assets/player/fullHeart.png")));

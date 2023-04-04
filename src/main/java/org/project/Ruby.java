@@ -12,9 +12,7 @@ import java.io.IOException;
  */
 public class Ruby extends Element {
 
-  /**
-   * Constructs a Ruby object and sets its name, image, and collision properties.
-   */
+  /** Constructs a Ruby object and sets its image, and collision properties. */
   public Ruby() {
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/ruby.png")));

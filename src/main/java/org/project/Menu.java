@@ -10,12 +10,12 @@ import java.io.FileNotFoundException;
  * save data, and loads GamePanel.
  */
 public class Menu {
-  private static final Dimension PANELSIZE = new Dimension(768, 576);
-  private static final Dimension BUTTONSIZE = new Dimension(300,100);
-  private static final Dimension LABELSIZE = new Dimension(300, 50);
-  private static final Dimension BUTTONPANELSIZE = new Dimension(500,576);
-  private static final Dimension TITLESIZE = new Dimension(700, 150);
-  private static final String TITLEIMG = "assets/menu/title.png";
+  private static final Dimension PANEL_SIZE = new Dimension(768, 576);
+  private static final Dimension BUTTON_SIZE = new Dimension(300,100);
+  private static final Dimension LABEL_SIZE = new Dimension(300, 50);
+  private static final Dimension BUTTON_PANEL_SIZE = new Dimension(500,576);
+  private static final Dimension TITLE_SIZE = new Dimension(700, 150);
+  private static final String TITLE_IMAGE = "assets/menu/title.png";
 
   SaveStateHandler saveStateHandler;
   SaveState saveState;
@@ -25,8 +25,8 @@ public class Menu {
 
   /**
    * Constructs Menu.
-   * @param gameLoader
-   * @param gamePanel
+   * @param gameLoader Object to load the game
+   * @param gamePanel Game window to be loaded
    */
   public Menu(GameLoader gameLoader, GamePanel gamePanel) {
     this.saveStateHandler = SaveStateHandler.getInstance();
@@ -45,16 +45,16 @@ public class Menu {
     JPanel backgroundPanel = new ImagePanel();
 
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setPreferredSize(BUTTONPANELSIZE);
+    buttonPanel.setPreferredSize(BUTTON_PANEL_SIZE);
     buttonPanel.setLayout(new FlowLayout());
     buttonPanel.setOpaque(false);
 
     // add title Label
     JLabel title = new JLabel();
-    ImageIcon imageIcon = new ImageIcon(TITLEIMG);
+    ImageIcon imageIcon = new ImageIcon(TITLE_IMAGE);
     title.setIcon(imageIcon);
     title.setHorizontalAlignment(SwingConstants.CENTER);
-    title.setPreferredSize(TITLESIZE);
+    title.setPreferredSize(TITLE_SIZE);
     title.setOpaque(false);
     buttonPanel.add(title);
 
@@ -72,7 +72,7 @@ public class Menu {
    */
   private JLabel createUserLabel() {
     JLabel label = new JLabel("Username:");
-    label.setPreferredSize(LABELSIZE);
+    label.setPreferredSize(LABEL_SIZE);
     label.setForeground(Color.ORANGE);
     Font font = label.getFont();
     label.setFont(new Font(font.getName(), font.getStyle(),30));
@@ -84,7 +84,6 @@ public class Menu {
    */
   private JTextField createTextField() {
     JTextField textField = new JTextField(18);
-//    textField.setPreferredSize(TEXTFIELDSIZE);
     Font font = new Font("Arial", Font.BOLD, 18);
     textField.setFont(font);
     return textField;
@@ -96,7 +95,7 @@ public class Menu {
    */
   private JButton createButton(String text) {
     JButton button = new JButton(text);
-    button.setPreferredSize(BUTTONSIZE);
+    button.setPreferredSize(BUTTON_SIZE);
     button.setFont(new Font("Arial", Font.BOLD, 20));
     return button;
   }
@@ -168,12 +167,8 @@ public class Menu {
     JButton loadGameButton = createButton("Load Game");
     CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
 
-    newGameButton.addActionListener(e -> {
-      cardLayout.show(mainPanel, "new");
-    });
-    loadGameButton.addActionListener(e -> {
-      cardLayout.show(mainPanel, "load");
-    });
+    newGameButton.addActionListener(e -> cardLayout.show(mainPanel, "new"));
+    loadGameButton.addActionListener(e -> cardLayout.show(mainPanel, "load"));
 
     return createPanel(newGameButton, loadGameButton);
   }
@@ -184,7 +179,7 @@ public class Menu {
    */
   public JPanel createMenu(){
     JPanel mainPanel = new JPanel(new CardLayout());
-    mainPanel.setPreferredSize(PANELSIZE);
+    mainPanel.setPreferredSize(PANEL_SIZE);
 
     CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
 

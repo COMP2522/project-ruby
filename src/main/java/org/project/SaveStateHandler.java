@@ -13,18 +13,16 @@ import java.io.*;
  */
 public class SaveStateHandler {
   private static SaveStateHandler instance;
-  private SaveState saveState;
-  private String dirPath = "save/";
-  private String extension = ".json";
+  private final SaveState saveState;
+  private final String dirPath = "save/";
+  private final String extension = ".json";
   private String username;
   private String pathName = dirPath + username + extension;
 
-  /**
-   * Private constructor to enforce Singleton pattern.
-   */
+  /** Private constructor to enforce Singleton pattern. */
   private SaveStateHandler() {
     this.saveState = SaveState.getInstance();
-  };
+  }
 
   /**
    * Returns singleton instance of SaveStateHandler.
@@ -58,8 +56,7 @@ public class SaveStateHandler {
 
   /**
    * Loads save data JSON file from directory and returns saveState.
-//   * @param username a String, name of the file
-   * @throws FileNotFoundException
+   * @throws FileNotFoundException When user file is not found
    * @return SaveState object
    */
   public SaveState load() throws FileNotFoundException {

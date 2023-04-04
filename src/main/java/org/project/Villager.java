@@ -5,6 +5,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
+import static org.project.SystemVariables.*;
 
 /**
  * Villager is docile. Just randomly moves around.
@@ -51,6 +52,23 @@ public class Villager extends Entity {
         } catch(IOException e) {
             System.out.println("Image can't be read ...");
             e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public void setAction() {
+        actionLockCounter++;
+        if (actionLockCounter == 120) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
+    
+            switch (i / 25) {
+                case 0 -> direction = directions.UP;
+                case 1 -> direction = directions.DOWN;
+                case 2 -> direction = directions.LEFT;
+                case 3 -> direction = directions.RIGHT;
+            }
+            actionLockCounter = 0;
         }
     }
 }

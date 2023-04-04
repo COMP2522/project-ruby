@@ -4,33 +4,28 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * GameLoader is the entry point for this game. It initializes
- * SaveStateHandler, Window, game and menu panels and manages switching
- * between them.
- *
+ * GameLoader is the entry point for this game.
+ * It initializes SaveStateHandler, Window, game and menu panels and manages switching between them.
  * @author Greg Song
  * @version 2023-04-03
  */
 public class GameLoader {
-  private JFrame window;
-  private JPanel menuPanel;
-  private GamePanel gamePanel;
-  private SaveStateHandler saveStateHandler;
-
+  private final JFrame window;
+  private final JPanel menuPanel;
+  private final GamePanel gamePanel;
+  
   /**
    * Constructs GameLoader. Instantiating GameLoader starts the game in JFrame,
    * and initializes SaveStateHandler.
    */
   public GameLoader() {
-    this.saveStateHandler = SaveStateHandler.getInstance();
-
     this.window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
     window.setTitle("Ruby Rush");
     window.requestFocus();
 
-    this.gamePanel = new GamePanel();
+    this.gamePanel = GamePanel.getGamePanel();
 
     Menu menu = new Menu(this, this.gamePanel);
     this.menuPanel = menu.createMenu();

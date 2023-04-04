@@ -3,6 +3,7 @@ package org.project;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
+import static org.project.SystemVariables.*;
 
 /**
  * Manages the static elements on the map
@@ -27,9 +28,9 @@ public class TileManager {
   public TileManager(GamePanel gp) {
     this.gp = gp;
     tiles = new Tile[10];
-    map = new int[GamePanel.MAP_COL][GamePanel.MAP_ROW];
+    map = new int[MAP_COL][MAP_ROW];
     getTileImage();
-    loadMap(gp);
+    loadMap();
   }
   
   /** Reads the map and gets assets for each tile */
@@ -46,26 +47,23 @@ public class TileManager {
     }
   }
   
-  /**
-   * Parses map assets from file
-   * @param gp the GamePanel to display to
-   */
-  public void loadMap(GamePanel gp) {
+  /** Parses map assets from file */
+  public void loadMap() {
     try {
       InputStream is = new FileInputStream(mapPath);
       BufferedReader br = new BufferedReader(new InputStreamReader(is));
       int col = 0;
       int row = 0;
 
-      while (col< GamePanel.MAP_COL && row < GamePanel.MAP_ROW) {
+      while (col< MAP_COL && row < MAP_ROW) {
         String line = br.readLine();
         String[] numbers = line.split(" ");
-        while(col < GamePanel.MAP_COL) {
+        while(col < MAP_COL) {
           int num = Integer.parseInt(numbers[col]);
           map[col][row] = num;
           col++;
         }
-        if (col == GamePanel.MAP_COL) {
+        if (col == MAP_COL) {
           col = 0;
           row++;
         }
@@ -85,23 +83,23 @@ public class TileManager {
     int worldRow = 0;
     
     // Only processes sprites in the parsed map
-    while(worldCol < GamePanel.MAP_COL && worldRow < GamePanel.MAP_ROW) {
+    while(worldCol < MAP_COL && worldRow < MAP_ROW) {
       int tileNum = map[worldCol][worldRow];
-      int worldX = worldCol * GamePanel.TILE_SIZE;
-      int worldY = worldRow * GamePanel.TILE_SIZE;
+      int worldX = worldCol * TILE_SIZE;
+      int worldY = worldRow * TILE_SIZE;
       int screenX = worldX - gp.player.worldX + gp.player.screenX;
       int screenY = worldY - gp.player.worldY + gp.player.screenY;
       
       // Only draws sprites in the window view
-      if (worldX + GamePanel.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-          worldX - GamePanel.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-          worldY + GamePanel.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-          worldY - GamePanel.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
-        g2.drawImage(tiles[tileNum].sprite, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+      if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+          worldX - TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+          worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+          worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+        g2.drawImage(tiles[tileNum].sprite, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
       }
       
       worldCol++;
-      if (worldCol == GamePanel.MAP_COL) {
+      if (worldCol == MAP_COL) {
         worldCol = 0;
         worldRow++;
       }
