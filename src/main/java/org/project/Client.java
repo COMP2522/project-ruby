@@ -151,7 +151,6 @@ public class Client {
    *
    * @param args
    * - took out throws IOException, ClassNotFoundException, InterruptedException
-   * - after try catch blocks, still getting nullpointerexception?
    * - to show why we want good exceptions
    */
   public static void main(String[] args) throws ParseException, IOException {

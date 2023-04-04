@@ -1,7 +1,5 @@
 package org.project;
 
-import java.awt.*;
-
 import static org.project.Entity.directions.*;
 
 /**
@@ -13,19 +11,29 @@ import static org.project.Entity.directions.*;
  * @version 2023-02-07
  */
 public class CollisionDetector {
-  GamePanel gp;
-  int leftCol;
-  int rightCol;
-  int upRow;
-  int downRow;
+  public static GamePanel gp;
+  public static CollisionDetector instance;
+  public static int MAX_INDEX = 999;
+  
+  private int leftCol;
+  private int rightCol;
+  private int upRow;
+  private int downRow;
 
   /**
    * Constructs a CollisionDetector object with a reference to
    * the GamePanel it is being used in.
    * @param gp The GamePanel object.
    */
-  public CollisionDetector(GamePanel gp) {
-    this.gp = gp;
+  private CollisionDetector(GamePanel gp) {
+    CollisionDetector.gp = gp;
+  }
+  
+  public static CollisionDetector getCollisionDetector(GamePanel gp) {
+    if (instance == null) {
+      instance = new CollisionDetector(gp);
+    }
+    return instance;
   }
 
   /**
@@ -78,7 +86,7 @@ public class CollisionDetector {
    * @return The index of the element with which the player is colliding, or 999 if no collision occurs.
    */
   public int checkObject(Player p, boolean player) {
-    int index = 999;
+    int index = MAX_INDEX;
     for (int i = 0; i < gp.elements.length; i++) {
       if (gp.elements[i] != null) {
 
@@ -134,20 +142,9 @@ public class CollisionDetector {
   }
 
 
-//  public void checkCollide(int i, int index, boolean player, Player p) {
-//    if (gp.elements[i].getCollision()) {
-//      p.collision = true;
-//    }
-//    if (player) {
-//      index = i;
-//    }
-//  }
-
-
   // NPC and for Future use will include Monster
   public int checkEntityCollide(Entity entity, Entity[] target) {
-
-    int index = 999;
+    int index = MAX_INDEX;
     for (int i = 0; i < target.length; i++) {
       if (target[i] != null) {
 
@@ -161,20 +158,12 @@ public class CollisionDetector {
 
         int moveX = 0;
         int moveY = 0;
-
+  
         switch (entity.direction) {
-          case UP:
-            moveY = -entity.speed;
-            break;
-          case DOWN:
-            moveY = entity.speed;
-            break;
-          case LEFT:
-            moveX = -entity.speed;
-            break;
-          case RIGHT:
-            moveX = entity.speed;
-            break;
+          case UP -> moveY = -entity.speed;
+          case DOWN -> moveY = entity.speed;
+          case LEFT -> moveX = -entity.speed;
+          case RIGHT -> moveX = entity.speed;
         }
 
         entity.hitbox.x += moveX;
@@ -197,25 +186,22 @@ public class CollisionDetector {
   }
 
   public boolean checkPlayerCollide(Entity entity) {
-
     boolean contactPlayer = false;
 
     //get entity/player's solid area position
     entity.hitbox.x = entity.worldX + entity.hitbox.x;
     entity.hitbox.y = entity.worldY + entity.hitbox.y;
 
-    //get teh object's solid area position
+    //get the object's solid area position
     gp.player.hitbox.x = gp.player.worldX + gp.player.hitbox.x;
     gp.player.hitbox.y = gp.player.worldY + gp.player.hitbox.y;
-
-    if (entity.direction == UP) {
-      entity.hitbox.y -= entity.speed;
-    } else if (entity.direction == DOWN) {
-      entity.hitbox.y += entity.speed;
-    } else if (entity.direction == LEFT) {
-      entity.hitbox.x -= entity.speed;
-    } else if (entity.direction == RIGHT) {
-      entity.hitbox.x += entity.speed;
+    
+  
+    switch (entity.direction) {
+      case UP -> entity.hitbox.y -= entity.speed;
+      case DOWN -> entity.hitbox.y += entity.speed;
+      case LEFT -> entity.hitbox.x -= entity.speed;
+      case RIGHT -> entity.hitbox.x += entity.speed;
     }
 
     if (entity.hitbox.intersects(gp.player.hitbox)) {

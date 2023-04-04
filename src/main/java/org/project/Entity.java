@@ -124,7 +124,7 @@ public abstract class Entity implements Positionable {
       worldX - GamePanel.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
       worldY + GamePanel.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
       worldY - GamePanel.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
-      switch(direction) {
+      switch (direction) {
         case UP:
           if (spriteNum == 1) {image = upR;}
           if (spriteNum == 2) {image = upL;}
@@ -143,6 +143,9 @@ public abstract class Entity implements Positionable {
           break;
         default:
           break;
+      }
+      if (invincible) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
       }
       g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
@@ -166,7 +169,7 @@ public abstract class Entity implements Positionable {
 
     gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
 
-    if(gp.pFinder.search() == true) {
+    if(gp.pFinder.search()) {
       // Next worldX and worldY
       int nextX = gp.pFinder.pathList.get(0).col * gp.TILE_SIZE;
       int nextY = gp.pFinder.pathList.get(0).row * gp.TILE_SIZE;

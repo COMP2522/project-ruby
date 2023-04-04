@@ -14,7 +14,6 @@ import java.io.IOException;
  * @version 2023-02-07
  */
 public class Fire extends Element {
-  private final int tileSize = GamePanel.TILE_SIZE;
   private final BufferedImage[] fires;
   private long lastFrameTime;
   
@@ -23,7 +22,6 @@ public class Fire extends Element {
    * Also sets up the animation of the Fire element.
    */
   public Fire() {
-    setName("Fire");
     fires = new BufferedImage[4];
     try {
       for (int i = 0; i < fires.length; i++) {
@@ -56,6 +54,7 @@ public class Fire extends Element {
       setImage(fires[getCurrentFrame()]);
       lastFrameTime = currentTime;
     }
+    int tileSize = GamePanel.TILE_SIZE;
     g2.drawImage(getImage(), screenX, screenY, tileSize, tileSize, null);
   }
 }

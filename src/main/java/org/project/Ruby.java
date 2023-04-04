@@ -16,7 +16,6 @@ public class Ruby extends Element {
    * Constructs a Ruby object and sets its name, image, and collision properties.
    */
   public Ruby() {
-    setName("Ruby");
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/ruby.png")));
     } catch (IOException e) {

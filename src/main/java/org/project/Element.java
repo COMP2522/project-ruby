@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
  * @version 2023-02-07
  */
 public abstract class Element implements Positionable {
+
   //setting instance variables.
   private BufferedImage image;
   private int currentFrame = 0;
@@ -36,14 +37,6 @@ public abstract class Element implements Positionable {
 
   public void setCurrentFrame(int currentFrame) {
     this.currentFrame = currentFrame;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public boolean getCollision() {

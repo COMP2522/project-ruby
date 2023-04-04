@@ -22,7 +22,6 @@ public class Life extends Element {
    * Constructs a heart object and sets its name, image, and collision properties.
    */
   public Life() {
-    setName("Life");
     try {
       setImage(ImageIO.read(new FileInputStream("assets/player/fullHeart.png")));
       halfLife = ImageIO.read(new FileInputStream("assets/player/halfHeart.png"));

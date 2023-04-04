@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static org.project.CollisionDetector.getCollisionDetector;
+
 /**
  * Manages every other manager and displays the game on screen
  *
@@ -36,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
   
   
   public TileManager tManager = new TileManager(this); // this is actually like the manager of map
-  public CollisionDetector cDetector = new CollisionDetector(this);
+  public CollisionDetector cDetector = getCollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
   public Player player = Player.getInstance(this, kHandler);
 
