@@ -1,7 +1,5 @@
 package org.project;
 
-import org.json.simple.JSONObject;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -159,6 +157,10 @@ public class Player extends Entity {
   public int getLives() {
     return currentLives;
   }
+
+  public void setLives(int lives) {
+    this.currentLives = lives;
+  }
   
 
   /**
@@ -167,6 +169,10 @@ public class Player extends Entity {
    */
   public int getCurrentRubies() {
     return currentRubies;
+  }
+
+  public void setCurrentRubies(int rubies) {
+    this.currentRubies = rubies;
   }
 
   public void update(GamePanel gp, KeyHandler kh) {
@@ -246,6 +252,8 @@ public class Player extends Entity {
           currentRubies++;
           gp.elements[index] = null;
           gp.ui.showMessage("You got a ruby!");
+          SaveState.getInstance().setSaveState(gp);
+          SaveStateHandler.getInstance().save();
         }
         case "Door" -> {
           if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
@@ -295,25 +303,5 @@ public class Player extends Entity {
       }
       gp.ui.showMessage("Monster, RUN!");
     }
-  }
-
-
-  /**
-   * Sets Player variables from JSON playerData
-   * @param playerData, JSONObject from SaveState
-   */
-  public void loadPlayerData(JSONObject playerData) {
-    if (playerData == null) {
-      throw new NullPointerException("PlayerData object is null.");
-    }
-    this.worldX = ((Long) playerData.get("worldX")).intValue();
-    this.worldY = ((Long) playerData.get("worldY")).intValue();
-    this.speed = ((Long) playerData.get("speed")).intValue();
-    int directionOrdinal = ((Long) playerData.get("direction")).intValue();
-    this.direction = values()[directionOrdinal];
-    this.spriteCounter = ((Long) playerData.get("spriteCounter")).intValue();
-    this.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
-    this.currentLives= ((Long) playerData.get("lives")).intValue();
-    this.currentRubies = ((Long) playerData.get("rubies")).intValue();
   }
 }

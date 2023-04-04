@@ -13,20 +13,24 @@ public class Menu {
   private static final Dimension PANELSIZE = new Dimension(768, 576);
   private static final Dimension BUTTONSIZE = new Dimension(300,100);
   private static final Dimension LABELSIZE = new Dimension(300, 50);
-  private static final Dimension TEXTFIELDSIZE = new Dimension(300, 200);
   private static final Dimension BUTTONPANELSIZE = new Dimension(500,576);
   private static final Dimension TITLESIZE = new Dimension(700, 150);
   private static final String TITLEIMG = "assets/menu/title.png";
 
   SaveStateHandler saveStateHandler;
+  SaveState saveState;
   GamePanel gamePanel;
-  JFrame window;
   GameLoader gameLoader;
   Client client;
 
-  public Menu(GameLoader gameLoader, JFrame window, GamePanel gamePanel, SaveStateHandler saveStateHandler) {
-    this.saveStateHandler = saveStateHandler;
-//    this.window = window;
+  /**
+   * Constructs Menu.
+   * @param gameLoader
+   * @param gamePanel
+   */
+  public Menu(GameLoader gameLoader, GamePanel gamePanel) {
+    this.saveStateHandler = SaveStateHandler.getInstance();
+    this.saveState = SaveState.getInstance();
     this.gamePanel = gamePanel;
     this.gameLoader = gameLoader;
     this.client = new Client(5000);
@@ -111,6 +115,7 @@ public class Menu {
     // onclick submit button
     newSubmitButton.addActionListener(e -> {
       handleTextInput(newTextInput);
+      gamePanel.setUpGame();
       gameLoader.switchToGamePanel();
     });
 
@@ -123,6 +128,7 @@ public class Menu {
     // handle 'enter' key press
     newTextInput.addActionListener(e -> {
       handleTextInput(newTextInput);
+      gamePanel.setUpGame();
       gameLoader.switchToGamePanel();
     });
 
@@ -140,14 +146,14 @@ public class Menu {
     JTextField loadTextInput = createTextField();
     JLabel userLabel = createUserLabel();
 
-    loadSubmitButton.addActionListener(handleLoadGame(client, gamePanel, loadTextInput));
+    loadSubmitButton.addActionListener(handleLoadGame(gamePanel, loadTextInput));
 
     loadBackButton.addActionListener(e -> {
       CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
       cardLayout.show(mainPanel, "menu");
     });
 
-    loadTextInput.addActionListener(handleLoadGame(client, gamePanel, loadTextInput));
+    loadTextInput.addActionListener(handleLoadGame(gamePanel, loadTextInput));
 
     return createPanel(userLabel, loadTextInput, loadSubmitButton, loadBackButton);
   }
@@ -198,7 +204,7 @@ public class Menu {
    * Helper method to handle loading game.
    * @return ActionListener
    */
-  private ActionListener handleLoadGame(Client client, GamePanel gamePanel, JTextField loadTextInput) {
+  private ActionListener handleLoadGame(GamePanel gamePanel, JTextField loadTextInput) {
     return e -> {
       handleTextInput(loadTextInput);
       SaveState saveState;
@@ -207,8 +213,7 @@ public class Menu {
       } catch (FileNotFoundException ex) {
         throw new RuntimeException(ex);
       }
-      gamePanel.player.loadPlayerData(saveState.getPlayerData());
-      // wait, load into GamePanel
+      saveState.load(gamePanel.player, gamePanel);
       gameLoader.switchToGamePanel();
     };
   }

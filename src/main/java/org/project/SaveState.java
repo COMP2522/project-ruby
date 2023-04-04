@@ -2,9 +2,10 @@ package org.project;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 import java.util.Arrays;
+
+import static org.project.Entity.directions.values;
 
 /**
  * Defines a save object which stores the current game state in a file
@@ -13,15 +14,45 @@ import java.util.Arrays;
  * @version 2023-03-31
  */
 public class SaveState {
+  private static final int ARR_SIZE = 20;
   private static SaveState instance;
   JSONObject playerData;
   JSONObject gamePanelData;
+  GamePanel gamePanel;
+
 
   public static SaveState getInstance() {
     if (instance == null) {
       instance = new SaveState();
     }
     return instance;
+  }
+
+  /**
+   * Loads Player variables from JSON playerData.
+   * @param player a Player object in game
+   */
+  public void load(Player player, GamePanel gamePanel) {
+    if (playerData == null) {
+      throw new NullPointerException("PlayerData object is null.");
+    }
+    this.gamePanel = player.gp;
+
+    player.worldX = ((Long) playerData.get("worldX")).intValue();
+    player.worldY = ((Long) playerData.get("worldY")).intValue();
+    player.speed = ((Long) playerData.get("speed")).intValue();
+    int directionOrdinal = ((Long) playerData.get("direction")).intValue();
+    player.direction = values()[directionOrdinal];
+    player.spriteCounter = ((Long) playerData.get("spriteCounter")).intValue();
+    player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
+    player.setLives(((Long) playerData.get("lives")).intValue());
+    player.setCurrentRubies(((Long) playerData.get("rubies")).intValue());
+
+
+    gamePanel.elements = parseElementArr((JSONArray) this.gamePanelData.get("elementArr"));
+    gamePanel.npc = parseNPCArr((JSONArray) this.gamePanelData.get("npcArr"));
+    gamePanel.monster = parseMonsterArr((JSONArray) this.gamePanelData.get("monsterArr"));
+
   }
 
   /**
@@ -45,13 +76,14 @@ public class SaveState {
    * @param gp a GamePanel instance
    */
   public void setSaveState(GamePanel gp) {
+    this.gamePanel = gp;
     setPlayerData(gp.player);
     setGamePanelData(gp);
   }
 
   /**
    * Sets SaveState data from JSONObject
-   * @param json
+   * @param json a JSONObject, of data to save
    */
   public void setSaveState(JSONObject json) {
     this.gamePanelData = (JSONObject) json.get("gamePanelData");
@@ -70,8 +102,6 @@ public class SaveState {
     JSONObject playerData = new JSONObject();
     playerData.put("worldX", player.worldX);
     playerData.put("worldY", player.worldY);
-    playerData.put("screenX", player.screenX);
-    playerData.put("screenY", player.screenY);
     playerData.put("speed", player.speed);
     playerData.put("direction", player.direction.ordinal());
     playerData.put("spriteCounter", player.spriteCounter);
@@ -108,11 +138,94 @@ public class SaveState {
         .filter(n -> n != null)
         .map(positionable -> {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("x", ((Positionable) positionable).getWorldX());
-            jsonObject.put("y", ((Positionable) positionable).getWorldY());
+            jsonObject.put("type", positionable.getClass().getSimpleName());
+            jsonObject.put("x", positionable.getWorldX());
+            jsonObject.put("y", positionable.getWorldY());
             return jsonObject;
         })
         .forEach(jsonArr::add);
       return jsonArr;
   }
+
+  /**
+   * Parses JSONArray and returns Element array.
+   * @param objs JSONArray, in save file
+   * @return Element[]
+   */
+  private Element[] parseElementArr(JSONArray objs) {
+    Element[] array = new Element[20];
+    for (int i = 0; i < objs.size(); i++) {
+      JSONObject obj = (JSONObject) objs.get(i);
+      array[i] = jsonToElement(obj);
+    }
+    return array;
+  }
+
+  /**
+   * Parse JSONArray and returns Monster array.
+   * @param objs JSONArray, in save file
+   * @return Entity[]
+   */
+  private Entity[] parseMonsterArr(JSONArray objs) {
+    Entity[] array = new Entity[ARR_SIZE];
+    for (int i = 0; i < objs.size(); i++) {
+      JSONObject obj = (JSONObject) objs.get(i);
+      Monster monster = new Monster(gamePanel, 0, 0);
+      ((Positionable) monster).setWorldX(((Number) obj.get("x")).intValue());
+      ((Positionable) monster).setWorldY(((Number) obj.get("y")).intValue());
+      array[i] = monster;
+    }
+    return array;
+  }
+
+  /**
+   * Parse JSONArray and return NPC array.
+   * @param objs
+   * @return Entity[]
+   */
+  private Entity[] parseNPCArr(JSONArray objs) {
+    Entity[] array = new Entity[ARR_SIZE];
+    for (int i = 0; i < objs.size(); i++) {
+      JSONObject obj = (JSONObject) objs.get(i);
+      Villager villager = new Villager(gamePanel, 0, 0);
+      ((Positionable) villager).setWorldX(((Number) obj.get("x")).intValue());
+      ((Positionable) villager).setWorldY(((Number) obj.get("y")).intValue());
+      array[i] = villager;
+    }
+    return array;
+  }
+
+  /**
+   * Converts JSONObject representing Element and converts to Element subtype.
+   * @param obj a JSONObject representing Element
+   * @return Ruby, Fire, PowerUp or Door with proper worldX and worldY
+   */
+  private Element jsonToElement(JSONObject obj) {
+    String type = (String) obj.get("type");
+    switch (type) {
+      case "Ruby":
+        Ruby ruby = new Ruby();
+        ((Positionable) ruby).setWorldX(((Number) obj.get("x")).intValue());
+        ((Positionable) ruby).setWorldY(((Number) obj.get("y")).intValue());
+        return ruby;
+      case "PowerUp":
+        PowerUp powerUp = new PowerUp();
+        ((Positionable) powerUp).setWorldX(((Number) obj.get("x")).intValue());
+        ((Positionable) powerUp).setWorldY(((Number) obj.get("y")).intValue());
+        return powerUp;
+      case "Fire":
+        Fire fire = new Fire();
+        ((Positionable) fire).setWorldX(((Number) obj.get("x")).intValue());
+        ((Positionable) fire).setWorldY(((Number) obj.get("y")).intValue());
+        return fire;
+      case "Door":
+        Door door = new Door();
+        ((Positionable) door).setWorldX(((Number) obj.get("x")).intValue());
+        ((Positionable) door).setWorldY(((Number) obj.get("y")).intValue());
+        return door;
+      default:
+        throw new IllegalArgumentException("Invalid entity type: " + type);
+    }
+  }
+
 }
