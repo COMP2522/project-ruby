@@ -14,11 +14,10 @@ import java.io.IOException;
  * @version 2023-02-07
  */
 public class Fire extends Element {
-
-  private BufferedImage fires[];
+  private final int tileSize = GamePanel.TILE_SIZE;
+  private final BufferedImage[] fires;
   private long lastFrameTime;
-  private int frameInterval = 150; // 150ms between each frame
-
+  
   /**
    * Constructs a Fire object and sets its name, image, and collision properties.
    * Also sets up the animation of the Fire element.
@@ -50,11 +49,13 @@ public class Fire extends Element {
     int screenX = getWorldX() - gp.player.worldX + gp.player.screenX;
     int screenY = getWorldY() - gp.player.worldY + gp.player.screenY;
     long currentTime = System.currentTimeMillis();
+    // 150ms between each frame
+    int frameInterval = 150;
     if (currentTime - lastFrameTime > frameInterval) {
       setCurrentFrame((getCurrentFrame() + 1) % fires.length);
       setImage(fires[getCurrentFrame()]);
       lastFrameTime = currentTime;
     }
-    g2.drawImage(getImage(), screenX, screenY, gp.TILE_SIZE, gp.TILE_SIZE, null);
+    g2.drawImage(getImage(), screenX, screenY, tileSize, tileSize, null);
   }
 }

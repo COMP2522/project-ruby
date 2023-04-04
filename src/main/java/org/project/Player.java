@@ -132,29 +132,19 @@ public class Player extends Entity {
       }
     }
 
-    if (invincible == true) {
+    if (invincible) {
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
     }
     g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
 
     // Draw hitbox for debugging purposes
-    g2.setColor(Color.red);
-    g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
+    // g2.setColor(Color.red);
+    // g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
 
     // Reset Opacity
     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
   }
-
-  public void updateStatus(char stat) {
-    if (stat == 'd') {
-      currentStatus = status.DEAD;
-    }
-  }
-
-  public int updateLives(int damage) {
-    currentLives -= damage;
-    return currentLives;
-  }
+  
 
   /**
    * returns the current number of lives player has.

@@ -47,7 +47,8 @@ public class SaveStateHandler {
 
     FileWriter fileWriter;
     try {
-      fileWriter = new FileWriter(pathName);
+      File file = new File(pathName);
+      fileWriter = new FileWriter(file);
       fileWriter.write(jsonSave.toJSONString());
       fileWriter.close();
     } catch (IOException e) {

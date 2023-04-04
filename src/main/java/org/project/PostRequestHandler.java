@@ -97,7 +97,6 @@ public class PostRequestHandler implements Runnable {
         newDoc.append("lives", obj.get("lives"));
         newDoc.append("spriteMap", obj.get("spriteMap"));
         this.databaseHandler.put(newDoc);
-//        sendResponse("Data successfully created");
       }
     } catch (Exception e) {
       System.err.println("posthandler could not run");
