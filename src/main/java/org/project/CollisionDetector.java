@@ -1,5 +1,7 @@
 package org.project;
 
+import java.awt.*;
+
 import static org.project.Entity.directions.*;
 
 /**
@@ -90,65 +92,56 @@ public class CollisionDetector {
 
         if (p.direction == UP) {
           p.hitbox.y -= p.speed;
-          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
-            if (gp.elements[i].getCollision()) {
-              p.collision = true;
-            }
-            if (player) {
-              index = i;
-            }
-          }
+          index = handleCollision(p,gp, player, i, index);
         } else if (p.direction == DOWN) {
           p.hitbox.y += p.speed;
-          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
-            if (gp.elements[i].getCollision()) {
-              p.collision = true;
-            }
-            if (player) {
-              index = i;
-            }
-          }
+          index = handleCollision(p, gp,player, i, index);
         } else if (p.direction == LEFT) {
           p.hitbox.x -= p.speed;
-          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
-            if (gp.elements[i].getCollision()) {
-              p.collision = true;
-            }
-            if (player) {
-              index = i;
-            }
-          }
+          index = handleCollision(p,gp, player, i, index);
         } else if (p.direction == RIGHT) {
           p.hitbox.x += p.speed;
-          if (p.hitbox.intersects(gp.elements[i].getHitbox())) {
-            System.out.println("right collision");
-            if (gp.elements[i].getCollision()) {
-              p.collision = true;
-            }
-            if (player) {
-              index = i;
-            }
-          }
+          index = handleCollision(p,gp, player, i, index);
         }
+
+        //reset hitboxes to default values.
         p.hitbox.x = p.hitboxDefaultX;
         p.hitbox.y = p.hitboxDefaultY;
-
         gp.elements[i].getHitbox().x = 0;
         gp.elements[i].getHitbox().y = 0;
       }
     }
     return index;
   }
-  
-  
-  public void checkCollide(int i, int index, boolean player, Player p) {
-    if (gp.elements[i].getCollision()) {
-      p.collision = true;
+
+  /**
+   * Helper function to handle collision between player and game object.
+   * @param p         The Player object
+   * @param gp1       The gamePanel object
+   * @param player    Boolean indicating if player collision should be tracked
+   * @param index     Index of game object with which player is colliding
+   */
+  private int handleCollision(Player p, GamePanel gp1,boolean player, int i, int index) {
+    if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
+      if (gp1.elements[i].getCollision()) {
+        p.collision = true;
+      }
+      if (player) {
+        index = i;
+      }
     }
-    if (player) {
-      index = i;
-    }
+    return index;
   }
+
+
+//  public void checkCollide(int i, int index, boolean player, Player p) {
+//    if (gp.elements[i].getCollision()) {
+//      p.collision = true;
+//    }
+//    if (player) {
+//      index = i;
+//    }
+//  }
 
 
   // NPC and for Future use will include Monster
@@ -166,34 +159,33 @@ public class CollisionDetector {
         target[i].hitbox.x = target[i].worldX + target[i].hitbox.x;
         target[i].hitbox.y = target[i].worldY + target[i].hitbox.y;
 
-        if (entity.direction == UP) {
-          entity.hitbox.y -= entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("up collision");
-            entity.collision = true;
-          }
-        } else if (entity.direction == DOWN) {
-          entity.hitbox.y += entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("down collision");
-            entity.collision = true;
-            index = i;
-          }
-        } else if (entity.direction == LEFT) {
-          entity.hitbox.x -= entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("left collision");
-            entity.collision = true;
-            index = i;
-          }
-        } else if (entity.direction == RIGHT) {
-          entity.hitbox.x += entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("right collision");
-            entity.collision = true;
-            index = i;
-          }
+        int moveX = 0;
+        int moveY = 0;
+
+        switch (entity.direction) {
+          case UP:
+            moveY = -entity.speed;
+            break;
+          case DOWN:
+            moveY = entity.speed;
+            break;
+          case LEFT:
+            moveX = -entity.speed;
+            break;
+          case RIGHT:
+            moveX = entity.speed;
+            break;
         }
+
+        entity.hitbox.x += moveX;
+        entity.hitbox.y += moveY;
+
+        if (entity.hitbox.intersects(target[i].hitbox)) {
+          System.out.println(entity.direction + " collision");
+          entity.collision = true;
+          index = i;
+        }
+
         entity.hitbox.x = entity.hitboxDefaultX;
         entity.hitbox.y = entity.hitboxDefaultY;
 

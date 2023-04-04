@@ -44,8 +44,10 @@ public class Player extends Entity {
     this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
-    this.hitbox = new Rectangle(8,24,24,32);
-    
+    this.hitbox = new Rectangle(10, 16,28,28);
+    this.hitboxDefaultX = 10;
+    this.hitboxDefaultY = 16;
+
     this.speed = 5;
     this.direction = directions.DOWN; // initial direction of the player
     
@@ -176,6 +178,8 @@ public class Player extends Entity {
   }
 
   public void update(GamePanel gp, KeyHandler kh) {
+
+
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
       updateDirection(kh);
       //checking for collision with the window boundary

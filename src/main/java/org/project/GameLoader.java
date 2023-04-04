@@ -45,7 +45,7 @@ public class GameLoader {
    */
   public void switchToGamePanel() {
     this.window.remove(menuPanel);
-    
+
     gamePanel.startGameThread();
     gamePanel.setEnabled(true);
 
