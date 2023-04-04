@@ -176,6 +176,8 @@ public class Player extends Entity {
   }
 
   public void update(GamePanel gp, KeyHandler kh) {
+
+
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
       updateDirection(kh);
       //checking for collision with the window boundary
