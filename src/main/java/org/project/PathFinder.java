@@ -29,6 +29,7 @@ public class PathFinder {
 
     while (col < GamePanel.MAP_COL && row < GamePanel.MAP_ROW) {
       nodes[col][row] = new Node(col, row);
+
       col++;
       if (col == GamePanel.MAP_COL) {
         col = 0;
@@ -110,7 +111,7 @@ public class PathFinder {
         node.fCost = node.gCost + node.hCost;
     }
     public boolean search(){
-      while(goalReached && step < 500) {
+      while(!goalReached && step < 500) {
         int col = currentNode.col;
         int row = currentNode.row;
 
