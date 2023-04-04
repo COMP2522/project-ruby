@@ -53,6 +53,9 @@ public class GamePanel extends JPanel implements Runnable {
   public Entity[] monster = new Entity[10];
   public ArrayList<Entity> projectileList = new ArrayList<>();
   public ElementHandler aHandler = new ElementHandler(this);
+  public PathFinder pFinder = new PathFinder(this);
+
+
 
   /** Constructor for the GamePanel */
   public GamePanel() {
