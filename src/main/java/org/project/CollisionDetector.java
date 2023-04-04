@@ -134,14 +134,14 @@ public class CollisionDetector {
   }
 
 
-  public void checkCollide(int i, int index, boolean player, Player p) {
-    if (gp.elements[i].getCollision()) {
-      p.collision = true;
-    }
-    if (player) {
-      index = i;
-    }
-  }
+//  public void checkCollide(int i, int index, boolean player, Player p) {
+//    if (gp.elements[i].getCollision()) {
+//      p.collision = true;
+//    }
+//    if (player) {
+//      index = i;
+//    }
+//  }
 
 
   // NPC and for Future use will include Monster
@@ -159,34 +159,33 @@ public class CollisionDetector {
         target[i].hitbox.x = target[i].worldX + target[i].hitbox.x;
         target[i].hitbox.y = target[i].worldY + target[i].hitbox.y;
 
-        if (entity.direction == UP) {
-          entity.hitbox.y -= entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("up collision");
-            entity.collision = true;
-          }
-        } else if (entity.direction == DOWN) {
-          entity.hitbox.y += entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("down collision");
-            entity.collision = true;
-            index = i;
-          }
-        } else if (entity.direction == LEFT) {
-          entity.hitbox.x -= entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("left collision");
-            entity.collision = true;
-            index = i;
-          }
-        } else if (entity.direction == RIGHT) {
-          entity.hitbox.x += entity.speed;
-          if (entity.hitbox.intersects(target[i].hitbox)) {
-            System.out.println("right collision");
-            entity.collision = true;
-            index = i;
-          }
+        int moveX = 0;
+        int moveY = 0;
+
+        switch (entity.direction) {
+          case UP:
+            moveY = -entity.speed;
+            break;
+          case DOWN:
+            moveY = entity.speed;
+            break;
+          case LEFT:
+            moveX = -entity.speed;
+            break;
+          case RIGHT:
+            moveX = entity.speed;
+            break;
         }
+
+        entity.hitbox.x += moveX;
+        entity.hitbox.y += moveY;
+
+        if (entity.hitbox.intersects(target[i].hitbox)) {
+          System.out.println(entity.direction + " collision");
+          entity.collision = true;
+          index = i;
+        }
+
         entity.hitbox.x = entity.hitboxDefaultX;
         entity.hitbox.y = entity.hitboxDefaultY;
 
