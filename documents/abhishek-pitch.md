@@ -1,4 +1,4 @@
-<B>Abhishek's Pitch</B>
+# Abhishek's Pitch
 
 I am going to be handling the player class and the sprite manager class. 
 

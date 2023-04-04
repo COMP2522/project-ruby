@@ -1,3 +1,5 @@
+# Simrat's Pitch
+
 As a member of the team, my responsibilities include managing the Element class, which is the super class for Fire,
 Ruby, PowerUp, and Door elements in the game. I will also be responsible for implementing the CollisionDetector 
 class specifically for the parts where the player collides with the elements.
