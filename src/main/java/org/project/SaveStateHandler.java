@@ -7,20 +7,40 @@ import java.io.*;
 
 /**
  * SaveStateHandler manages reading and writing SaveState. Files saved in JSON format.
+ *
+ * @author Greg Song
+ * @version 2023-04-03
  */
 public class SaveStateHandler {
+  private static SaveStateHandler instance;
+  private SaveState saveState;
   private String dirPath = "save/";
   private String extension = ".json";
   private String username;
   private String pathName = dirPath + username + extension;
 
   /**
-   * Stores save data as a JSON file in save directory.
-   * @param saveState, current saveState of the game
+   * Private constructor to enforce Singleton pattern.
    */
-  public void save(SaveState saveState) {
-    //TODO: fix this
-    setUsername(username);
+  private SaveStateHandler() {
+    this.saveState = SaveState.getInstance();
+  };
+
+  /**
+   * Returns singleton instance of SaveStateHandler.
+   * @return SaveStateHandler instance
+   */
+  public static SaveStateHandler getInstance() {
+    if (instance == null) {
+      instance = new SaveStateHandler();
+    }
+    return instance;
+  }
+
+  /**
+   * Stores save data as a JSON file in save directory.
+   */
+  public void save() {
     JSONObject jsonSave = new JSONObject();
     jsonSave.put("playerData", saveState.getPlayerData());
     jsonSave.put("gamePanelData", saveState.getGamePanelData());
@@ -61,5 +81,6 @@ public class SaveStateHandler {
    */
   public void setUsername(String username) {
     this.username = username;
+    this.pathName = dirPath + username + extension;
   }
 }

@@ -30,8 +30,7 @@ public class SaveStateHandlerTest {
 
   @Test
   public void testSaveStateHandler() {
-//    SaveState saveState = new SaveState();
-//    saveState.setSaveState(gamePanel.player, gamePanel);
-
+    SaveState saveState = new SaveState();
+    saveState.setSaveState(gamePanel);
   }
 }

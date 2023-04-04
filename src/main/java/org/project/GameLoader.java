@@ -2,12 +2,14 @@ package org.project;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.*;
 
 /**
  * GameLoader is the entry point for this game. It initializes
  * SaveStateHandler, Window, game and menu panels and manages switching
  * between them.
+ *
+ * @author Greg Song
+ * @version 2023-04-03
  */
 public class GameLoader {
   private JFrame window;
@@ -20,7 +22,7 @@ public class GameLoader {
    * and initializes SaveStateHandler.
    */
   public GameLoader() {
-    this.saveStateHandler = new SaveStateHandler();
+    this.saveStateHandler = SaveStateHandler.getInstance();
 
     this.window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +32,7 @@ public class GameLoader {
 
     this.gamePanel = new GamePanel();
 
-    Menu menu = new Menu(this, window, gamePanel, saveStateHandler);
+    Menu menu = new Menu(this, this.gamePanel);
     this.menuPanel = menu.createMenu();
     this.window.add(menuPanel);
     window.pack();
@@ -44,7 +46,6 @@ public class GameLoader {
   public void switchToGamePanel() {
     this.window.remove(menuPanel);
 
-    gamePanel.setUpGame();
     gamePanel.startGameThread();
     gamePanel.setEnabled(true);
 
