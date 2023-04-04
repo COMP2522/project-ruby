@@ -13,8 +13,16 @@ import java.util.Arrays;
  * @version 2023-03-31
  */
 public class SaveState {
+  private static SaveState instance;
   JSONObject playerData;
   JSONObject gamePanelData;
+
+  public static SaveState getInstance() {
+    if (instance == null) {
+      instance = new SaveState();
+    }
+    return instance;
+  }
 
   /**
    * Returns JSON data representing state of Player.
