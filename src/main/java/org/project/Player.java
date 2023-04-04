@@ -137,6 +137,10 @@ public class Player extends Entity {
     }
     g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
 
+    // Draw hitbox for debugging purposes
+    g2.setColor(Color.red);
+    g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
+
     // Reset Opacity
     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
   }
