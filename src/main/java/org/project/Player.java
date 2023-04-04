@@ -46,8 +46,10 @@ public class Player extends Entity {
     this.worldY = GamePanel.TILE_SIZE * 9;
     this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
     this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
-    this.hitbox = new Rectangle(8,24,24,32);
-    
+    this.hitbox = new Rectangle(10, 16,28,28);
+    this.hitboxDefaultX = 10;
+    this.hitboxDefaultY = 16;
+
     this.speed = 5;
     this.direction = directions.DOWN; // initial direction of the player
     
@@ -136,6 +138,10 @@ public class Player extends Entity {
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
     }
     g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+
+    // Draw hitbox for debugging purposes
+    g2.setColor(Color.red);
+    g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
 
     // Reset Opacity
     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
