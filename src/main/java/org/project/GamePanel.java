@@ -13,8 +13,6 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel implements Runnable {
 
   // GAME PANEL SETTINGS
-  public final KeyHandler handler = new KeyHandler();
-  public Player player = Player.getInstance(this, handler);
   
   // SCREEN SETTINGS
   public static final int TILE_SIZE = 48;
@@ -40,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
   public TileManager tManager = new TileManager(this); // this is actually like the manager of map
   public CollisionDetector cDetector = new CollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
+  public Player player = Player.getInstance(this, kHandler);
 
   public UI ui = new UI(this);
 

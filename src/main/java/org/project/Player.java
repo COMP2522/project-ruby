@@ -304,7 +304,7 @@ public class Player extends Entity {
    */
   public void loadPlayerData(JSONObject playerData) {
     if (playerData == null) {
-      throw new NullPointerException("Player object is null.");
+      throw new NullPointerException("PlayerData object is null.");
     }
     this.worldX = ((Long) playerData.get("worldX")).intValue();
     this.worldY = ((Long) playerData.get("worldY")).intValue();

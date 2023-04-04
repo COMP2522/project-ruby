@@ -26,7 +26,7 @@ public class Menu {
 
   public Menu(GameLoader gameLoader, JFrame window, GamePanel gamePanel, SaveStateHandler saveStateHandler) {
     this.saveStateHandler = saveStateHandler;
-    this.window = window;
+//    this.window = window;
     this.gamePanel = gamePanel;
     this.gameLoader = gameLoader;
     this.client = new Client(5000);
@@ -114,13 +114,13 @@ public class Menu {
       gameLoader.switchToGamePanel();
     });
 
-    // onclick back button
+    // handle back button click
     newBackButton.addActionListener(e -> {
       CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
       cardLayout.show(mainPanel, "menu");
     });
 
-    // on enter keypress
+    // handle 'enter' key press
     newTextInput.addActionListener(e -> {
       handleTextInput(newTextInput);
       gameLoader.switchToGamePanel();
@@ -214,14 +214,14 @@ public class Menu {
   }
 
   /**
-   * Helper method for handling JTextField input.
-   * @param textField
+   * Helper method for handling username input. Passes username to SaveStateHandler.
+   * @param textField username input JTextField
    */
   private void handleTextInput(JTextField textField) {
     String username = textField.getText().trim();
     if (username.length() > 30) {
       username = username.substring(0, 30);
     }
-//    saveStateHandler.setUsername(username);
+    saveStateHandler.setUsername(username);
   }
 }

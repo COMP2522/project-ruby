@@ -10,7 +10,7 @@ import java.io.*;
  */
 public class SaveStateHandler {
   private String dirPath = "save/";
-  private String extension = "save_2.json";
+  private String extension = ".json";
   private String username;
   private String pathName = dirPath + username + extension;
 
@@ -19,6 +19,7 @@ public class SaveStateHandler {
    * @param saveState, current saveState of the game
    */
   public void save(SaveState saveState) {
+    //TODO: fix this
     setUsername(username);
     JSONObject jsonSave = new JSONObject();
     jsonSave.put("playerData", saveState.getPlayerData());
@@ -41,9 +42,6 @@ public class SaveStateHandler {
    * @return SaveState object
    */
   public SaveState load() throws FileNotFoundException {
-//    System.out.println(username);
-//    setUsername(username);
-//    System.out.println(username);
     File saveFile = new File(dirPath + username + extension);
     JSONObject jsonSave;
     try {
