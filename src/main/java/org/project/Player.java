@@ -2,11 +2,10 @@ package org.project;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static org.project.Entity.directions.*;
+import static org.project.SystemVariables.*;
 
 /**
  * The player that the user can control.
@@ -15,17 +14,13 @@ import static org.project.Entity.directions.*;
  * @version 2023-02-07
  */
 public class Player extends Entity {
-
-  private enum status {ALIVE, DEAD}
-  private static final int MAX_LIVES = 6;
+  public static final int MAX_LIVES = 6;
+  public final KeyHandler handler;
+  public static Player instance;
   
-  public KeyHandler handler;
-
+  private status currentStatus;
   public int currentLives;
   private int currentRubies;
-  private status currentStatus;
-  
-  private static Player instance = null;
   
   @Override
   public void setAction() {}
@@ -40,10 +35,10 @@ public class Player extends Entity {
     Sound running = new Sound();
     running.setFile(4);
 
-    this.worldX = GamePanel.TILE_SIZE * 37;
-    this.worldY = GamePanel.TILE_SIZE * 9;
-    this.screenX = gp.screenWidth/2 - GamePanel.TILE_SIZE/2;
-    this.screenY = gp.screenHeight/2 - GamePanel.TILE_SIZE/2;
+    this.worldX = TILE_SIZE * 37;
+    this.worldY = TILE_SIZE * 9;
+    this.screenX = gp.screenWidth/2 - TILE_SIZE/2;
+    this.screenY = gp.screenHeight/2 - TILE_SIZE/2;
     this.hitbox = new Rectangle(10, 16,28,28);
     this.hitboxDefaultX = 10;
     this.hitboxDefaultY = 16;
@@ -74,13 +69,13 @@ public class Player extends Entity {
 
   public void updateDirection(KeyHandler kh) {
     if (kh.leftPressed) {
-      direction = LEFT;
+      direction = directions.LEFT;
     } else if (kh.rightPressed) {
-      direction = RIGHT;
+      direction = directions.RIGHT;
     } else if (kh.upPressed) {
-      direction = UP;
+      direction = directions.UP;
     } else {
-      direction = DOWN;
+      direction = directions.DOWN;
     }
   }
 
@@ -100,80 +95,7 @@ public class Player extends Entity {
     }
   }
 
-  @Override
-  public void draw(Graphics2D g2) {
-    BufferedImage image = null;
-    int screenX = worldX - gp.player.worldX + gp.player.screenX;
-    int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
-    if (worldX + GamePanel.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-        worldX - GamePanel.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-        worldY + GamePanel.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-        worldY - GamePanel.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
-      switch(direction) {
-        case UP:
-          if (spriteNum == 1) {image = upR;}
-          if (spriteNum == 2) {image = upL;}
-          break;
-        case DOWN:
-          if (spriteNum == 1) {image = downR;}
-          if (spriteNum == 2) {image = downL;}
-          break;
-        case LEFT:
-          if (spriteNum == 1) {image = leftR;}
-          if (spriteNum == 2) {image = leftL;}
-          break;
-        case RIGHT:
-          if (spriteNum == 1) {image = rightR;}
-          if (spriteNum == 2) {image = rightL;}
-          break;
-        default:
-          break;
-      }
-    }
-
-    if (invincible) {
-      g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-    }
-    g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-
-    // Draw hitbox for debugging purposes
-    // g2.setColor(Color.red);
-    // g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
-
-    // Reset Opacity
-    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-  }
-  
-
-  /**
-   * returns the current number of lives player has.
-   * @return currentLives
-   */
-  public int getLives() {
-    return currentLives;
-  }
-
-  public void setLives(int lives) {
-    this.currentLives = lives;
-  }
-  
-
-  /**
-   * returns the current number of rubies the player possesses.
-   * @return the current number of rubies.
-   */
-  public int getCurrentRubies() {
-    return currentRubies;
-  }
-
-  public void setCurrentRubies(int rubies) {
-    this.currentRubies = rubies;
-  }
-
   public void update(GamePanel gp, KeyHandler kh) {
-
-
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
       updateDirection(kh);
       //checking for collision with the window boundary
@@ -206,11 +128,11 @@ public class Player extends Entity {
       interactMonster(monsterIndex);
   
       if (!collision) {
-        if (direction == LEFT) {
+        if (direction == directions.LEFT) {
           worldX -= speed;
-        } else if (direction == RIGHT) {
+        } else if (direction == directions.RIGHT) {
           worldX += speed;
-        } else if (direction == UP) {
+        } else if (direction == directions.UP) {
           worldY -= speed;
         } else {
           worldY += speed;
@@ -242,39 +164,36 @@ public class Player extends Entity {
    */
   public void pickupObject(int index, GamePanel gp) {
     if(index != this.indexMax) {
-      String objectName = gp.elements[index].getName();
+    
+      Class<? extends Element> className = gp.elements[index].getClass();
   
-      switch (objectName) {
-        case "Ruby" -> {
-          gp.playSE(1);
-          currentRubies++;
+      if (className.equals(Ruby.class)) {
+        gp.playSE(1);
+        currentRubies++;
+        gp.elements[index] = null;
+        gp.ui.showMessage("You got a ruby!");
+        SaveState.getInstance().setSaveState(gp);
+        SaveStateHandler.getInstance().save();
+      } else if (className.equals(Door.class)) {
+        if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
+          gp.playSE(2);
           gp.elements[index] = null;
-          gp.ui.showMessage("You got a ruby!");
-          SaveState.getInstance().setSaveState(gp);
-          SaveStateHandler.getInstance().save();
+          gp.ui.showMessage("You opened a door!");
+          currentRubies--;
+        } else {
+          gp.ui.showMessage("You need more rubies for this door!");
         }
-        case "Door" -> {
-          if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
-            gp.playSE(2);
-            gp.elements[index] = null;
-            gp.ui.showMessage("You opened a door");
-            currentRubies--;
-          }
-          else {
-            gp.ui.showMessage("You need a ruby to do this");
-          }
+      } else if (className.equals(PowerUp.class)) {
+        gp.playSE(3);
+        speed += 2;
+        gp.elements[index] = null;
+        gp.ui.showMessage("Speed mode: ON");
+      } else if (className.equals(Fire.class)) {
+        gp.ui.showMessage("Fire Hazard!!");
+        if (!invincible) {
+          currentLives--;
         }
-        case "PowerUp" -> {
-          gp.playSE(3);
-          speed += 2;
-          gp.elements[index] = null;
-          gp.ui.showMessage("Speed mode: ON");
-        }
-        case "Fire" -> {
-          gp.ui.showMessage("Fire Hazard!!");
-          if (!invincible) { currentLives--; }
-          invincible = true;
-        }
+        invincible = true;
       }
     }
   }
@@ -285,7 +204,7 @@ public class Player extends Entity {
    */
   public void interactNPC(int index) {
     if(index != this.indexMax) {
-      System.out.println("Colliding with NPC!");
+      gp.ui.showMessage("Watch where you're going!");
     }
   }
 
@@ -299,7 +218,21 @@ public class Player extends Entity {
         currentLives--;
         invincible = true;
       }
-      gp.ui.showMessage("Monster, RUN!");
+      gp.ui.showMessage("Monster.. RUN!!");
     }
+  }
+  
+  // A bunch of getters and setters for instance variables
+  public int getLives() {
+    return currentLives;
+  }
+  public void setLives(int lives) {
+    this.currentLives = lives;
+  }
+  public int getCurrentRubies() {
+    return currentRubies;
+  }
+  public void setCurrentRubies(int rubies) {
+    this.currentRubies = rubies;
   }
 }

@@ -38,7 +38,7 @@ public class Client {
    * @param request, a JSONObject
    * @return response, a JSONObject
    */
-  public JSONObject sendRequest(String request) throws ParseException, IOException {
+  public JSONObject sendRequest(String request) throws IOException {
     // setup
     Socket socket = null;
     ObjectOutputStream oos = null;
@@ -106,10 +106,9 @@ public class Client {
   /**
    * Creates a JSONString to be sent to server
    * @param reqType, "POST" or "GET"
-   * @param saveState Object representing savestate of game
    * @return String, JSONObject as String
    */
-  public String createJSON(String reqType, SaveState saveState) {
+  public String createJSON(String reqType) {
     // create JSONObject request to send to server
     JSONObject req = new JSONObject();
     // add kv pairs
@@ -151,14 +150,11 @@ public class Client {
    *
    * @param args
    * - took out throws IOException, ClassNotFoundException, InterruptedException
-   * - after try catch blocks, still getting nullpointerexception?
    * - to show why we want good exceptions
    */
-  public static void main(String[] args) throws ParseException, IOException {
+  public static void main(String[] args) throws IOException {
     Client client = new Client(5000);
-
-    SaveState saveState = new SaveState();
-    String request = client.createJSON("GET", saveState);
+    String request = client.createJSON("GET");
 
     // testing multiple requests
     while (true) {

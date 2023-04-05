@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Random;
+import static org.project.SystemVariables.*;
 
 /**
  * Monster class for Beast is slated to be in the same vein as NPC.
@@ -17,11 +17,14 @@ import java.util.Random;
  * @author Amrit Singh
  * @version 2023-03-27
  */
-
 public class Monster extends Entity {
-//  public int posX;
-//  public int posY;
-
+  
+  /**
+   * Constructs the Monster object
+   * @param gp GamePanel it belongs to
+   * @param posX Monster position X
+   * @param posY Monster position Y
+   */
   public Monster(GamePanel gp, int posX, int posY) {
     super(gp);
     type = 2;
@@ -38,7 +41,8 @@ public class Monster extends Entity {
     direction = directions.DOWN;
     getImage();
   }
-
+  
+  /** Gets the image for each sprite */
   public void getImage() {
     try {
       downR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
@@ -57,36 +61,9 @@ public class Monster extends Entity {
 
   @Override
   public void setAction() {
-    onPath = true;
-    if(onPath == true){
-      int goalCol = (gp.player.worldX + gp.player.hitbox.x) /gp.TILE_SIZE;
-      int goalRow = (gp.player.worldY + gp.player.hitbox.y) /gp.TILE_SIZE;
-      searchPath(goalCol, goalRow);
-    }
-
-    else {
-      actionLockCounter++;
-      if (actionLockCounter == 120) {
-        Random random = new Random();
-        int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
-
-        switch (i / 25) {
-          case 0:
-            direction = directions.UP;
-            break;
-          case 1:
-            direction = directions.DOWN;
-            break;
-          case 2:
-            direction = directions.LEFT;
-            break;
-          case 3:
-            direction = directions.RIGHT;
-            break;
-        }
-        actionLockCounter = 0;
-      }
-    }
+    int goalCol = (gp.player.worldX + gp.player.hitbox.x) / TILE_SIZE;
+    int goalRow = (gp.player.worldY + gp.player.hitbox.y) / TILE_SIZE;
+    searchPath(goalCol, goalRow);
   }
-  
 }
+

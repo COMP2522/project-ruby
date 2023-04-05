@@ -13,11 +13,8 @@ import java.io.IOException;
  */
 public class PowerUp extends Element {
 
-  /**
-   Constructs a Power-up object and sets its name, image, and collision properties.   * Loads the power-up image from file and sets its collision to true.
-   */
+  /** Constructs a Power-up object and sets its image, and collision properties. */
   public PowerUp() {
-    setName("PowerUp");
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/powerup2.png")));
     } catch (IOException e) {

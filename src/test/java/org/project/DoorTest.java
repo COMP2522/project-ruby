@@ -15,7 +15,6 @@ public class DoorTest {
   @Test
   public void testConstructor() {
     Door door = new Door();
-    assertEquals("Door", door.getName());
     assertNotNull(door.getImage());
     assertTrue(door.getCollision());
   }

@@ -5,7 +5,6 @@ import java.io.*;
 import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -17,7 +16,7 @@ import java.util.concurrent.*;
 public class Server {
   /* Constants */
   private static final int PORT = 5000;
-  private static final int POOLSIZE = 10;
+  private static final int POOL_SIZE = 10;
   private static final String POST = "POST";
   private static final String GET = "GET";
 
@@ -26,12 +25,10 @@ public class Server {
   private final DatabaseHandler databasehandler;
   
   
-  /**
-   * Constructs a Server.
-   */
+  /** Constructs a Server. */
   public Server() throws IOException {
     this.server = new ServerSocket(PORT);
-    this.executor = Executors.newFixedThreadPool(POOLSIZE);
+    this.executor = Executors.newFixedThreadPool(POOL_SIZE);
     this.databasehandler = DatabaseHandler.getInstance();
   }
   
@@ -40,24 +37,14 @@ public class Server {
    * @return JSONObject
    */
   public JSONObject parseJSON(String JSONstr) {
-    JSONObject obj = (JSONObject) JSONValue.parse(JSONstr);
-    return obj;
+    return (JSONObject) JSONValue.parse(JSONstr);
   }
   
   /**
    * Starts Server
    */
-  public void start() throws IOException, InterruptedException {
-    // to test random delays
-    Random random = new Random();
-    // runs indefinitely
+  public void start() throws IOException {
     while(true){
-      // take out later -
-      Thread.sleep(random.nextInt(5000));
-      
-      System.out.println("Waiting for the client requests..");
-      
-      // creating socket and waiting for client connection
       Socket socket = server.accept();
       
       // read from socket to ObjectInputStream object
@@ -69,49 +56,24 @@ public class Server {
         System.err.println("Can't read message from Server.");
       }
       JSONObject obj = parseJSON(jsonString);
-      
+  
       // handle request
       if(obj.get("reqType").equals(POST)) {
-        //thread
-        System.out.println("RequestType:" + obj.get("reqType"));
+        System.out.println("RequestType:" + obj.get("reqType")); //thread
         Runnable task = new PostRequestHandler(socket, obj);
         executor.submit(task);
       } else if (obj.get("reqType").equals(GET)){
-        // handle
-        System.out.println("RequestType:" + obj.get("reqType"));
-        Runnable task = (Runnable) new GetRequestHandler(socket, obj);
+        System.out.println("RequestType:" + obj.get("reqType")); // handle
+        Runnable task = new GetRequestHandler(socket, obj);
         executor.submit(task);
       } else {
         System.err.println("ReqType Invalid" + obj.get("reqType"));
       }
-
-//      test
-      SaveState savestate = new SaveState();
-      
-      // close resources TODO: close ois this without crashing
-      // crashing when closing ois here with postreqhandler
-//      ois.close();
-      // handled in Handler
-//      oos.close();
-//      socket.close();
-      
-      // terminate the server if client sends exit request
-      String s1 = "no";
-      if(s1.equalsIgnoreCase("exit")) break;
     }
-    
-    System.out.println("Shutting down Socket server!!");
-    // close the ServerSocket object
-    server.close();
   }
   
-  public void newGame() {
-  }
   
-  public void loadGame() {
-  }
-  
-  public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException {
+  public static void main(String[] args) throws IOException {
     Server server = new Server();
     server.start();
   }

@@ -2,6 +2,7 @@ package org.project;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import static org.project.SystemVariables.*;
 
 /**
  * The Element class represents intractable objects in the game
@@ -13,67 +14,14 @@ import java.awt.image.BufferedImage;
  * @version 2023-02-07
  */
 public abstract class Element implements Positionable {
+
   //setting instance variables.
   private BufferedImage image;
   private int currentFrame = 0;
-  private String name;
   private boolean collision = false;
   private int worldX, worldY;
   private final Rectangle hitbox = new Rectangle(0, 0, 46, 46);
-
-  //setters and getters for the instance variables.
-  public BufferedImage getImage() {
-    return image;
-  }
-
-  public void setImage(BufferedImage image) {
-    this.image = image;
-  }
-
-  public int getCurrentFrame() {
-    return currentFrame;
-  }
-
-  public void setCurrentFrame(int currentFrame) {
-    this.currentFrame = currentFrame;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public boolean getCollision() {
-    return collision;
-  }
-
-  public void setCollision(boolean collision) {
-    this.collision = collision;
-  }
-
-  public int getWorldX() {
-    return worldX;
-  }
-
-  public void setWorldX(int worldX) {
-    this.worldX = worldX;
-  }
-
-  public int getWorldY() {
-    return worldY;
-  }
-
-  public void setWorldY(int worldY) {
-    this.worldY = worldY;
-  }
-
-  public Rectangle getHitbox() {
-    return hitbox;
-  }
-
+  
 
   /**
    * draws the element on the game panel at its current position.
@@ -82,10 +30,8 @@ public abstract class Element implements Positionable {
    * @param gp game panel on which the element is drawn
    */
   public void draw(Graphics2D g2, GamePanel gp) {
-
     int screenX = worldX - gp.player.worldX + gp.player.screenX;
     int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
     drawIfVisible(g2, gp, screenX, screenY);
   }
 
@@ -94,14 +40,48 @@ public abstract class Element implements Positionable {
    *
    * @param g2 graphics object used to draw element
    * @param gp game panel on which the element is drawn
-   * @return
    */
   public void drawIfVisible(Graphics2D g2, GamePanel gp, int screenX, int screenY) {
-    if (((worldX + GamePanel.TILE_SIZE) > (gp.player.worldX - gp.player.screenX)) &&
-        ((worldX - GamePanel.TILE_SIZE) < (gp.player.worldX + gp.player.screenX)) &&
-        ((worldY + GamePanel.TILE_SIZE) > (gp.player.worldY - gp.player.screenY)) &&
-        ((worldY - GamePanel.TILE_SIZE) < (gp.player.worldY + gp.player.screenY))) {
-      g2.drawImage(image, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+    if (((worldX + TILE_SIZE) > (gp.player.worldX - gp.player.screenX)) &&
+        ((worldX - TILE_SIZE) < (gp.player.worldX + gp.player.screenX)) &&
+        ((worldY + TILE_SIZE) > (gp.player.worldY - gp.player.screenY)) &&
+        ((worldY - TILE_SIZE) < (gp.player.worldY + gp.player.screenY))) {
+      g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
+  }
+  
+  //setters and getters for the instance variables.
+  public BufferedImage getImage() {
+    return image;
+  }
+  public void setImage(BufferedImage image) {
+    this.image = image;
+  }
+  public int getCurrentFrame() {
+    return currentFrame;
+  }
+  public void setCurrentFrame(int currentFrame) {
+    this.currentFrame = currentFrame;
+  }
+  public boolean getCollision() {
+    return collision;
+  }
+  public void setCollision(boolean collision) {
+    this.collision = collision;
+  }
+  public int getWorldX() {
+    return worldX;
+  }
+  public void setWorldX(int worldX) {
+    this.worldX = worldX;
+  }
+  public int getWorldY() {
+    return worldY;
+  }
+  public void setWorldY(int worldY) {
+    this.worldY = worldY;
+  }
+  public Rectangle getHitbox() {
+    return hitbox;
   }
 }

@@ -1,4 +1,5 @@
 package org.project;
+
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
@@ -29,12 +30,9 @@ public class DatabaseHandler {
   private final String user = "testuser";
   private final String password = "testuser123";
   private final String uri = "mongodb+srv://" + this.user + ":" + this.password + "@cluster0.2gojpcl.mongodb.net/?retryWrites=true&w=majority";
-  private final String dbName = "ruby";
   ExecutorService executor;
 
-  /**
-   * Constructs new DatabaseHandler
-   */
+  /** Constructs new DatabaseHandler singleton */
   private DatabaseHandler() {
     // connect
     ConnectionString connectionString = new ConnectionString(this.uri);
@@ -44,16 +42,18 @@ public class DatabaseHandler {
             .version(ServerApiVersion.V1)
             .build())
         .build();
+    
     try (MongoClient mongoClient = MongoClients.create(settings)) {
-      this.database = mongoClient.getDatabase(this.dbName);
+      String dbName = "ruby";
+      this.database = mongoClient.getDatabase(dbName);
     }
+    
     // test if collection exists
     try {
       this.database.createCollection(this.myCollection);
     } catch (Exception e) {
       System.err.println("Collection already exists");
     }
-    // --
     this.executor = Executors.newFixedThreadPool(10);
   }
 

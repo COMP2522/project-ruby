@@ -15,7 +15,6 @@ public class PowerUpTest {
   @Test
   public void testConstructor() {
     PowerUp powerup = new PowerUp();
-    assertEquals("PowerUp", powerup.getName());
     assertNotNull(powerup.getImage());
     assertTrue(powerup.getCollision());
   }

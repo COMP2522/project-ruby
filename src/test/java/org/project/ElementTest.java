@@ -16,14 +16,6 @@ public class ElementTest {
     assertEquals(5, element.getCurrentFrame());
   }
 
-  // Test for getName() and setName()
-  @Test
-  public void testGetSetName() {
-    Element element = new ConcreteElement();
-    element.setName("Test Element");
-    assertEquals("Test Element", element.getName());
-  }
-
   // Test for getCollision() and setCollision()
   @Test
   public void testGetSetCollision() {
@@ -56,7 +48,5 @@ public class ElementTest {
   }
 
   // Concrete subclass of Element for testing
-  private class ConcreteElement extends Element {
-    // No additional functionality needed
-  }
+  private static class ConcreteElement extends Element {}
 }

@@ -54,7 +54,6 @@ public class GetRequestHandler implements Runnable {
    * @return response, a JSON string
    */
   private String createJSONRes(String message) throws Exception {
-  
     JSONObject res = new JSONObject();
     res.put("status", "success");
     res.put("message", message);
@@ -87,12 +86,9 @@ public class GetRequestHandler implements Runnable {
   public void run() {
     System.out.println("getRequestHandler.run() ran");
     try {
-      String uid = (String) obj.get("uid");
       sendResponse("Document located successfully");
-      System.out.println("get handler ran");
     }  catch (Exception e) {
-//      throw new RuntimeException(e);
-      System.err.println("get request could not run");
+      System.err.println("Get request could not run");
     }
   }
 }

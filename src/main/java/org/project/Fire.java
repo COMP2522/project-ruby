@@ -5,16 +5,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import static org.project.SystemVariables.*;
 
 /**
  * Defines the Fire element that is not collidable and the player
  * is supposed to die when they come in contact with fire.
  *
- * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
+ * @author Simrat Kaur
  * @version 2023-02-07
  */
 public class Fire extends Element {
-  private final int tileSize = GamePanel.TILE_SIZE;
   private final BufferedImage[] fires;
   private long lastFrameTime;
   
@@ -23,7 +23,6 @@ public class Fire extends Element {
    * Also sets up the animation of the Fire element.
    */
   public Fire() {
-    setName("Fire");
     fires = new BufferedImage[4];
     try {
       for (int i = 0; i < fires.length; i++) {
@@ -56,6 +55,7 @@ public class Fire extends Element {
       setImage(fires[getCurrentFrame()]);
       lastFrameTime = currentTime;
     }
+    int tileSize = TILE_SIZE;
     g2.drawImage(getImage(), screenX, screenY, tileSize, tileSize, null);
   }
 }

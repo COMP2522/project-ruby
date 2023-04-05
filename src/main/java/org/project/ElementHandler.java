@@ -1,5 +1,6 @@
 package org.project;
 
+import static org.project.SystemVariables.*;
 
 /**
  * The ElementHandler class is responsible for handling the placement
@@ -12,7 +13,7 @@ package org.project;
  * @version 2023-02-07
  */
 public class ElementHandler {
-  GamePanel gp;
+  private final GamePanel gp;
 
   /**
    * Constructs an ElementHandler object with the specified GamePanel.
@@ -27,48 +28,48 @@ public class ElementHandler {
    */
   public void setElement() {
     gp.elements[0] = new Ruby();
-    gp.elements[0].setWorldX(17 * GamePanel.TILE_SIZE);
-    gp.elements[0].setWorldY(38 * GamePanel.TILE_SIZE);
+    gp.elements[0].setWorldX(17 * TILE_SIZE);
+    gp.elements[0].setWorldY(38 * TILE_SIZE);
 
     gp.elements[1] = new Ruby();
-    gp.elements[1].setWorldX(32 * GamePanel.TILE_SIZE);
-    gp.elements[1].setWorldY(40 * GamePanel.TILE_SIZE);
+    gp.elements[1].setWorldX(32 * TILE_SIZE);
+    gp.elements[1].setWorldY(40 * TILE_SIZE);
 
     gp.elements[2] = new Door();
-    gp.elements[2].setWorldX(10 * GamePanel.TILE_SIZE);
-    gp.elements[2].setWorldY(11 * GamePanel.TILE_SIZE);
+    gp.elements[2].setWorldX(10 * TILE_SIZE);
+    gp.elements[2].setWorldY(11 * TILE_SIZE);
 
     gp.elements[3] = new Ruby();
-    gp.elements[3].setWorldX(12 * GamePanel.TILE_SIZE);
-    gp.elements[3].setWorldY(42 * GamePanel.TILE_SIZE);
+    gp.elements[3].setWorldX(12 * TILE_SIZE);
+    gp.elements[3].setWorldY(42 * TILE_SIZE);
 
     gp.elements[4] = new PowerUp();
-    gp.elements[4].setWorldX(23 * GamePanel.TILE_SIZE);
-    gp.elements[4].setWorldY(7 * GamePanel.TILE_SIZE);
+    gp.elements[4].setWorldX(23 * TILE_SIZE);
+    gp.elements[4].setWorldY(7 * TILE_SIZE);
 
     gp.elements[5] = new Ruby();
-    gp.elements[5].setWorldX(36 * GamePanel.TILE_SIZE);
-    gp.elements[5].setWorldY(31 * GamePanel.TILE_SIZE);
+    gp.elements[5].setWorldX(36 * TILE_SIZE);
+    gp.elements[5].setWorldY(31 * TILE_SIZE);
 
     gp.elements[6] = new Ruby();
-    gp.elements[6].setWorldX(38 * GamePanel.TILE_SIZE);
-    gp.elements[6].setWorldY(41 * GamePanel.TILE_SIZE);
+    gp.elements[6].setWorldX(38 * TILE_SIZE);
+    gp.elements[6].setWorldY(41 * TILE_SIZE);
 
     gp.elements[7] = new Fire();
-    gp.elements[7].setWorldX(19 * GamePanel.TILE_SIZE);
-    gp.elements[7].setWorldY(37 * GamePanel.TILE_SIZE);
+    gp.elements[7].setWorldX(19 * TILE_SIZE);
+    gp.elements[7].setWorldY(37 * TILE_SIZE);
 
     gp.elements[8] = new Fire();
-    gp.elements[8].setWorldX(19 * GamePanel.TILE_SIZE);
-    gp.elements[8].setWorldY(36 * GamePanel.TILE_SIZE);
+    gp.elements[8].setWorldX(19 * TILE_SIZE);
+    gp.elements[8].setWorldY(36 * TILE_SIZE);
 
     gp.elements[9] = new Fire();
-    gp.elements[9].setWorldX(19 * GamePanel.TILE_SIZE);
-    gp.elements[9].setWorldY(39 * GamePanel.TILE_SIZE);
+    gp.elements[9].setWorldX(19 * TILE_SIZE);
+    gp.elements[9].setWorldY(39 * TILE_SIZE);
 
     gp.elements[10] = new Fire();
-    gp.elements[10].setWorldX(19 * GamePanel.TILE_SIZE);
-    gp.elements[10].setWorldY(40 * GamePanel.TILE_SIZE);
+    gp.elements[10].setWorldX(19 * TILE_SIZE);
+    gp.elements[10].setWorldY(40 * TILE_SIZE);
 
 
   }
@@ -78,8 +79,8 @@ public class ElementHandler {
    */
   public void setNPC() {
     gp.npc[0] = new Villager(gp,24,10);
-    gp.npc[0].setWorldX(((Villager)gp.npc[0]).posX * GamePanel.TILE_SIZE);
-    gp.npc[0].setWorldY(((Villager)gp.npc[0]).posY * GamePanel.TILE_SIZE);
+    gp.npc[0].setWorldX(((Villager)gp.npc[0]).posX * TILE_SIZE);
+    gp.npc[0].setWorldY(((Villager)gp.npc[0]).posY * TILE_SIZE);
 
   }
 
@@ -88,20 +89,20 @@ public class ElementHandler {
    */
   public void setMonster() {
     gp.monster[0] = new Monster(gp, 24,15);
-    gp.monster[0].setWorldX(((Monster)gp.monster[0]).worldX * GamePanel.TILE_SIZE);
-    gp.monster[0].setWorldY(((Monster)gp.monster[0]).worldY * GamePanel.TILE_SIZE);
+    gp.monster[0].setWorldX((gp.monster[0]).worldX * TILE_SIZE);
+    gp.monster[0].setWorldY((gp.monster[0]).worldY * TILE_SIZE);
 
     gp.monster[1] = new Monster(gp, 13, 9);
-    gp.monster[1].setWorldX(((Monster)gp.monster[1]).worldX * GamePanel.TILE_SIZE);
-    gp.monster[1].setWorldY(((Monster)gp.monster[1]).worldY * GamePanel.TILE_SIZE);
+    gp.monster[1].setWorldX((gp.monster[1]).worldX * TILE_SIZE);
+    gp.monster[1].setWorldY((gp.monster[1]).worldY * TILE_SIZE);
 
     gp.monster[2] = new Monster(gp, 24, 40);
-    gp.monster[2].setWorldX(((Monster)gp.monster[2]).worldX * GamePanel.TILE_SIZE);
-    gp.monster[2].setWorldY(((Monster)gp.monster[2]).worldY * GamePanel.TILE_SIZE);
+    gp.monster[2].setWorldX((gp.monster[2]).worldX * TILE_SIZE);
+    gp.monster[2].setWorldY((gp.monster[2]).worldY * TILE_SIZE);
 
     gp.monster[3] = new Monster(gp, 30, 38);
-    gp.monster[3].setWorldX(((Monster)gp.monster[3]).worldX * GamePanel.TILE_SIZE);
-    gp.monster[3].setWorldY(((Monster)gp.monster[3]).worldY * GamePanel.TILE_SIZE);
+    gp.monster[3].setWorldX((gp.monster[3]).worldX * TILE_SIZE);
+    gp.monster[3].setWorldY((gp.monster[3]).worldY * TILE_SIZE);
 
   }
 }

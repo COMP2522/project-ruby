@@ -36,15 +36,9 @@ public class PostRequestHandler implements Runnable {
     OutputStream outputStream = this.socket.getOutputStream();
     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
     String res = createJSONRes(message);
-
-    // Write data to the ObjectOutputStream
-    objectOutputStream.writeObject(res);
-
-    // Flush the ObjectOutputStream to ensure all data is written to the OutputStream
-    objectOutputStream.flush();
-
-    // Close the ObjectOutputStream to release any resources it may be holding
-    objectOutputStream.close();
+    objectOutputStream.writeObject(res); // Write data to the ObjectOutputStream
+    objectOutputStream.flush(); // Flush the ObjectOutputStream to ensure all data is written to the OutputStream
+    objectOutputStream.close(); // Close the ObjectOutputStream to release any resources it may be holding
     this.socket.close();
   }
 

@@ -12,11 +12,9 @@ import java.io.IOException;
  * @version 2023-02-07
  */
 public class Door extends Element {
-  /**
-   * Constructs a Door object and sets its name, image, and collision properties.
-   */
+
+  /** Constructs a Door object and sets its name, image, and collision properties. */
   public Door() {
-    setName("Door");
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/door1.png")));
     } catch (IOException e) {
