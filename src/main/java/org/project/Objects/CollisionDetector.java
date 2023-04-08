@@ -73,17 +73,17 @@ public class CollisionDetector {
      * movement is stopped in the entity's update method which has an if statement to only update
      * entity position if collision is false.
      */
-    if (entity.direction == directions.UP) {
-      upRow = (upY - entity.speed) / TILE_SIZE;
+    if (entity.peekDirection() == directions.UP) {
+      upRow = (upY - entity.getSpeed()) / TILE_SIZE;
       collide(entity); // sets entity collision to true
-    } else if (entity.direction == directions.DOWN) {
-      downRow = (downY + entity.speed) / TILE_SIZE;
+    } else if (entity.peekDirection() == directions.DOWN) {
+      downRow = (downY + entity.getSpeed()) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == directions.LEFT) {
-      leftCol = (leftX - entity.speed) / TILE_SIZE;
+    } else if (entity.peekDirection() == directions.LEFT) {
+      leftCol = (leftX - entity.getSpeed()) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == directions.RIGHT) {
-      rightCol = (rightX + entity.speed) / TILE_SIZE;
+    } else if (entity.peekDirection() == directions.RIGHT) {
+      rightCol = (rightX + entity.getSpeed()) / TILE_SIZE;
       collide(entity);
     }
   }
@@ -127,17 +127,17 @@ public class CollisionDetector {
         gp.elements[i].getHitbox().y = gp.elements[i].getWorldY() + gp.elements[i].getHitbox().y;
 
         // check if player is in range of object to pick it up
-        if (p.direction == directions.UP) {
-          p.hitbox.y -= p.speed;
+        if (p.peekDirection() == directions.UP) {
+          p.hitbox.y -= p.getSpeed();
           index = handleCollision(p,gp, player, i, index);
-        } else if (p.direction == directions.DOWN) {
-          p.hitbox.y += p.speed;
+        } else if (p.peekDirection() == directions.DOWN) {
+          p.hitbox.y += p.getSpeed();
           index = handleCollision(p, gp,player, i, index);
-        } else if (p.direction == directions.LEFT) {
-          p.hitbox.x -= p.speed;
+        } else if (p.peekDirection() == directions.LEFT) {
+          p.hitbox.x -= p.getSpeed();
           index = handleCollision(p,gp, player, i, index);
-        } else if (p.direction == directions.RIGHT) {
-          p.hitbox.x += p.speed;
+        } else if (p.peekDirection() == directions.RIGHT) {
+          p.hitbox.x += p.getSpeed();
           index = handleCollision(p,gp, player, i, index);
         }
 
@@ -188,11 +188,11 @@ public class CollisionDetector {
         int moveX = 0;
         int moveY = 0;
   
-        switch (entity.direction) {
-          case UP -> moveY = -entity.speed;
-          case DOWN -> moveY = entity.speed;
-          case LEFT -> moveX = -entity.speed;
-          case RIGHT -> moveX = entity.speed;
+        switch (entity.peekDirection()) {
+          case UP -> moveY = -entity.getSpeed();
+          case DOWN -> moveY = entity.getSpeed();
+          case LEFT -> moveX = -entity.getSpeed();
+          case RIGHT -> moveX = entity.getSpeed();
         }
 
         entity.hitbox.x += moveX;
@@ -229,11 +229,11 @@ public class CollisionDetector {
     gp.player.hitbox.y = gp.player.getWorldY() + gp.player.hitbox.y;
     
   
-    switch (entity.direction) {
-      case UP -> entity.hitbox.y -= entity.speed;
-      case DOWN -> entity.hitbox.y += entity.speed;
-      case LEFT -> entity.hitbox.x -= entity.speed;
-      case RIGHT -> entity.hitbox.x += entity.speed;
+    switch (entity.peekDirection()) {
+      case UP -> entity.hitbox.y -= entity.getSpeed();
+      case DOWN -> entity.hitbox.y += entity.getSpeed();
+      case LEFT -> entity.hitbox.x -= entity.getSpeed();
+      case RIGHT -> entity.hitbox.x += entity.getSpeed();
     }
 
     if (entity.hitbox.intersects(gp.player.hitbox)) {

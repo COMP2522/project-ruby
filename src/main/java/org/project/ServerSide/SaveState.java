@@ -45,7 +45,7 @@ public class SaveState {
 
     player.setWorldX(((Long) playerData.get("worldX")).intValue());
     player.setWorldY(((Long) playerData.get("worldY")).intValue());
-    player.speed = ((Long) playerData.get("speed")).intValue();
+    player.setSpeed(((Long) playerData.get("speed")).intValue());
     player.spriteCounter = ((Long) playerData.get("spriteCounter")).intValue();
     player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
     player.setLives(((Long) playerData.get("lives")).intValue());
@@ -68,8 +68,8 @@ public class SaveState {
     JSONObject playerData = new JSONObject();
     playerData.put("worldX", player.getWorldX());
     playerData.put("worldY", player.getWorldY());
-    playerData.put("speed", player.speed);
-    playerData.put("direction", player.direction.ordinal());
+    playerData.put("speed", player.getSpeed());
+    playerData.put("direction", player.peekDirection().ordinal());
     playerData.put("spriteCounter", player.spriteCounter);
     playerData.put("spriteNum", player.spriteNum);
     playerData.put("lives", player.getLives());
