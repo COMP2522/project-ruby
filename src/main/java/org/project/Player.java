@@ -163,6 +163,10 @@ public class Player extends Entity {
     }
   }
 
+  /**
+   * helper function to update player sprite to next frame to animate player movement.
+   * Utilized in update method.
+   */
   private void updateSprite() {
     /* loop between the frames of the player to animate*/
     spriteCounter++; // increment to count how many frames this sprite has been drawn already
@@ -185,6 +189,10 @@ public class Player extends Entity {
     }
   }
 
+  /**
+   * helper function to update player position.
+   * Utilized in update method.
+   */
   private void updatePosition() {
     // update position on worldMap if player is not colliding
     if (!collision) {
@@ -199,16 +207,14 @@ public class Player extends Entity {
       }
     }
   }
-
   
   /**
-   * Defines object collision behaviour
+   * Defines object collision/pickingUp behaviour of player
    * @param index The index of the player on the max
    * @param gp The game panel the player belongs to
    */
   public void pickupObject(int index, GamePanel gp) {
     if(index != this.indexMax) {
-    
       Class<? extends Element> className = gp.elements[index].getClass();
   
       if (className.equals(Ruby.class)) {
