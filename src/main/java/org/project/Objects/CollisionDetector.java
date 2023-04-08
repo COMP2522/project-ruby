@@ -1,4 +1,8 @@
-package org.project;
+package org.project.Objects;
+
+import org.project.Entities.Entity;
+import org.project.Entities.Player;
+import org.project.GamePanel;
 
 import static org.project.SystemVariables.*;
 
@@ -52,10 +56,10 @@ public class CollisionDetector {
    * @param entity The Entity object representing the player
    */
   public void checkTile(Entity entity) {
-    int leftX = entity.worldX + entity.hitbox.x;
-    int rightX = entity.worldX + entity.hitbox.x + entity.hitbox.width;
-    int upY = entity.worldY + entity.hitbox.y;
-    int downY = entity.worldY + entity.hitbox.y + entity.hitbox.height;
+    int leftX = entity.getWorldX() + entity.hitbox.x;
+    int rightX = entity.getWorldX() + entity.hitbox.x + entity.hitbox.width;
+    int upY = entity.getWorldY() + entity.hitbox.y;
+    int downY = entity.getWorldY() + entity.hitbox.y + entity.hitbox.height;
 
     /* stores the int code of tiles adjacent to the tile the entity is on currently */
     leftCol = leftX / TILE_SIZE;
@@ -69,17 +73,17 @@ public class CollisionDetector {
      * movement is stopped in the entity's update method which has an if statement to only update
      * entity position if collision is false.
      */
-    if (entity.direction == directions.UP) {
-      upRow = (upY - entity.speed) / TILE_SIZE;
+    if (entity.peekDirection() == directions.UP) {
+      upRow = (upY - entity.getSpeed()) / TILE_SIZE;
       collide(entity); // sets entity collision to true
-    } else if (entity.direction == directions.DOWN) {
-      downRow = (downY + entity.speed) / TILE_SIZE;
+    } else if (entity.peekDirection() == directions.DOWN) {
+      downRow = (downY + entity.getSpeed()) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == directions.LEFT) {
-      leftCol = (leftX - entity.speed) / TILE_SIZE;
+    } else if (entity.peekDirection() == directions.LEFT) {
+      leftCol = (leftX - entity.getSpeed()) / TILE_SIZE;
       collide(entity);
-    } else if (entity.direction == directions.RIGHT) {
-      rightCol = (rightX + entity.speed) / TILE_SIZE;
+    } else if (entity.peekDirection() == directions.RIGHT) {
+      rightCol = (rightX + entity.getSpeed()) / TILE_SIZE;
       collide(entity);
     }
   }
@@ -97,7 +101,7 @@ public class CollisionDetector {
     tileNum2 = gp.tManager.map[rightCol][downRow];
 
     if (gp.tManager.tiles[tileNum1].collision || gp.tManager.tiles[tileNum2].collision) {
-      entity.collision = true; // set entity collision to true
+      entity.setCollided(true); // set entity collision to true
     }
   }
 
@@ -113,8 +117,8 @@ public class CollisionDetector {
       if (gp.elements[i] != null) {
 
         // get entity/player's solid area position in the world map
-        p.hitbox.x = p.worldX + p.hitbox.x;
-        p.hitbox.y = p.worldY + p.hitbox.y;
+        p.hitbox.x = p.getWorldX() + p.hitbox.x;
+        p.hitbox.y = p.getWorldY() + p.hitbox.y;
 
         // get the object's solid area position in the world map, because the hitbox value is relative to object
         // and we need its position on the world map to perform checks
@@ -123,17 +127,17 @@ public class CollisionDetector {
         gp.elements[i].getHitbox().y = gp.elements[i].getWorldY() + gp.elements[i].getHitbox().y;
 
         // check if player is in range of object to pick it up
-        if (p.direction == directions.UP) {
-          p.hitbox.y -= p.speed;
+        if (p.peekDirection() == directions.UP) {
+          p.hitbox.y -= p.getSpeed();
           index = handleCollision(p,gp, player, i, index);
-        } else if (p.direction == directions.DOWN) {
-          p.hitbox.y += p.speed;
+        } else if (p.peekDirection() == directions.DOWN) {
+          p.hitbox.y += p.getSpeed();
           index = handleCollision(p, gp,player, i, index);
-        } else if (p.direction == directions.LEFT) {
-          p.hitbox.x -= p.speed;
+        } else if (p.peekDirection() == directions.LEFT) {
+          p.hitbox.x -= p.getSpeed();
           index = handleCollision(p,gp, player, i, index);
-        } else if (p.direction == directions.RIGHT) {
-          p.hitbox.x += p.speed;
+        } else if (p.peekDirection() == directions.RIGHT) {
+          p.hitbox.x += p.getSpeed();
           index = handleCollision(p,gp, player, i, index);
         }
 
@@ -157,7 +161,7 @@ public class CollisionDetector {
   private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
       if (gp1.elements[i].getCollision()) {
-        p.collision = true;
+        p.setCollided(true);
       }
       if (player) {
         index = i;
@@ -174,28 +178,28 @@ public class CollisionDetector {
       if (target[i] != null) {
 
         //get entity/player's solid area position
-        entity.hitbox.x = entity.worldX + entity.hitbox.x;
-        entity.hitbox.y = entity.worldY + entity.hitbox.y;
+        entity.hitbox.x = entity.getWorldX() + entity.hitbox.x;
+        entity.hitbox.y = entity.getWorldY() + entity.hitbox.y;
 
         //get teh object's solid area position
-        target[i].hitbox.x = target[i].worldX + target[i].hitbox.x;
-        target[i].hitbox.y = target[i].worldY + target[i].hitbox.y;
+        target[i].hitbox.x = target[i].getWorldX() + target[i].hitbox.x;
+        target[i].hitbox.y = target[i].getWorldY() + target[i].hitbox.y;
 
         int moveX = 0;
         int moveY = 0;
   
-        switch (entity.direction) {
-          case UP -> moveY = -entity.speed;
-          case DOWN -> moveY = entity.speed;
-          case LEFT -> moveX = -entity.speed;
-          case RIGHT -> moveX = entity.speed;
+        switch (entity.peekDirection()) {
+          case UP -> moveY = -entity.getSpeed();
+          case DOWN -> moveY = entity.getSpeed();
+          case LEFT -> moveX = -entity.getSpeed();
+          case RIGHT -> moveX = entity.getSpeed();
         }
 
         entity.hitbox.x += moveX;
         entity.hitbox.y += moveY;
 
         if (entity.hitbox.intersects(target[i].hitbox)) {
-          entity.collision = true;
+          entity.setCollided(true);
           index = i;
         }
 
@@ -217,23 +221,23 @@ public class CollisionDetector {
     boolean contactPlayer = false;
 
     //get entity/player's solid area position
-    entity.hitbox.x = entity.worldX + entity.hitbox.x;
-    entity.hitbox.y = entity.worldY + entity.hitbox.y;
+    entity.hitbox.x = entity.getWorldX() + entity.hitbox.x;
+    entity.hitbox.y = entity.getWorldY() + entity.hitbox.y;
 
     //get the object's solid area position
-    gp.player.hitbox.x = gp.player.worldX + gp.player.hitbox.x;
-    gp.player.hitbox.y = gp.player.worldY + gp.player.hitbox.y;
+    gp.player.hitbox.x = gp.player.getWorldX() + gp.player.hitbox.x;
+    gp.player.hitbox.y = gp.player.getWorldY() + gp.player.hitbox.y;
     
   
-    switch (entity.direction) {
-      case UP -> entity.hitbox.y -= entity.speed;
-      case DOWN -> entity.hitbox.y += entity.speed;
-      case LEFT -> entity.hitbox.x -= entity.speed;
-      case RIGHT -> entity.hitbox.x += entity.speed;
+    switch (entity.peekDirection()) {
+      case UP -> entity.hitbox.y -= entity.getSpeed();
+      case DOWN -> entity.hitbox.y += entity.getSpeed();
+      case LEFT -> entity.hitbox.x -= entity.getSpeed();
+      case RIGHT -> entity.hitbox.x += entity.getSpeed();
     }
 
     if (entity.hitbox.intersects(gp.player.hitbox)) {
-      entity.collision = true;
+      entity.setCollided(true);
       contactPlayer = true;
     }
 

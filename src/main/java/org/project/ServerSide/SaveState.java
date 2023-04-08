@@ -1,7 +1,14 @@
-package org.project;
+package org.project.ServerSide;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.project.*;
+import org.project.Entities.Entity;
+import org.project.Entities.Monster;
+import org.project.Entities.Player;
+import org.project.Entities.Villager;
+import org.project.Objects.*;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -36,9 +43,9 @@ public class SaveState {
     }
     this.gamePanel = player.gp;
 
-    player.worldX = ((Long) playerData.get("worldX")).intValue();
-    player.worldY = ((Long) playerData.get("worldY")).intValue();
-    player.speed = ((Long) playerData.get("speed")).intValue();
+    player.setWorldX(((Long) playerData.get("worldX")).intValue());
+    player.setWorldY(((Long) playerData.get("worldY")).intValue());
+    player.setSpeed(((Long) playerData.get("speed")).intValue());
     player.spriteCounter = ((Long) playerData.get("spriteCounter")).intValue();
     player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
     player.setLives(((Long) playerData.get("lives")).intValue());
@@ -59,10 +66,10 @@ public class SaveState {
       throw new NullPointerException("Player object is null.");
     }
     JSONObject playerData = new JSONObject();
-    playerData.put("worldX", player.worldX);
-    playerData.put("worldY", player.worldY);
-    playerData.put("speed", player.speed);
-    playerData.put("direction", player.direction.ordinal());
+    playerData.put("worldX", player.getWorldX());
+    playerData.put("worldY", player.getWorldY());
+    playerData.put("speed", player.getSpeed());
+    playerData.put("direction", player.peekDirection().ordinal());
     playerData.put("spriteCounter", player.spriteCounter);
     playerData.put("spriteNum", player.spriteNum);
     playerData.put("lives", player.getLives());

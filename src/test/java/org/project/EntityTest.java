@@ -2,6 +2,8 @@ package org.project;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.project.Entities.Entity;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.project.SystemVariables.*;
 
@@ -18,15 +20,15 @@ public class EntityTest {
   @Test
   public void testSetAction() {
     // Check the initial direction and speed below.
-    assertEquals(directions.LEFT, testEntity.direction);
-    assertEquals(2, testEntity.speed);
+    assertEquals(directions.LEFT, testEntity.peekDirection());
+    assertEquals(2, testEntity.getSpeed());
 
     // Another change to direction and speed, and test again.
-    testEntity.direction = directions.UP;
-    testEntity.speed = 3;
+    testEntity.changeDirection(directions.UP);
+    testEntity.setSpeed(3);
     testEntity.setAction();
-    assertEquals(directions.UP, testEntity.direction);
-    assertEquals(3, testEntity.speed);
+    assertEquals(directions.UP, testEntity.peekDirection());
+    assertEquals(3, testEntity.getSpeed());
   }
 
   @Test
@@ -37,11 +39,11 @@ public class EntityTest {
 
     // Update to check if worldX and worldY have changed with speed and direction in mind.
     testEntity.update();
-    assertEquals(initialWorldX - testEntity.speed, testEntity.getWorldX());
+    assertEquals(initialWorldX - testEntity.getSpeed(), testEntity.getWorldX());
     assertEquals(initialWorldY, testEntity.getWorldY());
 
     // Another test for a differing direction.
-    testEntity.direction = directions.RIGHT;
+    testEntity.changeDirection(directions.RIGHT);
     testEntity.update();
     assertEquals(initialWorldX, testEntity.getWorldX());
     assertEquals(initialWorldY, testEntity.getWorldY());

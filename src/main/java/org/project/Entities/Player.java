@@ -1,4 +1,9 @@
-package org.project;
+package org.project.Entities;
+
+import org.project.*;
+import org.project.Objects.*;
+import org.project.ServerSide.SaveState;
+import org.project.ServerSide.SaveStateHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +22,7 @@ import static org.project.SystemVariables.*;
  */
 public class Player extends Entity {
 
-  // keyHandler instance
+  // keyHandler instance ( can be public because they are no attributes in keyHandler to be modified)
   public final KeyHandler handler;
   private static Player instance;
 
@@ -40,6 +45,7 @@ public class Player extends Entity {
    */
   private Player(GamePanel gp, KeyHandler kh) {
     super(gp); // call the super constructor in entity class
+
     // initialize window variable and keyHandler instance
     this.gp = gp;
     this.handler = kh;
@@ -193,13 +199,13 @@ public class Player extends Entity {
     // update position on worldMap if player is not colliding
     if (!collision) {
       if (direction == directions.LEFT) {
-        worldX -= speed;
+        worldX = worldX - speed;
       } else if (direction == directions.RIGHT) {
-        worldX += speed;
+        worldX = worldX + speed;
       } else if (direction == directions.UP) {
-        worldY -= speed;
+        worldY = worldY - speed;
       } else {
-        worldY += speed;
+        worldY = worldY + speed;
       }
     }
   }

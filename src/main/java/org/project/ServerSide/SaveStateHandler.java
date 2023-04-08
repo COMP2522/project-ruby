@@ -1,4 +1,4 @@
-package org.project;
+package org.project.ServerSide;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

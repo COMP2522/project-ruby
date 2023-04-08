@@ -2,6 +2,8 @@ package org.project;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.project.Entities.Villager;
+
 import static org.project.SystemVariables.*;
 import java.awt.*;
 
@@ -20,18 +22,18 @@ public class VillagerTest {
   @Test
   public void testSetAction() {
     // Check direction and speed. Similar testing from Entity.
-    assertEquals(directions.DOWN, testVillager.direction);
-    assertEquals(2, testVillager.speed);
+    assertEquals(directions.DOWN, testVillager.peekDirection());
+    assertEquals(2, testVillager.getSpeed());
 
     // Invoke setAction a bunch of  times to ensure direction change randomly.
-    directions initialDirection = testVillager.direction;
+    directions initialDirection = testVillager.peekDirection();
     for (int i = 0; i < 10; i++) {
       testVillager.setAction();
-      if (testVillager.direction != initialDirection) {
+      if (testVillager.peekDirection() != initialDirection) {
         break;
       }
     }
-    assertNotEquals(initialDirection, testVillager.direction);
+    assertNotEquals(initialDirection, testVillager.peekDirection());
   }
 
   @Test
@@ -42,13 +44,13 @@ public class VillagerTest {
     // Update and check worldX and worldY for change in line with speed and direction
     testVillager.update();
     assertEquals(initialWorldX, testVillager.getWorldX());
-    assertEquals(initialWorldY + testVillager.speed, testVillager.getWorldY());
+    assertEquals(initialWorldY + testVillager.getSpeed(), testVillager.getWorldY());
 
     // Change direction to test again ...
-    testVillager.direction = directions.LEFT;
+    testVillager.changeDirection(directions.LEFT);
     testVillager.update();
-    assertEquals(initialWorldX - testVillager.speed, testVillager.getWorldX());
-    assertEquals(initialWorldY + testVillager.speed, testVillager.getWorldY());
+    assertEquals(initialWorldX - testVillager.getSpeed(), testVillager.getWorldX());
+    assertEquals(initialWorldY + testVillager.getSpeed(), testVillager.getWorldY());
   }
 
   @Test

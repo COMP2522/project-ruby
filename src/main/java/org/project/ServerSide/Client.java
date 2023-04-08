@@ -1,4 +1,4 @@
-package org.project;
+package org.project.ServerSide;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;

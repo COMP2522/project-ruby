@@ -1,4 +1,7 @@
-package org.project;
+package org.project.Entities;
+
+import org.project.GamePanel;
+import org.project.Positionable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,27 +14,37 @@ import static org.project.SystemVariables.*;
  */
 public abstract class Entity implements Positionable {
 
+  // gamePanel instance being accessed by all Entities
   public GamePanel gp;
-  public int worldX, worldY;
-  public int screenX, screenY;
-  public boolean collision = false;
-  protected boolean invincible = false;
-  public boolean onPath = false;
-  public int invincibleCounter = 0;
-  public int speed;
 
-  public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
-  public directions direction;
-  
-  public final int spriteMax = 20; // Should only update every 14 frames, not every frame
-  public final int indexMax = 999; // Max number of elements that can be displayed in tile array
-  public int spriteCounter = 0;
-  public int spriteNum = 1;
-  public int actionLockCounter = 0;
-  
-  public Rectangle hitbox;
+  // Entity positional, and other variables
+  protected int worldX, worldY;   // Coordinates on the 50 * 50 world map
+  protected int screenX, screenY;  // Coordinates on the 16 * 12 screen
+  protected int speed;
+  protected directions direction;
+
+  // Entity state variables
+  protected boolean collision = false; // is colliding = false
+  protected boolean invincible = false; // is invincible = false
+  protected boolean onPath = false;
+  protected int invincibleCounter = 0;
+  // -----------------------------------------------------------//
+
+  public Rectangle hitbox; // Entity hitbox to check for collision (and damage in player's case)
   public int hitboxDefaultX, hitboxDefaultY;
-  public int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
+
+  // Sprites (or Images) for different instances of Entity
+  protected BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
+  protected final int spriteMax = 20; // Should only update every 14 frames, not every frame
+  protected final int indexMax = 999; // Max number of elements that can be displayed in tile array
+
+  // below two variables are only being accessed by the server
+  public int spriteCounter = 0; // variable to count exactly how many instances of a single sprite have already been drawn
+  public int spriteNum = 1; // the current sprite to be displayed
+  protected int actionLockCounter = 0;
+  // ---------------------All Animation related stuff above ------------------------///
+
+  protected int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
   
   public Entity(GamePanel gp) {
     this.gp = gp;
@@ -80,13 +93,13 @@ public abstract class Entity implements Positionable {
    */
   public void draw(Graphics2D g2) {
     BufferedImage image = null;
-    int screenX = worldX - gp.player.worldX + gp.player.screenX;
-    int screenY = worldY - gp.player.worldY + gp.player.screenY;
+    int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
+    int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
 
-    if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-      worldX - TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-      worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-      worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+    if (worldX + TILE_SIZE > gp.player.getWorldX() - gp.player.screenX &&
+      worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.screenX &&
+      worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.screenY &&
+      worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.screenY) {
       switch (direction) {
         case UP -> {
           if (spriteNum == 1) {image = upR;}
@@ -118,10 +131,22 @@ public abstract class Entity implements Positionable {
     }
   }
 
-  // Getter and setters for worldX and worldY below.
+  // bunch of Getters and setters
   public int getWorldX() { return worldX; }
   public void setWorldX(int worldX) { this.worldX = worldX; }
   public int getWorldY() { return worldY; }
   public void setWorldY(int worldY) { this.worldY = worldY; }
+  public int getScreenX() { return screenX; }
+  public int getScreenY() { return screenY; }
+  public int getSpeed() {return speed;}
+  public void setSpeed(int newSpeed) {speed = newSpeed;}
+  public directions peekDirection() {return direction;}
+  public void changeDirection(directions direction) {this.direction = direction;}
+  public void setCollided(boolean colStat) {collision = colStat;}
+  public int getHitboxX() {return hitbox.x;}
+  public int getHitboxY() {return hitbox.y;}
+  public int getHitboxWidth() {return hitbox.width;}
+  public int getHitboxHeight() {return hitbox.height;}
   public abstract void setAction();
+
 }

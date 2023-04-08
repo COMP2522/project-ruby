@@ -1,4 +1,7 @@
-package org.project;
+package org.project.Objects;
+
+import org.project.GamePanel;
+import org.project.Objects.Element;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,7 +35,7 @@ public class Fire extends Element {
       e.printStackTrace();
     }
     setImage(fires[0]);
-    setCollision(true);
+    setCollision(false);
     lastFrameTime = System.currentTimeMillis();
   }
 
@@ -45,8 +48,8 @@ public class Fire extends Element {
    */
   @Override
   public void draw(Graphics2D g2, GamePanel gp) {
-    int screenX = getWorldX() - gp.player.worldX + gp.player.screenX;
-    int screenY = getWorldY() - gp.player.worldY + gp.player.screenY;
+    int screenX = getWorldX() - gp.player.getWorldX() + gp.player.getScreenX();
+    int screenY = getWorldY() - gp.player.getWorldY() + gp.player.getScreenY();
     long currentTime = System.currentTimeMillis();
     // 150ms between each frame
     int frameInterval = 150;

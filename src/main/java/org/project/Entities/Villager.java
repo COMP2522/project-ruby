@@ -1,4 +1,7 @@
-package org.project;
+package org.project.Entities;
+
+import org.project.Entities.Entity;
+import org.project.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,8 +22,6 @@ import static org.project.SystemVariables.*;
  * @version 2023-02-07
  */
 public class Villager extends Entity {
-    public int posX;
-    public int posY;
 
     public Villager(GamePanel gp, int posX, int posY) {
         super(gp);
@@ -32,8 +33,8 @@ public class Villager extends Entity {
         hitboxDefaultY = hitbox.y;
         hitbox.width = 32;
         hitbox.height = 32;
-        this.posX = posX;
-        this.posY = posY;
+        this.worldX = posX;
+        this.worldY = posY;
         direction = directions.DOWN;
         speed = 2;
         getImage();
