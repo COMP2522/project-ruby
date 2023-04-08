@@ -1,5 +1,8 @@
 package org.project;
 
+import org.project.Entities.Entity;
+import org.project.Entities.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import static org.project.CollisionDetector.*;

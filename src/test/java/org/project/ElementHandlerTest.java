@@ -3,6 +3,9 @@ package org.project;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.project.Entities.Monster;
+import org.project.Entities.Villager;
+
 import static org.project.SystemVariables.*;
 
 public class ElementHandlerTest {

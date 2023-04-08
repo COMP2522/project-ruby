@@ -1,5 +1,8 @@
 package org.project;
 
+import org.project.Entities.Monster;
+import org.project.Entities.Villager;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -79,8 +82,8 @@ public class ElementHandler {
    */
   public void setNPC() {
     gp.npc[0] = new Villager(gp,24,10);
-    gp.npc[0].setWorldX(((Villager)gp.npc[0]).posX * TILE_SIZE);
-    gp.npc[0].setWorldY(((Villager)gp.npc[0]).posY * TILE_SIZE);
+    gp.npc[0].setWorldX((gp.npc[0]).getWorldX() * TILE_SIZE);
+    gp.npc[0].setWorldY((gp.npc[0]).getWorldY() * TILE_SIZE);
 
   }
 

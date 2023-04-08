@@ -2,6 +2,11 @@ package org.project;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.project.Entities.Entity;
+import org.project.Entities.Monster;
+import org.project.Entities.Player;
+import org.project.Entities.Villager;
+
 import java.util.Arrays;
 import java.util.Objects;
 

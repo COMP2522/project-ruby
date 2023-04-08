@@ -1,4 +1,6 @@
-package org.project;
+package org.project.Entities;
+
+import org.project.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +19,7 @@ import static org.project.SystemVariables.*;
  */
 public class Player extends Entity {
 
-  // keyHandler instance
+  // keyHandler instance ( can be public because they are no attributes in keyHandler to be modified)
   public final KeyHandler handler;
   private static Player instance;
 
@@ -40,13 +42,14 @@ public class Player extends Entity {
    */
   private Player(GamePanel gp, KeyHandler kh) {
     super(gp); // call the super constructor in entity class
+
     // initialize window variable and keyHandler instance
     this.gp = gp;
     this.handler = kh;
 
     // set Starting position and other attributes (hitbox, speed and initial direction)
-    this.setWorldX(TILE_SIZE * 37); // 37 is starting x coordinate on our 50 * 50 map
-    this.setWorldY(TILE_SIZE * 9);  // 9 is starting y coordinate on our 50 * 50 map
+    this.worldX = TILE_SIZE * 37; // 37 is starting x coordinate on our 50 * 50 map
+    this.worldY = TILE_SIZE * 9;  // 9 is starting y coordinate on our 50 * 50 map
 
     // fix player to the center of the screen, it is not the player who's actually moving
     // it's the camera/ map :)
@@ -193,13 +196,13 @@ public class Player extends Entity {
     // update position on worldMap if player is not colliding
     if (!collision) {
       if (direction == directions.LEFT) {
-        setWorldX(getWorldX() - speed);
+        worldX = worldX - speed;
       } else if (direction == directions.RIGHT) {
-        setWorldX(getWorldX() + speed);
+        worldX = worldX + speed;
       } else if (direction == directions.UP) {
-        setWorldY(getWorldY() - speed);
+        worldY = worldY - speed;
       } else {
-        setWorldY(getWorldY() + speed);
+        worldY = worldY + speed;
       }
     }
   }

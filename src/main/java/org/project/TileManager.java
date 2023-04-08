@@ -87,14 +87,14 @@ public class TileManager {
       int tileNum = map[worldCol][worldRow];
       int worldX = worldCol * TILE_SIZE;
       int worldY = worldRow * TILE_SIZE;
-      int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
-      int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
+      int screenX = worldX - gp.player.getWorldX() + gp.player.getScreenX();
+      int screenY = worldY - gp.player.getWorldY() + gp.player.getScreenY();
       
       // Only draws sprites in the window view
-      if (worldX + TILE_SIZE > gp.player.getWorldX() - gp.player.screenX &&
-          worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.screenX &&
-          worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.screenY &&
-          worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.screenY) {
+      if (worldX + TILE_SIZE > gp.player.getWorldX() - gp.player.getScreenX() &&
+          worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.getScreenX() &&
+          worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.getScreenY() &&
+          worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.getScreenY()) {
         g2.drawImage(tiles[tileNum].sprite, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
       }
       

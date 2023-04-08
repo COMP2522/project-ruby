@@ -1,5 +1,8 @@
 package org.project;
 
+import org.project.Entities.Entity;
+import org.project.Entities.Player;
+
 import static org.project.SystemVariables.*;
 
 /**

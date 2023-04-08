@@ -1,4 +1,7 @@
-package org.project;
+package org.project.Entities;
+
+import org.project.GamePanel;
+import org.project.Positionable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,24 +17,25 @@ public abstract class Entity implements Positionable {
   // gamePanel instance being accessed by all Entities
   public GamePanel gp;
 
-  // Coordinates on the 50 * 50 world map and on the 16 * 12 screen respectively
-  private int worldX, worldY;
-  public int screenX, screenY;
+  // Entity positional, and other variables
+  protected int worldX, worldY;   // Coordinates on the 50 * 50 world map
+  protected int screenX, screenY;  // Coordinates on the 16 * 12 screen
+  public int speed;
+  public directions direction;
 
-  // state variables
+  // Entity state variables
   public boolean collision = false; // is colliding = false
   protected boolean invincible = false; // is invincible = false
   public boolean onPath = false;
   public int invincibleCounter = 0;
-  public int speed;
 
+  // Sprites (or Images) for different instances of Entity
   public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
-  public directions direction;
-  
+
   public final int spriteMax = 20; // Should only update every 14 frames, not every frame
   public final int indexMax = 999; // Max number of elements that can be displayed in tile array
-  public int spriteCounter = 0;
-  public int spriteNum = 1;
+  public int spriteCounter = 0; // variable to count exactly how many instances of a single sprite have already been drawn
+  public int spriteNum = 1; // the current sprite to be displayed
   public int actionLockCounter = 0;
   
   public Rectangle hitbox;
@@ -128,6 +132,12 @@ public abstract class Entity implements Positionable {
   public void setWorldX(int worldX) { this.worldX = worldX; }
   public int getWorldY() { return worldY; }
   public void setWorldY(int worldY) { this.worldY = worldY; }
+
+  public int getScreenX() { return screenX; }
+  public void setScreenX(int screenX) { this.screenX = screenX; }
+  public int getScreenY() { return screenY; }
+  public void setScreenY(int screenY) { this.screenY = screenY; }
+
   public abstract void setAction();
 
 }
