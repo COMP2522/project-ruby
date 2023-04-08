@@ -9,8 +9,6 @@ import java.awt.event.KeyListener;
  * @version 2023-04-04
  */
 public class KeyHandler implements KeyListener {
-
-  public static KeyEvent e;
   public boolean upPressed, downPressed, leftPressed, rightPressed; // keys pressed
 
   @Override
@@ -18,7 +16,6 @@ public class KeyHandler implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    KeyHandler.e = e;
     int code = e.getKeyCode();
     if (code == KeyEvent.VK_W) {
       upPressed = true;
@@ -36,7 +33,6 @@ public class KeyHandler implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
-    KeyHandler.e = e;
     int code = e.getKeyCode();
     if (code == KeyEvent.VK_W) {
       upPressed = false;

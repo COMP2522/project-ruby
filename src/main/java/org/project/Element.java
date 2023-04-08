@@ -10,7 +10,7 @@ import static org.project.SystemVariables.*;
  * a name, and a collision property indicating whether the
  * element can be collided with.
  *
- * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
+ * @author Simrat Kaur
  * @version 2023-02-07
  */
 public abstract class Element implements Positionable {

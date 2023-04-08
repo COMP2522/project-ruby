@@ -60,15 +60,15 @@ public class ElementHandler {
     gp.elements[7].setWorldY(37 * TILE_SIZE);
 
     gp.elements[8] = new Fire();
-    gp.elements[8].setWorldX(19 * TILE_SIZE);
+    gp.elements[8].setWorldX(20 * TILE_SIZE);
     gp.elements[8].setWorldY(36 * TILE_SIZE);
 
     gp.elements[9] = new Fire();
-    gp.elements[9].setWorldX(19 * TILE_SIZE);
+    gp.elements[9].setWorldX(21 * TILE_SIZE);
     gp.elements[9].setWorldY(39 * TILE_SIZE);
 
     gp.elements[10] = new Fire();
-    gp.elements[10].setWorldX(19 * TILE_SIZE);
+    gp.elements[10].setWorldX(22 * TILE_SIZE);
     gp.elements[10].setWorldY(40 * TILE_SIZE);
 
 
