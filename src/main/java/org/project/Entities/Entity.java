@@ -28,18 +28,20 @@ public abstract class Entity implements Positionable {
   protected boolean invincible = false; // is invincible = false
   protected boolean onPath = false;
   protected int invincibleCounter = 0;
+  // -----------------------------------------------------------//
+
+  public Rectangle hitbox; // Entity hitbox to check for collision (and damage in player's case)
+  public int hitboxDefaultX, hitboxDefaultY;
 
   // Sprites (or Images) for different instances of Entity
   protected BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
-
-  public final int spriteMax = 20; // Should only update every 14 frames, not every frame
-  public final int indexMax = 999; // Max number of elements that can be displayed in tile array
+  protected final int spriteMax = 20; // Should only update every 14 frames, not every frame
+  protected final int indexMax = 999; // Max number of elements that can be displayed in tile array
   public int spriteCounter = 0; // variable to count exactly how many instances of a single sprite have already been drawn
   public int spriteNum = 1; // the current sprite to be displayed
-  public int actionLockCounter = 0;
-  
-  public Rectangle hitbox;
-  public int hitboxDefaultX, hitboxDefaultY;
+  protected int actionLockCounter = 0;
+  // ---------------------All Animation related stuff above ------------------------///
+
   protected int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
   
   public Entity(GamePanel gp) {
@@ -139,6 +141,10 @@ public abstract class Entity implements Positionable {
   public directions peekDirection() {return direction;}
   public void changeDirection(directions direction) {this.direction = direction;}
   public void setCollided(boolean colStat) {collision = colStat;}
+  public int getHitboxX() {return hitbox.x;}
+  public int getHitboxY() {return hitbox.y;}
+  public int getHitboxWidth() {return hitbox.width;}
+  public int getHitboxHeight() {return hitbox.height;}
   public abstract void setAction();
 
 }

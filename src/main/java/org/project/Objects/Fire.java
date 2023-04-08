@@ -35,7 +35,7 @@ public class Fire extends Element {
       e.printStackTrace();
     }
     setImage(fires[0]);
-    setCollision(true);
+    setCollision(false);
     lastFrameTime = System.currentTimeMillis();
   }
 
