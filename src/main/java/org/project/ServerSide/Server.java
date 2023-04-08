@@ -1,6 +1,7 @@
-package org.project;
+package org.project.ServerSide;
 
 import org.json.simple.*;
+
 import java.io.*;
 import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;

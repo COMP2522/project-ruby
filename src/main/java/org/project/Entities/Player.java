@@ -1,6 +1,8 @@
 package org.project.Entities;
 
 import org.project.*;
+import org.project.ServerSide.SaveState;
+import org.project.ServerSide.SaveStateHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
