@@ -1,4 +1,6 @@
-package org.project;
+package org.project.Objects;
+
+import org.project.Objects.Element;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;

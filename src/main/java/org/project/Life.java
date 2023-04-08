@@ -1,5 +1,7 @@
 package org.project;
 
+import org.project.Objects.Element;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;

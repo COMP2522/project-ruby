@@ -1,5 +1,7 @@
 package org.project;
 
+import org.project.Objects.Ruby;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static org.project.SystemVariables.*;

@@ -1,6 +1,7 @@
 package org.project;
 
 import org.junit.jupiter.api.Test;
+import org.project.Objects.Element;
 
 import java.awt.*;
 

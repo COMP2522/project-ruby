@@ -2,10 +2,13 @@ package org.project;
 
 import org.project.Entities.Entity;
 import org.project.Entities.Player;
+import org.project.Objects.CollisionDetector;
+import org.project.Objects.Element;
+import org.project.Objects.ElementHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import static org.project.CollisionDetector.*;
+import static org.project.Objects.CollisionDetector.*;
 import static org.project.SystemVariables.*;
 
 /**

@@ -1,7 +1,8 @@
-package org.project;
+package org.project.Objects;
 
 import org.project.Entities.Entity;
 import org.project.Entities.Player;
+import org.project.GamePanel;
 
 import static org.project.SystemVariables.*;
 

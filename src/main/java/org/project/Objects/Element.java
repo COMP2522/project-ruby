@@ -1,4 +1,7 @@
-package org.project;
+package org.project.Objects;
+
+import org.project.GamePanel;
+import org.project.Positionable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

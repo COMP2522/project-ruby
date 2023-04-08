@@ -7,6 +7,7 @@ import org.project.Entities.Entity;
 import org.project.Entities.Monster;
 import org.project.Entities.Player;
 import org.project.Entities.Villager;
+import org.project.Objects.*;
 
 import java.util.Arrays;
 import java.util.Objects;
