@@ -143,10 +143,6 @@ public abstract class Entity implements Positionable {
   public directions peekDirection() {return direction;}
   public void changeDirection(directions direction) {this.direction = direction;}
   public void setCollided(boolean colStat) {collision = colStat;}
-  public int getHitboxX() {return hitbox.x;}
-  public int getHitboxY() {return hitbox.y;}
-  public int getHitboxWidth() {return hitbox.width;}
-  public int getHitboxHeight() {return hitbox.height;}
   public abstract void setAction();
 
 }
