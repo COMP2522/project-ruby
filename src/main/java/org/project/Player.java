@@ -14,31 +14,47 @@ import static org.project.SystemVariables.*;
  * @version 2023-02-07
  */
 public class Player extends Entity {
-  public static final int MAX_LIVES = 6;
+
   public final KeyHandler handler;
   public static Player instance;
+
+  // Player stats
+  public static final int MAX_LIVES = 6;
   
   private status currentStatus;
   public int currentLives;
   private int currentRubies;
-  
+
+  // player does not need a setAction method because it is being controlled by the User
+  // hence, we override it with an empty definition that is not being used.
   @Override
   public void setAction() {}
-  
-  // Sets up fresh player upon starting a new game.
+
+  /**
+   * private constructor to initialize an instance of Player class
+   * @param gp the window/ GamePanel in which the player is being drawn in
+   * @param kh KeyHandler class that interprets input (to be utilized a lot to update player direction)
+   */
   private Player(GamePanel gp, KeyHandler kh) {
-    super(gp);
+    super(gp); // call the super constructor in entity class
+    // initialize window variable and keyHandler instance
     this.gp = gp;
     this.handler = kh;
 
-    //initializing the running sound
-    Sound running = new Sound();
-    running.setFile(4);
+    // set Starting position and other attributes (hitbox, speed and initial direction)
+    this.worldX = TILE_SIZE * 37; // 37 is starting x coordinate on our 50 * 50 map
+    this.worldY = TILE_SIZE * 9;  // 9 is starting y coordinate on our 50 * 50 map
 
-    this.worldX = TILE_SIZE * 37;
-    this.worldY = TILE_SIZE * 9;
-    this.screenX = gp.screenWidth/2 - TILE_SIZE/2;
-    this.screenY = gp.screenHeight/2 - TILE_SIZE/2;
+    // fix player to the center of the screen, it is not the player who's actually moving
+    // it's the camera/ map :)
+    this.screenX = (gp.screenWidth  - TILE_SIZE) / 2;  // divide by half to get to centre
+    this.screenY = (gp.screenHeight - TILE_SIZE) / 2;
+
+    /*
+       hitbox values being initialized.
+       the 10, 16 are the x and y coordinate of the hitbox relative to the player
+       Specifically, these are from the top-left corner of the player's sprite.
+     */
     this.hitbox = new Rectangle(10, 16,28,28);
     this.hitboxDefaultX = 10;
     this.hitboxDefaultY = 16;
