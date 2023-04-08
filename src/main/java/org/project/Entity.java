@@ -15,7 +15,7 @@ public abstract class Entity implements Positionable {
   public int worldX, worldY;
   public int screenX, screenY;
   public boolean collision = false;
-  public boolean invincible = false;
+  protected boolean invincible = false;
   public boolean onPath = false;
   public int invincibleCounter = 0;
   public int speed;
@@ -44,7 +44,7 @@ public abstract class Entity implements Positionable {
     gp.cDetector.checkPlayerCollide(this);
     boolean contactPlayer = gp.cDetector.checkPlayerCollide(this);
     if (this.type == 2 && contactPlayer && !gp.player.invincible) {
-      gp.player.currentLives -= 1;
+      gp.player.setLives(gp.player.getLives() - 1); // decrement player lives
       gp.player.invincible = true;
     }
   }
@@ -106,6 +106,7 @@ public abstract class Entity implements Positionable {
         }
         default -> {}
       }
+      // if entity is invincible, draw it as transparent for few seconds
       if (invincible) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
       }
@@ -134,7 +135,7 @@ public abstract class Entity implements Positionable {
       int nextX = gp.pFinder.pathList.get(0).col * TILE_SIZE;
       int nextY = gp.pFinder.pathList.get(0).row * TILE_SIZE;
 
-      // Entity's hitbox positioning
+      // Entity's hitbox positioning on the world map
       int enLeftX = worldX + hitbox.x;
       int enRightX = worldX + hitbox.x + hitbox.width;
       int enTopY = worldY + hitbox.y;

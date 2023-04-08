@@ -9,20 +9,23 @@ import static org.project.SystemVariables.*;
 
 /**
  * The player that the user can control.
+ * Contains a bunch of methods to update player position, status, sprites and interaction
+ * with world components in Ruby Rush.
  *
- * @author Nathan Bartyuk
+ * @author Abhishek Chouhan
  * @version 2023-02-07
  */
 public class Player extends Entity {
 
+  // keyHandler instance
   public final KeyHandler handler;
-  public static Player instance;
+  private static Player instance;
 
   // Player stats
   public static final int MAX_LIVES = 6;
   
   private status currentStatus;
-  public int currentLives;
+  private int currentLives;
   private int currentRubies;
 
   // player does not need a setAction method because it is being controlled by the User
@@ -83,24 +86,6 @@ public class Player extends Entity {
   }
 
   /**
-   * method used to update the direction of the player.
-   * This function uses the input caught by the keyHandler class (stored as a static variable in kh)
-   * By accessing that variable we know what the last key pressed was and update direction accordingly.
-   * @param kh the keyHandler instance
-   */
-  public void updateDirection(KeyHandler kh) {
-    if (kh.leftPressed) {
-      direction = directions.LEFT;
-    } else if (kh.rightPressed) {
-      direction = directions.RIGHT;
-    } else if (kh.upPressed) {
-      direction = directions.UP;
-    } else {
-      direction = directions.DOWN;
-    }
-  }
-
-  /**
    * sets up all image instances of the player.
    */
   public void getPlayerImage() {
@@ -120,24 +105,17 @@ public class Player extends Entity {
   }
 
   /**
-   * updates the status of player
-   * @param gp
-   * @param kh
+   * manages the position, sprite and all interactions of the player.
+   * Utilizes a bunch of helper and modular functions to achieve above functionality.
+   * @param gp the window Instance in which the player is being drawn in
+   * @param kh the keyHandler Instance taking care of all inputs
    */
   public void update(GamePanel gp, KeyHandler kh) {
+    // if a keyEvent occurred, update player values
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
+      // update the direction of player
       updateDirection(kh);
-      //checking for collision with the window boundary
-      if (worldX < 0) {
-        worldX = 0;
-      } else if (worldX + 48 >= gp.mapWidth) {
-        worldX = gp.mapWidth - 48;
-      }
-//      if (worldY < 0) {
-//        worldY = 0;
-//      } else if (worldY + 48 >= gp.mapHeight) {
-//        worldY = gp.mapHeight - 48;
-//      }
+
       // check collision with tile
       collision = false;
       gp.cDetector.checkTile(this);
@@ -160,6 +138,24 @@ public class Player extends Entity {
       // update to next sprite the player should be drawn as
       updateSprite();
 
+    }
+  }
+
+  /**
+   * method used to update the direction of the player.
+   * This function uses the input caught by the keyHandler class (stored as a static variable in kh)
+   * By accessing that variable we know what the last key pressed was and update direction accordingly.
+   * @param kh the keyHandler instance
+   */
+  private void updateDirection(KeyHandler kh) {
+    if (kh.leftPressed) {
+      direction = directions.LEFT;
+    } else if (kh.rightPressed) {
+      direction = directions.RIGHT;
+    } else if (kh.upPressed) {
+      direction = directions.UP;
+    } else {
+      direction = directions.DOWN;
     }
   }
 
