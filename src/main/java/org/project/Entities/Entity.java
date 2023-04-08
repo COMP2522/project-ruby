@@ -131,7 +131,7 @@ public abstract class Entity implements Positionable {
     }
   }
 
-  // Getter and setters for worldX and worldY below.
+  // bunch of Getters and setters
   public int getWorldX() { return worldX; }
   public void setWorldX(int worldX) { this.worldX = worldX; }
   public int getWorldY() { return worldY; }
