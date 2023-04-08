@@ -2,12 +2,13 @@ package org.project.ServerSide;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.project.*;
 import org.project.Entities.Entity;
 import org.project.Entities.Monster;
 import org.project.Entities.Player;
 import org.project.Entities.Villager;
+import org.project.Map.Positionable;
 import org.project.Objects.*;
+import org.project.UI.GamePanel;
 
 import java.util.Arrays;
 import java.util.Objects;

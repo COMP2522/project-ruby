@@ -1,4 +1,4 @@
-package org.project;
+package org.project.UI;
 
 import org.project.Objects.Element;
 

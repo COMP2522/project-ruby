@@ -1,5 +1,7 @@
 package org.project;
 
+import org.project.UI.GameLoader;
+
 /**
  * Method that runs the project
  * @author Nathan Bartyuk

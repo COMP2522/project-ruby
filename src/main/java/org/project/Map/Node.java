@@ -1,4 +1,4 @@
-package org.project;
+package org.project.Map;
 
 /**
  * Node created to implement the Path Finder algorithm

@@ -1,4 +1,4 @@
-package org.project;
+package org.project.Entities;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

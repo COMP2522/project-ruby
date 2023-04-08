@@ -1,7 +1,6 @@
 package org.project.Entities;
 
-import org.project.Entities.Entity;
-import org.project.GamePanel;
+import org.project.UI.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

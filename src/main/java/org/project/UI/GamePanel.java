@@ -1,7 +1,10 @@
-package org.project;
+package org.project.UI;
 
 import org.project.Entities.Entity;
+import org.project.Entities.KeyHandler;
 import org.project.Entities.Player;
+import org.project.Map.PathFinder;
+import org.project.Map.TileManager;
 import org.project.Objects.CollisionDetector;
 import org.project.Objects.Element;
 import org.project.Objects.ElementHandler;

@@ -1,4 +1,4 @@
-package org.project;
+package org.project.Map;
 
 /**
  * Interface to unite all entities and savable elements

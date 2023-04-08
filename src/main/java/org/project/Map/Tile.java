@@ -1,4 +1,4 @@
-package org.project;
+package org.project.Map;
 
 import java.awt.image.BufferedImage;
 

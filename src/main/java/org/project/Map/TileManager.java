@@ -1,4 +1,6 @@
-package org.project;
+package org.project.Map;
+
+import org.project.UI.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

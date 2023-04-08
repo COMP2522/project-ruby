@@ -2,7 +2,7 @@ package org.project.Objects;
 
 import org.project.Entities.Monster;
 import org.project.Entities.Villager;
-import org.project.GamePanel;
+import org.project.UI.GamePanel;
 
 import static org.project.SystemVariables.*;
 

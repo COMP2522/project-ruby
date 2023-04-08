@@ -1,7 +1,7 @@
 package org.project.Entities;
 
-import org.project.GamePanel;
-import org.project.Positionable;
+import org.project.UI.GamePanel;
+import org.project.Map.Positionable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
