@@ -101,7 +101,7 @@ public class CollisionDetector {
     tileNum2 = gp.tManager.map[rightCol][downRow];
 
     if (gp.tManager.tiles[tileNum1].collision || gp.tManager.tiles[tileNum2].collision) {
-      entity.collision = true; // set entity collision to true
+      entity.setCollided(true); // set entity collision to true
     }
   }
 
@@ -161,7 +161,7 @@ public class CollisionDetector {
   private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
       if (gp1.elements[i].getCollision()) {
-        p.collision = true;
+        p.setCollided(true);
       }
       if (player) {
         index = i;
@@ -199,7 +199,7 @@ public class CollisionDetector {
         entity.hitbox.y += moveY;
 
         if (entity.hitbox.intersects(target[i].hitbox)) {
-          entity.collision = true;
+          entity.setCollided(true);
           index = i;
         }
 
@@ -237,7 +237,7 @@ public class CollisionDetector {
     }
 
     if (entity.hitbox.intersects(gp.player.hitbox)) {
-      entity.collision = true;
+      entity.setCollided(true);
       contactPlayer = true;
     }
 

@@ -24,13 +24,13 @@ public abstract class Entity implements Positionable {
   protected directions direction;
 
   // Entity state variables
-  public boolean collision = false; // is colliding = false
+  protected boolean collision = false; // is colliding = false
   protected boolean invincible = false; // is invincible = false
-  public boolean onPath = false;
-  public int invincibleCounter = 0;
+  protected boolean onPath = false;
+  protected int invincibleCounter = 0;
 
   // Sprites (or Images) for different instances of Entity
-  public BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
+  protected BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
 
   public final int spriteMax = 20; // Should only update every 14 frames, not every frame
   public final int indexMax = 999; // Max number of elements that can be displayed in tile array
@@ -40,7 +40,7 @@ public abstract class Entity implements Positionable {
   
   public Rectangle hitbox;
   public int hitboxDefaultX, hitboxDefaultY;
-  public int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
+  protected int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
   
   public Entity(GamePanel gp) {
     this.gp = gp;
@@ -138,6 +138,7 @@ public abstract class Entity implements Positionable {
   public void setSpeed(int newSpeed) {speed = newSpeed;}
   public directions peekDirection() {return direction;}
   public void changeDirection(directions direction) {this.direction = direction;}
+  public void setCollided(boolean colStat) {collision = colStat;}
   public abstract void setAction();
 
 }
