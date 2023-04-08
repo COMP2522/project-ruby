@@ -37,6 +37,8 @@ public abstract class Entity implements Positionable {
   protected BufferedImage upR, upL, downR, downL, leftR, leftL, rightR, rightL;
   protected final int spriteMax = 20; // Should only update every 14 frames, not every frame
   protected final int indexMax = 999; // Max number of elements that can be displayed in tile array
+
+  // below two variables are only being accessed by the server
   public int spriteCounter = 0; // variable to count exactly how many instances of a single sprite have already been drawn
   public int spriteNum = 1; // the current sprite to be displayed
   protected int actionLockCounter = 0;
