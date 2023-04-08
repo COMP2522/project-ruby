@@ -11,9 +11,15 @@ import static org.project.SystemVariables.*;
  * @version 2023-02-07
  */
 public class CollisionDetector {
-  public static GamePanel gp;
-  public static CollisionDetector instance;
-  
+
+  // instance of gamePanel in which collision is happening.
+  private static GamePanel gp;
+
+  // a singleton instance of collision detector because each game needs only one
+  private static CollisionDetector instance;
+
+  // stores the int-code data of adjacent tiles in above, below, left and right
+  // for checking if there is a solid tile adjacent current tile being checked
   private int leftCol;
   private int rightCol;
   private int upRow;
@@ -27,7 +33,13 @@ public class CollisionDetector {
   private CollisionDetector(GamePanel gp) {
     CollisionDetector.gp = gp;
   }
-  
+
+  /**
+   * method that returns a single instance of Collision Detector class.
+   * Returns a new instance if called first time else returns previous instance.
+   * @param gp the gamePanel in which collision is happening.
+   * @return CollisionDetector instance
+   */
   public static CollisionDetector getCollisionDetector(GamePanel gp) {
     if (instance == null) {
       instance = new CollisionDetector(gp);
@@ -45,16 +57,21 @@ public class CollisionDetector {
     int upY = entity.worldY + entity.hitbox.y;
     int downY = entity.worldY + entity.hitbox.y + entity.hitbox.height;
 
+    /* stores the int code of tiles adjacent to the tile the entity is on currently */
     leftCol = leftX / TILE_SIZE;
     rightCol = rightX / TILE_SIZE;
     upRow = upY / TILE_SIZE;
     downRow = downY / TILE_SIZE;
 
 
-    //checking the player's direction
+    /* checks performed below, if entity is deemed to running into a solid tile,
+     * entity collision boolean is set to be true
+     * movement is stopped in the entity's update method which has an if statement to only update
+     * entity position if collision is false.
+     */
     if (entity.direction == directions.UP) {
       upRow = (upY - entity.speed) / TILE_SIZE;
-      collide(entity);
+      collide(entity); // sets entity collision to true
     } else if (entity.direction == directions.DOWN) {
       downRow = (downY + entity.speed) / TILE_SIZE;
       collide(entity);
@@ -67,6 +84,12 @@ public class CollisionDetector {
     }
   }
 
+  /**
+   * method that checks if the tile Entity will next step on has collision property
+   * and sets entity collision to true, meaning entity is colliding.
+   * This prevents the entity's update position method from running, hence entity is stopped.
+   * @param entity The entity on which check is being performed.
+   */
   private void collide(Entity entity) {
     int tileNum1, tileNum2;
 
@@ -74,14 +97,14 @@ public class CollisionDetector {
     tileNum2 = gp.tManager.map[rightCol][downRow];
 
     if (gp.tManager.tiles[tileNum1].collision || gp.tManager.tiles[tileNum2].collision) {
-      entity.collision = true;
+      entity.collision = true; // set entity collision to true
     }
   }
 
   /**
    * Checks for collision between the player and intractable elements in the game world,
    * such as rubies, doors, and power-ups.
-   * @param p      The Player object
+   * @param p The Player object
    * @return The index of the element with which the player is colliding, or 999 if no collision occurs.
    */
   public int checkObject(Player p, boolean player) {
@@ -89,14 +112,17 @@ public class CollisionDetector {
     for (int i = 0; i < gp.elements.length; i++) {
       if (gp.elements[i] != null) {
 
-        //get entity/player's solid area position
+        // get entity/player's solid area position in the world map
         p.hitbox.x = p.worldX + p.hitbox.x;
         p.hitbox.y = p.worldY + p.hitbox.y;
 
-        //get the object's solid area position
+        // get the object's solid area position in the world map, because the hitbox value is relative to object
+        // and we need its position on the world map to perform checks
+        // just add worldX to relative position of solid area to get the values.
         gp.elements[i].getHitbox().x = gp.elements[i].getWorldX() + gp.elements[i].getHitbox().x;
         gp.elements[i].getHitbox().y = gp.elements[i].getWorldY() + gp.elements[i].getHitbox().y;
 
+        // check if player is in range of object to pick it up
         if (p.direction == directions.UP) {
           p.hitbox.y -= p.speed;
           index = handleCollision(p,gp, player, i, index);
@@ -111,7 +137,7 @@ public class CollisionDetector {
           index = handleCollision(p,gp, player, i, index);
         }
 
-        //reset hitboxes to default values.
+        // reset hitboxes to default values because we momentarily set them to be relative to worldMap
         p.hitbox.x = p.hitboxDefaultX;
         p.hitbox.y = p.hitboxDefaultY;
         gp.elements[i].getHitbox().x = 0;
@@ -128,7 +154,7 @@ public class CollisionDetector {
    * @param player    Boolean indicating if player collision should be tracked
    * @param index     Index of game object with which player is colliding
    */
-  private int handleCollision(Player p, GamePanel gp1,boolean player, int i, int index) {
+  private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
       if (gp1.elements[i].getCollision()) {
         p.collision = true;
@@ -182,6 +208,11 @@ public class CollisionDetector {
     return index;
   }
 
+  /**
+   * method to check if player is colliding with Entity.
+   * @param entity the Entities (all of them)
+   * @return contactPlayer a boolean to indicate that player had contact with Entity
+   */
   public boolean checkPlayerCollide(Entity entity) {
     boolean contactPlayer = false;
 
