@@ -45,8 +45,8 @@ public class Fire extends Element {
    */
   @Override
   public void draw(Graphics2D g2, GamePanel gp) {
-    int screenX = getWorldX() - gp.player.worldX + gp.player.screenX;
-    int screenY = getWorldY() - gp.player.worldY + gp.player.screenY;
+    int screenX = getWorldX() - gp.player.getWorldX() + gp.player.screenX;
+    int screenY = getWorldY() - gp.player.getWorldY() + gp.player.screenY;
     long currentTime = System.currentTimeMillis();
     // 150ms between each frame
     int frameInterval = 150;

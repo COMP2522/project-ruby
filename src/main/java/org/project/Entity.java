@@ -11,11 +11,16 @@ import static org.project.SystemVariables.*;
  */
 public abstract class Entity implements Positionable {
 
+  // gamePanel instance being accessed by all Entities
   public GamePanel gp;
-  public int worldX, worldY;
+
+  // Coordinates on the 50 * 50 world map and on the 16 * 12 screen respectively
+  private int worldX, worldY;
   public int screenX, screenY;
-  public boolean collision = false;
-  protected boolean invincible = false;
+
+  // state variables
+  public boolean collision = false; // is colliding = false
+  protected boolean invincible = false; // is invincible = false
   public boolean onPath = false;
   public int invincibleCounter = 0;
   public int speed;
@@ -80,13 +85,13 @@ public abstract class Entity implements Positionable {
    */
   public void draw(Graphics2D g2) {
     BufferedImage image = null;
-    int screenX = worldX - gp.player.worldX + gp.player.screenX;
-    int screenY = worldY - gp.player.worldY + gp.player.screenY;
+    int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
+    int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
 
-    if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-      worldX - TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-      worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-      worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+    if (worldX + TILE_SIZE > gp.player.getWorldX() - gp.player.screenX &&
+      worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.screenX &&
+      worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.screenY &&
+      worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.screenY) {
       switch (direction) {
         case UP -> {
           if (spriteNum == 1) {image = upR;}
@@ -124,4 +129,5 @@ public abstract class Entity implements Positionable {
   public int getWorldY() { return worldY; }
   public void setWorldY(int worldY) { this.worldY = worldY; }
   public abstract void setAction();
+
 }

@@ -36,8 +36,8 @@ public class SaveState {
     }
     this.gamePanel = player.gp;
 
-    player.worldX = ((Long) playerData.get("worldX")).intValue();
-    player.worldY = ((Long) playerData.get("worldY")).intValue();
+    player.setWorldX(((Long) playerData.get("worldX")).intValue());
+    player.setWorldY(((Long) playerData.get("worldY")).intValue());
     player.speed = ((Long) playerData.get("speed")).intValue();
     player.spriteCounter = ((Long) playerData.get("spriteCounter")).intValue();
     player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
@@ -59,8 +59,8 @@ public class SaveState {
       throw new NullPointerException("Player object is null.");
     }
     JSONObject playerData = new JSONObject();
-    playerData.put("worldX", player.worldX);
-    playerData.put("worldY", player.worldY);
+    playerData.put("worldX", player.getWorldX());
+    playerData.put("worldY", player.getWorldY());
     playerData.put("speed", player.speed);
     playerData.put("direction", player.direction.ordinal());
     playerData.put("spriteCounter", player.spriteCounter);

@@ -89,20 +89,20 @@ public class ElementHandler {
    */
   public void setMonster() {
     gp.monster[0] = new Monster(gp, 24,15);
-    gp.monster[0].setWorldX((gp.monster[0]).worldX * TILE_SIZE);
-    gp.monster[0].setWorldY((gp.monster[0]).worldY * TILE_SIZE);
+    gp.monster[0].setWorldX((gp.monster[0]).getWorldX() * TILE_SIZE);
+    gp.monster[0].setWorldY((gp.monster[0]).getWorldY() * TILE_SIZE);
 
     gp.monster[1] = new Monster(gp, 13, 9);
-    gp.monster[1].setWorldX((gp.monster[1]).worldX * TILE_SIZE);
-    gp.monster[1].setWorldY((gp.monster[1]).worldY * TILE_SIZE);
+    gp.monster[1].setWorldX((gp.monster[1]).getWorldX() * TILE_SIZE);
+    gp.monster[1].setWorldY((gp.monster[1]).getWorldY() * TILE_SIZE);
 
     gp.monster[2] = new Monster(gp, 24, 40);
-    gp.monster[2].setWorldX((gp.monster[2]).worldX * TILE_SIZE);
-    gp.monster[2].setWorldY((gp.monster[2]).worldY * TILE_SIZE);
+    gp.monster[2].setWorldX((gp.monster[2]).getWorldX() * TILE_SIZE);
+    gp.monster[2].setWorldY((gp.monster[2]).getWorldY() * TILE_SIZE);
 
     gp.monster[3] = new Monster(gp, 30, 38);
-    gp.monster[3].setWorldX((gp.monster[3]).worldX * TILE_SIZE);
-    gp.monster[3].setWorldY((gp.monster[3]).worldY * TILE_SIZE);
+    gp.monster[3].setWorldX((gp.monster[3]).getWorldX() * TILE_SIZE);
+    gp.monster[3].setWorldY((gp.monster[3]).getWorldY() * TILE_SIZE);
 
   }
 }

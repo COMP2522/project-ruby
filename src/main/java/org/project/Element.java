@@ -30,8 +30,8 @@ public abstract class Element implements Positionable {
    * @param gp game panel on which the element is drawn
    */
   public void draw(Graphics2D g2, GamePanel gp) {
-    int screenX = worldX - gp.player.worldX + gp.player.screenX;
-    int screenY = worldY - gp.player.worldY + gp.player.screenY;
+    int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
+    int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
     drawIfVisible(g2, gp, screenX, screenY);
   }
 
@@ -42,10 +42,10 @@ public abstract class Element implements Positionable {
    * @param gp game panel on which the element is drawn
    */
   public void drawIfVisible(Graphics2D g2, GamePanel gp, int screenX, int screenY) {
-    if (((worldX + TILE_SIZE) > (gp.player.worldX - gp.player.screenX)) &&
-        ((worldX - TILE_SIZE) < (gp.player.worldX + gp.player.screenX)) &&
-        ((worldY + TILE_SIZE) > (gp.player.worldY - gp.player.screenY)) &&
-        ((worldY - TILE_SIZE) < (gp.player.worldY + gp.player.screenY))) {
+    if (((worldX + TILE_SIZE) > (gp.player.getWorldX() - gp.player.screenX)) &&
+        ((worldX - TILE_SIZE) < (gp.player.getWorldX() + gp.player.screenX)) &&
+        ((worldY + TILE_SIZE) > (gp.player.getWorldY() - gp.player.screenY)) &&
+        ((worldY - TILE_SIZE) < (gp.player.getWorldY() + gp.player.screenY))) {
       g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
   }

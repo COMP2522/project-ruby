@@ -45,8 +45,8 @@ public class Player extends Entity {
     this.handler = kh;
 
     // set Starting position and other attributes (hitbox, speed and initial direction)
-    this.worldX = TILE_SIZE * 37; // 37 is starting x coordinate on our 50 * 50 map
-    this.worldY = TILE_SIZE * 9;  // 9 is starting y coordinate on our 50 * 50 map
+    this.setWorldX(TILE_SIZE * 37); // 37 is starting x coordinate on our 50 * 50 map
+    this.setWorldY(TILE_SIZE * 9);  // 9 is starting y coordinate on our 50 * 50 map
 
     // fix player to the center of the screen, it is not the player who's actually moving
     // it's the camera/ map :)
@@ -193,13 +193,13 @@ public class Player extends Entity {
     // update position on worldMap if player is not colliding
     if (!collision) {
       if (direction == directions.LEFT) {
-        worldX -= speed;
+        setWorldX(getWorldX() - speed);
       } else if (direction == directions.RIGHT) {
-        worldX += speed;
+        setWorldX(getWorldX() + speed);
       } else if (direction == directions.UP) {
-        worldY -= speed;
+        setWorldY(getWorldY() - speed);
       } else {
-        worldY += speed;
+        setWorldY(getWorldY() + speed);
       }
     }
   }

@@ -36,8 +36,8 @@ public class Monster extends Entity {
     hitboxDefaultY = hitbox.y;
     hitbox.width = 32;
     hitbox.height = 32;
-    this.worldX = posX;
-    this.worldY = posY;
+    this.setWorldX(posX);
+    this.setWorldY(posY);
     direction = directions.DOWN;
     getImage();
   }
@@ -67,8 +67,8 @@ public class Monster extends Entity {
    */
   @Override
   public void setAction() {
-    int goalCol = (gp.player.worldX + gp.player.hitbox.x) / TILE_SIZE;
-    int goalRow = (gp.player.worldY + gp.player.hitbox.y) / TILE_SIZE;
+    int goalCol = (gp.player.getWorldX() + gp.player.hitbox.x) / TILE_SIZE;
+    int goalRow = (gp.player.getWorldY() + gp.player.hitbox.y) / TILE_SIZE;
     searchPath(goalCol, goalRow);
   }
 
@@ -79,8 +79,8 @@ public class Monster extends Entity {
    */
   public void searchPath(int goalCol, int goalRow){
 
-    int startCol = (worldX + hitbox.x) / TILE_SIZE;
-    int startRow = (worldY + hitbox.y) / TILE_SIZE;
+    int startCol = (getWorldX() + hitbox.x) / TILE_SIZE;
+    int startRow = (getWorldY() + hitbox.y) / TILE_SIZE;
 
     gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
 
@@ -90,10 +90,10 @@ public class Monster extends Entity {
       int nextY = gp.pFinder.pathList.get(0).row * TILE_SIZE;
 
       // Entity's hitbox positioning on the world map
-      int enLeftX = worldX + hitbox.x;
-      int enRightX = worldX + hitbox.x + hitbox.width;
-      int enTopY = worldY + hitbox.y;
-      int enBottomY = worldY + hitbox.y + hitbox.height;
+      int enLeftX = getWorldX() + hitbox.x;
+      int enRightX = getWorldX() + hitbox.x + hitbox.width;
+      int enTopY = getWorldY() + hitbox.y;
+      int enBottomY = getWorldY() + hitbox.y + hitbox.height;
 
       if(enTopY > nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE){
         direction = directions.UP;

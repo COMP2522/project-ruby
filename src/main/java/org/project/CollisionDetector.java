@@ -52,10 +52,10 @@ public class CollisionDetector {
    * @param entity The Entity object representing the player
    */
   public void checkTile(Entity entity) {
-    int leftX = entity.worldX + entity.hitbox.x;
-    int rightX = entity.worldX + entity.hitbox.x + entity.hitbox.width;
-    int upY = entity.worldY + entity.hitbox.y;
-    int downY = entity.worldY + entity.hitbox.y + entity.hitbox.height;
+    int leftX = entity.getWorldX() + entity.hitbox.x;
+    int rightX = entity.getWorldX() + entity.hitbox.x + entity.hitbox.width;
+    int upY = entity.getWorldY() + entity.hitbox.y;
+    int downY = entity.getWorldY() + entity.hitbox.y + entity.hitbox.height;
 
     /* stores the int code of tiles adjacent to the tile the entity is on currently */
     leftCol = leftX / TILE_SIZE;
@@ -113,8 +113,8 @@ public class CollisionDetector {
       if (gp.elements[i] != null) {
 
         // get entity/player's solid area position in the world map
-        p.hitbox.x = p.worldX + p.hitbox.x;
-        p.hitbox.y = p.worldY + p.hitbox.y;
+        p.hitbox.x = p.getWorldX() + p.hitbox.x;
+        p.hitbox.y = p.getWorldY() + p.hitbox.y;
 
         // get the object's solid area position in the world map, because the hitbox value is relative to object
         // and we need its position on the world map to perform checks
@@ -174,12 +174,12 @@ public class CollisionDetector {
       if (target[i] != null) {
 
         //get entity/player's solid area position
-        entity.hitbox.x = entity.worldX + entity.hitbox.x;
-        entity.hitbox.y = entity.worldY + entity.hitbox.y;
+        entity.hitbox.x = entity.getWorldX() + entity.hitbox.x;
+        entity.hitbox.y = entity.getWorldY() + entity.hitbox.y;
 
         //get teh object's solid area position
-        target[i].hitbox.x = target[i].worldX + target[i].hitbox.x;
-        target[i].hitbox.y = target[i].worldY + target[i].hitbox.y;
+        target[i].hitbox.x = target[i].getWorldX() + target[i].hitbox.x;
+        target[i].hitbox.y = target[i].getWorldY() + target[i].hitbox.y;
 
         int moveX = 0;
         int moveY = 0;
@@ -217,12 +217,12 @@ public class CollisionDetector {
     boolean contactPlayer = false;
 
     //get entity/player's solid area position
-    entity.hitbox.x = entity.worldX + entity.hitbox.x;
-    entity.hitbox.y = entity.worldY + entity.hitbox.y;
+    entity.hitbox.x = entity.getWorldX() + entity.hitbox.x;
+    entity.hitbox.y = entity.getWorldY() + entity.hitbox.y;
 
     //get the object's solid area position
-    gp.player.hitbox.x = gp.player.worldX + gp.player.hitbox.x;
-    gp.player.hitbox.y = gp.player.worldY + gp.player.hitbox.y;
+    gp.player.hitbox.x = gp.player.getWorldX() + gp.player.hitbox.x;
+    gp.player.hitbox.y = gp.player.getWorldY() + gp.player.hitbox.y;
     
   
     switch (entity.direction) {
