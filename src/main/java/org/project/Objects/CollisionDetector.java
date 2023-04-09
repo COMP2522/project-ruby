@@ -97,8 +97,8 @@ public class CollisionDetector {
   private void collide(Entity entity) {
     int tileNum1, tileNum2;
 
-    tileNum1 = gp.tManager.map[leftCol][upRow];
-    tileNum2 = gp.tManager.map[rightCol][downRow];
+    tileNum1 = gp.tManager.getMap()[leftCol][upRow];
+    tileNum2 = gp.tManager.getMap()[rightCol][downRow];
 
     // check if the tiles the entity is colliding with have the collision property
     // the tiles have a collision boolean that is set to true for solid tiles and false for tiles
@@ -173,8 +173,12 @@ public class CollisionDetector {
     return index;
   }
 
-
-  // NPC and for Future use will include Monster
+  /**
+   * Check collision of entity with entity.
+   * @param entity the entity on which the collision is being checked on
+   * @param target the entities against which collision is being checked
+   * @return the index of the target entity that collided with the entity on which the check was performed on.
+   */
   public int checkEntityCollide(Entity entity, Entity[] target) {
     int index = MAX_INDEX;
     for (int i = 0; i < target.length; i++) {

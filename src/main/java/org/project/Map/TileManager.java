@@ -16,7 +16,7 @@ import static org.project.SystemVariables.*;
 public class TileManager {
   GamePanel gp;
   public Tile[] tiles;
-  public int[][] map;
+  protected int[][] map;
   
   protected String mapPath = "assets/mapData/maps/map2.txt";
   protected String tilePath = "assets/mapData/tiles/";
@@ -106,5 +106,9 @@ public class TileManager {
         worldRow++;
       }
     }
+  }
+
+  public int[][] getMap() {
+    return map;
   }
 }
