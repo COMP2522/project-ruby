@@ -91,7 +91,6 @@ public class GamePanel extends JPanel implements Runnable {
    * of each NPC and monster in the game.
    */
   public void update(){
-
     player.update(this, this.kHandler);
 
     // NPC
@@ -118,31 +117,46 @@ public class GamePanel extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    tManager.draw(g2);
-    
-    // Draw Elements - OBJECTS
-    for (Element element : elements) {
-      if (element != null) {
-        element.draw(g2,this);
+    if (player.getCurrentStatus() == status.ALIVE) {
+      tManager.draw(g2);
+      // Draw Elements - OBJECTS
+      for (Element element : elements) {
+        if (element != null) {
+          element.draw(g2,this);
+        }
       }
-    }
-    // Draw docile characters - NPCs
-    for (Entity entity : npc) {
-      if (entity != null) {
-        entity.draw(g2);
+      // Draw docile characters - NPCs
+      for (Entity entity : npc) {
+        if (entity != null) {
+          entity.draw(g2);
+        }
       }
-    }
-    // Draw hostile characters - MONSTERS
-    for (Entity entity : monster) {
-      if (entity != null) {
-        entity.draw(g2);
+      // Draw hostile characters - MONSTERS
+      for (Entity entity : monster) {
+        if (entity != null) {
+          entity.draw(g2);
+        }
       }
+      // DRAW PLAYER
+      player.draw(g2);
+      // Draw the UI
+      ui.draw(g2);
+    } else {
+      drawGameOverScreen(g2);
     }
-    
-    // DRAW PLAYER
-    player.draw(g2);
-    ui.draw(g2);
     g2.dispose();
+  }
+
+  private void drawGameOverScreen(Graphics2D g2) {
+    String text = "Game Over";
+    Font arial_40 = new Font("Arial", Font.PLAIN, 40);
+    g2.setFont(arial_40);
+    g2.setColor(Color.red);
+    int x = (screenWidth - TILE_SIZE) / 2; // centre of x-axis of window
+    int y = (screenWidth - TILE_SIZE) / 2; // centre of y-axis of window
+    // int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+    g2.drawString(text, x, y);
+    sound.stop();
   }
 
   /** Starts the game thread */

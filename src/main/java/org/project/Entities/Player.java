@@ -298,4 +298,7 @@ public class Player extends Entity {
   public void setCurrentRubies(int rubies) {
     this.currentRubies = rubies;
   }
+  public status getCurrentStatus() {
+    return currentStatus;
+  }
 }
