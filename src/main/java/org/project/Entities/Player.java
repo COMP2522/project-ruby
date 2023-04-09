@@ -68,7 +68,7 @@ public class Player extends Entity {
     this.hitboxDefaultX = 10;
     this.hitboxDefaultY = 16;
 
-    this.speed = 5;
+    this.speed = 4;
     this.direction = directions.DOWN; // initial direction of the player
     
     this.currentLives = MAX_LIVES;
