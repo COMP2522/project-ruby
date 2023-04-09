@@ -97,8 +97,8 @@ public class CollisionDetector {
   private void collide(Entity entity) {
     int tileNum1, tileNum2;
 
-    tileNum1 = gp.tManager.map[leftCol][upRow];
-    tileNum2 = gp.tManager.map[rightCol][downRow];
+    tileNum1 = gp.tManager.getMap()[leftCol][upRow];
+    tileNum2 = gp.tManager.getMap()[rightCol][downRow];
 
     // check if the tiles the entity is colliding with have the collision property
     // the tiles have a collision boolean that is set to true for solid tiles and false for tiles
