@@ -1,6 +1,7 @@
 package org.project;
 
 import org.junit.jupiter.api.Test;
+import org.project.Objects.Ruby;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -3,6 +3,12 @@ package org.project;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.project.Entities.Monster;
+import org.project.Entities.Villager;
+import org.project.Objects.ElementHandler;
+import org.project.Objects.Ruby;
+import org.project.UI.GamePanel;
+
 import static org.project.SystemVariables.*;
 
 public class ElementHandlerTest {

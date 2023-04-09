@@ -1,6 +1,7 @@
 package org.project;
 
 import org.junit.jupiter.api.Test;
+import org.project.Objects.Element;
 
 import java.awt.*;
 
@@ -44,7 +45,7 @@ public class ElementTest {
   @Test
   public void testGetSolidArea() {
     Element element = new ConcreteElement();
-    assertEquals(new Rectangle(0, 0, 48, 48), element.getHitbox());
+    assertEquals(new Rectangle(0, 0, 46, 46), element.getHitbox());
   }
 
   // Concrete subclass of Element for testing

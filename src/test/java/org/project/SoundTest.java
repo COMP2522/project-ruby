@@ -1,13 +1,13 @@
 package org.project;
 
 import org.junit.jupiter.api.Test;
+import org.project.UI.Sound;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
