@@ -117,6 +117,9 @@ public class Player extends Entity {
    * @param kh the keyHandler Instance taking care of all inputs
    */
   public void update(GamePanel gp, KeyHandler kh) {
+    if (currentLives == 0) {
+      currentStatus = status.DEAD; // set player to be dead if lives reaches
+    }
     // if a keyEvent occurred, update player values
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
       // update the direction of player
@@ -252,9 +255,6 @@ public class Player extends Entity {
         // set player as invincible to avoid damaging all lives at once in short duration
         if (!invincible) {
           currentLives--;
-          if (currentLives == 0) {
-            currentStatus = status.DEAD; // set player to be dead if lives reaches
-          }
         }
         invincible = true;
       }
