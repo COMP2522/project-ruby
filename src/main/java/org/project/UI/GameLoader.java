@@ -1,7 +1,10 @@
 package org.project.UI;
 
+import org.project.Menu.Menu;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.io.IOException;
 
 /**
  * GameLoader is the entry point for this game.
@@ -18,7 +21,7 @@ public class GameLoader {
    * Constructs GameLoader. Instantiating GameLoader starts the game in JFrame,
    * and initializes SaveStateHandler.
    */
-  public GameLoader() {
+  public GameLoader() throws IOException {
     this.window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
@@ -27,8 +30,8 @@ public class GameLoader {
 
     this.gamePanel = GamePanel.getGamePanel();
 
-    Menu menu = new Menu(this, this.gamePanel);
-    this.menuPanel = menu.createMenu();
+    Menu menu = new Menu(this, gamePanel);
+    this.menuPanel = menu;
     this.window.add(menuPanel);
     window.pack();
     window.setLocationRelativeTo(null);
