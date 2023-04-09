@@ -13,7 +13,9 @@ import java.io.IOException;
  */
 public class Door extends Element {
 
-  /** Constructs a Door object and sets its name, image, and collision properties. */
+  /**
+   * Constructs a Door object and sets its name, image, and collision properties.
+   */
   public Door() {
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/door1.png")));

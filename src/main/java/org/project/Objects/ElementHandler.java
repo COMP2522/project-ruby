@@ -19,8 +19,8 @@ import static org.project.SystemVariables.*;
  * @version 2023-02-07
  */
 public class ElementHandler {
-  private final GamePanel gp;
 
+  // Constants for map size and element spawning
   private static final int ARRAY_SIZE = 20;
   private static final int HALF_ARRAY_SIZE = ARRAY_SIZE / 2;
   private static final int MAP_SIZE = 50;
@@ -28,8 +28,12 @@ public class ElementHandler {
 
   private final Random random = new Random();
 
+  // Game panel that this element handler belongs to
+  private final GamePanel gp;
+
   /**
    * Constructs an ElementHandler object with the specified GamePanel.
+   *
    * @param gp game panel in which the elements are placed
    */
   public ElementHandler(GamePanel gp) {
@@ -38,7 +42,8 @@ public class ElementHandler {
 
   /**
    * Sets the positions of the intractable objects within the game panel.
-   * Initial setup.
+   * This method is used during the initial setup of the game.
+   * The intractable objects include a door, power-up, and several rubies.
    */
   public void setElement() {
     gp.elements[0] = new Door();
@@ -90,7 +95,7 @@ public class ElementHandler {
    * Sets the positions of the non-player characters (NPCs) within the game panel.
    */
   public void setNPC() {
-    gp.npc[0] = new Villager(gp,24,10);
+    gp.npc[0] = new Villager(gp, 24, 10);
     gp.npc[0].setWorldX((gp.npc[0]).getWorldX() * TILE_SIZE);
     gp.npc[0].setWorldY((gp.npc[0]).getWorldY() * TILE_SIZE);
   }
@@ -99,7 +104,7 @@ public class ElementHandler {
    * Sets the positions of the monsters within the game panel.
    */
   public void setMonster() {
-    gp.monster[0] = new Monster(gp, 24,15);
+    gp.monster[0] = new Monster(gp, 24, 15);
     gp.monster[0].setWorldX((gp.monster[0]).getWorldX() * TILE_SIZE);
     gp.monster[0].setWorldY((gp.monster[0]).getWorldY() * TILE_SIZE);
 
@@ -116,6 +121,15 @@ public class ElementHandler {
     gp.monster[3].setWorldY((gp.monster[3]).getWorldY() * TILE_SIZE);
   }
 
+/**
+ * Spawns new elements randomly within the game panel.
+ * This method is called at a fixed interval during the
+ * game and new elements such as rubies fire are added to
+ * the game panel's list of elements.
+ *
+ * This method also removes the previously spawned elements
+ * before adding new ones.
+ */
   public void spawnElements() {
     // Remove all previous elements
     for (int i = 2; i < ARRAY_SIZE; i++) {
