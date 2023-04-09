@@ -32,6 +32,7 @@ public class CollisionDetector {
   /**
    * Constructs a CollisionDetector object with a reference to
    * the GamePanel it is being used in.
+   *
    * @param gp The GamePanel object.
    */
   private CollisionDetector(GamePanel gp) {
@@ -41,6 +42,7 @@ public class CollisionDetector {
   /**
    * method that returns a single instance of Collision Detector class.
    * Returns a new instance if called first time else returns previous instance.
+   *
    * @param gp the gamePanel in which collision is happening.
    * @return CollisionDetector instance
    */
@@ -53,6 +55,7 @@ public class CollisionDetector {
 
   /**
    * Checks for collision between the player and tiles in the game world.
+   *
    * @param entity The Entity object representing the player
    */
   public void checkTile(Entity entity) {
@@ -92,6 +95,7 @@ public class CollisionDetector {
    * method that checks if the tile Entity will next step on has collision property
    * and sets entity collision to true, meaning entity is colliding.
    * This prevents the entity's update position method from running, hence entity is stopped.
+   *
    * @param entity The entity on which check is being performed.
    */
   private void collide(Entity entity) {
@@ -111,6 +115,7 @@ public class CollisionDetector {
   /**
    * Checks for collision between the player and intractable elements in the game world,
    * such as rubies, doors, and power-ups.
+   *
    * @param p The Player object
    * @return The index of the element with which the player is colliding, or 999 if no collision occurs.
    */
@@ -132,16 +137,16 @@ public class CollisionDetector {
         // check if player is in range of object to pick it up
         if (p.peekDirection() == directions.UP) {
           p.hitbox.y -= p.getSpeed();
-          index = handleCollision(p,gp, player, i, index);
+          index = handleCollision(p, gp, player, i, index);
         } else if (p.peekDirection() == directions.DOWN) {
           p.hitbox.y += p.getSpeed();
-          index = handleCollision(p, gp,player, i, index);
+          index = handleCollision(p, gp, player, i, index);
         } else if (p.peekDirection() == directions.LEFT) {
           p.hitbox.x -= p.getSpeed();
-          index = handleCollision(p,gp, player, i, index);
+          index = handleCollision(p, gp, player, i, index);
         } else if (p.peekDirection() == directions.RIGHT) {
           p.hitbox.x += p.getSpeed();
-          index = handleCollision(p,gp, player, i, index);
+          index = handleCollision(p, gp, player, i, index);
         }
 
         // reset hitboxes to default values because we momentarily set them to be relative to worldMap
@@ -156,10 +161,11 @@ public class CollisionDetector {
 
   /**
    * Helper function to handle collision between player and game object.
-   * @param p         The Player object
-   * @param gp1       The gamePanel object
-   * @param player    Boolean indicating if player collision should be tracked
-   * @param index     Index of game object with which player is colliding
+   *
+   * @param p      The Player object
+   * @param gp1    The gamePanel object
+   * @param player Boolean indicating if player collision should be tracked
+   * @param index  Index of game object with which player is colliding
    */
   private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
@@ -175,6 +181,7 @@ public class CollisionDetector {
 
   /**
    * Check collision of entity with entity.
+   *
    * @param entity the entity on which the collision is being checked on
    * @param target the entities against which collision is being checked
    * @return the index of the target entity that collided with the entity on which the check was performed on.
@@ -194,7 +201,7 @@ public class CollisionDetector {
 
         int moveX = 0;
         int moveY = 0;
-  
+
         switch (entity.peekDirection()) {
           case UP -> moveY = -entity.getSpeed();
           case DOWN -> moveY = entity.getSpeed();
@@ -221,6 +228,7 @@ public class CollisionDetector {
 
   /**
    * method to check if player is colliding with Entity.
+   *
    * @param entity the Entities (all of them)
    * @return contactPlayer a boolean to indicate that player had contact with Entity
    */
@@ -234,8 +242,8 @@ public class CollisionDetector {
     //get the object's solid area position
     gp.player.hitbox.x = gp.player.getWorldX() + gp.player.hitbox.x;
     gp.player.hitbox.y = gp.player.getWorldY() + gp.player.hitbox.y;
-    
-  
+
+
     switch (entity.peekDirection()) {
       case UP -> entity.hitbox.y -= entity.getSpeed();
       case DOWN -> entity.hitbox.y += entity.getSpeed();

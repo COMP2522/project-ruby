@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -19,12 +20,13 @@ import static org.project.SystemVariables.*;
 public class Fire extends Element {
   private final BufferedImage[] fires;
   private long lastFrameTime;
-  
+
   /**
    * Constructs a Fire object and sets its name, image, and collision properties.
    * Also sets up the animation of the Fire element.
    */
   public Fire() {
+    // creating an array of four frames for the animation
     fires = new BufferedImage[4];
     try {
       for (int i = 0; i < fires.length; i++) {
@@ -47,11 +49,19 @@ public class Fire extends Element {
    */
   @Override
   public void draw(Graphics2D g2, GamePanel gp) {
+
+    //calculates the X and Y position of the Fire element on the screen.
     int screenX = getWorldX() - gp.player.getWorldX() + gp.player.getScreenX();
     int screenY = getWorldY() - gp.player.getWorldY() + gp.player.getScreenY();
-    long currentTime = System.currentTimeMillis();
-    // 150ms between each frame
-    int frameInterval = 150;
+
+    long currentTime = System.currentTimeMillis(); // gets the current time
+    int frameInterval = 150;     // the time between each frame in milliseconds
+
+    /*
+    Updates the current frame of the Fire element's animation if enough time has
+    passed since the last frame, and sets the Fire element's image to the current
+    frame of the animation.
+    */
     if (currentTime - lastFrameTime > frameInterval) {
       setCurrentFrame((getCurrentFrame() + 1) % fires.length);
       setImage(fires[getCurrentFrame()]);

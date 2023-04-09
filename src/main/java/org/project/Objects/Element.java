@@ -5,6 +5,7 @@ import org.project.Map.Positionable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -18,13 +19,14 @@ import static org.project.SystemVariables.*;
  */
 public abstract class Element implements Positionable {
 
+  // The hitbox of the element, used for collision detection
+  private final Rectangle hitbox = new Rectangle(0, 0, 46, 46);
+
   //setting instance variables.
   private BufferedImage image;
   private int currentFrame = 0;
   private boolean collision = false;
   private int worldX, worldY;
-  private final Rectangle hitbox = new Rectangle(0, 0, 46, 46);
-  
 
   /**
    * draws the element on the game panel at its current position.
@@ -52,38 +54,49 @@ public abstract class Element implements Positionable {
       g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
   }
-  
-  //setters and getters for the instance variables.
+
+  //Setters and getters for the instance variables.
+
   public BufferedImage getImage() {
     return image;
   }
+
   public void setImage(BufferedImage image) {
     this.image = image;
   }
+
   public int getCurrentFrame() {
     return currentFrame;
   }
+
   public void setCurrentFrame(int currentFrame) {
     this.currentFrame = currentFrame;
   }
+
   public boolean getCollision() {
     return collision;
   }
+
   public void setCollision(boolean collision) {
     this.collision = collision;
   }
+
   public int getWorldX() {
     return worldX;
   }
+
   public void setWorldX(int worldX) {
     this.worldX = worldX;
   }
+
   public int getWorldY() {
     return worldY;
   }
+
   public void setWorldY(int worldY) {
     this.worldY = worldY;
   }
+
   public Rectangle getHitbox() {
     return hitbox;
   }
