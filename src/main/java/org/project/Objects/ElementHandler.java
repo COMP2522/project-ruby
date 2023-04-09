@@ -4,6 +4,8 @@ import org.project.Entities.Monster;
 import org.project.Entities.Villager;
 import org.project.UI.GamePanel;
 
+import java.util.Random;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -19,6 +21,13 @@ import static org.project.SystemVariables.*;
 public class ElementHandler {
   private final GamePanel gp;
 
+  private static final int ARRAY_SIZE = 20;
+  private static final int HALF_ARRAY_SIZE = ARRAY_SIZE / 2;
+  private static final int MAP_SIZE = 50;
+  private static final int SPAWN_INTERVAL = 30; // seconds
+
+  private final Random random = new Random();
+
   /**
    * Constructs an ElementHandler object with the specified GamePanel.
    * @param gp game panel in which the elements are placed
@@ -29,26 +38,27 @@ public class ElementHandler {
 
   /**
    * Sets the positions of the intractable objects within the game panel.
+   * Initial setup.
    */
   public void setElement() {
-    gp.elements[0] = new Ruby();
-    gp.elements[0].setWorldX(17 * TILE_SIZE);
-    gp.elements[0].setWorldY(38 * TILE_SIZE);
+    gp.elements[0] = new Door();
+    gp.elements[0].setWorldX(10 * TILE_SIZE);
+    gp.elements[0].setWorldY(11 * TILE_SIZE);
 
-    gp.elements[1] = new Ruby();
-    gp.elements[1].setWorldX(32 * TILE_SIZE);
-    gp.elements[1].setWorldY(40 * TILE_SIZE);
+    gp.elements[1] = new PowerUp();
+    gp.elements[1].setWorldX(23 * TILE_SIZE);
+    gp.elements[1].setWorldY(7 * TILE_SIZE);
 
-    gp.elements[2] = new Door();
-    gp.elements[2].setWorldX(10 * TILE_SIZE);
-    gp.elements[2].setWorldY(11 * TILE_SIZE);
+    gp.elements[2] = new Ruby();
+    gp.elements[2].setWorldX(23 * TILE_SIZE);
+    gp.elements[2].setWorldY(10 * TILE_SIZE);
 
     gp.elements[3] = new Ruby();
     gp.elements[3].setWorldX(12 * TILE_SIZE);
     gp.elements[3].setWorldY(42 * TILE_SIZE);
 
-    gp.elements[4] = new PowerUp();
-    gp.elements[4].setWorldX(23 * TILE_SIZE);
+    gp.elements[4] = new Ruby();
+    gp.elements[4].setWorldX(20 * TILE_SIZE);
     gp.elements[4].setWorldY(7 * TILE_SIZE);
 
     gp.elements[5] = new Ruby();
@@ -74,8 +84,6 @@ public class ElementHandler {
     gp.elements[10] = new Fire();
     gp.elements[10].setWorldX(22 * TILE_SIZE);
     gp.elements[10].setWorldY(40 * TILE_SIZE);
-
-
   }
 
   /**
@@ -85,7 +93,6 @@ public class ElementHandler {
     gp.npc[0] = new Villager(gp,24,10);
     gp.npc[0].setWorldX((gp.npc[0]).getWorldX() * TILE_SIZE);
     gp.npc[0].setWorldY((gp.npc[0]).getWorldY() * TILE_SIZE);
-
   }
 
   /**
@@ -107,6 +114,37 @@ public class ElementHandler {
     gp.monster[3] = new Monster(gp, 30, 38);
     gp.monster[3].setWorldX((gp.monster[3]).getWorldX() * TILE_SIZE);
     gp.monster[3].setWorldY((gp.monster[3]).getWorldY() * TILE_SIZE);
-
   }
+
+  public void spawnElements() {
+    // Remove all previous elements
+    for (int i = 2; i < ARRAY_SIZE; i++) {
+      gp.elements[i] = null;
+    }
+
+    // Spawn new elements
+    for (int i = 2; i < HALF_ARRAY_SIZE; i++) {
+      int x = random.nextInt(MAP_SIZE);
+      int y = random.nextInt(MAP_SIZE);
+      // we gave non-collidable tiles int-codes that are multiples of 3.
+      // this check ensures that rubies don't spawn on objects that are collidable
+      if (gp.tManager.getMap()[x][y] % 3 == 0) {
+        gp.elements[i] = new Ruby();
+        gp.elements[i].setWorldX(x * TILE_SIZE);
+        gp.elements[i].setWorldY(y * TILE_SIZE);
+      }
+    }
+
+    // spawn fire at random locations
+    for (int i = HALF_ARRAY_SIZE; i < ARRAY_SIZE; i++) {
+      int x = random.nextInt(MAP_SIZE);
+      int y = random.nextInt(MAP_SIZE);
+      if (gp.tManager.getMap()[x][y] % 3 == 0) {
+        gp.elements[i] = new Fire();
+        gp.elements[i].setWorldX(x * TILE_SIZE);
+        gp.elements[i].setWorldY(y * TILE_SIZE);
+      }
+    }
+  }
+
 }
