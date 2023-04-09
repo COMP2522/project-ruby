@@ -1,11 +1,10 @@
 package org.project.Entities;
 
-import org.project.UI.GamePanel;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import org.project.UI.GamePanel;
 import static org.project.SystemVariables.*;
 
 /**
@@ -14,7 +13,8 @@ import static org.project.SystemVariables.*;
  * Entity class is extended by this monster class, and al following monster classes.
  * Entity, GamePanel, ObjectHandler and CollisionDetector will all require code
  * May use pathfinding algorithm if I can develop it to be functional.
- * Update the coordinates for future use to have it in different sections of the map to guard rubies.
+ * Update the coordinates for future use to have it in different sections
+ * of the map to guard rubies.
  *
  * @author Amrit Singh
  * @version 2023-03-27
@@ -22,7 +22,8 @@ import static org.project.SystemVariables.*;
 public class Monster extends Entity {
   
   /**
-   * Constructs the Monster object
+   * Constructs the Monster object.
+   *
    * @param gp GamePanel it belongs to
    * @param posX Monster position X
    * @param posY Monster position Y
@@ -44,7 +45,7 @@ public class Monster extends Entity {
     getImage();
   }
   
-  /** Gets the image for each sprite */
+  /** Gets the image for each sprite. */
   public void getImage() {
     try {
       downR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
@@ -75,18 +76,19 @@ public class Monster extends Entity {
   }
 
   /**
-   * Determines the path the monster should take to the player
+   * Determines the path the monster should take to the player.
+   *
    * @param goalCol Column of the goal location
    * @param goalRow Row of the goal location
    */
-  public void searchPath(int goalCol, int goalRow){
+  public void searchPath(int goalCol, int goalRow) {
 
     int startCol = (worldX + hitbox.x) / TILE_SIZE;
     int startRow = (worldY + hitbox.y) / TILE_SIZE;
 
     gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
 
-    if(gp.pFinder.search()) {
+    if (gp.pFinder.search()) {
       // Next worldX and worldY
       int nextX = gp.pFinder.pathList.get(0).col * TILE_SIZE;
       int nextY = gp.pFinder.pathList.get(0).row * TILE_SIZE;
@@ -97,45 +99,45 @@ public class Monster extends Entity {
       int enTopY = worldY + hitbox.y;
       int enBottomY = worldY + hitbox.y + hitbox.height;
 
-      if(enTopY > nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE){
+      if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
         direction = directions.UP;
-      } else if(enBottomY < nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE){
+      } else if (enBottomY < nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
         direction = directions.DOWN;
-      } else if(enTopY >= nextY && enBottomY < nextY + TILE_SIZE) {
-        if(enLeftX > nextX) {
+      } else if (enTopY >= nextY && enBottomY < nextY + TILE_SIZE) {
+        if (enLeftX > nextX) {
           direction = directions.LEFT;
-        } else if(enLeftX < nextX) {
+        } else if (enLeftX < nextX) {
           direction = directions.RIGHT;
         }
-      } else if(enTopY > nextY && enLeftX > nextX) {
+      } else if (enTopY > nextY && enLeftX > nextX) {
         direction = directions.UP;
         checkCollision();
-        if(collision) {
+        if (collision) {
           direction = directions.LEFT;
         }
-      } else if(enTopY > nextY && enLeftX < nextX) {
+      } else if (enTopY > nextY && enLeftX < nextX) {
         direction = directions.UP;
         checkCollision();
-        if(collision) {
+        if (collision) {
           direction = directions.RIGHT;
         }
-      } else if(enTopY < nextY && enLeftX > nextX) {
+      } else if (enTopY < nextY && enLeftX > nextX) {
         direction = directions.DOWN;
         checkCollision();
-        if(collision) {
+        if (collision) {
           direction = directions.LEFT;
         }
-      } else if(enTopY < nextY && enLeftX < nextX) {
+      } else if (enTopY < nextY && enLeftX < nextX) {
         direction = directions.DOWN;
         checkCollision();
-        if(collision) {
+        if (collision) {
           direction = directions.RIGHT;
         }
       }
 
       int nextCol = gp.pFinder.pathList.get(0).col;
       int nextRow = gp.pFinder.pathList.get(0).row;
-      if(nextCol == goalCol && nextRow == goalRow) {
+      if (nextCol == goalCol && nextRow == goalRow) {
         onPath = false;
       }
     }
