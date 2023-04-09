@@ -48,6 +48,7 @@ public abstract class Entity implements Positionable {
   
   public Entity(GamePanel gp) {
     this.gp = gp;
+    this.hitbox = new Rectangle(10, 10, 28, 38);
   }
   
   /** Checks if Entity has collided with a tile. */

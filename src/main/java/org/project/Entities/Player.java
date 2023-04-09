@@ -218,7 +218,8 @@ public class Player extends Entity {
   public void pickupObject(int index, GamePanel gp) {
     if(index != this.indexMax) {
       Class<? extends Element> className = gp.elements[index].getClass();
-  
+
+      // check what kind of element the player ran into
       if (className.equals(Ruby.class)) {
         gp.playSE(1);
         currentRubies++;
@@ -226,7 +227,9 @@ public class Player extends Entity {
         gp.ui.showMessage("You got a ruby!");
         SaveState.getInstance().setSaveState(gp);
         SaveStateHandler.getInstance().save();
-      } else if (className.equals(Door.class)) {
+      }
+      // if player ran into Door object
+      else if (className.equals(Door.class)) {
         if (currentRubies > 1) { // door can only be opened if the player has at least 1 ruby
           gp.playSE(2);
           gp.elements[index] = null;
@@ -235,15 +238,23 @@ public class Player extends Entity {
         } else {
           gp.ui.showMessage("You need more rubies for this door!");
         }
-      } else if (className.equals(PowerUp.class)) {
+      }
+      // if player picked up a power up object
+      else if (className.equals(PowerUp.class)) {
         gp.playSE(3);
         speed += 2;
         gp.elements[index] = null;
         gp.ui.showMessage("Speed mode: ON");
-      } else if (className.equals(Fire.class)) {
+      }
+      // if player ran into fire, just decrease player life.
+      else if (className.equals(Fire.class)) {
         gp.ui.showMessage("Fire Hazard!!");
+        // set player as invincible to avoid damaging all lives at once in short duration
         if (!invincible) {
           currentLives--;
+          if (currentLives == 0) {
+            currentStatus = status.DEAD; // set player to be dead if lives reaches 0
+          }
         }
         invincible = true;
       }

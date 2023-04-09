@@ -64,7 +64,7 @@ public class FireTest {
   @Test
   public void testGetSolidArea() {
     Fire fire = new Fire();
-    assertEquals(new Rectangle(0, 0, 48, 48), fire.getHitbox());
+    assertEquals(new Rectangle(0, 0, 46, 46), fire.getHitbox());
   }
 
   // Test for draw()
