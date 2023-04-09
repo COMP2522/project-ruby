@@ -156,7 +156,7 @@ public class GamePanel extends JPanel implements Runnable {
     int y = (screenWidth - TILE_SIZE) / 2; // centre of y-axis of window
     // int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
     g2.drawString(text, x, y);
-    sound.stop();
+//    sound.stop();
   }
 
   /** Starts the game thread */
