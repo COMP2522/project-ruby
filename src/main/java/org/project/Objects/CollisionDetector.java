@@ -173,8 +173,12 @@ public class CollisionDetector {
     return index;
   }
 
-
-  // NPC and for Future use will include Monster
+  /**
+   * Check collision of entity with entity.
+   * @param entity the entity on which the collision is being checked on
+   * @param target the entities against which collision is being checked
+   * @return the index of the target entity that collided with the entity on which the check was performed on.
+   */
   public int checkEntityCollide(Entity entity, Entity[] target) {
     int index = MAX_INDEX;
     for (int i = 0; i < target.length; i++) {
