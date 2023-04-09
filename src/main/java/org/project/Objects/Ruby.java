@@ -1,7 +1,5 @@
 package org.project.Objects;
 
-import org.project.Objects.Element;
-
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,7 +12,9 @@ import java.io.IOException;
  */
 public class Ruby extends Element {
 
-  /** Constructs a Ruby object and sets its image, and collision properties. */
+  /**
+   * Constructs a Ruby object and sets its image, and collision properties.
+   */
   public Ruby() {
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/ruby.png")));
