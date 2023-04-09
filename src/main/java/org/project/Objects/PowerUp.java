@@ -1,5 +1,7 @@
 package org.project.Objects;
 
+import org.project.Objects.Element;
+
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,9 +15,7 @@ import java.io.IOException;
  */
 public class PowerUp extends Element {
 
-  /**
-   * Constructs a Power-up object and sets its image, and collision properties.
-   */
+  /** Constructs a Power-up object and sets its image, and collision properties. */
   public PowerUp() {
     try {
       setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/powerup2.png")));
