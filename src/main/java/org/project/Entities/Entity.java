@@ -48,6 +48,8 @@ public abstract class Entity implements Positionable {
   
   public Entity(GamePanel gp) {
     this.gp = gp;
+    // default location to spawn entities to (does not really matter, as this is being overridden in specific constructors
+    // of subclasses
     this.hitbox = new Rectangle(10, 10, 28, 38);
   }
   
@@ -67,7 +69,8 @@ public abstract class Entity implements Positionable {
   public void update() {
     setAction();
     checkCollision();
-    
+
+    // update position of entity if it is not colliding with anything
     if (!collision) {
       switch (direction) {
         case LEFT -> worldX -= speed;
@@ -76,7 +79,10 @@ public abstract class Entity implements Positionable {
         default -> worldY += speed;
       }
     }
-    
+
+    // update Entity sprite after a set counter
+    // spriteMax is actually the value after which sprite is switched
+    // say spriteMax was 15, then the next sprite would be drawn after the previous sprite has been drawn for 15 times already
     spriteCounter++;
     if(spriteCounter > spriteMax) {
       if (spriteNum == 1) {
@@ -94,13 +100,15 @@ public abstract class Entity implements Positionable {
    */
   public void draw(Graphics2D g2) {
     BufferedImage image = null;
-    int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
-    int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
+    int screenX = worldX - gp.player.worldX + gp.player.screenX;
+    int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-    if (worldX + TILE_SIZE > gp.player.getWorldX() - gp.player.screenX &&
-      worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.screenX &&
-      worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.screenY &&
-      worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.screenY) {
+    // draw an entity if camera is in focus, that is the player is nearby the entity, otherwise save processing
+    // and conserve resources (the entities are still updated, just not drawn out of window)
+    if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+      worldX - TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+      worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+      worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
       switch (direction) {
         case UP -> {
           if (spriteNum == 1) {image = upR;}

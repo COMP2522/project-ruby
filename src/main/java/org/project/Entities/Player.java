@@ -253,7 +253,7 @@ public class Player extends Entity {
         if (!invincible) {
           currentLives--;
           if (currentLives == 0) {
-            currentStatus = status.DEAD; // set player to be dead if lives reaches 0
+            currentStatus = status.DEAD; // set player to be dead if lives reaches
           }
         }
         invincible = true;
