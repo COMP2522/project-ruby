@@ -100,6 +100,9 @@ public class CollisionDetector {
     tileNum1 = gp.tManager.map[leftCol][upRow];
     tileNum2 = gp.tManager.map[rightCol][downRow];
 
+    // check if the tiles the entity is colliding with have the collision property
+    // the tiles have a collision boolean that is set to true for solid tiles and false for tiles
+    // that can be walked on
     if (gp.tManager.tiles[tileNum1].collision || gp.tManager.tiles[tileNum2].collision) {
       entity.setCollided(true); // set entity collision to true
     }
