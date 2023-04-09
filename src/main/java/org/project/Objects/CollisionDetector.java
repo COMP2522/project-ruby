@@ -60,9 +60,9 @@ public class CollisionDetector {
    */
   public void checkTile(Entity entity) {
     int leftX = entity.getWorldX() + entity.hitbox.x;
-    int rightX = entity.getWorldX() + entity.hitbox.x + entity.hitbox.width;
+    int rightX = leftX + entity.hitbox.width;
     int upY = entity.getWorldY() + entity.hitbox.y;
-    int downY = entity.getWorldY() + entity.hitbox.y + entity.hitbox.height;
+    int downY = upY + entity.hitbox.height;
 
     /* stores the int code of tiles adjacent to the tile the entity is on currently */
     leftCol = leftX / TILE_SIZE;
