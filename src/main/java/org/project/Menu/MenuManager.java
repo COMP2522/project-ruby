@@ -164,12 +164,12 @@ public class MenuManager implements KeyListener, MouseListener {
 
   /**
    * Helper method to handle loading game on submit action. Loads previous save
-   * file at [username].json. If file not found changes textcolor to red to indicate
+   * file at [username].json. If file not found changes text color to red to indicate
    * error.
    */
   private void handleLoadGameSubmit(GamePanel gamePanel) {
       handleTextInput(textField);
-      SaveState saveState = null;
+      SaveState saveState = new SaveState();
       try {
         saveState = saveStateHandler.load();
       } catch (FileNotFoundException ex) {

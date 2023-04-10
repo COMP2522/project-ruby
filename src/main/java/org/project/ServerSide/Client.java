@@ -117,8 +117,6 @@ public class Client {
     // for POST request
     if (reqType.equals(POST)) {
       JSONArray rowArray = new JSONArray();
-      
-      // TODO: replace values with saveState.value
       System.out.println("creating request");
       req.put("uid", "1");
       req.put("rubies", 3);
@@ -143,25 +141,5 @@ public class Client {
 
     // return JSONObject as String
     return req.toJSONString();
-  }
-  
-
-  /**
-   *
-   * @param args
-   * - took out throws IOException, ClassNotFoundException, InterruptedException
-   * - to show why we want good exceptions
-   */
-  public static void main(String[] args) throws IOException {
-    Client client = new Client(5000);
-    String request = client.createJSON("GET");
-
-    // testing multiple requests
-    while (true) {
-      JSONObject jsonRes = client.sendRequest(request);
-      // test print TODO:-- currently return null values as databasehandler.get is not async
-      System.out.println("in loop RESPONSE: " + jsonRes.toJSONString());
-
-    }
   }
 }

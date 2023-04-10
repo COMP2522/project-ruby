@@ -2,7 +2,6 @@ package org.project.ServerSide;
 
 import org.bson.Document;
 import org.json.simple.*;
-import org.project.ServerSide.DatabaseHandler;
 
 import java.io.*;
 import java.net.Socket;
@@ -36,7 +35,6 @@ public class GetRequestHandler implements Runnable {
   public void sendResponse(String message) throws Exception {
     OutputStream outputStream = this.socket.getOutputStream();
     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-
     String res = createJSONRes(message);
 
     // Write data to the ObjectOutputStream

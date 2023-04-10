@@ -18,8 +18,8 @@ public class TileManager {
   public Tile[] tiles;
   protected int[][] map;
   
-  protected String mapPath = "assets/mapData/maps/map2.txt";
-  protected String tilePath = "assets/mapData/tiles/";
+  protected String mapPath = "assets/data/maps/map2.txt";
+  protected String tilePath = "assets/data/tiles/";
   protected String[] tileName = {"grass.png", "wall.png", "water.png", "earth.png", "tree.png", "sand.png"};
   protected boolean[] tileCollide = {false, true, true, false, true, false};
   
