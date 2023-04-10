@@ -18,10 +18,10 @@ public class MenuImage extends MenuComponent {
   /**
    * Constructs a MenuImage.
    *
-   * @param x The x-coordinate of this MenuImage.
-   * @param y The y-coordinate of this MenuImage.
-   * @param width The width of this MenuImage.
-   * @param height The height of this MenuImage.
+   * @param x         The x-coordinate of this MenuImage.
+   * @param y         The y-coordinate of this MenuImage.
+   * @param width     The width of this MenuImage.
+   * @param height    The height of this MenuImage.
    * @param imagePath The file path of the image to display.
    * @throws IOException If there is an error loading the image at given file path.
    */

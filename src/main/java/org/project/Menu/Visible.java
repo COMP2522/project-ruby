@@ -16,7 +16,7 @@ public interface Visible {
 
   /**
    * Returns the visibility status of the object.
-   * 
+   *
    * @return true if object is visible, false otherwise.
    */
   boolean isVisible();

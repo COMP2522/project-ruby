@@ -25,14 +25,14 @@ public class MenuButton extends MenuTextBox {
   /**
    * Constructs a new MenuButton.
    *
-   * @param x The x-coordinate of top-left corner of the text box.
-   * @param y The y-coordinate of the top-left corner of the text box.
-   * @param width Width of the text box.
-   * @param height Height of the text box.
-   * @param bgColor Background color
-   * @param textColor Text color
-   * @param font Font of the text in the text box.
-   * @param text String of the text to display.
+   * @param x          The x-coordinate of top-left corner of the text box.
+   * @param y          The y-coordinate of the top-left corner of the text box.
+   * @param width      Width of the text box.
+   * @param height     Height of the text box.
+   * @param bgColor    Background color
+   * @param textColor  Text color
+   * @param font       Font of the text in the text box.
+   * @param text       String of the text to display.
    * @param buttonName the Type of the button.
    */
   public MenuButton(int x, int y, int width, int height, Color bgColor,
@@ -68,7 +68,7 @@ public class MenuButton extends MenuTextBox {
    * Sets the buttonName and text.
    *
    * @param buttonName Name of the button.
-   * @param text The text to display on the button.
+   * @param text       The text to display on the button.
    */
   public void setButton(ButtonName buttonName, String text) {
     this.buttonName = buttonName;

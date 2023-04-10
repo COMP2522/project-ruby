@@ -11,6 +11,7 @@ import org.project.Objects.ElementHandler;
 
 import javax.swing.*;
 import java.awt.*;
+
 import static org.project.Objects.CollisionDetector.*;
 import static org.project.SystemVariables.*;
 
@@ -23,13 +24,11 @@ import static org.project.SystemVariables.*;
  * @version April 8, 2023
  */
 public class GamePanel extends JPanel implements Runnable {
-  
+
   // SCREEN SETTINGS
   public final int screenWidth = TILE_SIZE * SCREEN_COL;
   public final int screenHeight = TILE_SIZE * SCREEN_ROW;
-  public final int mapWidth = TILE_SIZE * MAP_COL;
-  public final int mapHeight = TILE_SIZE * MAP_ROW;
-  
+
   // INSTANTIATES OTHER MANAGERS
   // These we believe should be stored here in the master-kind of class
   // and be accessible to all components through the game panel
@@ -51,8 +50,6 @@ public class GamePanel extends JPanel implements Runnable {
   public Entity[] monster = new Entity[10];
 
   private int timer; // timer to check how many times frames have been drawn already, and then update rubies and monsters
-  // after intervals of 30 seconds
-  private final int spawnInterval = (15) * 60; // 30 seconds times 60 frames (that is spawn after 1800 frames have been drawn)
 
   /**
    * Creates a new GamePanel object with the specified dimensions and default background color.
@@ -80,8 +77,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
     return instance;
   }
-  
-  /** Instantiates the game upon launch */
+
+  /**
+   * Instantiates the game upon launch
+   */
   public void setUpGame() {
     aHandler.setElement();
     aHandler.setNPC();
@@ -94,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
    * This method updates the position of the player and calls the update() method
    * of each NPC and monster in the game.
    */
-  public void update(){
+  public void update() {
     player.update(this, this.kHandler);
 
     // NPC
@@ -112,7 +111,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     // timer after which rubies and monsters will reshuffle
     timer++;
-    if(timer >= spawnInterval) {
+    // after intervals of 30 seconds
+    // 30 seconds times 60 frames (that is spawn after 1800 frames have been drawn)
+    int spawnInterval = (15) * 60;
+    if (timer >= spawnInterval) {
       timer = 0;
       aHandler.spawnElements();
     }
@@ -122,7 +124,8 @@ public class GamePanel extends JPanel implements Runnable {
   /**
    * method to draw all components in the Game-J-Panel.
    * Calls the draw methods of all entities (NPCs, player, Monster)
-   *    elements, objects and UI in a single place as the master method.
+   * elements, objects and UI in a single place as the master method.
+   *
    * @param g the <code>Graphics</code> object attached to JPanel which helps in drawing
    */
   @Override
@@ -134,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
       // Draw Elements - OBJECTS
       for (Element element : elements) {
         if (element != null) {
-          element.draw(g2,this);
+          element.draw(g2, this);
         }
       }
       // Draw docile characters - NPCs
@@ -171,7 +174,9 @@ public class GamePanel extends JPanel implements Runnable {
 //    sound.stop();
   }
 
-  /** Starts the game thread */
+  /**
+   * Starts the game thread
+   */
   public void startGameThread() {
     gameThread = new Thread(this);
     gameThread.start();
@@ -191,7 +196,7 @@ public class GamePanel extends JPanel implements Runnable {
     long timer = 0; // Keeps track of how long the loop has been running
 
     // Loop until gameThread is null
-    while(gameThread != null) {
+    while (gameThread != null) {
       // Get the current time and calculate delta
       currentTime = System.nanoTime();
       delta += (currentTime - lastTime) / DRAW_INTERVAL;

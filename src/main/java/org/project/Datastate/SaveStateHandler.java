@@ -18,7 +18,9 @@ public class SaveStateHandler {
   private String username;
   private String pathName;
 
-  /** Private constructor to enforce Singleton pattern. */
+  /**
+   * Private constructor to enforce Singleton pattern.
+   */
   private SaveStateHandler() {
     this.saveState = SaveState.getInstance();
   }
@@ -26,7 +28,7 @@ public class SaveStateHandler {
   /**
    * Returns singleton instance of SaveStateHandler.
    *
-   *@return SaveStateHandler instance
+   * @return SaveStateHandler instance
    */
   public static SaveStateHandler getInstance() {
     if (instance == null) {

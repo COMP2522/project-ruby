@@ -18,14 +18,14 @@ public abstract class MenuTextBox extends MenuComponent {
   /**
    * Constructs a new instance of MenuTextBox.
    *
-   * @param x The x-coordinate of top-left corner of the text box.
-   * @param y The y-coordinate of the top-left corner of the text box.
-   * @param width Width of the text box.
-   * @param height Height of the text box.
-   * @param bgColor Background color
+   * @param x         The x-coordinate of top-left corner of the text box.
+   * @param y         The y-coordinate of the top-left corner of the text box.
+   * @param width     Width of the text box.
+   * @param height    Height of the text box.
+   * @param bgColor   Background color
    * @param textColor Text color
-   * @param font Font of the text in the text box.
-   * @param text String of the text to display.
+   * @param font      Font of the text in the text box.
+   * @param text      String of the text to display.
    */
   public MenuTextBox(int x, int y, int width, int height, Color bgColor,
                      Color textColor, Font font, String text) {

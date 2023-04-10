@@ -31,7 +31,7 @@ public class Server {
     this.executor = Executors.newFixedThreadPool(POOL_SIZE);
     this.databasehandler = DatabaseHandler.getInstance();
   }
-  
+
   /**
    * Parses JSONString Request.
    *
@@ -40,14 +40,14 @@ public class Server {
   public JSONObject parseJSON(String JSONstr) {
     return (JSONObject) JSONValue.parse(JSONstr);
   }
-  
+
   /**
    * Starts Server.
    */
   public void start() throws IOException {
     while (true) {
       Socket socket = server.accept();
-      
+
       // read from socket to ObjectInputStream object
       ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
       String jsonString = null;
@@ -57,7 +57,7 @@ public class Server {
         System.err.println("Can't read message from Server.");
       }
       JSONObject obj = parseJSON(jsonString);
-  
+
       // handle request
       if (obj.get("reqType").equals(POST)) {
         System.out.println("RequestType:" + obj.get("reqType")); //thread
@@ -72,10 +72,4 @@ public class Server {
       }
     }
   }
-  
-  public static void main(String[] args) throws IOException {
-    Server server = new Server();
-    server.start();
-  }
-  
 }

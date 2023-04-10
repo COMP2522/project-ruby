@@ -22,11 +22,11 @@ public class MenuTextField extends MenuComponent implements Visible {
   /**
    * Constructs a MenuTextField.
    *
-   * @param x The x-coordinate of the text field.
-   * @param y The y-coordinate of the text field.
-   * @param width The width of the text field.
-   * @param height The height of the text field.
-   * @param font The font of the text in the text field.
+   * @param x         The x-coordinate of the text field.
+   * @param y         The y-coordinate of the text field.
+   * @param width     The width of the text field.
+   * @param height    The height of the text field.
+   * @param font      The font of the text in the text field.
    * @param maxLength The maximum length of the input in the text field.
    * @param isVisible Whether the text field is visible or not.
    */

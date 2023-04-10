@@ -55,13 +55,14 @@ public class SaveState {
     player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
     player.setLives(((Long) playerData.get("lives")).intValue());
     player.setCurrentRubies(((Long) playerData.get("rubies")).intValue());
-    
+
     gamePanel.elements = parseElementArr((JSONArray) this.gamePanelData.get("elementArr"));
     gamePanel.npc = parseNPCArr((JSONArray) this.gamePanelData.get("npcArr"));
     gamePanel.monster = parseMonsterArr((JSONArray) this.gamePanelData.get("monsterArr"));
   }
 
   /* Helper methods */
+
   /**
    * Helper method to set the player data as a JSONObject.
    *

@@ -14,15 +14,14 @@ public class MenuLabel extends MenuTextBox implements Visible {
 
   /**
    * Constructs a MenuLabel.
-   *
-   * @param x The x-coordinate of the label.
-   * @param y The y-coordinate of the label.
-   * @param width The width of the label.
-   * @param height The height of the label.
-   * @param bgColor The background color of the label.
+   * @param x         The x-coordinate of the label.
+   * @param y         The y-coordinate of the label.
+   * @param width     The width of the label.
+   * @param height    The height of the label.
+   * @param bgColor   The background color of the label.
    * @param textColor The text color of the label.
-   * @param font The font of the label.
-   * @param text The text to display in the label.
+   * @param font      The font of the label.
+   * @param text      The text to display in the label.
    * @param isVisible Whether the label is currently visible or not.
    */
   public MenuLabel(int x, int y, int width, int height, Color bgColor,

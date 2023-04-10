@@ -20,6 +20,7 @@ public class Client {
   private String host;
   private final int port;
 
+
   /**
    * Constructs new Client.
    *

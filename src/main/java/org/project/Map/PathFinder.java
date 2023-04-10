@@ -3,6 +3,7 @@ package org.project.Map;
 import org.project.UI.GamePanel;
 
 import java.util.ArrayList;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -23,16 +24,18 @@ public class PathFinder {
   Node startNode, goalNode, currentNode;
   boolean goalReached = false;
   int step = 0;
-  
+
   /**
    * Constructs the new PathFinder object
+   *
    * @param gp GamePanel it applies to
    */
   public PathFinder(GamePanel gp) {
     this.gp = gp;
     instantiateNodes();
+    connectNodes();
   }
-  
+
   /**
    * Sets up nodes for calculations.
    * This method instantiates all the nodes in the game's map
@@ -62,8 +65,36 @@ public class PathFinder {
     }
   }
 
-  
-  /** Reset nodes to default value. */
+  /**
+   * this method here sets up our custom data structure
+   * A network of nodes, that were initially only being stored in a 2d array of nodes.
+   * Now that the nodes are connected, we can easily reference up, down, left and right
+   * to quickly access the adjacent nodes (storing tile int data) and speed up process.
+   */
+  public void connectNodes() {
+//    nodes = new Node[numRows][numCols];
+    for (int i = 0; i < MAP_ROW; i++) {
+      for (int j = 0; j < MAP_COL; j++) {
+//        nodes[i][j] = new Node(data[i][j]);
+        if (i > 0) {
+          nodes[i][j].up = nodes[i - 1][j];
+        }
+        if (i < MAP_ROW - 1) { // one less than MapRow as index is from 0
+          nodes[i][j].down = nodes[i + 1][j];
+        }
+        if (j > 0) {
+          nodes[i][j].left = nodes[i][j - 1];
+        }
+        if (j < MAP_ROW - 1) {  // one less than MapRow as index is from 0
+          nodes[i][j].right = nodes[i][j + 1];
+        }
+      }
+    }
+  }
+
+  /**
+   * Reset nodes to default value.
+   */
   public void resetNodes() {
     // Initialize row and column variables to 0
     int col = 0;
@@ -95,13 +126,14 @@ public class PathFinder {
     step = 0;
   }
 
-  
+
   /**
    * Set nodes to specific values.
+   *
    * @param startCol Current node column
    * @param startRow Current node row
-   * @param goalCol Goal node column
-   * @param goalRow Goal node row
+   * @param goalCol  Goal node column
+   * @param goalRow  Goal node row
    */
   public void setNodes(int startCol, int startRow, int goalCol, int goalRow) {
     // Reset all nodes in the map to their default values
@@ -142,9 +174,9 @@ public class PathFinder {
     }
   }
 
-  
   /**
    * Get the A-Star cost
+   *
    * @param node Node to calculate
    */
   public void getCost(Node node) {
@@ -219,22 +251,22 @@ public class PathFinder {
 
     // Check the node above
     if (row - 1 >= 0) {
-      openNode(nodes[col][row - 1]);
+      openNode(currentNode.up);
     }
 
     // Check the node to the left
     if (col - 1 >= 0) {
-      openNode(nodes[col - 1][row]);
+      openNode(currentNode.left);
     }
 
     // Check the node below
     if (row + 1 < MAP_ROW) {
-      openNode(nodes[col][row + 1]);
+      openNode(currentNode.down);
     }
 
     // Check the node to the right
     if (col + 1 < MAP_COL) {
-      openNode(nodes[col + 1][row]);
+      openNode(currentNode.right);
     }
   }
 

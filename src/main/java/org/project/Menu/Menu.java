@@ -42,7 +42,7 @@ public class Menu extends JPanel {
    * Constructs the Menu.
    *
    * @param gameLoader, The GameLoader object
-   * @param gamePanel, The GamePanel to switch to.
+   * @param gamePanel,  The GamePanel to switch to.
    * @throws IOException If image cannot be opened.
    */
   public Menu(GameLoader gameLoader, GamePanel gamePanel) throws IOException {
@@ -74,22 +74,22 @@ public class Menu extends JPanel {
   private void initComponents() throws IOException {
     MenuImage background = new MenuImage(0, 0, PANEL_SIZE.width, PANEL_SIZE.height, BG_IMAGE);
     MenuImage title = new MenuImage(TITLE_X_OFFSET, VERTICAL_OFFSETS[0],
-        TITLE_SIZE.width, TITLE_SIZE.height, TITLE_IMAGE);
+      TITLE_SIZE.width, TITLE_SIZE.height, TITLE_IMAGE);
     MenuLabel label = new MenuLabel(
-        BUTTON_X_OFFSET, VERTICAL_OFFSETS[1], LABEL_SIZE.width,
-        LABEL_SIZE.height, CLEAR_COLOR, BUTTON_COLOR,
-        FONT, "Username:", false);
+      BUTTON_X_OFFSET, VERTICAL_OFFSETS[1], LABEL_SIZE.width,
+      LABEL_SIZE.height, CLEAR_COLOR, BUTTON_COLOR,
+      FONT, "Username:", false);
     MenuTextField input = new MenuTextField(
-        BUTTON_X_OFFSET, VERTICAL_OFFSETS[2], INPUT_SIZE.width,
-        INPUT_SIZE.height, FONT, 30, false);
+      BUTTON_X_OFFSET, VERTICAL_OFFSETS[2], INPUT_SIZE.width,
+      INPUT_SIZE.height, FONT, 30, false);
     MenuButton button1 = new MenuButton(
-        BUTTON_X_OFFSET, VERTICAL_OFFSETS[3], BUTTON_SIZE.width,
-        BUTTON_SIZE.height, BUTTON_COLOR, Color.BLACK,
-        FONT, "New Game", MenuButton.ButtonName.NEW_GAME);
+      BUTTON_X_OFFSET, VERTICAL_OFFSETS[3], BUTTON_SIZE.width,
+      BUTTON_SIZE.height, BUTTON_COLOR, Color.BLACK,
+      FONT, "New Game", MenuButton.ButtonName.NEW_GAME);
     MenuButton button2 = new MenuButton(
-        BUTTON_X_OFFSET, VERTICAL_OFFSETS[4], BUTTON_SIZE.width,
-        BUTTON_SIZE.height, BUTTON_COLOR, Color.BLACK,
-        FONT, "Load Game", MenuButton.ButtonName.LOAD_GAME);
+      BUTTON_X_OFFSET, VERTICAL_OFFSETS[4], BUTTON_SIZE.width,
+      BUTTON_SIZE.height, BUTTON_COLOR, Color.BLACK,
+      FONT, "Load Game", MenuButton.ButtonName.LOAD_GAME);
     addComponents(background, title, label, input, button1, button2);
     buttons.add(button1);
     buttons.add(button2);

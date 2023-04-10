@@ -2,6 +2,7 @@ package org.project.Datastate;
 
 import org.bson.Document;
 import org.json.simple.*;
+import org.project.Datastate.DatabaseHandler;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,10 +19,12 @@ public class GetRequestHandler implements Runnable {
   private final JSONObject obj;
 
   /**
+   * Constructs a new GetRequestHandler
+   *
    * Constructs a new GetRequestHandler.
    *
    * @param socket, the client socket
-   * @param obj, a JSONObject containing request data
+   * @param obj,    a JSONObject containing request data
    */
   public GetRequestHandler(Socket socket, JSONObject obj) {
     this.socket = socket;
@@ -37,7 +40,6 @@ public class GetRequestHandler implements Runnable {
   public void sendResponse(String message) throws Exception {
     OutputStream outputStream = this.socket.getOutputStream();
     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-
     String res = createJSONRes(message);
 
     // Write data to the ObjectOutputStream
@@ -61,7 +63,7 @@ public class GetRequestHandler implements Runnable {
     JSONObject res = new JSONObject();
     res.put("status", "success");
     res.put("message", message);
-    
+
     // get doc
     Document doc = this.databaseHandler.get("uid", String.valueOf(this.obj.get("uid")));
     if (doc == null) {
@@ -91,7 +93,7 @@ public class GetRequestHandler implements Runnable {
     System.out.println("getRequestHandler.run() ran");
     try {
       sendResponse("Document located successfully");
-    }  catch (Exception e) {
+    } catch (Exception e) {
       System.err.println("Get request could not run");
     }
   }
