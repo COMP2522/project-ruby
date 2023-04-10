@@ -31,7 +31,7 @@ We created a custom data structure based on a network of nodes to replace the in
 
 # Contributions
 Abhishek
-Player, Entity, UI, KeyHandler, UI, Life
+- Player, Entity, UI, KeyHandler, UI, Life
 Amrit
 - Villager, Monster, Node, Pathfinder, ElementHandler testing
 Nathan
