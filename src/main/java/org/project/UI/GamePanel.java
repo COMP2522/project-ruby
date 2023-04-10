@@ -5,9 +5,9 @@ import org.project.Entities.KeyHandler;
 import org.project.Entities.Player;
 import org.project.Map.PathFinder;
 import org.project.Map.TileManager;
+import org.project.Objects.AssetHandler;
 import org.project.Objects.CollisionDetector;
 import org.project.Objects.Element;
-import org.project.Objects.ElementHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
   public KeyHandler kHandler = new KeyHandler();
   public Player player = Player.getInstance(this, kHandler);
   public UI ui = new UI(this);
-  public ElementHandler aHandler = new ElementHandler(this);
+  public AssetHandler aHandler = new AssetHandler(this);
   public PathFinder pFinder = new PathFinder(this);
   public Sound sound = new Sound();
   public Sound soundEffect = new Sound();

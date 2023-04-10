@@ -9,7 +9,7 @@ import java.util.Random;
 import static org.project.SystemVariables.*;
 
 /**
- * The ElementHandler class is responsible for handling the placement
+ * The AssetHandler class is responsible for handling the placement
  * of elements in the map, including non-player characters (NPCs),
  * monsters, and intractable objects such as doors, rubies, and
  * power-ups. The class contains methods to set the positions of these
@@ -18,7 +18,8 @@ import static org.project.SystemVariables.*;
  * @author Nathan Bartyuk, Simrat Kaur, Abhishek Chouhan, Amrit Jhatu, Greg
  * @version 2023-02-07
  */
-public class ElementHandler {
+public class AssetHandler {
+
 
   // Constants for map size and element spawning
   private static final int ARRAY_SIZE = 20;
@@ -32,11 +33,11 @@ public class ElementHandler {
   private final GamePanel gp;
 
   /**
-   * Constructs an ElementHandler object with the specified GamePanel.
+   * Constructs an AssetHandler object with the specified GamePanel.
    *
    * @param gp game panel in which the elements are placed
    */
-  public ElementHandler(GamePanel gp) {
+  public AssetHandler(GamePanel gp) {
     this.gp = gp;
   }
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.project.Entities.Monster;
 import org.project.Entities.Villager;
-import org.project.Objects.ElementHandler;
+import org.project.Objects.AssetHandler;
 import org.project.Objects.Ruby;
 import org.project.UI.GamePanel;
 
@@ -13,12 +13,12 @@ import static org.project.SystemVariables.*;
 
 public class ElementHandlerTest {
   private GamePanel gp;
-  private ElementHandler elementHandler;
+  private AssetHandler elementHandler;
 
   @BeforeEach
   public void setup() {
     gp = GamePanel.getGamePanel();
-    elementHandler = new ElementHandler(gp);
+    elementHandler = new AssetHandler(gp);
   }
 
   @Test

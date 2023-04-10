@@ -16,6 +16,8 @@ import static org.project.SystemVariables.*;
  */
 public class PathFinder {
   GamePanel gp;
+
+  // network of nodes storing the map data
   Node[][] nodes;
   ArrayList<Node> openList = new ArrayList<>();
   public ArrayList<Node> pathList = new ArrayList<>();
