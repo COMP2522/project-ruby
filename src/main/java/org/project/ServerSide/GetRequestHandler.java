@@ -20,8 +20,9 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Constructs a new GetRequestHandler
+   *
    * @param socket, the client socket
-   * @param obj, a JSONObject containing request data
+   * @param obj,    a JSONObject containing request data
    */
   public GetRequestHandler(Socket socket, JSONObject obj) {
     this.socket = socket;
@@ -31,6 +32,7 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Sends response to client.
+   *
    * @param message - Message to be sent to Client
    */
   public void sendResponse(String message) throws Exception {
@@ -52,6 +54,7 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Creates JSON response to send to Client.
+   *
    * @param message - Message to be sent to Client
    * @return response, a JSON string
    */
@@ -59,7 +62,7 @@ public class GetRequestHandler implements Runnable {
     JSONObject res = new JSONObject();
     res.put("status", "success");
     res.put("message", message);
-    
+
     // get doc
     Document doc = this.databaseHandler.get("uid", String.valueOf(this.obj.get("uid")));
     if (doc == null) {
@@ -89,7 +92,7 @@ public class GetRequestHandler implements Runnable {
     System.out.println("getRequestHandler.run() ran");
     try {
       sendResponse("Document located successfully");
-    }  catch (Exception e) {
+    } catch (Exception e) {
       System.err.println("Get request could not run");
     }
   }

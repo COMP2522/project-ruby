@@ -6,6 +6,7 @@ import org.project.Entities.Villager;
 import org.project.UI.GamePanel;
 
 import static org.project.SystemVariables.*;
+
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VillagerTest {
 
   private Villager testVillager;
-  
+
   @BeforeEach
   public void setUp() {
     GamePanel testGamePanel = GamePanel.getGamePanel();
-    testVillager = new Villager(testGamePanel,10,10);
+    testVillager = new Villager(testGamePanel, 10, 10);
   }
 
   @Test

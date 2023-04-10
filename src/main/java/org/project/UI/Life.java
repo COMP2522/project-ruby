@@ -17,7 +17,9 @@ public class Life extends Element {
   public BufferedImage halfLife;
   public BufferedImage emptyLife;
 
-  /** Constructs a heart object and sets its name, image, and collision properties. */
+  /**
+   * Constructs a heart object and sets its name, image, and collision properties.
+   */
   public Life() {
     try {
       setImage(ImageIO.read(new FileInputStream("assets/player/fullHeart.png")));
