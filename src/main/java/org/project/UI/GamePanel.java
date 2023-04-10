@@ -132,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    if (player.getCurrentStatus() == status.ALIVE) {
+    if (player.getCurrentStatus() == Status.ALIVE) {
       tManager.draw(g2);
       // Draw Elements - OBJECTS
       for (Element element : elements) {

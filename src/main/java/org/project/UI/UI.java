@@ -86,7 +86,7 @@ public class UI {
   }
 
   /**
-   * used to draw the heart images, showing the status of current amount of lives.
+   * used to draw the heart images, showing the Status of current amount of lives.
    */
   public void drawPlayerLife(Graphics2D g2) {
     int x = TILE_SIZE * 10; // x coordinate of the lives display on screen

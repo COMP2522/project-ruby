@@ -55,7 +55,7 @@ public class PostRequestHandler implements Runnable {
   private String createJSONRes(String message) {
     JSONObject res = new JSONObject();
     // put data
-    res.put("status", "success");
+    res.put("Status", "success");
     res.put("message", message);
 
     return res.toJSONString();

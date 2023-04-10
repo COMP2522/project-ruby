@@ -14,7 +14,7 @@ import static org.project.SystemVariables.*;
 
 /**
  * The player that the user can control.
- * Contains a bunch of methods to update player position, status, sprites and interaction
+ * Contains a bunch of methods to update player position, Status, sprites and interaction
  * with world components in Ruby Rush.
  *
  * @author Abhishek Chouhan
@@ -29,7 +29,7 @@ public class Player extends Entity {
   // Player stats
   public static final int MAX_LIVES = 6;
 
-  private status currentStatus;
+  private Status currentStatus;
   private int currentLives;
   private int currentRubies;
 
@@ -71,11 +71,11 @@ public class Player extends Entity {
     this.hitboxDefaultY = 16;
 
     this.speed = 4;
-    this.direction = directions.DOWN; // initial direction of the player
+    this.direction = Directions.DOWN; // initial direction of the player
 
     this.currentLives = MAX_LIVES;
     this.currentRubies = 0;
-    this.currentStatus = status.ALIVE;
+    this.currentStatus = Status.ALIVE;
     getPlayerImage();
   }
 
@@ -122,7 +122,7 @@ public class Player extends Entity {
    */
   public void update(GamePanel gp, KeyHandler kh) {
     if (currentLives == 0) {
-      currentStatus = status.DEAD; // set player to be dead if lives reaches
+      currentStatus = Status.DEAD; // set player to be dead if lives reaches
     }
     // if a keyEvent occurred, update player values
     if (kh.upPressed || kh.downPressed || kh.leftPressed || kh.rightPressed) {
@@ -163,13 +163,13 @@ public class Player extends Entity {
    */
   private void updateDirection(KeyHandler kh) {
     if (kh.leftPressed) {
-      direction = directions.LEFT;
+      direction = Directions.LEFT;
     } else if (kh.rightPressed) {
-      direction = directions.RIGHT;
+      direction = Directions.RIGHT;
     } else if (kh.upPressed) {
-      direction = directions.UP;
+      direction = Directions.UP;
     } else {
-      direction = directions.DOWN;
+      direction = Directions.DOWN;
     }
   }
 
@@ -206,11 +206,11 @@ public class Player extends Entity {
   private void updatePosition() {
     // update position on worldMap if player is not colliding
     if (!collision) {
-      if (direction == directions.LEFT) {
+      if (direction == Directions.LEFT) {
         worldX = worldX - speed;
-      } else if (direction == directions.RIGHT) {
+      } else if (direction == Directions.RIGHT) {
         worldX = worldX + speed;
-      } else if (direction == directions.UP) {
+      } else if (direction == Directions.UP) {
         worldY = worldY - speed;
       } else {
         worldY = worldY + speed;
@@ -310,7 +310,7 @@ public class Player extends Entity {
     this.currentRubies = rubies;
   }
 
-  public status getCurrentStatus() {
+  public Status getCurrentStatus() {
     return currentStatus;
   }
 }
