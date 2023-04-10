@@ -109,21 +109,36 @@ public class Client {
    * @return String, JSONObject as String
    */
   public String createJSON(String reqType) {
+    // create JSONObject request to send to server
     JSONObject req = new JSONObject();
+    // add kv pairs
     req.put("reqType", reqType);
-    req.put("uid", SaveStateHandler.getInstance().getUsername());
+
     // for POST request
     if (reqType.equals(POST)) {
+      JSONArray rowArray = new JSONArray();
       System.out.println("creating request");
-      req.put("playerData", SaveState.getInstance().playerData);
-      req.put("gamePanelData", SaveState.getInstance().getGamePanelData());
+      req.put("uid", "1");
+      req.put("rubies", 3);
+      req.put("lives", 2);
+      // add spriteMap rows to rowArray
+//      for (String row : saveState.spriteMap) {
+//        rowArray.add(row);
+//      }
+      rowArray.add("1111");
+      rowArray.add("2222");
+      rowArray.add("3333");
+
+      req.put("spriteMap", rowArray);
+
     } else if (reqType.equals(GET)) {
       // create GET request JSONObject
       req.put("reqType", GET);
-      req.put("uid", SaveStateHandler.getInstance().getUsername());
+      req.put("uid", "1");
     } else {
       System.err.println("Invalid request type");
     }
+
     // return JSONObject as String
     return req.toJSONString();
   }

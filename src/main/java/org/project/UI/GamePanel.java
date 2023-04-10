@@ -27,8 +27,6 @@ public class GamePanel extends JPanel implements Runnable {
   // SCREEN SETTINGS
   public final int screenWidth = TILE_SIZE * SCREEN_COL;
   public final int screenHeight = TILE_SIZE * SCREEN_ROW;
-  public final int mapWidth = TILE_SIZE * MAP_COL;
-  public final int mapHeight = TILE_SIZE * MAP_ROW;
   
   // INSTANTIATES OTHER MANAGERS
   // These we believe should be stored here in the master-kind of class
@@ -51,9 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
   public Entity[] monster = new Entity[10];
 
   private int timer; // timer to check how many times frames have been drawn already, and then update rubies and monsters
-  // after intervals of 30 seconds
-  private final int spawnInterval = (15) * 60; // 30 seconds times 60 frames (that is spawn after 1800 frames have been drawn)
-
+  
   /**
    * Creates a new GamePanel object with the specified dimensions and default background color.
    * This constructor sets the preferred size of the panel to the specified dimensions, sets the
@@ -112,6 +108,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     // timer after which rubies and monsters will reshuffle
     timer++;
+    // after intervals of 30 seconds
+    // 30 seconds times 60 frames (that is spawn after 1800 frames have been drawn)
+    int spawnInterval = (15) * 60;
     if(timer >= spawnInterval) {
       timer = 0;
       aHandler.spawnElements();

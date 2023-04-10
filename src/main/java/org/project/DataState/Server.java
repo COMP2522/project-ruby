@@ -23,14 +23,12 @@ public class Server {
 
   private final ServerSocket server;
   private final ExecutorService executor;
-  private final DatabaseHandler databasehandler;
   
   
   /** Constructs a Server. */
   public Server() throws IOException {
     this.server = new ServerSocket(PORT);
     this.executor = Executors.newFixedThreadPool(POOL_SIZE);
-    this.databasehandler = DatabaseHandler.getInstance();
   }
   
   /**
@@ -72,11 +70,4 @@ public class Server {
       }
     }
   }
-  
-  
-  public static void main(String[] args) throws IOException {
-    Server server = new Server();
-    server.start();
-  }
-  
 }
