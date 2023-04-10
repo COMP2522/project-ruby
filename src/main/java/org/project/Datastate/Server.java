@@ -1,12 +1,11 @@
-package org.project.DataState;
-
-import org.json.simple.*;
+package org.project.Datastate;
 
 import java.io.*;
 import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
+import org.json.simple.*;
 
 /**
  * Server that handles requests and interactions with MongoDB.
@@ -23,18 +22,18 @@ public class Server {
 
   private final ServerSocket server;
   private final ExecutorService executor;
-
-
-  /**
-   * Constructs a Server.
-   */
+  private final DatabaseHandler databasehandler;
+  
+  
+  /** Constructs a Server. */
   public Server() throws IOException {
     this.server = new ServerSocket(PORT);
     this.executor = Executors.newFixedThreadPool(POOL_SIZE);
+    this.databasehandler = DatabaseHandler.getInstance();
   }
 
   /**
-   * Parses JSONString Request
+   * Parses JSONString Request.
    *
    * @return JSONObject
    */
@@ -43,7 +42,7 @@ public class Server {
   }
 
   /**
-   * Starts Server
+   * Starts Server.
    */
   public void start() throws IOException {
     while (true) {

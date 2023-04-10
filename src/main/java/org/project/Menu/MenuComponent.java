@@ -16,11 +16,11 @@ public abstract class MenuComponent {
   protected int height;
 
   /**
-   * Constructs a new MenuO
+   * Constructs a new MenuComponent. Used for inheritance.
    *
-   * @param x      The x-coordinate of the MenuComponent.
-   * @param y      The y-coordinate of the MenuComponent.
-   * @param width  The width of the MenuComponent.
+   * @param x The x-coordinate of the MenuComponent.
+   * @param y The y-coordinate of the MenuComponent.
+   * @param width The width of the MenuComponent.
    * @param height The height of the MenuComponent.
    */
   public MenuComponent(int x, int y, int width, int height) {
@@ -56,7 +56,7 @@ public abstract class MenuComponent {
   }
 
   /**
-   * Gets the x-cooridnate of the MenuComponent.
+   * Gets the x-coordinate of the MenuComponent.
    *
    * @return The x-coordinate.
    */

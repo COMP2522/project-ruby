@@ -27,7 +27,8 @@ public abstract class MenuTextBox extends MenuComponent {
    * @param font      Font of the text in the text box.
    * @param text      String of the text to display.
    */
-  public MenuTextBox(int x, int y, int width, int height, Color bgColor, Color textColor, Font font, String text) {
+  public MenuTextBox(int x, int y, int width, int height, Color bgColor,
+                     Color textColor, Font font, String text) {
     super(x, y, width, height);
     this.bgColor = bgColor;
     this.textColor = textColor;

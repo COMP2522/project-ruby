@@ -1,4 +1,4 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -100,6 +100,7 @@ public class DatabaseHandler {
    * @param doc,   new document of new key value pairs
    */
   public void update(String key, String value, Document doc) {
-    this.database.getCollection(this.myCollection).updateOne(eq(key, value), new Document("$set", doc));
+    this.database.getCollection(this.myCollection).updateOne(eq(key, value),
+        new Document("$set", doc));
   }
 }

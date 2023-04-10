@@ -1,7 +1,8 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import org.bson.Document;
 import org.json.simple.*;
+import org.project.Datastate.DatabaseHandler;
 
 import java.io.*;
 import java.net.Socket;
@@ -19,6 +20,8 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Constructs a new GetRequestHandler
+   *
+   * Constructs a new GetRequestHandler.
    *
    * @param socket, the client socket
    * @param obj,    a JSONObject containing request data

@@ -5,7 +5,7 @@ import org.project.UI.GameLoader;
 import java.io.IOException;
 
 /**
- * Method that runs the project
+ * Method that runs the project.
  *
  * @author Nathan Bartyuk
  * @version 2023-04-04

@@ -1,14 +1,13 @@
 package org.project.Menu;
 
+import java.io.IOException;
+import javax.swing.JPanel;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import org.project.UI.GameLoader;
 import org.project.UI.GamePanel;
 
-import javax.swing.JPanel;
-
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The Menu class represents the Main menu screen of the game. It extends

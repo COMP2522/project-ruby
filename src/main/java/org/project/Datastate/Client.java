@@ -1,10 +1,9 @@
-package org.project.DataState;
-
-import org.json.simple.*;
-import org.json.simple.parser.*;
+package org.project.Datastate;
 
 import java.io.*;
 import java.net.*;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 /**
  * Client handles interactions with Server, sends and receives data.
@@ -21,8 +20,9 @@ public class Client {
   private String host;
   private final int port;
 
+
   /**
-   * Constructs new Client
+   * Constructs new Client.
    *
    * @param port an int,
    */
@@ -36,9 +36,9 @@ public class Client {
   }
 
   /**
-   * Sends JSONObject to Server
+   * Sends JSONObject to Server.
    *
-   * @param request, a JSONObject
+   * @param request, a JSONObject.
    * @return response, a JSONObject
    */
   public JSONObject sendRequest(String request) throws IOException {
@@ -107,43 +107,27 @@ public class Client {
   }
 
   /**
-   * Creates a JSONString to be sent to server
+   * Creates a JSONString to be sent to server.
    *
    * @param reqType, "POST" or "GET"
    * @return String, JSONObject as String
    */
   public String createJSON(String reqType) {
-    // create JSONObject request to send to server
     JSONObject req = new JSONObject();
-    // add kv pairs
     req.put("reqType", reqType);
-
+    req.put("uid", SaveStateHandler.getInstance().getUsername());
     // for POST request
     if (reqType.equals(POST)) {
-      JSONArray rowArray = new JSONArray();
       System.out.println("creating request");
-      req.put("uid", "1");
-      req.put("rubies", 3);
-      req.put("lives", 2);
-      // add spriteMap rows to rowArray
-//      for (String row : saveState.spriteMap) {
-//        rowArray.add(row);
-//      }
-      rowArray.add("1111");
-      rowArray.add("2222");
-      rowArray.add("3333");
-
-      req.put("spriteMap", rowArray);
-
+      req.put("playerData", SaveState.getInstance().playerData);
+      req.put("gamePanelData", SaveState.getInstance().getGamePanelData());
     } else if (reqType.equals(GET)) {
       // create GET request JSONObject
       req.put("reqType", GET);
-      req.put("uid", "1");
+      req.put("uid", SaveStateHandler.getInstance().getUsername());
     } else {
       System.err.println("Invalid request type");
     }
-
-    // return JSONObject as String
     return req.toJSONString();
   }
 }

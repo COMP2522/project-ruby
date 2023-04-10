@@ -10,6 +10,9 @@ import java.awt.*;
  * @version 2023-04-09
  */
 public class MenuButton extends MenuTextBox {
+  /**
+   * ButtonName used to differentiate which button is active.
+   */
   public enum ButtonName {
     NEW_GAME,
     LOAD_GAME,
@@ -57,8 +60,8 @@ public class MenuButton extends MenuTextBox {
    * @return true if given x and y are within bound of this button.
    */
   public boolean contains(int x, int y) {
-    return x >= getX() && x <= getX() + getWidth() &&
-      y >= getY() && y <= getY() + getHeight();
+    return x >= getX() && x <= getX() + getWidth()
+        && y >= getY() && y <= getY() + getHeight();
   }
 
   /**

@@ -30,7 +30,8 @@ public class MenuTextField extends MenuComponent implements Visible {
    * @param maxLength The maximum length of the input in the text field.
    * @param isVisible Whether the text field is visible or not.
    */
-  public MenuTextField(int x, int y, int width, int height, Font font, int maxLength, boolean isVisible) {
+  public MenuTextField(int x, int y, int width, int height, Font font,
+                       int maxLength, boolean isVisible) {
     super(x, y, width, height);
     this.font = font;
     this.maxLength = maxLength;
@@ -102,6 +103,11 @@ public class MenuTextField extends MenuComponent implements Visible {
     return this.isVisible;
   }
 
+  /**
+   * Sets the textColor of this MenuTextField.
+   *
+   * @param textColor a Color object
+   */
   public void setTextColor(Color textColor) {
     this.textColor = textColor;
   }

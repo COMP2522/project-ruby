@@ -1,9 +1,8 @@
-package org.project.DataState;
-
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+package org.project.Datastate;
 
 import java.io.*;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 /**
  * SaveStateHandler manages reading and writing SaveState. Files saved in JSON format.
@@ -64,7 +63,7 @@ public class SaveStateHandler {
    * Loads save data JSON file from directory and returns saveState.
    *
    * @return SaveState object
-   * @throws FileNotFoundException When user file is not found
+   * @throws FileNotFoundException When user file is not found.
    */
   public SaveState load() throws FileNotFoundException {
     File saveFile = new File(getPathName());

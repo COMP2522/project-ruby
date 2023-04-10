@@ -1,9 +1,9 @@
 package org.project.Menu;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * Represents an image component in the Menu. It extends the MenuComponent class,

@@ -1,4 +1,4 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import org.bson.Document;
 import org.json.simple.*;

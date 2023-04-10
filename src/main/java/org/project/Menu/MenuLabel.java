@@ -13,8 +13,7 @@ public class MenuLabel extends MenuTextBox implements Visible {
   private boolean isVisible;
 
   /**
-   * Constructs
-   *
+   * Constructs a MenuLabel.
    * @param x         The x-coordinate of the label.
    * @param y         The y-coordinate of the label.
    * @param width     The width of the label.
@@ -25,7 +24,8 @@ public class MenuLabel extends MenuTextBox implements Visible {
    * @param text      The text to display in the label.
    * @param isVisible Whether the label is currently visible or not.
    */
-  public MenuLabel(int x, int y, int width, int height, Color bgColor, Color textColor, Font font, String text, Boolean isVisible) {
+  public MenuLabel(int x, int y, int width, int height, Color bgColor,
+                   Color textColor, Font font, String text, Boolean isVisible) {
     super(x, y, width, height, bgColor, textColor, font, text);
     this.isVisible = isVisible;
   }
