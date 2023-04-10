@@ -1,4 +1,4 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -22,7 +22,7 @@ public class Client {
   private final int port;
 
   /**
-   * Constructs new Client
+   * Constructs new Client,
    *
    * @param port an int,
    */
@@ -36,7 +36,7 @@ public class Client {
   }
 
   /**
-   * Sends JSONObject to Server
+   * Sends JSONObject to Server,
    *
    * @param request, a JSONObject
    * @return response, a JSONObject
