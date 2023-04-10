@@ -1,12 +1,11 @@
-package org.project.DataState;
-
-import org.json.simple.*;
+package org.project.Datastate;
 
 import java.io.*;
 import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
+import org.json.simple.*;
 
 /**
  * Server that handles requests and interactions with MongoDB.
@@ -34,7 +33,8 @@ public class Server {
   }
   
   /**
-   * Parses JSONString Request
+   * Parses JSONString Request.
+   *
    * @return JSONObject
    */
   public JSONObject parseJSON(String JSONstr) {
@@ -42,10 +42,10 @@ public class Server {
   }
   
   /**
-   * Starts Server
+   * Starts Server.
    */
   public void start() throws IOException {
-    while(true){
+    while (true) {
       Socket socket = server.accept();
       
       // read from socket to ObjectInputStream object
@@ -59,11 +59,11 @@ public class Server {
       JSONObject obj = parseJSON(jsonString);
   
       // handle request
-      if(obj.get("reqType").equals(POST)) {
+      if (obj.get("reqType").equals(POST)) {
         System.out.println("RequestType:" + obj.get("reqType")); //thread
         Runnable task = new PostRequestHandler(socket, obj);
         executor.submit(task);
-      } else if (obj.get("reqType").equals(GET)){
+      } else if (obj.get("reqType").equals(GET)) {
         System.out.println("RequestType:" + obj.get("reqType")); // handle
         Runnable task = new GetRequestHandler(socket, obj);
         executor.submit(task);
@@ -72,7 +72,6 @@ public class Server {
       }
     }
   }
-  
   
   public static void main(String[] args) throws IOException {
     Server server = new Server();

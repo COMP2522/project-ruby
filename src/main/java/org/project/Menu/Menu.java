@@ -1,25 +1,25 @@
 package org.project.Menu;
 
+import java.io.IOException;
+import javax.swing.JPanel;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import org.project.UI.GameLoader;
 import org.project.UI.GamePanel;
 
-import javax.swing.JPanel;
-
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The Menu class represents the Main menu screen of the game. It extends
  * JPanel and is responsible for initializing the MenuComponents.
+ *
  * @author Greg Song
  * @version 2023-04-09
  */
 public class Menu extends JPanel {
   /* Constants */
   private static final Dimension PANEL_SIZE = new Dimension(768, 576);
-  private static final Dimension BUTTON_SIZE = new Dimension(300,100);
+  private static final Dimension BUTTON_SIZE = new Dimension(300, 100);
   private static final Dimension LABEL_SIZE = new Dimension(100, 50);
   private static final Dimension INPUT_SIZE = new Dimension(300, 30);
   private static final Dimension TITLE_SIZE = new Dimension(700, 150);
@@ -40,6 +40,7 @@ public class Menu extends JPanel {
 
   /**
    * Constructs the Menu.
+   *
    * @param gameLoader, The GameLoader object
    * @param gamePanel, The GamePanel to switch to.
    * @throws IOException If image cannot be opened.
@@ -58,6 +59,7 @@ public class Menu extends JPanel {
 
   /**
    * Helper method to add MenuComponents to components list.
+   *
    * @param components The MenuComponent objects to be added to the menu.
    */
   private void addComponents(MenuComponent... components) {
@@ -66,6 +68,7 @@ public class Menu extends JPanel {
 
   /**
    * Initializes all the MenuComponents of the menu.
+   *
    * @throws IOException If there is an error loading required images.
    */
   private void initComponents() throws IOException {
@@ -96,6 +99,7 @@ public class Menu extends JPanel {
 
   /**
    * Overrides the paintComponent method. Used to paint all MenuComponents.
+   *
    * @param g the Graphics object used for painting.
    */
   @Override
@@ -108,6 +112,7 @@ public class Menu extends JPanel {
 
   /**
    * Gets the MenuTextField of this menu.
+   *
    * @return MenuTextField for username.
    */
   public MenuTextField getTextField() {
@@ -116,6 +121,7 @@ public class Menu extends JPanel {
 
   /**
    * Gets the MenuButtons of this menu.
+   *
    * @return buttons The list of MenuButtons.
    */
   public ArrayList<MenuButton> getButtons() {
@@ -124,6 +130,7 @@ public class Menu extends JPanel {
 
   /**
    * Sets the visibility of MenuComponents that implement Visible.
+   *
    * @param isVisible true if MenuComponent should be set visible, false
    *                  if they should be hidden.
    */

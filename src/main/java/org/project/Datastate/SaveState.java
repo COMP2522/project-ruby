@@ -1,5 +1,7 @@
-package org.project.DataState;
+package org.project.Datastate;
 
+import java.util.Arrays;
+import java.util.Objects;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.project.Entities.Entity;
@@ -10,11 +12,8 @@ import org.project.Map.Positionable;
 import org.project.Objects.*;
 import org.project.UI.GamePanel;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 /**
- * Defines a save object which stores the current game state in a file
+ * Defines a save object which stores the current game state in a file.
  *
  * @author Nathan Bartyuk, Greg Song
  * @version 2023-03-31
@@ -26,7 +25,11 @@ public class SaveState {
   JSONObject gamePanelData;
   GamePanel gamePanel;
 
-
+  /**
+   * Returns instance of this Singleton SaveState.
+   *
+   * @return instance, the instance of this SaveState.
+   */
   public static SaveState getInstance() {
     if (instance == null) {
       instance = new SaveState();
@@ -36,6 +39,7 @@ public class SaveState {
 
   /**
    * Loads Player variables from JSON playerData.
+   *
    * @param player a Player object in game
    */
   public void load(Player player, GamePanel gamePanel) {
@@ -60,6 +64,7 @@ public class SaveState {
   /* Helper methods */
   /**
    * Helper method to set the player data as a JSONObject.
+   *
    * @param player, current instance of Player
    */
   private void setPlayerData(Player player) {
@@ -80,7 +85,8 @@ public class SaveState {
 
   /**
    * Helper method to set the Game Panel data as a JSONObject.
-   * @param gp, current instance of GamePanel
+   *
+   * @param gp, current instance of GamePanel.
    */
   private void setGamePanelData(GamePanel gp) {
     if (gp == null) {
@@ -95,6 +101,7 @@ public class SaveState {
 
   /**
    * Creates a JSONArray of Positionable objects consisting of each worldX and worldY.
+   *
    * @param positionables, a Positionable array
    * @return a JSONArray of JSONObjects with x and y properties
    */
@@ -103,18 +110,19 @@ public class SaveState {
     Arrays.stream(positionables)
         .filter(Objects::nonNull)
         .map(positionable -> {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("type", positionable.getClass().getSimpleName());
-            jsonObject.put("x", positionable.getWorldX());
-            jsonObject.put("y", positionable.getWorldY());
-            return jsonObject;
+          JSONObject jsonObject = new JSONObject();
+          jsonObject.put("type", positionable.getClass().getSimpleName());
+          jsonObject.put("x", positionable.getWorldX());
+          jsonObject.put("y", positionable.getWorldY());
+          return jsonObject;
         })
         .forEach(jsonArr::add);
-      return jsonArr;
+    return jsonArr;
   }
 
   /**
    * Parses JSONArray and returns Element array.
+   *
    * @param objs JSONArray, in save file
    * @return Element[]
    */
@@ -129,6 +137,7 @@ public class SaveState {
 
   /**
    * Parse JSONArray and returns Monster array.
+   *
    * @param objs a JSONObject representing Monster
    * @return Entity[]
    */
@@ -146,6 +155,7 @@ public class SaveState {
 
   /**
    * Parse JSONArray and return NPC array.
+   *
    * @param objs a JSONObject representing NPC
    * @return Entity[]
    */
@@ -163,6 +173,7 @@ public class SaveState {
 
   /**
    * Converts JSONObject representing Element and converts to Element subtype.
+   *
    * @param obj a JSONObject representing Element
    * @return Ruby, Fire, PowerUp or Door with proper worldX and worldY
    */
@@ -196,18 +207,43 @@ public class SaveState {
       default -> throw new IllegalArgumentException("Invalid entity type: " + type);
     }
   }
-  
+
+  /**
+   * Returns the playerData, all the data that is required to be saved in Player.
+   *
+   * @return playerData, a JSONObject
+   */
   public JSONObject getPlayerData() {
     return this.playerData;
   }
+
+  /**
+   * Gets the gamePanelData, all the data that is required to be saved in gamePanel.
+   *
+   * @return gamePanelData, a JSONObject
+   */
   public JSONObject getGamePanelData() {
     return this.gamePanelData;
   }
+
+  /**
+   * Sets the SaveState by taking in a Gamepanel object. Used to Save the game
+   * data while the game is playing.
+   *
+   * @param gp a GamePanel instance.
+   */
   public void setSaveState(GamePanel gp) {
     this.gamePanel = gp;
     setPlayerData(gp.player);
     setGamePanelData(gp);
   }
+
+  /**
+   * Sets the SaveState by taking in a JSONObject. Used to set SaveState,
+   * to be used when loading the game from Menu.
+   *
+   * @param json a JSONObject, parsed from a JSON file.
+   */
   public void setSaveState(JSONObject json) {
     this.gamePanelData = (JSONObject) json.get("gamePanelData");
     this.playerData = (JSONObject) json.get("playerData");

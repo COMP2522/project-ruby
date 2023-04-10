@@ -1,4 +1,4 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -58,7 +58,8 @@ public class DatabaseHandler {
   }
 
   /**
-   * Gets instance of DatabaseHandler
+   * Gets instance of DatabaseHandler.
+   *
    * @return instance of DatabaseHandler
    */
   public static synchronized DatabaseHandler getInstance() {
@@ -71,6 +72,7 @@ public class DatabaseHandler {
 
   /**
    * Writes new Document to collection.
+   *
    * @param document - Document to be written
    */
   public void put(Document document) {
@@ -79,22 +81,24 @@ public class DatabaseHandler {
 
   /**
    * Gets first Document in collection with key value.
+   *
    * @param key, existing key of document
    * @param value, existing value of kv pair in document
    * @return Document
-   * TODO: need to make this async/take a callback
    */
   public Document get(String key, String value) {
     return this.database.getCollection(this.myCollection).find(eq(key, value)).first();
   }
 
   /**
-   * Updates existing document in Collection
+   * Updates existing document in Collection.
+   *
    * @param key, existing key of document
    * @param value, existing value of kv pair in document
    * @param doc, new document of new key value pairs
    */
   public void update(String key, String value, Document doc) {
-    this.database.getCollection(this.myCollection).updateOne(eq(key, value), new Document("$set", doc));
+    this.database.getCollection(this.myCollection).updateOne(eq(key, value),
+        new Document("$set", doc));
   }
 }

@@ -1,8 +1,8 @@
 package org.project.Entities;
 
 import org.project.Objects.*;
-import org.project.DataState.SaveState;
-import org.project.DataState.SaveStateHandler;
+import org.project.Datastate.SaveState;
+import org.project.Datastate.SaveStateHandler;
 import org.project.UI.GamePanel;
 
 import javax.imageio.ImageIO;

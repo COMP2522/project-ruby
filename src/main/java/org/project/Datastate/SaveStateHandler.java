@@ -1,9 +1,8 @@
-package org.project.DataState;
-
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+package org.project.Datastate;
 
 import java.io.*;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 /**
  * SaveStateHandler manages reading and writing SaveState. Files saved in JSON format.
@@ -26,7 +25,8 @@ public class SaveStateHandler {
 
   /**
    * Returns singleton instance of SaveStateHandler.
-   * @return SaveStateHandler instance
+   *
+   *@return SaveStateHandler instance
    */
   public static SaveStateHandler getInstance() {
     if (instance == null) {
@@ -39,7 +39,7 @@ public class SaveStateHandler {
    * Stores save data as a JSON file in save directory.
    */
   public void save() {
-    Thread saveThread = new Thread(()-> {
+    Thread saveThread = new Thread(() -> {
       JSONObject jsonSave = new JSONObject();
       jsonSave.put("playerData", saveState.getPlayerData());
       jsonSave.put("gamePanelData", saveState.getGamePanelData());
@@ -59,8 +59,9 @@ public class SaveStateHandler {
 
   /**
    * Loads save data JSON file from directory and returns saveState.
-   * @throws FileNotFoundException When user file is not found
+   *
    * @return SaveState object
+   * @throws FileNotFoundException When user file is not found.
    */
   public SaveState load() throws FileNotFoundException {
     File saveFile = new File(getPathName());
@@ -78,6 +79,7 @@ public class SaveStateHandler {
 
   /**
    * Sets username.
+   *
    * @param username a String, used as file name of save data
    */
   public void setUsername(String username) {
@@ -87,6 +89,7 @@ public class SaveStateHandler {
 
   /**
    * Gets the full file path of the save file.
+   *
    * @return full file path
    */
   private String getPathName() {
@@ -98,6 +101,7 @@ public class SaveStateHandler {
 
   /**
    * Gets the username of this SaveState.
+   *
    * @return username, a String, used as filename of save data.
    */
   public String getUsername() {

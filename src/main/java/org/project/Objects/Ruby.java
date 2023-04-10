@@ -1,9 +1,8 @@
 package org.project.Objects;
 
-
-import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * Defines the ruby element that is to be collected by the player throughout the game.

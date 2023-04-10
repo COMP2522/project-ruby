@@ -5,6 +5,7 @@ import java.awt.*;
 /**
  * Abstract class for components for Menu. It provides the most common properties
  * of menu components. All other components found in Menu extend from this.
+ *
  * @author Greg Song
  * @version 2023-04-09
  */
@@ -15,7 +16,8 @@ public abstract class MenuComponent {
   protected int height;
 
   /**
-   * Constructs a new MenuO
+   * Constructs a new MenuComponent. Used for inheritance.
+   *
    * @param x The x-coordinate of the MenuComponent.
    * @param y The y-coordinate of the MenuComponent.
    * @param width The width of the MenuComponent.
@@ -30,31 +32,44 @@ public abstract class MenuComponent {
 
   /**
    * Abstract method to draw MenuComponents using Graphics object.
+   *
    * @param g The Graphics object used to draw.
    */
   public abstract void draw(Graphics g);
 
   /**
    * Gets the width of the MenuComponent.
+   *
    * @return The width
    */
-  public int getWidth() {return this.width;}
+  public int getWidth() {
+    return this.width;
+  }
 
   /**
    * Gets the height of the MenuComponent.
+   *
    * @return The height.
    */
-  public int getHeight() {return this.height;}
+  public int getHeight() {
+    return this.height;
+  }
 
   /**
-   * Gets the x-cooridnate of the MenuComponent.
+   * Gets the x-coordinate of the MenuComponent.
+   *
    * @return The x-coordinate.
    */
-  public int getX() {return this.x;}
+  public int getX() {
+    return this.x;
+  }
 
   /**
    * Gets the y-coordinate of the MenuComponent.
+   *
    * @return The y-coordinate.
    */
-  public int getY() {return this.y;}
+  public int getY() {
+    return this.y;
+  }
 }

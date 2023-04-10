@@ -1,4 +1,4 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import org.bson.Document;
 import org.json.simple.*;
@@ -18,7 +18,8 @@ public class GetRequestHandler implements Runnable {
   private final JSONObject obj;
 
   /**
-   * Constructs a new GetRequestHandler
+   * Constructs a new GetRequestHandler.
+   *
    * @param socket, the client socket
    * @param obj, a JSONObject containing request data
    */
@@ -30,6 +31,7 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Sends response to client.
+   *
    * @param message - Message to be sent to Client
    */
   public void sendResponse(String message) throws Exception {
@@ -51,6 +53,7 @@ public class GetRequestHandler implements Runnable {
 
   /**
    * Creates JSON response to send to Client.
+   *
    * @param message - Message to be sent to Client
    * @return response, a JSON string
    */

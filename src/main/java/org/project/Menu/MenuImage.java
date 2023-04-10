@@ -1,13 +1,14 @@
 package org.project.Menu;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * Represents an image component in the Menu. It extends the MenuComponent class,
  * loads and displays an image.
+ *
  * @author Greg Song
  * @version 2023-04-09
  */
@@ -16,6 +17,7 @@ public class MenuImage extends MenuComponent {
 
   /**
    * Constructs a MenuImage.
+   *
    * @param x The x-coordinate of this MenuImage.
    * @param y The y-coordinate of this MenuImage.
    * @param width The width of this MenuImage.
@@ -30,6 +32,7 @@ public class MenuImage extends MenuComponent {
 
   /**
    * Loads the image from given file path.
+   *
    * @param imagePath The file path of the image file.
    * @throws IOException If there is an error loading the image at given file path.
    */
@@ -43,6 +46,7 @@ public class MenuImage extends MenuComponent {
 
   /**
    * Overrides draw method. Used to draw this image.
+   *
    * @param g The Graphics object used to draw.
    */
   @Override

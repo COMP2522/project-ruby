@@ -1,9 +1,9 @@
-package org.project.DataState;
+package org.project.Datastate;
 
-import org.json.simple.*;
-import org.json.simple.parser.*;
 import java.io.*;
 import java.net.*;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 /**
  * Client handles interactions with Server, sends and receives data.
@@ -21,7 +21,8 @@ public class Client {
   private final int port;
 
   /**
-   * Constructs new Client
+   * Constructs new Client.
+   *
    * @param port an int,
    */
   public Client(int port) {
@@ -34,8 +35,9 @@ public class Client {
   }
 
   /**
-   * Sends JSONObject to Server
-   * @param request, a JSONObject
+   * Sends JSONObject to Server.
+   *
+   * @param request, a JSONObject.
    * @return response, a JSONObject
    */
   public JSONObject sendRequest(String request) throws IOException {
@@ -104,7 +106,8 @@ public class Client {
   }
 
   /**
-   * Creates a JSONString to be sent to server
+   * Creates a JSONString to be sent to server.
+   *
    * @param reqType, "POST" or "GET"
    * @return String, JSONObject as String
    */
@@ -124,7 +127,6 @@ public class Client {
     } else {
       System.err.println("Invalid request type");
     }
-    // return JSONObject as String
     return req.toJSONString();
   }
 }

@@ -5,6 +5,7 @@ import java.awt.*;
 /**
  * MenuTextBox is an abstract class that represents a Component that is
  * colored rectangular box that can hold text to display. It extends MenuComponent.
+ *
  * @author Greg Song
  * @version 2023-04-09
  */
@@ -16,6 +17,7 @@ public abstract class MenuTextBox extends MenuComponent {
 
   /**
    * Constructs a new instance of MenuTextBox.
+   *
    * @param x The x-coordinate of top-left corner of the text box.
    * @param y The y-coordinate of the top-left corner of the text box.
    * @param width Width of the text box.
@@ -25,7 +27,8 @@ public abstract class MenuTextBox extends MenuComponent {
    * @param font Font of the text in the text box.
    * @param text String of the text to display.
    */
-  public MenuTextBox(int x, int y, int width, int height, Color bgColor, Color textColor, Font font, String text) {
+  public MenuTextBox(int x, int y, int width, int height, Color bgColor,
+                     Color textColor, Font font, String text) {
     super(x, y, width, height);
     this.bgColor = bgColor;
     this.textColor = textColor;
@@ -35,6 +38,7 @@ public abstract class MenuTextBox extends MenuComponent {
 
   /**
    * Used to draw the MenuTextBox.
+   *
    * @param g a Graphics object.
    */
   @Override

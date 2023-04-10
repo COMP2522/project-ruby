@@ -1,4 +1,4 @@
-package org.project.DataState;
+package org.project.Datastate;
 
 import org.bson.Document;
 import org.json.simple.*;
@@ -19,6 +19,7 @@ public class PostRequestHandler implements Runnable {
 
   /**
    * Constructs a new PostRequestHandler.
+   *
    * @param socket, the client socket
    * @param obj, a JSONObject containing request data
    */
@@ -30,6 +31,7 @@ public class PostRequestHandler implements Runnable {
 
   /**
    * Sends response to Client.
+   *
    * @param message a String
    * @throws IOException if error while sending response
    */
@@ -45,6 +47,7 @@ public class PostRequestHandler implements Runnable {
 
   /**
    * Creates JSON response to send to Client.
+   *
    * @param message a String, message to be sent to Client
    * @return response, a JSON string
    */
