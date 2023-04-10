@@ -25,22 +25,22 @@ We used asynchronous processing to save the game each time each time the player 
 The gamestate is stored as a JSON file, containing two key value pairs of gamePanelData and playerData. The value for gamePanelData is another JSONObject consisting of 3 arrays. 
 
 **Requirement 4:**
-We created a custom data structure based on a network of nodes to replace the int-map array. This structure stores references to all adjacent nodes (up, down, left, and right) of the current node, making it more efficient for accessing adjacent nodes. The focus of this structure is on efficiency.
+We created a custom data structure based on a network of nodes to utilize instead of the int-map array in the PathFinder class. This structure stores references to all adjacent nodes (up, down, left, and right) of the current node, making it more efficient for accessing adjacent nodes. The focus of this structure is on efficiency, and at present is only being utilized in Pathfinder where it serves its purpose quite good.
 
 **Requirement 5:** We have added javadoc, comments and provided a UML diagram.
 
 # Contributions
 Abhishek
-- Player, Entity, UI, KeyHandler, UI, Life
+- Player, Entity, UI, KeyHandler, UI, Life and Miscellaneous
 
 Amrit
-- Villager, Monster, Node, Pathfinder, ElementHandler testing
+- Villager, Monster, Node, Pathfinder, ElementHandler and testing
 
 Nathan
 - GamePanel, TileManager, Tile classes, refactoring, design
 
 Simrat
-- Objects package, CollisionDetector, Element, ElementHandler, sound testing 
+- Objects package, CollisionDetector, Element, ElementHandler, sound and testing 
 
 Greg Song
 - GameLauncher, SaveState, SaveStateHandler, Menu package
