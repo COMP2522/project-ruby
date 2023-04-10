@@ -2,6 +2,7 @@ package org.project.Objects;
 
 import org.project.Entities.Entity;
 import org.project.Entities.Player;
+import org.project.Map.TileManager;
 import org.project.UI.GamePanel;
 
 import static org.project.SystemVariables.*;
@@ -107,9 +108,19 @@ public class CollisionDetector {
     // check if the tiles the entity is colliding with have the collision property
     // the tiles have a collision boolean that is set to true for solid tiles and false for tiles
     // that can be walked on
-    if (gp.tManager.tiles[tileNum1].collision || gp.tManager.tiles[tileNum2].collision) {
+    if (checkCollision(gp.tManager, tileNum1) || checkCollision(gp.tManager, tileNum2)) {
       entity.setCollided(true); // set entity collision to true
     }
+  }
+
+  /**
+   * Helper method that checks if tiles the entity is colliding with has collision.
+   * @param tManager TileManager object.
+   * @param tileNum, Tile index number to check.
+   * @return True if tile at tileNum has collision set to true, false otherwise.
+   */
+  private boolean checkCollision(TileManager tManager, int tileNum) {
+    return tManager.tiles[tileNum].collision;
   }
 
   /**
