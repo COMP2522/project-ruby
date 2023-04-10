@@ -17,7 +17,7 @@ public class SaveStateHandler {
   private final String dirPath = "save/";
   private final String extension = ".json";
   private String username;
-  private String pathName = dirPath + username + extension;
+  private String pathName;
 
   /** Private constructor to enforce Singleton pattern. */
   private SaveStateHandler() {
@@ -39,19 +39,22 @@ public class SaveStateHandler {
    * Stores save data as a JSON file in save directory.
    */
   public void save() {
-    JSONObject jsonSave = new JSONObject();
-    jsonSave.put("playerData", saveState.getPlayerData());
-    jsonSave.put("gamePanelData", saveState.getGamePanelData());
+    Thread saveThread = new Thread(()-> {
+      JSONObject jsonSave = new JSONObject();
+      jsonSave.put("playerData", saveState.getPlayerData());
+      jsonSave.put("gamePanelData", saveState.getGamePanelData());
 
-    FileWriter fileWriter;
-    try {
-      File file = new File(pathName);
-      fileWriter = new FileWriter(file);
-      fileWriter.write(jsonSave.toJSONString());
-      fileWriter.close();
-    } catch (IOException e) {
-      throw new RuntimeException("Could not create or write to file at: " + pathName, e);
-    }
+      FileWriter fileWriter;
+      try {
+        File file = new File(pathName);
+        fileWriter = new FileWriter(file);
+        fileWriter.write(jsonSave.toJSONString());
+        fileWriter.close();
+      } catch (IOException e) {
+        throw new RuntimeException("Could not create or write to file at: " + pathName, e);
+      }
+    });
+    saveThread.start();
   }
 
   /**
@@ -60,13 +63,13 @@ public class SaveStateHandler {
    * @return SaveState object
    */
   public SaveState load() throws FileNotFoundException {
-    File saveFile = new File(dirPath + username + extension);
+    File saveFile = new File(getPathName());
     JSONObject jsonSave;
     try {
       FileReader fileReader = new FileReader(saveFile);
       jsonSave = (JSONObject) JSONValue.parse(fileReader);
     } catch (FileNotFoundException e) {
-      throw new FileNotFoundException("Cannot locate file:" + pathName);
+      throw new FileNotFoundException("Cannot locate file:" + getPathName());
     }
     SaveState saveState = SaveState.getInstance();
     saveState.setSaveState(jsonSave);
@@ -79,6 +82,25 @@ public class SaveStateHandler {
    */
   public void setUsername(String username) {
     this.username = username;
-    this.pathName = dirPath + username + extension;
+    this.pathName = getPathName();
+  }
+
+  /**
+   * Gets the full file path of the save file.
+   * @return full file path
+   */
+  private String getPathName() {
+    if (username == null || username.isEmpty()) {
+      throw new IllegalStateException("Username is not set.");
+    }
+    return dirPath + username + extension;
+  }
+
+  /**
+   * Gets the username of this SaveState.
+   * @return username, a String, used as filename of save data.
+   */
+  public String getUsername() {
+    return this.username;
   }
 }

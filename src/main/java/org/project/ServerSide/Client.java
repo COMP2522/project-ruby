@@ -109,59 +109,22 @@ public class Client {
    * @return String, JSONObject as String
    */
   public String createJSON(String reqType) {
-    // create JSONObject request to send to server
     JSONObject req = new JSONObject();
-    // add kv pairs
     req.put("reqType", reqType);
-
+    req.put("uid", SaveStateHandler.getInstance().getUsername());
     // for POST request
     if (reqType.equals(POST)) {
-      JSONArray rowArray = new JSONArray();
-      
-      // TODO: replace values with saveState.value
       System.out.println("creating request");
-      req.put("uid", "1");
-      req.put("rubies", 3);
-      req.put("lives", 2);
-      // add spriteMap rows to rowArray
-//      for (String row : saveState.spriteMap) {
-//        rowArray.add(row);
-//      }
-      rowArray.add("1111");
-      rowArray.add("2222");
-      rowArray.add("3333");
-
-      req.put("spriteMap", rowArray);
-
+      req.put("playerData", SaveState.getInstance().playerData);
+      req.put("gamePanelData", SaveState.getInstance().getGamePanelData());
     } else if (reqType.equals(GET)) {
       // create GET request JSONObject
       req.put("reqType", GET);
-      req.put("uid", "1");
+      req.put("uid", SaveStateHandler.getInstance().getUsername());
     } else {
       System.err.println("Invalid request type");
     }
-
     // return JSONObject as String
     return req.toJSONString();
-  }
-  
-
-  /**
-   *
-   * @param args
-   * - took out throws IOException, ClassNotFoundException, InterruptedException
-   * - to show why we want good exceptions
-   */
-  public static void main(String[] args) throws IOException {
-    Client client = new Client(5000);
-    String request = client.createJSON("GET");
-
-    // testing multiple requests
-    while (true) {
-      JSONObject jsonRes = client.sendRequest(request);
-      // test print TODO:-- currently return null values as databasehandler.get is not async
-      System.out.println("in loop RESPONSE: " + jsonRes.toJSONString());
-
-    }
   }
 }
