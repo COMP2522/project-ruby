@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 
@@ -42,7 +42,7 @@ public class Villager extends Entity {
     hitbox.height = 32;
     this.worldX = posX;
     this.worldY = posY;
-    direction = directions.DOWN;
+    direction = Directions.DOWN;
     speed = 2;
     getImage();
   }
@@ -74,10 +74,10 @@ public class Villager extends Entity {
       int i = random.nextInt(100) + 1; // picks up a number from 1 to 100
 
       switch (i / 25) {
-        case 0 -> direction = directions.UP;
-        case 1 -> direction = directions.DOWN;
-        case 2 -> direction = directions.LEFT;
-        case 3 -> direction = directions.RIGHT;
+        case 0 -> direction = Directions.UP;
+        case 1 -> direction = Directions.DOWN;
+        case 2 -> direction = Directions.LEFT;
+        case 3 -> direction = Directions.RIGHT;
         default -> {
           // Display unexpected value and log.
           System.err.println("Unexpected value: " + i);

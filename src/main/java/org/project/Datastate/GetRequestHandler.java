@@ -1,11 +1,9 @@
 package org.project.Datastate;
 
-import org.bson.Document;
-import org.json.simple.*;
-import org.project.Datastate.DatabaseHandler;
-
 import java.io.*;
 import java.net.Socket;
+import org.bson.Document;
+import org.json.simple.*;
 
 /**
  * Class that handles GET Requests received by Server.
@@ -19,12 +17,10 @@ public class GetRequestHandler implements Runnable {
   private final JSONObject obj;
 
   /**
-   * Constructs a new GetRequestHandler
-   *
    * Constructs a new GetRequestHandler.
    *
-   * @param socket, the client socket
-   * @param obj,    a JSONObject containing request data
+   * @param socket the client socket
+   * @param obj    a JSONObject containing request data
    */
   public GetRequestHandler(Socket socket, JSONObject obj) {
     this.socket = socket;
@@ -61,7 +57,7 @@ public class GetRequestHandler implements Runnable {
    */
   private String createJSONRes(String message) throws Exception {
     JSONObject res = new JSONObject();
-    res.put("status", "success");
+    res.put("Status", "success");
     res.put("message", message);
 
     // get doc

@@ -3,7 +3,7 @@ package org.project.Objects;
 import org.project.Entities.Entity;
 import org.project.Entities.Player;
 import org.project.Map.TileManager;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 
@@ -77,16 +77,16 @@ public class CollisionDetector {
      * movement is stopped in the entity's update method which has an if statement to only update
      * entity position if collision is false.
      */
-    if (entity.peekDirection() == directions.UP) {
+    if (entity.peekDirection() == Directions.UP) {
       upRow = (upY - entity.getSpeed()) / TILE_SIZE;
       collide(entity); // sets entity collision to true
-    } else if (entity.peekDirection() == directions.DOWN) {
+    } else if (entity.peekDirection() == Directions.DOWN) {
       downRow = (downY + entity.getSpeed()) / TILE_SIZE;
       collide(entity);
-    } else if (entity.peekDirection() == directions.LEFT) {
+    } else if (entity.peekDirection() == Directions.LEFT) {
       leftCol = (leftX - entity.getSpeed()) / TILE_SIZE;
       collide(entity);
-    } else if (entity.peekDirection() == directions.RIGHT) {
+    } else if (entity.peekDirection() == Directions.RIGHT) {
       rightCol = (rightX + entity.getSpeed()) / TILE_SIZE;
       collide(entity);
     }
@@ -148,16 +148,16 @@ public class CollisionDetector {
         gp.elements[i].getHitbox().y = gp.elements[i].getWorldY() + gp.elements[i].getHitbox().y;
 
         // check if player is in range of object to pick it up
-        if (p.peekDirection() == directions.UP) {
+        if (p.peekDirection() == Directions.UP) {
           p.hitbox.y -= p.getSpeed();
           index = handleCollision(p, gp, player, i, index);
-        } else if (p.peekDirection() == directions.DOWN) {
+        } else if (p.peekDirection() == Directions.DOWN) {
           p.hitbox.y += p.getSpeed();
           index = handleCollision(p, gp, player, i, index);
-        } else if (p.peekDirection() == directions.LEFT) {
+        } else if (p.peekDirection() == Directions.LEFT) {
           p.hitbox.x -= p.getSpeed();
           index = handleCollision(p, gp, player, i, index);
-        } else if (p.peekDirection() == directions.RIGHT) {
+        } else if (p.peekDirection() == Directions.RIGHT) {
           p.hitbox.x += p.getSpeed();
           index = handleCollision(p, gp, player, i, index);
         }

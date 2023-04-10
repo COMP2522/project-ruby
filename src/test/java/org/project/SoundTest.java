@@ -1,7 +1,7 @@
 package org.project;
 
 import org.junit.jupiter.api.Test;
-import org.project.UI.Sound;
+import org.project.ui.Sound;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

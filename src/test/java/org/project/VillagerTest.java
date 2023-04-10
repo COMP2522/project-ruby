@@ -3,7 +3,7 @@ package org.project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.project.Entities.Villager;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 import java.awt.*;
@@ -23,11 +23,11 @@ public class VillagerTest {
   @Test
   public void testSetAction() {
     // Check direction and speed. Similar testing from Entity.
-    assertEquals(directions.DOWN, testVillager.peekDirection());
+    assertEquals(Directions.DOWN, testVillager.peekDirection());
     assertEquals(2, testVillager.getSpeed());
 
     // Invoke setAction a bunch of  times to ensure direction change randomly.
-    directions initialDirection = testVillager.peekDirection();
+    Directions initialDirection = testVillager.peekDirection();
     for (int i = 0; i < 10; i++) {
       testVillager.setAction();
       if (testVillager.peekDirection() != initialDirection) {
@@ -48,7 +48,7 @@ public class VillagerTest {
     assertEquals(initialWorldY + testVillager.getSpeed(), testVillager.getWorldY());
 
     // Change direction to test again ...
-    testVillager.changeDirection(directions.LEFT);
+    testVillager.changeDirection(Directions.LEFT);
     testVillager.update();
     assertEquals(initialWorldX - testVillager.getSpeed(), testVillager.getWorldX());
     assertEquals(initialWorldY + testVillager.getSpeed(), testVillager.getWorldY());

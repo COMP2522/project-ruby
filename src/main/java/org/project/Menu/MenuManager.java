@@ -3,8 +3,8 @@ package org.project.Menu;
 import org.project.Datastate.Client;
 import org.project.Datastate.SaveState;
 import org.project.Datastate.SaveStateHandler;
-import org.project.UI.GameLoader;
-import org.project.UI.GamePanel;
+import org.project.ui.GameLoader;
+import org.project.ui.GamePanel;
 
 import java.awt.*;
 import java.awt.event.*;

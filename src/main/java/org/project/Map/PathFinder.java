@@ -1,6 +1,6 @@
 package org.project.Map;
 
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import java.util.ArrayList;
 

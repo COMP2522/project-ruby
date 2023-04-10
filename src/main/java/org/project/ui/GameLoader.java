@@ -1,4 +1,4 @@
-package org.project.UI;
+package org.project.ui;
 
 import org.project.Menu.Menu;
 

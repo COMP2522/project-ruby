@@ -2,7 +2,7 @@ package org.project;
 
 import org.junit.jupiter.api.Test;
 import org.project.Objects.Fire;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,43 +1,77 @@
-package org.project.UI;
+package org.project.ui;
 
+import static org.project.SystemVariables.TILE_SIZE;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import org.project.Objects.Ruby;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import static org.project.SystemVariables.*;
-
 /**
- * UI class that is responsible for drawing/displaying the player stats and other important messages.
- * This class is instantiable and manages UI components as a whole.
+ * ui class that is responsible for drawing/displaying
+ * the player stats and other important messages.
+ * This class is instantiable and manages ui components as a whole.
  *
  * @author Abhishek Chouhan
  */
-public class UI {
+public class UserInterface {
 
-  private static GamePanel gp; // JPanel attached to the game window
-  private static Font font; // Arial font with 40 size
+  /**
+   * The JPanel attached to the game window.
+   */
+  private static GamePanel gp;
 
-  // declaring all image components below
+  /**
+   * The Arial font with a size of 40.
+   */
+  private static Font font;
+
+  /**
+   * The image component for the key.
+   */
   BufferedImage keyImage;
-  BufferedImage fullHeart, halfHeart, emptyHeart;
 
+  /**
+   * The image component for the full heart.
+   */
+  BufferedImage fullHeart;
+
+  /**
+   * The image component for the half heart.
+   */
+  BufferedImage halfHeart;
+
+  /**
+   * The image component for the empty heart.
+   */
+  BufferedImage emptyHeart;
+
+  /**
+   * A boolean flag indicating whether a message should be displayed.
+   */
   private boolean displayMessage = false;
 
+  /**
+   * The message to display.
+   */
   private String message = "";
 
+  /**
+   * The frame counter for the message display.
+   */
   private int messageFrameCounter;
 
 
   /**
-   * Constructor for the UI class object that initializes all variables.
+   * Constructor for the ui class object that initializes all variables.
    * This object is used to draw over the game and display important stats.
    *
    * @param gp the panel attached to game window in which stats are drawn.
    */
-  public UI(GamePanel gp) {
-    UI.gp = gp;
-    UI.font = new Font("Arial", Font.PLAIN, 40);
+  public UserInterface(GamePanel gp) {
+    UserInterface.gp = gp;
+    UserInterface.font = new Font("Arial", Font.PLAIN, 40);
     Ruby key = new Ruby();
     Life life = new Life();
 
@@ -86,7 +120,7 @@ public class UI {
   }
 
   /**
-   * used to draw the heart images, showing the status of current amount of lives.
+   * used to draw the heart images, showing the Status of current amount of lives.
    */
   public void drawPlayerLife(Graphics2D g2) {
     int x = TILE_SIZE * 10; // x coordinate of the lives display on screen
@@ -94,7 +128,8 @@ public class UI {
     int i = 0; // counts the number of heart displayed already on screen respect to max lives
 
     // DRAW MAX LIFE
-    while (i < gp.player.getLives() / 2) { // display half the max lives because each heart is 2 sub-lives
+    // display half the max lives because each heart is 2 sub-lives
+    while (i < gp.player.getLives() / 2) {
       g2.drawImage(emptyHeart, x, y, TILE_SIZE, TILE_SIZE, null);
       i++;
       x += TILE_SIZE;
@@ -114,7 +149,5 @@ public class UI {
       i++;
       x += TILE_SIZE;
     }
-
   }
-
 }

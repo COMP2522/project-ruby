@@ -1,10 +1,9 @@
 package org.project.Datastate;
 
-import org.bson.Document;
-import org.json.simple.*;
-
 import java.io.*;
 import java.net.Socket;
+import org.bson.Document;
+import org.json.simple.*;
 
 /**
  * Class that handles POST Requests received by Server.
@@ -19,8 +18,8 @@ public class PostRequestHandler implements Runnable {
   /**
    * Constructs a new PostRequestHandler.
    *
-   * @param socket, the client socket
-   * @param obj,    a JSONObject containing request data
+   * @param socket the client socket
+   * @param obj    a JSONObject containing request data
    */
   public PostRequestHandler(Socket socket, JSONObject obj) {
     this.socket = socket;
@@ -38,9 +37,12 @@ public class PostRequestHandler implements Runnable {
     OutputStream outputStream = this.socket.getOutputStream();
     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
     String res = createJSONRes(message);
-    objectOutputStream.writeObject(res); // Write data to the ObjectOutputStream
-    objectOutputStream.flush(); // Flush the ObjectOutputStream to ensure all data is written to the OutputStream
-    objectOutputStream.close(); // Close the ObjectOutputStream to release any resources it may be holding
+    // Write data to the ObjectOutputStream
+    objectOutputStream.writeObject(res);
+    // Flush the ObjectOutputStream to ensure all data is written to the OutputStream
+    objectOutputStream.flush();
+    // Close the ObjectOutputStream to release any resources it may be holding
+    objectOutputStream.close();
     this.socket.close();
   }
 
@@ -53,14 +55,14 @@ public class PostRequestHandler implements Runnable {
   private String createJSONRes(String message) {
     JSONObject res = new JSONObject();
     // put data
-    res.put("status", "success");
+    res.put("Status", "success");
     res.put("message", message);
 
     return res.toJSONString();
   }
 
   /**
-   * Runs the POST request handler
+   * Runs the POST request handler.
    */
   @Override
   public void run() {
@@ -83,7 +85,7 @@ public class PostRequestHandler implements Runnable {
         try {
           this.sendResponse("Data successfully updated");
         } catch (IOException e) {
-//          throw new RuntimeException(e);
+          //          throw new RuntimeException(e);
           System.err.println("Cant write to oos");
         }
       } else {

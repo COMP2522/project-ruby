@@ -1,14 +1,13 @@
-package org.project.UI;
+package org.project.ui;
 
-import org.project.Objects.Element;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import org.project.Objects.Element;
 
 /**
- * Defines the heart element that is displayed on top of the overlay UI.
+ * Defines the heart element that is displayed on top of the overlay ui.
  *
  * @author Abhishek Chouhan
  * @version 2023-03-31

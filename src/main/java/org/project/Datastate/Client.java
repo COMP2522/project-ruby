@@ -38,8 +38,8 @@ public class Client {
   /**
    * Sends JSONObject to Server.
    *
-   * @param request, a JSONObject.
-   * @return response, a JSONObject
+   * @param request a JSONObject.
+   * @return response a JSONObject
    */
   public JSONObject sendRequest(String request) throws IOException {
     // setup
@@ -109,8 +109,8 @@ public class Client {
   /**
    * Creates a JSONString to be sent to server.
    *
-   * @param reqType, "POST" or "GET"
-   * @return String, JSONObject as String
+   * @param reqType "POST" or "GET"
+   * @return String JSONObject as String
    */
   public String createJSON(String reqType) {
     JSONObject req = new JSONObject();

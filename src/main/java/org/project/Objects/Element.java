@@ -1,6 +1,6 @@
 package org.project.Objects;
 
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 import org.project.Map.Positionable;
 
 import java.awt.*;

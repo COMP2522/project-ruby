@@ -1,8 +1,8 @@
 package org.project;
 
-import org.project.UI.GameLoader;
-
 import java.io.IOException;
+import org.project.ui.GameLoader;
+
 
 /**
  * Method that runs the project.
