@@ -203,7 +203,7 @@ public class CollisionDetector {
 
         int moveX = 0;
         int moveY = 0;
-  
+
         switch (entity.peekDirection()) {
           case UP -> moveY = -entity.getSpeed();
           case DOWN -> moveY = entity.getSpeed();
@@ -244,8 +244,8 @@ public class CollisionDetector {
     //get the object's solid area position
     gp.player.hitbox.x = gp.player.getWorldX() + gp.player.hitbox.x;
     gp.player.hitbox.y = gp.player.getWorldY() + gp.player.hitbox.y;
-    
-  
+
+
     switch (entity.peekDirection()) {
       case UP -> entity.hitbox.y -= entity.getSpeed();
       case DOWN -> entity.hitbox.y += entity.getSpeed();
