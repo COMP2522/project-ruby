@@ -24,7 +24,7 @@ Our team's project will be a 2D adventure game, similar to the Legend of Zelda.
   * Nathan Bartyuk - In charge of the visual design and world map.
   * Abhishek Chouhan - In charge of the controls and player character.
   * Amrit Jhatu - In charge of non-player characters and interactions.
-  * Greg Song - In charge of the client-server interactions and asynchronous processing.
+  * Greg Song - In charge of the managing persistent data state and asynchronous processing.
   * Simrat Kaur - In charge of collision and item interactions.
 
 **Expectations**:

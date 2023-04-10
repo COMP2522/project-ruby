@@ -132,6 +132,4 @@ public class Menu extends JPanel {
       visible.setVisible(isVisible);
     }
   }
-
-
 }

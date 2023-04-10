@@ -1,8 +1,8 @@
 package org.project.Menu;
 
-import org.project.ServerSide.Client;
-import org.project.ServerSide.SaveState;
-import org.project.ServerSide.SaveStateHandler;
+import org.project.DataState.Client;
+import org.project.DataState.SaveState;
+import org.project.DataState.SaveStateHandler;
 import org.project.UI.GameLoader;
 import org.project.UI.GamePanel;
 
