@@ -43,7 +43,7 @@ public class Monster extends Entity {
     hitbox.height = 32;
     this.worldX = posX;
     this.worldY = posY;
-    direction = directions.DOWN;
+    direction = Directions.DOWN;
     getImage();
   }
 
@@ -104,38 +104,38 @@ public class Monster extends Entity {
       int enBottomY = worldY + hitbox.y + hitbox.height;
 
       if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
-        direction = directions.UP;
+        direction = Directions.UP;
       } else if (enBottomY < nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
-        direction = directions.DOWN;
+        direction = Directions.DOWN;
       } else if (enTopY >= nextY && enBottomY < nextY + TILE_SIZE) {
         if (enLeftX > nextX) {
-          direction = directions.LEFT;
+          direction = Directions.LEFT;
         } else if (enLeftX < nextX) {
-          direction = directions.RIGHT;
+          direction = Directions.RIGHT;
         }
       } else if (enTopY > nextY && enLeftX > nextX) {
-        direction = directions.UP;
+        direction = Directions.UP;
         checkCollision();
         if (collision) {
-          direction = directions.LEFT;
+          direction = Directions.LEFT;
         }
       } else if (enTopY > nextY && enLeftX < nextX) {
-        direction = directions.UP;
+        direction = Directions.UP;
         checkCollision();
         if (collision) {
-          direction = directions.RIGHT;
+          direction = Directions.RIGHT;
         }
       } else if (enTopY < nextY && enLeftX > nextX) {
-        direction = directions.DOWN;
+        direction = Directions.DOWN;
         checkCollision();
         if (collision) {
-          direction = directions.LEFT;
+          direction = Directions.LEFT;
         }
       } else if (enTopY < nextY && enLeftX < nextX) {
-        direction = directions.DOWN;
+        direction = Directions.DOWN;
         checkCollision();
         if (collision) {
-          direction = directions.RIGHT;
+          direction = Directions.RIGHT;
         }
       }
 

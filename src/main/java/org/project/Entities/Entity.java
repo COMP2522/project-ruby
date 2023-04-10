@@ -23,7 +23,7 @@ public abstract class Entity implements Positionable {
   protected int worldX, worldY;   // Coordinates on the 50 * 50 world map
   protected int screenX, screenY;  // Coordinates on the 16 * 12 screen
   protected int speed;
-  protected directions direction;
+  protected Directions direction;
 
   // Entity state variables
   protected boolean collision = false; // is colliding = false
@@ -197,11 +197,11 @@ public abstract class Entity implements Positionable {
     speed = newSpeed;
   }
 
-  public directions peekDirection() {
+  public Directions peekDirection() {
     return direction;
   }
 
-  public void changeDirection(directions direction) {
+  public void changeDirection(Directions direction) {
     this.direction = direction;
   }
 

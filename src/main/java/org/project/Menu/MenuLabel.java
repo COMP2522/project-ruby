@@ -43,7 +43,7 @@ public class MenuLabel extends MenuTextBox implements Visible {
   }
 
   /**
-   * Sets the visibility status of the label.
+   * Sets the visibility Status of the label.
    *
    * @param visible true if object should be visible, false otherwise.
    */
@@ -53,7 +53,7 @@ public class MenuLabel extends MenuTextBox implements Visible {
   }
 
   /**
-   * Gets the visibility status of the label.
+   * Gets the visibility Status of the label.
    *
    * @return True if object is currently visible, false otherwise.
    */

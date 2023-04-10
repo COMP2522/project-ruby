@@ -9,7 +9,7 @@ public record SystemVariables() {
   public static final int MAX_INDEX = 999;
   public static final double DRAW_INTERVAL = 1000000000.0 / 60;
 
-  public enum directions {LEFT, RIGHT, UP, DOWN}
+  public enum Directions {LEFT, RIGHT, UP, DOWN}
 
-  public enum status {ALIVE, DEAD}
+  public enum Status {ALIVE, DEAD}
 }

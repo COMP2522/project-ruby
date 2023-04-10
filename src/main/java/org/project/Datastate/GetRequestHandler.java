@@ -61,7 +61,7 @@ public class GetRequestHandler implements Runnable {
    */
   private String createJSONRes(String message) throws Exception {
     JSONObject res = new JSONObject();
-    res.put("status", "success");
+    res.put("Status", "success");
     res.put("message", message);
 
     // get doc

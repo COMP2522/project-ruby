@@ -86,7 +86,7 @@ public class MenuTextField extends MenuComponent implements Visible {
   }
 
   /**
-   * Sets the visibility status of the text field.
+   * Sets the visibility Status of the text field.
    *
    * @param visible true if object should be visible, false otherwise.
    */
@@ -95,7 +95,7 @@ public class MenuTextField extends MenuComponent implements Visible {
   }
 
   /**
-   * Returns the visibility status of the text field.
+   * Returns the visibility Status of the text field.
    *
    * @return True if currently visible, false otherwise.
    */

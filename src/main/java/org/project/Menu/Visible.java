@@ -8,14 +8,14 @@ package org.project.Menu;
  */
 public interface Visible {
   /**
-   * Sets the visibility status of the object.
+   * Sets the visibility Status of the object.
    *
    * @param visible true if object should be visible, false otherwise.
    */
   void setVisible(boolean visible);
 
   /**
-   * Returns the visibility status of the object.
+   * Returns the visibility Status of the object.
    *
    * @return true if object is visible, false otherwise.
    */

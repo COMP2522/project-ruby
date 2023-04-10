@@ -21,14 +21,14 @@ public class EntityTest {
   @Test
   public void testSetAction() {
     // Check the initial direction and speed below.
-    assertEquals(directions.LEFT, testEntity.peekDirection());
+    assertEquals(Directions.LEFT, testEntity.peekDirection());
     assertEquals(2, testEntity.getSpeed());
 
     // Another change to direction and speed, and test again.
-    testEntity.changeDirection(directions.UP);
+    testEntity.changeDirection(Directions.UP);
     testEntity.setSpeed(3);
     testEntity.setAction();
-    assertEquals(directions.UP, testEntity.peekDirection());
+    assertEquals(Directions.UP, testEntity.peekDirection());
     assertEquals(3, testEntity.getSpeed());
   }
 
@@ -44,7 +44,7 @@ public class EntityTest {
     assertEquals(initialWorldY, testEntity.getWorldY());
 
     // Another test for a differing direction.
-    testEntity.changeDirection(directions.RIGHT);
+    testEntity.changeDirection(Directions.RIGHT);
     testEntity.update();
     assertEquals(initialWorldX, testEntity.getWorldX());
     assertEquals(initialWorldY, testEntity.getWorldY());
@@ -65,14 +65,14 @@ public class EntityTest {
 
     public TestEntity(GamePanel gp) {
       super(gp);
-      direction = directions.LEFT;
+      direction = Directions.LEFT;
       speed = 2;
     }
 
     @Override
     public void setAction() {
       // Sample for setAction() method.
-      direction = directions.UP;
+      direction = Directions.UP;
       speed = 3;
     }
   }
