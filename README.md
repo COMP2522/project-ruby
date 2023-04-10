@@ -1,7 +1,9 @@
 # Project Ruby
 <img width="771" alt="img1" src="https://user-images.githubusercontent.com/57815944/230837983-6182570e-b60a-4536-8f97-497583231af3.png">
 <img width="765" alt="img2" src="https://user-images.githubusercontent.com/57815944/230838053-f700cd05-9705-4eca-9952-51cc05d635ea.png">
+<img width="768" alt="img3" src="https://user-images.githubusercontent.com/57815944/230844874-842c27b7-1dd3-4340-a2e0-d81c6d1cf5fb.png">
 <img width="765" alt="Screen Shot 2023-04-09 at 8 55 28 PM" src="https://user-images.githubusercontent.com/57815944/230838209-37fd4152-a8a6-42b2-ab8d-adbc656e8361.png">
+
 
 # Project Pitch
 Ruby Rush is a open world game where players find themselves running from slimes and avoiding elements as they search for rubies.
