@@ -1,8 +1,7 @@
-package org.project.ServerSide;
+package org.project.DataState;
 
 import org.bson.Document;
 import org.json.simple.*;
-import org.project.ServerSide.DatabaseHandler;
 
 import java.io.*;
 import java.net.Socket;

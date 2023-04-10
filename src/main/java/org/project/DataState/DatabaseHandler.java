@@ -1,4 +1,4 @@
-package org.project.ServerSide;
+package org.project.DataState;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
