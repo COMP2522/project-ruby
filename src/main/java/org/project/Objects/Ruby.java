@@ -18,7 +18,7 @@ public class Ruby extends Element {
    */
   public Ruby() {
     try {
-      setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/ruby.png")));
+      setImage(ImageIO.read(new FileInputStream("assets/data/objects/ruby.png")));
     } catch (IOException e) {
       e.printStackTrace();
     }

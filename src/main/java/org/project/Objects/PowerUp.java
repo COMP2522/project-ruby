@@ -18,7 +18,7 @@ public class PowerUp extends Element {
    */
   public PowerUp() {
     try {
-      setImage(ImageIO.read(new FileInputStream("assets/mapData/objects/powerup2.png")));
+      setImage(ImageIO.read(new FileInputStream("assets/data/objects/powerup.png")));
     } catch (IOException e) {
       e.printStackTrace();
     }

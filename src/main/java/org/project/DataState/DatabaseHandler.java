@@ -27,15 +27,15 @@ public class DatabaseHandler {
   private static DatabaseHandler instance;
   private final MongoDatabase database;
   private final String myCollection = "savestate";
-  private final String user = "testuser";
-  private final String password = "testuser123";
-  private final String uri = "mongodb+srv://" + this.user + ":" + this.password + "@cluster0.2gojpcl.mongodb.net/?retryWrites=true&w=majority";
   ExecutorService executor;
 
   /** Constructs new DatabaseHandler singleton */
   private DatabaseHandler() {
     // connect
-    ConnectionString connectionString = new ConnectionString(this.uri);
+    String password = "testuser123";
+    String user = "testuser";
+    String uri = "mongodb+srv://" + user + ":" + password + "@cluster0.2gojpcl.mongodb.net/?retryWrites=true&w=majority";
+    ConnectionString connectionString = new ConnectionString(uri);
     MongoClientSettings settings = MongoClientSettings.builder()
         .applyConnectionString(connectionString)
         .serverApi(ServerApi.builder()
@@ -82,7 +82,6 @@ public class DatabaseHandler {
    * @param key, existing key of document
    * @param value, existing value of kv pair in document
    * @return Document
-   * TODO: need to make this async/take a callback
    */
   public Document get(String key, String value) {
     return this.database.getCollection(this.myCollection).find(eq(key, value)).first();

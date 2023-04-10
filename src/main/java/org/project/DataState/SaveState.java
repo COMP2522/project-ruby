@@ -95,12 +95,12 @@ public class SaveState {
 
   /**
    * Creates a JSONArray of Positionable objects consisting of each worldX and worldY.
-   * @param positionables, a Positionable array
+   * @param positional, a Positionable array
    * @return a JSONArray of JSONObjects with x and y properties
    */
-  private JSONArray arrToJSON(Positionable[] positionables) {
+  private JSONArray arrToJSON(Positionable[] positional) {
     JSONArray jsonArr = new JSONArray();
-    Arrays.stream(positionables)
+    Arrays.stream(positional)
         .filter(Objects::nonNull)
         .map(positionable -> {
             JSONObject jsonObject = new JSONObject();

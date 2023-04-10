@@ -30,7 +30,7 @@ public class Fire extends Element {
     fires = new BufferedImage[4];
     try {
       for (int i = 0; i < fires.length; i++) {
-        fires[i] = ImageIO.read(new FileInputStream("assets/mapData/objects/fire" + (i + 1) + ".png"));
+        fires[i] = ImageIO.read(new FileInputStream("assets/data/objects/fire" + (i + 1) + ".png"));
       }
     } catch (IOException e) {
       e.printStackTrace();
