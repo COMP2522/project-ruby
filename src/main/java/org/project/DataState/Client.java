@@ -2,6 +2,7 @@ package org.project.DataState;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
+
 import java.io.*;
 import java.net.*;
 
@@ -22,6 +23,7 @@ public class Client {
 
   /**
    * Constructs new Client
+   *
    * @param port an int,
    */
   public Client(int port) {
@@ -35,6 +37,7 @@ public class Client {
 
   /**
    * Sends JSONObject to Server
+   *
    * @param request, a JSONObject
    * @return response, a JSONObject
    */
@@ -105,6 +108,7 @@ public class Client {
 
   /**
    * Creates a JSONString to be sent to server
+   *
    * @param reqType, "POST" or "GET"
    * @return String, JSONObject as String
    */

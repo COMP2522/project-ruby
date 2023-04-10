@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 /**
  * Manages all key input from the player
+ *
  * @author Abhishek Chouhan
  * @version 2023-04-04
  */
@@ -12,7 +13,8 @@ public class KeyHandler implements KeyListener {
   public boolean upPressed, downPressed, leftPressed, rightPressed; // keys pressed
 
   @Override
-  public void keyTyped(KeyEvent e) {}  // not using this one garbage
+  public void keyTyped(KeyEvent e) {
+  }  // not using this one garbage
 
   @Override
   public void keyPressed(KeyEvent e) {

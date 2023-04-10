@@ -5,10 +5,12 @@ import org.project.Map.Positionable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
 import static org.project.SystemVariables.*;
 
 /**
  * Abstract class for an entity that can move across the map.
+ *
  * @author Team Ruby
  * @version 2023-04-04
  */
@@ -45,15 +47,17 @@ public abstract class Entity implements Positionable {
   // ---------------------All Animation related stuff above ------------------------///
 
   protected int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
-  
+
   public Entity(GamePanel gp) {
     this.gp = gp;
     // default location to spawn entities to (does not really matter, as this is being overridden in specific constructors
     // of subclasses
     this.hitbox = new Rectangle(10, 10, 28, 38);
   }
-  
-  /** Checks if Entity has collided with a tile. */
+
+  /**
+   * Checks if Entity has collided with a tile.
+   */
   public void checkCollision() {
     collision = false;
     gp.cDetector.checkTile(this);
@@ -64,8 +68,10 @@ public abstract class Entity implements Positionable {
       gp.player.invincible = true;
     }
   }
-  
-  /** Updates the entity depending on its current action. */
+
+  /**
+   * Updates the entity depending on its current action.
+   */
   public void update() {
     setAction();
     checkCollision();
@@ -84,7 +90,7 @@ public abstract class Entity implements Positionable {
     // spriteMax is actually the value after which sprite is switched
     // say spriteMax was 15, then the next sprite would be drawn after the previous sprite has been drawn for 15 times already
     spriteCounter++;
-    if(spriteCounter > spriteMax) {
+    if (spriteCounter > spriteMax) {
       if (spriteNum == 1) {
         spriteNum = 2;
       } else if (spriteNum == 2) {
@@ -93,9 +99,10 @@ public abstract class Entity implements Positionable {
       spriteCounter = 0;
     }
   }
-  
+
   /**
    * Draws the entity on the map, depending on if it is in view.
+   *
    * @param g2 Graphics to draw
    */
   public void draw(Graphics2D g2) {
@@ -111,22 +118,39 @@ public abstract class Entity implements Positionable {
       worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
       switch (direction) {
         case UP -> {
-          if (spriteNum == 1) {image = upR;}
-          if (spriteNum == 2) {image = upL;}
+          if (spriteNum == 1) {
+            image = upR;
+          }
+          if (spriteNum == 2) {
+            image = upL;
+          }
         }
         case DOWN -> {
-          if (spriteNum == 1) {image = downR;}
-          if (spriteNum == 2) {image = downL;}
+          if (spriteNum == 1) {
+            image = downR;
+          }
+          if (spriteNum == 2) {
+            image = downL;
+          }
         }
         case LEFT -> {
-          if (spriteNum == 1) {image = leftR;}
-          if (spriteNum == 2) {image = leftL;}
+          if (spriteNum == 1) {
+            image = leftR;
+          }
+          if (spriteNum == 2) {
+            image = leftL;
+          }
         }
         case RIGHT -> {
-          if (spriteNum == 1) {image = rightR;}
-          if (spriteNum == 2) {image = rightL;}
+          if (spriteNum == 1) {
+            image = rightR;
+          }
+          if (spriteNum == 2) {
+            image = rightL;
+          }
         }
-        default -> {}
+        default -> {
+        }
       }
       // if entity is invincible, draw it as transparent for few seconds
       if (invincible) {
@@ -141,17 +165,50 @@ public abstract class Entity implements Positionable {
   }
 
   // bunch of Getters and setters
-  public int getWorldX() { return worldX; }
-  public void setWorldX(int worldX) { this.worldX = worldX; }
-  public int getWorldY() { return worldY; }
-  public void setWorldY(int worldY) { this.worldY = worldY; }
-  public int getScreenX() { return screenX; }
-  public int getScreenY() { return screenY; }
-  public int getSpeed() {return speed;}
-  public void setSpeed(int newSpeed) {speed = newSpeed;}
-  public directions peekDirection() {return direction;}
-  public void changeDirection(directions direction) {this.direction = direction;}
-  public void setCollided(boolean colStat) {collision = colStat;}
+  public int getWorldX() {
+    return worldX;
+  }
+
+  public void setWorldX(int worldX) {
+    this.worldX = worldX;
+  }
+
+  public int getWorldY() {
+    return worldY;
+  }
+
+  public void setWorldY(int worldY) {
+    this.worldY = worldY;
+  }
+
+  public int getScreenX() {
+    return screenX;
+  }
+
+  public int getScreenY() {
+    return screenY;
+  }
+
+  public int getSpeed() {
+    return speed;
+  }
+
+  public void setSpeed(int newSpeed) {
+    speed = newSpeed;
+  }
+
+  public directions peekDirection() {
+    return direction;
+  }
+
+  public void changeDirection(directions direction) {
+    this.direction = direction;
+  }
+
+  public void setCollided(boolean colStat) {
+    collision = colStat;
+  }
+
   public abstract void setAction();
 
 }

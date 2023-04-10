@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * Abstract class for a static element on the map
+ *
  * @author Nathan Bartyuk
  * @version 2023-03-28
  */

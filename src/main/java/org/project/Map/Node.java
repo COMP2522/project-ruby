@@ -1,14 +1,12 @@
 package org.project.Map;
 
 /**
-
- This class represents a node used in the Path Finder algorithm.
-
- It contains pointers to adjacent nodes and various variables for calculation.
-
- @author Amrit Jhatu
-
- @version 2023-04-04
+ * This class represents a node used in the Path Finder algorithm.
+ * <p>
+ * It contains pointers to adjacent nodes and various variables for calculation.
+ *
+ * @author Amrit Jhatu
+ * @version 2023-04-04
  */
 public class Node {
   // A reference to the parent node
@@ -31,10 +29,10 @@ public class Node {
   protected boolean checked; // Indicates whether this node has been checked during the search process or not
 
   /**
-
-   Creates a new Node object with the given column and row indices.
-   @param col The column index of the node.
-   @param row The row index of the node.
+   * Creates a new Node object with the given column and row indices.
+   *
+   * @param col The column index of the node.
+   * @param row The row index of the node.
    */
   public Node(int col, int row) {
     this.col = col;

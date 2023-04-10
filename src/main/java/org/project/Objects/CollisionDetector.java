@@ -115,6 +115,7 @@ public class CollisionDetector {
 
   /**
    * Helper method that checks if tiles the entity is colliding with has collision.
+   *
    * @param tManager TileManager object.
    * @param tileNum, Tile index number to check.
    * @return True if tile at tileNum has collision set to true, false otherwise.
@@ -175,10 +176,10 @@ public class CollisionDetector {
   /**
    * Helper function to handle collision between player and game object.
    *
-   * @param p         The Player object
-   * @param gp1       The gamePanel object
-   * @param player    Boolean indicating if player collision should be tracked
-   * @param index     Index of game object with which player is colliding
+   * @param p      The Player object
+   * @param gp1    The gamePanel object
+   * @param player Boolean indicating if player collision should be tracked
+   * @param index  Index of game object with which player is colliding
    */
   private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
