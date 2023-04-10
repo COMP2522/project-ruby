@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Manages all key input from the player
+ * Manages all key input from the player.
  *
  * @author Abhishek Chouhan
  * @version 2023-04-04
