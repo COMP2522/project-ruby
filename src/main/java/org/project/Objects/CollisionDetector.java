@@ -117,7 +117,7 @@ public class CollisionDetector {
    * such as rubies, doors, and power-ups.
    *
    * @param p The Player object
-   * @return The index of the element with which the player is colliding, or 999 if no collision occurs.
+   * @return The index of the element which the player is colliding, or 999 if no collision occurs.
    */
   public int checkObject(Player p, boolean player) {
     int index = MAX_INDEX;
@@ -128,7 +128,8 @@ public class CollisionDetector {
         p.hitbox.x = p.getWorldX() + p.hitbox.x;
         p.hitbox.y = p.getWorldY() + p.hitbox.y;
 
-        // get the object's solid area position in the world map, because the hitbox value is relative to object
+        // get the object's solid area position in the world map, because the hitbox
+        // value is relative to object
         // and we need its position on the world map to perform checks
         // just add worldX to relative position of solid area to get the values.
         gp.elements[i].getHitbox().x = gp.elements[i].getWorldX() + gp.elements[i].getHitbox().x;
@@ -149,7 +150,8 @@ public class CollisionDetector {
           index = handleCollision(p, gp, player, i, index);
         }
 
-        // reset hitboxes to default values because we momentarily set them to be relative to worldMap
+        // Reset hitbox's to default values because we momentarily
+        // set them to be relative to worldMap
         p.hitbox.x = p.hitboxDefaultX;
         p.hitbox.y = p.hitboxDefaultY;
         gp.elements[i].getHitbox().x = 0;
@@ -162,10 +164,10 @@ public class CollisionDetector {
   /**
    * Helper function to handle collision between player and game object.
    *
-   * @param p      The Player object
-   * @param gp1    The gamePanel object
-   * @param player Boolean indicating if player collision should be tracked
-   * @param index  Index of game object with which player is colliding
+   * @param p         The Player object
+   * @param gp1       The gamePanel object
+   * @param player    Boolean indicating if player collision should be tracked
+   * @param index     Index of game object with which player is colliding
    */
   private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {
@@ -184,7 +186,7 @@ public class CollisionDetector {
    *
    * @param entity the entity on which the collision is being checked on
    * @param target the entities against which collision is being checked
-   * @return the index of the target entity that collided with the entity on which the check was performed on.
+   * @return the index of the target entity which collide with the entity which the check was done on.
    */
   public int checkEntityCollide(Entity entity, Entity[] target) {
     int index = MAX_INDEX;
