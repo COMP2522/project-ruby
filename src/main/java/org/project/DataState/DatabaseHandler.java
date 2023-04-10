@@ -29,7 +29,9 @@ public class DatabaseHandler {
   private final String myCollection = "savestate";
   ExecutorService executor;
 
-  /** Constructs new DatabaseHandler singleton */
+  /**
+   * Constructs new DatabaseHandler singleton
+   */
   private DatabaseHandler() {
     // connect
     String password = "testuser123";
@@ -39,15 +41,15 @@ public class DatabaseHandler {
     MongoClientSettings settings = MongoClientSettings.builder()
         .applyConnectionString(connectionString)
         .serverApi(ServerApi.builder()
-            .version(ServerApiVersion.V1)
-            .build())
+        .version(ServerApiVersion.V1)
+        .build())
         .build();
-    
+
     try (MongoClient mongoClient = MongoClients.create(settings)) {
       String dbName = "ruby";
       this.database = mongoClient.getDatabase(dbName);
     }
-    
+
     // test if collection exists
     try {
       this.database.createCollection(this.myCollection);
@@ -58,7 +60,8 @@ public class DatabaseHandler {
   }
 
   /**
-   * Gets instance of DatabaseHandler
+   * Gets instance of DatabaseHandler.
+   *
    * @return instance of DatabaseHandler
    */
   public static synchronized DatabaseHandler getInstance() {
@@ -67,10 +70,11 @@ public class DatabaseHandler {
     }
     return instance;
   }
-  
+
 
   /**
    * Writes new Document to collection.
+   *
    * @param document - Document to be written
    */
   public void put(Document document) {
@@ -79,7 +83,8 @@ public class DatabaseHandler {
 
   /**
    * Gets first Document in collection with key value.
-   * @param key, existing key of document
+   *
+   * @param key,   existing key of document
    * @param value, existing value of kv pair in document
    * @return Document
    */
@@ -89,9 +94,10 @@ public class DatabaseHandler {
 
   /**
    * Updates existing document in Collection
-   * @param key, existing key of document
+   *
+   * @param key,   existing key of document
    * @param value, existing value of kv pair in document
-   * @param doc, new document of new key value pairs
+   * @param doc,   new document of new key value pairs
    */
   public void update(String key, String value, Document doc) {
     this.database.getCollection(this.myCollection).updateOne(eq(key, value), new Document("$set", doc));

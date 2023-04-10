@@ -5,6 +5,7 @@ import org.project.UI.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -17,14 +18,15 @@ public class TileManager {
   GamePanel gp;
   public Tile[] tiles;
   protected int[][] map;
-  
+
   protected String mapPath = "assets/data/maps/map2.txt";
   protected String tilePath = "assets/data/tiles/";
   protected String[] tileName = {"grass.png", "wall.png", "water.png", "earth.png", "tree.png", "sand.png"};
   protected boolean[] tileCollide = {false, true, true, false, true, false};
-  
+
   /**
    * Constructs a new TileManager object
+   *
    * @param gp the GamePanel it belongs to
    */
   public TileManager(GamePanel gp) {
@@ -34,8 +36,10 @@ public class TileManager {
     getTileImage();
     loadMap();
   }
-  
-  /** Reads the map and gets assets for each tile */
+
+  /**
+   * Reads the map and gets assets for each tile
+   */
   public void getTileImage() {
     try {
       for (int i = 0; i < 6; i++) {
@@ -48,8 +52,10 @@ public class TileManager {
       e.printStackTrace();
     }
   }
-  
-  /** Parses map assets from file */
+
+  /**
+   * Parses map assets from file
+   */
   public void loadMap() {
     try {
       InputStream is = new FileInputStream(mapPath);
@@ -57,10 +63,10 @@ public class TileManager {
       int col = 0;
       int row = 0;
 
-      while (col< MAP_COL && row < MAP_ROW) {
+      while (col < MAP_COL && row < MAP_ROW) {
         String line = br.readLine();
         String[] numbers = line.split(" ");
-        while(col < MAP_COL) {
+        while (col < MAP_COL) {
           int num = Integer.parseInt(numbers[col]);
           map[col][row] = num;
           col++;
@@ -75,31 +81,32 @@ public class TileManager {
       throw new RuntimeException(e);
     }
   }
-  
+
   /**
    * Draws the map to screen
+   *
    * @param g2 the GamePanel to draw to
    */
   public void draw(Graphics2D g2) {
     int worldCol = 0;
     int worldRow = 0;
-    
+
     // Only processes sprites in the parsed map
-    while(worldCol < MAP_COL && worldRow < MAP_ROW) {
+    while (worldCol < MAP_COL && worldRow < MAP_ROW) {
       int tileNum = map[worldCol][worldRow];
       int worldX = worldCol * TILE_SIZE;
       int worldY = worldRow * TILE_SIZE;
       int screenX = worldX - gp.player.getWorldX() + gp.player.getScreenX();
       int screenY = worldY - gp.player.getWorldY() + gp.player.getScreenY();
-      
+
       // Only draws sprites in the window view
       if (worldX + TILE_SIZE > gp.player.getWorldX() - gp.player.getScreenX() &&
-          worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.getScreenX() &&
-          worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.getScreenY() &&
-          worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.getScreenY()) {
+        worldX - TILE_SIZE < gp.player.getWorldX() + gp.player.getScreenX() &&
+        worldY + TILE_SIZE > gp.player.getWorldY() - gp.player.getScreenY() &&
+        worldY - TILE_SIZE < gp.player.getWorldY() + gp.player.getScreenY()) {
         g2.drawImage(tiles[tileNum].sprite, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
       }
-      
+
       worldCol++;
       if (worldCol == MAP_COL) {
         worldCol = 0;

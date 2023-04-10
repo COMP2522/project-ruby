@@ -3,6 +3,7 @@ package org.project.Map;
 import org.project.UI.GamePanel;
 
 import java.util.ArrayList;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -26,6 +27,7 @@ public class PathFinder {
 
   /**
    * Constructs the new PathFinder object
+   *
    * @param gp GamePanel it applies to
    */
   public PathFinder(GamePanel gp) {
@@ -77,20 +79,22 @@ public class PathFinder {
         if (i > 0) {
           nodes[i][j].up = nodes[i - 1][j];
         }
-        if (i < MAP_ROW -1) { // one less than MapRow as index is from 0
+        if (i < MAP_ROW - 1) { // one less than MapRow as index is from 0
           nodes[i][j].down = nodes[i + 1][j];
         }
         if (j > 0) {
           nodes[i][j].left = nodes[i][j - 1];
         }
-        if (j < MAP_ROW -1) {  // one less than MapRow as index is from 0
+        if (j < MAP_ROW - 1) {  // one less than MapRow as index is from 0
           nodes[i][j].right = nodes[i][j + 1];
         }
       }
     }
   }
 
-  /** Reset nodes to default value. */
+  /**
+   * Reset nodes to default value.
+   */
   public void resetNodes() {
     // Initialize row and column variables to 0
     int col = 0;
@@ -125,10 +129,11 @@ public class PathFinder {
 
   /**
    * Set nodes to specific values.
+   *
    * @param startCol Current node column
    * @param startRow Current node row
-   * @param goalCol Goal node column
-   * @param goalRow Goal node row
+   * @param goalCol  Goal node column
+   * @param goalRow  Goal node row
    */
   public void setNodes(int startCol, int startRow, int goalCol, int goalRow) {
     // Reset all nodes in the map to their default values
@@ -171,6 +176,7 @@ public class PathFinder {
 
   /**
    * Get the A-Star cost
+   *
    * @param node Node to calculate
    */
   public void getCost(Node node) {

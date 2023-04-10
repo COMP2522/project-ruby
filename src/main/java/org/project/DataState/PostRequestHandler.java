@@ -9,7 +9,6 @@ import java.net.Socket;
 /**
  * Class that handles POST Requests received by Server.
  *
- * @version Greg Song
  * @version 2023-03-27
  */
 public class PostRequestHandler implements Runnable {
@@ -19,8 +18,9 @@ public class PostRequestHandler implements Runnable {
 
   /**
    * Constructs a new PostRequestHandler.
+   *
    * @param socket, the client socket
-   * @param obj, a JSONObject containing request data
+   * @param obj,    a JSONObject containing request data
    */
   public PostRequestHandler(Socket socket, JSONObject obj) {
     this.socket = socket;
@@ -30,6 +30,7 @@ public class PostRequestHandler implements Runnable {
 
   /**
    * Sends response to Client.
+   *
    * @param message a String
    * @throws IOException if error while sending response
    */
@@ -45,6 +46,7 @@ public class PostRequestHandler implements Runnable {
 
   /**
    * Creates JSON response to send to Client.
+   *
    * @param message a String, message to be sent to Client
    * @return response, a JSON string
    */
@@ -84,7 +86,7 @@ public class PostRequestHandler implements Runnable {
 //          throw new RuntimeException(e);
           System.err.println("Cant write to oos");
         }
-    } else {
+      } else {
         // create new document
         System.out.println("UID not found");
         Document newDoc = new Document("uid", obj.get("uid"));
