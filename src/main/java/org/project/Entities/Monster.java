@@ -75,6 +75,10 @@ public class Monster extends Entity {
     searchPath(goalCol, goalRow);
   }
 
+  public boolean equals(Monster b) {
+    return this.worldX == b.worldX && this.worldY == b.worldY ? true : false;
+  }
+
   /**
    * Determines the path the monster should take to the player.
    *
