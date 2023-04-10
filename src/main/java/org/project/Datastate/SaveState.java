@@ -10,7 +10,7 @@ import org.project.Entities.Player;
 import org.project.Entities.Villager;
 import org.project.Map.Positionable;
 import org.project.Objects.*;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 /**
  * Defines a save object which stores the current game state in a file.

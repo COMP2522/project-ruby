@@ -3,7 +3,7 @@ package org.project.Entities;
 import org.project.Objects.*;
 import org.project.Datastate.SaveState;
 import org.project.Datastate.SaveStateHandler;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

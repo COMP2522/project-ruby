@@ -3,7 +3,7 @@ package org.project.Entities;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import org.project.Map.Positionable;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 

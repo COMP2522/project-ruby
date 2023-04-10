@@ -3,7 +3,7 @@ package org.project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.project.Datastate.SaveState;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 public class SaveStateHandlerTest {
   private GamePanel gamePanel;

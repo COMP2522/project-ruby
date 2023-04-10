@@ -1,7 +1,7 @@
 package org.project;
 
 import java.io.IOException;
-import org.project.UI.GameLoader;
+import org.project.ui.GameLoader;
 
 
 /**

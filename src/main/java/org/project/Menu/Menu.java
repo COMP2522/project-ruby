@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.project.UI.GameLoader;
-import org.project.UI.GamePanel;
+import org.project.ui.GameLoader;
+import org.project.ui.GamePanel;
 
 
 /**

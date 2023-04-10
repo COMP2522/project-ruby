@@ -1,4 +1,4 @@
-package org.project.UI;
+package org.project.ui;
 
 import java.io.File;
 import java.net.MalformedURLException;

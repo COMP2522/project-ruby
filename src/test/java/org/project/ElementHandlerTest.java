@@ -7,7 +7,7 @@ import org.project.Entities.Monster;
 import org.project.Entities.Villager;
 import org.project.Objects.ElementHandler;
 import org.project.Objects.Ruby;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 

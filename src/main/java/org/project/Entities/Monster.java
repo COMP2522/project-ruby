@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 

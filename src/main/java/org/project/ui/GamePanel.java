@@ -1,4 +1,4 @@
-package org.project.UI;
+package org.project.ui;
 
 import org.project.Entities.Entity;
 import org.project.Entities.KeyHandler;
@@ -18,7 +18,7 @@ import static org.project.SystemVariables.*;
 /**
  * The GamePanel class represents the main panel of the game. It extends JPanel and implements Runnable.
  * This class contains the settings for the screen and manages the different managers, key handlers, entities,
- * and UI of the game. It also contains methods to update and draw the game and start the game thread.
+ * and ui of the game. It also contains methods to update and draw the game and start the game thread.
  *
  * @author Nathan Bartyuk, and Others
  * @version April 8, 2023
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
   public CollisionDetector cDetector = getCollisionDetector(this);
   public KeyHandler kHandler = new KeyHandler();
   public Player player = Player.getInstance(this, kHandler);
-  public UI ui = new UI(this);
+  public UserInterface ui = new UserInterface(this);
   public ElementHandler aHandler = new ElementHandler(this);
   public PathFinder pFinder = new PathFinder(this);
   public Sound sound = new Sound();
@@ -124,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
   /**
    * method to draw all components in the Game-J-Panel.
    * Calls the draw methods of all entities (NPCs, player, Monster)
-   * elements, objects and UI in a single place as the master method.
+   * elements, objects and ui in a single place as the master method.
    *
    * @param g the <code>Graphics</code> object attached to JPanel which helps in drawing
    */
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel implements Runnable {
       }
       // DRAW PLAYER
       player.draw(g2);
-      // Draw the UI
+      // Draw the ui
       ui.draw(g2);
     } else {
       drawGameOverScreen(g2);

@@ -3,7 +3,7 @@ package org.project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.project.Entities.Entity;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.project.SystemVariables.*;

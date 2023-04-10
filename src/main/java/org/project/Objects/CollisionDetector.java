@@ -3,7 +3,7 @@ package org.project.Objects;
 import org.project.Entities.Entity;
 import org.project.Entities.Player;
 import org.project.Map.TileManager;
-import org.project.UI.GamePanel;
+import org.project.ui.GamePanel;
 
 import static org.project.SystemVariables.*;
 
