@@ -7,6 +7,13 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * The Sound class represents a sound object that is responsible
+ * for playing different sound effects and background music in the game.
+ *
+ * @author Simrat Kaur
+ * @version April 09, 2023
+ */
 public class Sound {
 
   /**
@@ -46,7 +53,7 @@ public class Sound {
   }
 
   /**
-   * function to setup the clip and which sound to be played
+   * function to setup the clip and which sound to be played.
    *
    * @param i the int code of the file to be used (defined as static variables in class above)
    */
