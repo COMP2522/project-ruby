@@ -32,12 +32,16 @@ We created a custom data structure based on a network of nodes to replace the in
 # Contributions
 Abhishek
 - Player, Entity, UI, KeyHandler, UI, Life
+
 Amrit
 - Villager, Monster, Node, Pathfinder, ElementHandler testing
+
 Nathan
 - GamePanel, TileManager, Tile classes, refactoring, design
+
 Simrat
 - Objects package, CollisionDetector, Element, ElementHandler, sound testing 
+
 Greg Song
 - GameLauncher, SaveState, SaveStateHandler, Menu, MenuManager and related component classes
 
