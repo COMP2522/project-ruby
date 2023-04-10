@@ -66,7 +66,7 @@ public class SaveState {
   /**
    * Helper method to set the player data as a JSONObject.
    *
-   * @param player, current instance of Player
+   * @param player current instance of Player
    */
   private void setPlayerData(Player player) {
     if (player == null) {
@@ -87,7 +87,7 @@ public class SaveState {
   /**
    * Helper method to set the Game Panel data as a JSONObject.
    *
-   * @param gp, current instance of GamePanel.
+   * @param gp current instance of GamePanel.
    */
   private void setGamePanelData(GamePanel gp) {
     if (gp == null) {
@@ -103,7 +103,7 @@ public class SaveState {
   /**
    * Creates a JSONArray of Positionable objects consisting of each worldX and worldY.
    *
-   * @param positionables, a Positionable array
+   * @param positionables a Positionable array
    * @return a JSONArray of JSONObjects with x and y properties
    */
   private JSONArray arrToJSON(Positionable[] positionables) {

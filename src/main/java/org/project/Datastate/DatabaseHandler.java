@@ -7,13 +7,12 @@ import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.bson.Document;
 
 //import static java.util.Collections.eq;
 import static com.mongodb.client.model.Filters.eq;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Handles Database interactions with MongoDB. DatabaseHandler implements
@@ -30,13 +29,14 @@ public class DatabaseHandler {
   ExecutorService executor;
 
   /**
-   * Constructs new DatabaseHandler singleton
+   * Constructs new DatabaseHandler singleton.
    */
   private DatabaseHandler() {
     // connect
     String password = "testuser123";
     String user = "testuser";
-    String uri = "mongodb+srv://" + user + ":" + password + "@cluster0.2gojpcl.mongodb.net/?retryWrites=true&w=majority";
+    String uri = "mongodb+srv://" + user + ":" + password
+        + "@cluster0.2gojpcl.mongodb.net/?retryWrites=true&w=majority";
     ConnectionString connectionString = new ConnectionString(uri);
     MongoClientSettings settings = MongoClientSettings.builder()
         .applyConnectionString(connectionString)
@@ -84,8 +84,8 @@ public class DatabaseHandler {
   /**
    * Gets first Document in collection with key value.
    *
-   * @param key,   existing key of document
-   * @param value, existing value of kv pair in document
+   * @param key   existing key of document
+   * @param value existing value of kv pair in document
    * @return Document
    */
   public Document get(String key, String value) {
@@ -93,11 +93,11 @@ public class DatabaseHandler {
   }
 
   /**
-   * Updates existing document in Collection
+   * Updates existing document in Collection.
    *
-   * @param key,   existing key of document
-   * @param value, existing value of kv pair in document
-   * @param doc,   new document of new key value pairs
+   * @param key   existing key of document
+   * @param value existing value of kv pair in document
+   * @param doc   new document of new key value pairs
    */
   public void update(String key, String value, Document doc) {
     this.database.getCollection(this.myCollection).updateOne(eq(key, value),

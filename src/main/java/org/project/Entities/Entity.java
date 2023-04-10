@@ -1,10 +1,9 @@
 package org.project.Entities;
 
-import org.project.UI.GamePanel;
-import org.project.Map.Positionable;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import org.project.Map.Positionable;
+import org.project.UI.GamePanel;
 
 import static org.project.SystemVariables.*;
 
@@ -41,17 +40,22 @@ public abstract class Entity implements Positionable {
   protected final int indexMax = 999; // Max number of elements that can be displayed in tile array
 
   // below two variables are only being accessed by the server
-  public int spriteCounter = 0; // variable to count exactly how many instances of a single sprite have already been drawn
+  public int spriteCounter = 0; // var to count how many instances of a sprite have been drawn
   public int spriteNum = 1; // the current sprite to be displayed
   protected int actionLockCounter = 0;
   // ---------------------All Animation related stuff above ------------------------///
 
   protected int type; // 0 = player, 1 = npc, 2 = monster, 3 = projectile
 
+  /**
+   * Constructor for Entity.
+   *
+   * @param gp GamePanel instance being accessed by all Entities
+   */
   public Entity(GamePanel gp) {
     this.gp = gp;
-    // default location to spawn entities to (does not really matter, as this is being overridden in specific constructors
-    // of subclasses
+    // default location to spawn entities to (does not really matter
+    // as this is being overridden in specific constructors of subclasses
     this.hitbox = new Rectangle(10, 10, 28, 38);
   }
 
@@ -88,7 +92,8 @@ public abstract class Entity implements Positionable {
 
     // update Entity sprite after a set counter
     // spriteMax is actually the value after which sprite is switched
-    // say spriteMax was 15, then the next sprite would be drawn after the previous sprite has been drawn for 15 times already
+    // say spriteMax was 15, then the next sprite would be drawn after
+    // the previous sprite has been drawn for 15 times already
     spriteCounter++;
     if (spriteCounter > spriteMax) {
       if (spriteNum == 1) {
@@ -110,12 +115,13 @@ public abstract class Entity implements Positionable {
     int screenX = worldX - gp.player.worldX + gp.player.screenX;
     int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-    // draw an entity if camera is in focus, that is the player is nearby the entity, otherwise save processing
-    // and conserve resources (the entities are still updated, just not drawn out of window)
-    if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-      worldX - TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-      worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-      worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+    // draw an entity if camera is in focus, that is the player is nearby the entity
+    //  otherwise save processing and conserve resources
+    // (the entities are still updated, just not drawn out of window)
+    if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX
+        && worldX - TILE_SIZE < gp.player.worldX + gp.player.screenX
+        && worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY
+        && worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
       switch (direction) {
         case UP -> {
           if (spriteNum == 1) {
@@ -159,7 +165,7 @@ public abstract class Entity implements Positionable {
       g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
       // Draw hitbox for debugging purposes
       // g2.setColor(Color.red);
-      // g2.drawRect(screenX + hitboxDefaultX, screenY + hitboxDefaultY, hitbox.width, hitbox.height);
+      // g2.drawRect(screenX + hitboxDefaultX,screenY+ hitboxDefaultY, hitbox.width, hitbox.height);
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
   }
