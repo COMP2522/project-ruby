@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
+
 import org.project.UI.GamePanel;
+
 import static org.project.SystemVariables.*;
 
 /**
@@ -24,7 +26,7 @@ public class Villager extends Entity {
   /**
    * Constructs the Villager object.
    *
-   * @param gp GamePanel what it belongs to
+   * @param gp   GamePanel what it belongs to
    * @param posX Villager position X
    * @param posY Villager position Y
    */
@@ -45,7 +47,9 @@ public class Villager extends Entity {
     getImage();
   }
 
-  /** Gets the image for each sprite. */
+  /**
+   * Gets the image for each sprite.
+   */
   public void getImage() {
     try {
       downR = ImageIO.read(new FileInputStream("assets/player/oldman_down_right.png"));

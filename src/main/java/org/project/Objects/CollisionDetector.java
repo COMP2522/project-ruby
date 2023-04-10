@@ -164,10 +164,10 @@ public class CollisionDetector {
   /**
    * Helper function to handle collision between player and game object.
    *
-   * @param p         The Player object
-   * @param gp1       The gamePanel object
-   * @param player    Boolean indicating if player collision should be tracked
-   * @param index     Index of game object with which player is colliding
+   * @param p      The Player object
+   * @param gp1    The gamePanel object
+   * @param player Boolean indicating if player collision should be tracked
+   * @param index  Index of game object with which player is colliding
    */
   private int handleCollision(Player p, GamePanel gp1, boolean player, int i, int index) {
     if (p.hitbox.intersects(gp1.elements[i].getHitbox())) {

@@ -11,7 +11,7 @@ import static org.project.SystemVariables.*;
 public class EntityTest {
 
   private TestEntity testEntity;
-  
+
   @BeforeEach
   public void setUp() {
     GamePanel testGamePanel = GamePanel.getGamePanel();
