@@ -2,7 +2,6 @@ package org.project.Map;
 
 /**
  * Node created to implement the Path Finder algorithm
- *
  * @author Amrit Jhatu
  * @version 2023-04-04
  */

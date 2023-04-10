@@ -121,15 +121,15 @@ public class ElementHandler {
     gp.monster[3].setWorldY((gp.monster[3]).getWorldY() * TILE_SIZE);
   }
 
-  /**
-   * Spawns new elements randomly within the game panel.
-   * This method is called at a fixed interval during the
-   * game and new elements such as rubies fire are added to
-   * the game panel's list of elements.
-   * <p>
-   * This method also removes the previously spawned elements
-   * before adding new ones.
-   */
+/**
+ * Spawns new elements randomly within the game panel.
+ * This method is called at a fixed interval during the
+ * game and new elements such as rubies fire are added to
+ * the game panel's list of elements.
+ *
+ * This method also removes the previously spawned elements
+ * before adding new ones.
+ */
   public void spawnElements() {
     // Remove all previous elements
     for (int i = 2; i < ARRAY_SIZE; i++) {

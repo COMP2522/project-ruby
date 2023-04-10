@@ -28,7 +28,7 @@ public class Player extends Entity {
 
   // Player stats
   public static final int MAX_LIVES = 6;
-
+  
   private status currentStatus;
   private int currentLives;
   private int currentRubies;
@@ -36,12 +36,10 @@ public class Player extends Entity {
   // player does not need a setAction method because it is being controlled by the User
   // hence, we override it with an empty definition that is not being used.
   @Override
-  public void setAction() {
-  }
+  public void setAction() {}
 
   /**
    * private constructor to initialize an instance of Player class
-   *
    * @param gp the window/ GamePanel in which the player is being drawn in
    * @param kh KeyHandler class that interprets input (to be utilized a lot to update player direction)
    */
@@ -58,7 +56,7 @@ public class Player extends Entity {
 
     // fix player to the center of the screen, it is not the player who's actually moving
     // it's the camera/ map :)
-    this.screenX = (gp.screenWidth - TILE_SIZE) / 2;  // divide by half to get to centre
+    this.screenX = (gp.screenWidth  - TILE_SIZE) / 2;  // divide by half to get to centre
     this.screenY = (gp.screenHeight - TILE_SIZE) / 2;
 
     /*
@@ -66,13 +64,13 @@ public class Player extends Entity {
        the 10, 16 are the x and y coordinate of the hitbox relative to the player
        Specifically, these are from the top-left corner of the player's sprite.
      */
-    this.hitbox = new Rectangle(10, 16, 28, 28);
+    this.hitbox = new Rectangle(10, 16,28,28);
     this.hitboxDefaultX = 10;
     this.hitboxDefaultY = 16;
 
     this.speed = 4;
     this.direction = directions.DOWN; // initial direction of the player
-
+    
     this.currentLives = MAX_LIVES;
     this.currentRubies = 0;
     this.currentStatus = status.ALIVE;
@@ -82,7 +80,6 @@ public class Player extends Entity {
   /**
    * method to get an instance of the player class from the private constructor.
    * This method ensures only one instance of player can exist at a time.
-   *
    * @param gp the GamePanel used in the game thread
    * @param kh the keyhandler object handling all key inputs
    * @return new player object if new instance, else return previously instantiated instance.
@@ -98,7 +95,7 @@ public class Player extends Entity {
    * sets up all image instances of the player.
    */
   public void getPlayerImage() {
-    try {
+    try{
       downR = ImageIO.read(new FileInputStream("assets/player/PlayerDownR.png"));
       downL = ImageIO.read(new FileInputStream("assets/player/PlayerDownL.png"));
       upR = ImageIO.read(new FileInputStream("assets/player/PlayerUpR.png"));
@@ -107,7 +104,7 @@ public class Player extends Entity {
       leftL = ImageIO.read(new FileInputStream("assets/player/PlayerLeftL.png"));
       rightR = ImageIO.read(new FileInputStream("assets/player/PlayerRightR.png"));
       rightL = ImageIO.read(new FileInputStream("assets/player/PlayerRightL.png"));
-    } catch (IOException e) {
+    } catch(IOException e) {
       System.out.println("Image can't be read");
       e.printStackTrace();
     }
@@ -116,7 +113,6 @@ public class Player extends Entity {
   /**
    * manages the position, sprite and all interactions of the player.
    * Utilizes a bunch of helper and modular functions to achieve above functionality.
-   *
    * @param gp the window Instance in which the player is being drawn in
    * @param kh the keyHandler Instance taking care of all inputs
    */
@@ -132,15 +128,15 @@ public class Player extends Entity {
       // check collision with tile
       collision = false;
       gp.cDetector.checkTile(this);
-
+  
       // Check collision/Interaction with objects
       int objectIndex = gp.cDetector.checkObject(this, true);
       pickupObject(objectIndex, gp);
-
+  
       // Check collision with NPC
       int npcIndex = gp.cDetector.checkEntityCollide(this, gp.npc);
       interactNPC(npcIndex);
-
+  
       // Check collision with Monster
       int monsterIndex = gp.cDetector.checkEntityCollide(this, gp.monster);
       interactMonster(monsterIndex);
@@ -158,7 +154,6 @@ public class Player extends Entity {
    * method used to update the direction of the player.
    * This function uses the input caught by the keyHandler class (stored as a static variable in kh)
    * By accessing that variable we know what the last key pressed was and update direction accordingly.
-   *
    * @param kh the keyHandler instance
    */
   private void updateDirection(KeyHandler kh) {
@@ -217,15 +212,14 @@ public class Player extends Entity {
       }
     }
   }
-
+  
   /**
    * Defines object collision/pickingUp behaviour of player
-   *
    * @param index The index of the player on the max
-   * @param gp    The game panel the player belongs to
+   * @param gp The game panel the player belongs to
    */
   public void pickupObject(int index, GamePanel gp) {
-    if (index != this.indexMax) {
+    if(index != this.indexMax) {
       Class<? extends Element> className = gp.elements[index].getClass();
 
       // check what kind of element the player ran into
@@ -269,22 +263,20 @@ public class Player extends Entity {
 
   /**
    * Method to handle player interaction with NPC- docile characters.
-   *
    * @param index the hit area passed by index
    */
   public void interactNPC(int index) {
-    if (index != this.indexMax) {
+    if(index != this.indexMax) {
       gp.ui.showMessage("Watch where you're going!");
     }
   }
 
   /**
    * method to handle player interaction with hostile characters.
-   *
    * @param index the hit area passed by index
    */
   public void interactMonster(int index) {
-    if (index != this.indexMax) {
+    if(index != this.indexMax) {
       if (!invincible) {
         currentLives--;
         invincible = true;
@@ -292,24 +284,20 @@ public class Player extends Entity {
       gp.ui.showMessage("Monster.. RUN!!");
     }
   }
-
+  
   // A bunch of getters and setters for instance variables
   public int getLives() {
     return currentLives;
   }
-
   public void setLives(int lives) {
     this.currentLives = lives;
   }
-
   public int getCurrentRubies() {
     return currentRubies;
   }
-
   public void setCurrentRubies(int rubies) {
     this.currentRubies = rubies;
   }
-
   public status getCurrentStatus() {
     return currentStatus;
   }

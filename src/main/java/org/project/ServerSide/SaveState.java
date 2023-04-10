@@ -36,7 +36,6 @@ public class SaveState {
 
   /**
    * Loads Player variables from JSON playerData.
-   *
    * @param player a Player object in game
    */
   public void load(Player player, GamePanel gamePanel) {
@@ -52,17 +51,15 @@ public class SaveState {
     player.spriteNum = ((Long) playerData.get("spriteNum")).intValue();
     player.setLives(((Long) playerData.get("lives")).intValue());
     player.setCurrentRubies(((Long) playerData.get("rubies")).intValue());
-
+    
     gamePanel.elements = parseElementArr((JSONArray) this.gamePanelData.get("elementArr"));
     gamePanel.npc = parseNPCArr((JSONArray) this.gamePanelData.get("npcArr"));
     gamePanel.monster = parseMonsterArr((JSONArray) this.gamePanelData.get("monsterArr"));
   }
 
   /* Helper methods */
-
   /**
    * Helper method to set the player data as a JSONObject.
-   *
    * @param player, current instance of Player
    */
   private void setPlayerData(Player player) {
@@ -83,7 +80,6 @@ public class SaveState {
 
   /**
    * Helper method to set the Game Panel data as a JSONObject.
-   *
    * @param gp, current instance of GamePanel
    */
   private void setGamePanelData(GamePanel gp) {
@@ -99,28 +95,26 @@ public class SaveState {
 
   /**
    * Creates a JSONArray of Positionable objects consisting of each worldX and worldY.
-   *
    * @param positionables, a Positionable array
    * @return a JSONArray of JSONObjects with x and y properties
    */
   private JSONArray arrToJSON(Positionable[] positionables) {
     JSONArray jsonArr = new JSONArray();
     Arrays.stream(positionables)
-      .filter(Objects::nonNull)
-      .map(positionable -> {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("type", positionable.getClass().getSimpleName());
-        jsonObject.put("x", positionable.getWorldX());
-        jsonObject.put("y", positionable.getWorldY());
-        return jsonObject;
-      })
-      .forEach(jsonArr::add);
-    return jsonArr;
+        .filter(Objects::nonNull)
+        .map(positionable -> {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("type", positionable.getClass().getSimpleName());
+            jsonObject.put("x", positionable.getWorldX());
+            jsonObject.put("y", positionable.getWorldY());
+            return jsonObject;
+        })
+        .forEach(jsonArr::add);
+      return jsonArr;
   }
 
   /**
    * Parses JSONArray and returns Element array.
-   *
    * @param objs JSONArray, in save file
    * @return Element[]
    */
@@ -135,7 +129,6 @@ public class SaveState {
 
   /**
    * Parse JSONArray and returns Monster array.
-   *
    * @param objs a JSONObject representing Monster
    * @return Entity[]
    */
@@ -153,7 +146,6 @@ public class SaveState {
 
   /**
    * Parse JSONArray and return NPC array.
-   *
    * @param objs a JSONObject representing NPC
    * @return Entity[]
    */
@@ -171,7 +163,6 @@ public class SaveState {
 
   /**
    * Converts JSONObject representing Element and converts to Element subtype.
-   *
    * @param obj a JSONObject representing Element
    * @return Ruby, Fire, PowerUp or Door with proper worldX and worldY
    */
@@ -205,21 +196,18 @@ public class SaveState {
       default -> throw new IllegalArgumentException("Invalid entity type: " + type);
     }
   }
-
+  
   public JSONObject getPlayerData() {
     return this.playerData;
   }
-
   public JSONObject getGamePanelData() {
     return this.gamePanelData;
   }
-
   public void setSaveState(GamePanel gp) {
     this.gamePanel = gp;
     setPlayerData(gp.player);
     setGamePanelData(gp);
   }
-
   public void setSaveState(JSONObject json) {
     this.gamePanelData = (JSONObject) json.get("gamePanelData");
     this.playerData = (JSONObject) json.get("playerData");

@@ -6,25 +6,19 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
 public class Sound {
 
-  /**
-   * int codes for Sounds being used in this project.
-   */
+  /** int codes for Sounds being used in this project.*/
   public static final int backgroundMusic = 0;
   public static final int rubyGetSound = 1;
   public static final int doorOpenSound = 2;
   public static final int powerUpSound = 3;
   public static final int runningSound = 4;
 
-  /**
-   * Clip object from the java package through which sound is being output in AudioStream.
-   */
+  /** Clip object from the java package through which sound is being output in AudioStream.*/
   public Clip clip;
 
-  /**
-   * stores the file in-system URLs of all sound files to be set to clip whenever
+  /** stores the file in-system URLs of all sound files to be set to clip whenever
    * a particular sound is to be played.
    */
   private final URL[] soundURL = new URL[30];
@@ -47,7 +41,6 @@ public class Sound {
 
   /**
    * function to setup the clip and which sound to be played
-   *
    * @param i the int code of the file to be used (defined as static variables in class above)
    */
   public void setFile(int i) {

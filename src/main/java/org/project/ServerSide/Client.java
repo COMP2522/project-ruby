@@ -2,7 +2,6 @@ package org.project.ServerSide;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
-
 import java.io.*;
 import java.net.*;
 
@@ -23,7 +22,6 @@ public class Client {
 
   /**
    * Constructs new Client
-   *
    * @param port an int,
    */
   public Client(int port) {
@@ -37,7 +35,6 @@ public class Client {
 
   /**
    * Sends JSONObject to Server
-   *
    * @param request, a JSONObject
    * @return response, a JSONObject
    */
@@ -108,7 +105,6 @@ public class Client {
 
   /**
    * Creates a JSONString to be sent to server
-   *
    * @param reqType, "POST" or "GET"
    * @return String, JSONObject as String
    */
@@ -121,7 +117,7 @@ public class Client {
     // for POST request
     if (reqType.equals(POST)) {
       JSONArray rowArray = new JSONArray();
-
+      
       // TODO: replace values with saveState.value
       System.out.println("creating request");
       req.put("uid", "1");
@@ -148,11 +144,13 @@ public class Client {
     // return JSONObject as String
     return req.toJSONString();
   }
-
+  
 
   /**
-   * @param args - took out throws IOException, ClassNotFoundException, InterruptedException
-   *             - to show why we want good exceptions
+   *
+   * @param args
+   * - took out throws IOException, ClassNotFoundException, InterruptedException
+   * - to show why we want good exceptions
    */
   public static void main(String[] args) throws IOException {
     Client client = new Client(5000);

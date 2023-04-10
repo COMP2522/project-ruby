@@ -3,7 +3,6 @@ package org.project.Map;
 import org.project.UI.GamePanel;
 
 import java.util.ArrayList;
-
 import static org.project.SystemVariables.*;
 
 /**
@@ -24,17 +23,16 @@ public class PathFinder {
   Node startNode, goalNode, currentNode;
   boolean goalReached = false;
   int step = 0;
-
+  
   /**
    * Constructs the new PathFinder object
-   *
    * @param gp GamePanel it applies to
    */
   public PathFinder(GamePanel gp) {
     this.gp = gp;
     instantiateNodes();
   }
-
+  
   /**
    * Sets up nodes for calculations.
    * This method instantiates all the nodes in the game's map
@@ -64,10 +62,8 @@ public class PathFinder {
     }
   }
 
-
-  /**
-   * Reset nodes to default value.
-   */
+  
+  /** Reset nodes to default value. */
   public void resetNodes() {
     // Initialize row and column variables to 0
     int col = 0;
@@ -99,14 +95,13 @@ public class PathFinder {
     step = 0;
   }
 
-
+  
   /**
    * Set nodes to specific values.
-   *
    * @param startCol Current node column
    * @param startRow Current node row
-   * @param goalCol  Goal node column
-   * @param goalRow  Goal node row
+   * @param goalCol Goal node column
+   * @param goalRow Goal node row
    */
   public void setNodes(int startCol, int startRow, int goalCol, int goalRow) {
     // Reset all nodes in the map to their default values
@@ -147,10 +142,9 @@ public class PathFinder {
     }
   }
 
-
+  
   /**
    * Get the A-Star cost
-   *
    * @param node Node to calculate
    */
   public void getCost(Node node) {

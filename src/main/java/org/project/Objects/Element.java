@@ -48,9 +48,9 @@ public abstract class Element implements Positionable {
    */
   public void drawIfVisible(Graphics2D g2, GamePanel gp, int screenX, int screenY) {
     if (((worldX + TILE_SIZE) > (gp.player.getWorldX() - gp.player.getScreenX())) &&
-      ((worldX - TILE_SIZE) < (gp.player.getWorldX() + gp.player.getScreenX())) &&
-      ((worldY + TILE_SIZE) > (gp.player.getWorldY() - gp.player.getScreenY())) &&
-      ((worldY - TILE_SIZE) < (gp.player.getWorldY() + gp.player.getScreenY()))) {
+        ((worldX - TILE_SIZE) < (gp.player.getWorldX() + gp.player.getScreenX())) &&
+        ((worldY + TILE_SIZE) > (gp.player.getWorldY() - gp.player.getScreenY())) &&
+        ((worldY - TILE_SIZE) < (gp.player.getWorldY() + gp.player.getScreenY()))) {
       g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
   }
