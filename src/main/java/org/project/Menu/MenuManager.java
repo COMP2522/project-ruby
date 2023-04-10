@@ -15,7 +15,6 @@ import java.util.ArrayList;
  * The MenuManger class handles the logic and event handling for the Menu.
  * It implements KeyListener and MouseListener interfaces to handle keyboard
  * and mouse events.
- *
  * @author Greg Song
  * @version 2023-04-09
  */
@@ -25,7 +24,6 @@ public class MenuManager implements KeyListener, MouseListener {
     NEW_GAME,
     LOAD_GAME
   }
-
   private MenuState menuState;
   private final Menu menu;
   private final MenuTextField textField;
@@ -38,10 +36,9 @@ public class MenuManager implements KeyListener, MouseListener {
 
   /**
    * Constructs the MenuManager class.
-   *
-   * @param menu       The Menu object this manages.
+   * @param menu The Menu object this manages.
    * @param gameLoader The GameLoader object that loads and starts the game.
-   * @param gamePanel  The GamePanel that displays the game.
+   * @param gamePanel The GamePanel that displays the game.
    */
   public MenuManager(Menu menu, GameLoader gameLoader, GamePanel gamePanel) {
     this.menuState = MenuState.MAIN_MENU;
@@ -58,7 +55,6 @@ public class MenuManager implements KeyListener, MouseListener {
 
   /**
    * Helper method for handling username input. Passes username to SaveStateHandler.
-   *
    * @param textField, a MenuTextField
    */
   private void handleTextInput(MenuTextField textField) {
@@ -77,7 +73,6 @@ public class MenuManager implements KeyListener, MouseListener {
 
   /**
    * Checks if character is a valid character for username input.
-   *
    * @param c The character to be checked.
    * @return true if character is valid, false otherwise.
    */
@@ -88,7 +83,6 @@ public class MenuManager implements KeyListener, MouseListener {
   /**
    * Overrides keyTyped method from the KeyListener interface. Handles input
    * to MenuTextField.
-   *
    * @param e KeyEvent object representing the key event.
    */
   @Override
@@ -105,7 +99,6 @@ public class MenuManager implements KeyListener, MouseListener {
    * Overrides the mouseClicked method from MouseListener interface. Handles
    * mouse click events on MenuButtons. Used to which Button with ButtonName
    * is clicked, and handles accordingly.
-   *
    * @param e MouseEvent to be processed.
    */
   @Override
@@ -175,18 +168,18 @@ public class MenuManager implements KeyListener, MouseListener {
    * error.
    */
   private void handleLoadGameSubmit(GamePanel gamePanel) {
-    handleTextInput(textField);
-    SaveState saveState = null;
-    try {
-      saveState = saveStateHandler.load();
-    } catch (FileNotFoundException ex) {
+      handleTextInput(textField);
+      SaveState saveState = null;
+      try {
+        saveState = saveStateHandler.load();
+      } catch (FileNotFoundException ex) {
 //        throw new RuntimeException(ex);
-      textField.setTextColor(Color.RED);
-      menu.repaint();
+        textField.setTextColor(Color.RED);
+        menu.repaint();
 //        textField.setTextColor(Color.BLACK);
-    }
-    saveState.load(gamePanel.player, gamePanel);
-    gameLoader.switchToGamePanel();
+      }
+      saveState.load(gamePanel.player, gamePanel);
+      gameLoader.switchToGamePanel();
   }
 
   /**
@@ -204,7 +197,6 @@ public class MenuManager implements KeyListener, MouseListener {
    * Overrides keyPressed method in KeyListener interface. Enables Submit
    * action on Enter key press, and removing characters from TextField on
    * Backspace key press.
-   *
    * @param e The KeyEvent to process.
    */
   @Override
@@ -214,7 +206,7 @@ public class MenuManager implements KeyListener, MouseListener {
       textField.removeChar();
       textField.setTextColor(Color.BLACK);
       menu.repaint();
-    } else if (keyCode == KeyEvent.VK_ENTER && this.menuState != MenuState.MAIN_MENU) {
+    } else if (keyCode == KeyEvent.VK_ENTER && this.menuState != MenuState.MAIN_MENU){
       handleSubmit();
     }
   }
@@ -222,27 +214,17 @@ public class MenuManager implements KeyListener, MouseListener {
   /**
    * Default empty implementation of MouseLister and KeyListener interfaces.
    * No action performed.
-   *
    * @param e the event to be processed
    */
   @Override
-  public void mousePressed(MouseEvent e) {
-  }
-
+  public void mousePressed(MouseEvent e) {}
   @Override
-  public void mouseReleased(MouseEvent e) {
-  }
-
+  public void mouseReleased(MouseEvent e) {}
   @Override
-  public void mouseEntered(MouseEvent e) {
-  }
-
+  public void mouseEntered(MouseEvent e) {}
   @Override
-  public void mouseExited(MouseEvent e) {
-  }
-
+  public void mouseExited(MouseEvent e) {}
   @Override
-  public void keyReleased(KeyEvent e) {
-  }
+  public void keyReleased(KeyEvent e) {}
 
 }

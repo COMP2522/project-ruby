@@ -79,4 +79,4 @@ public class SoundTest {
     sound.loop();
     assertFalse(sound.clip.isRunning());
   }
-}
+  }

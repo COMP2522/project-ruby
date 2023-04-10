@@ -9,7 +9,6 @@ import java.io.IOException;
 /**
  * GameLoader is the entry point for this game.
  * It initializes SaveStateHandler, Window, game and menu panels and manages switching between them.
- *
  * @author Greg Song
  * @version 2023-04-03
  */
@@ -17,7 +16,7 @@ public class GameLoader {
   private final JFrame window;
   private final JPanel menuPanel;
   private final GamePanel gamePanel;
-
+  
   /**
    * Constructs GameLoader. Instantiating GameLoader starts the game in JFrame,
    * and initializes SaveStateHandler.

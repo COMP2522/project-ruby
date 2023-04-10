@@ -49,6 +49,5 @@ public class ElementTest {
   }
 
   // Concrete subclass of Element for testing
-  private static class ConcreteElement extends Element {
-  }
+  private static class ConcreteElement extends Element {}
 }

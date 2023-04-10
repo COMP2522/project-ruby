@@ -19,16 +19,13 @@ public class SaveStateHandler {
   private String username;
   private String pathName = dirPath + username + extension;
 
-  /**
-   * Private constructor to enforce Singleton pattern.
-   */
+  /** Private constructor to enforce Singleton pattern. */
   private SaveStateHandler() {
     this.saveState = SaveState.getInstance();
   }
 
   /**
    * Returns singleton instance of SaveStateHandler.
-   *
    * @return SaveStateHandler instance
    */
   public static SaveStateHandler getInstance() {
@@ -59,9 +56,8 @@ public class SaveStateHandler {
 
   /**
    * Loads save data JSON file from directory and returns saveState.
-   *
-   * @return SaveState object
    * @throws FileNotFoundException When user file is not found
+   * @return SaveState object
    */
   public SaveState load() throws FileNotFoundException {
     File saveFile = new File(dirPath + username + extension);
@@ -79,7 +75,6 @@ public class SaveStateHandler {
 
   /**
    * Sets username.
-   *
    * @param username a String, used as file name of save data
    */
   public void setUsername(String username) {

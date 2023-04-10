@@ -4,9 +4,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
 import org.project.UI.GamePanel;
-
 import static org.project.SystemVariables.*;
 
 /**
@@ -22,11 +20,11 @@ import static org.project.SystemVariables.*;
  * @version 2023-03-27
  */
 public class Monster extends Entity {
-
+  
   /**
    * Constructs the Monster object.
    *
-   * @param gp   GamePanel it belongs to
+   * @param gp GamePanel it belongs to
    * @param posX Monster position X
    * @param posY Monster position Y
    */
@@ -46,10 +44,8 @@ public class Monster extends Entity {
     direction = directions.DOWN;
     getImage();
   }
-
-  /**
-   * Gets the image for each sprite.
-   */
+  
+  /** Gets the image for each sprite. */
   public void getImage() {
     try {
       downR = ImageIO.read(new FileInputStream("assets/monsters/Slime_Contract.png"));
