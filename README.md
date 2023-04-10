@@ -43,6 +43,6 @@ Simrat
 - Objects package, CollisionDetector, Element, ElementHandler, sound testing 
 
 Greg Song
-- GameLauncher, SaveState, SaveStateHandler, Menu, MenuManager and related component classes
+- GameLauncher, SaveState, SaveStateHandler, Menu package
 
 
