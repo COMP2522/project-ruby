@@ -1,115 +1,50 @@
-# Project
+# Project Ruby
+<img width="771" alt="img1" src="https://user-images.githubusercontent.com/57815944/230837983-6182570e-b60a-4536-8f97-497583231af3.png">
+<img width="765" alt="img2" src="https://user-images.githubusercontent.com/57815944/230838053-f700cd05-9705-4eca-9952-51cc05d635ea.png">
+<img width="768" alt="img3" src="https://user-images.githubusercontent.com/57815944/230844874-842c27b7-1dd3-4340-a2e0-d81c6d1cf5fb.png">
+<img width="765" alt="Screen Shot 2023-04-09 at 8 55 28 PM" src="https://user-images.githubusercontent.com/57815944/230838209-37fd4152-a8a6-42b2-ab8d-adbc656e8361.png">
 
-## Technical Project Requirements
 
-The minimum requirements for the project are outlined here to give you a starting point. Meeting the minimum requirements alone will not guarantee you a good mark. You are welcome to meet and exceed the minimum requirements if you have good, creative ideas and would like to discuss them with me.
+# Project Pitch
+Ruby Rush is a open world game where players find themselves running from slimes and avoiding elements as they search for rubies.
 
-**Requirement 1**: The project must incorporate some visual interface using Processing.org libraries. All user interaction must be conducted via this interface.
+# Instructions
+1. Run Main.java
+2. Follow the Menu interface, using mouse and keyboard inputs, to set a username that will be used to get your saved game, and begin.
+3. Collect Rubies and don't get hit by monsters by using the WASD keys.
+4. Game elements will teleport at random every couple of seconds.
+5. Survive as long as you can.
 
-**Requirement 2**: The project must incorporate some kind of non-blocking concurrent/asynchronous processing that happens at regular intervals. For example, you might push or fetch data from in the background.
 
-**Requirement 3**: The project must incorporate some kind of non-trivial persistent data state that must be read, processed, and written at regular intervals. For example, you might save a game state in a JSON file. This may or may not be included with Requirement 2.
+# Requirements
+**Requirement 1:** 
+We used Java Graphics to draw all of our user interfaces, which has similar methods to Processing.org. Then it will be drawn in a JPanel.
 
-**Requirement 4**: The project must incorporate some kind of self-managing custom iterable data structure. For example, you might have a collection of enemies that are added and deleted based on statistics maintained by the data structure.
+**Requirement 2:** 
+We used asynchronous processing to save the game each time each time the player encounters a ruby.
 
-**Requirement 5**: The project must be well-documented, complete, and run without errors on final submission.
+**Requirement 3:** 
+The gamestate is stored as a JSON file, containing two key value pairs of gamePanelData and playerData. The value for gamePanelData is another JSONObject consisting of 3 arrays. 
 
-## Project Pitch (group, 1%)
+**Requirement 4:**
+We created a custom data structure based on a network of nodes to utilize instead of the int-map array in the PathFinder class. This structure stores references to all adjacent nodes (up, down, left, and right) of the current node, making it more efficient for accessing adjacent nodes. The focus of this structure is on efficiency, and at present is only being utilized in Pathfinder where it serves its purpose quite good.
 
-The project pitch will be a short document that describes the kind of interactive application you would like to create with your group. The project pitch must include the following items:
+**Requirement 5:** We have added javadoc, comments and provided a UML diagram.
 
-*One-liner*: One-sentence description of your project.
-*Outline*: 1-10 sentences that describe how your project will fulfill the project requirements.
-*Communication policies*: A description of how your group will meet, communicate, and make decisions (as per Lab 03).
-*Roles and responsibilities*: A description of each team member's jobs in the group.
-*Milestones*: A rough outline of the major project milestones that you expect to complete and your own estimated timeline. This can and will change, so do your best to estimate and plan for the milestones to change.
+# Contributions
+Abhishek
+- Player, Entity, UI, KeyHandler, UI, Life and Miscellaneous
 
-Draft was due today, final due next lab. Submission here, on GitHub. Make a `.md` file that outlines the above.
+Amrit
+- Villager, Monster, Node, Pathfinder, ElementHandler and testing
 
-## Initial UML Diagrams (group, 1%)
+Nathan
+- GamePanel, TileManager, Tile classes, refactoring, design
 
-The initial UML diagrams will outline the class structure that your group will follow for the first milestone of the project. It must include the following items all classes that will be created by the group and important descriptive interfaces from either the Java library or created by the group. I expect that this will change significantly throughout the project, so it does not have to be perfect but it should be a best effort attempt. This is because you will use this to communicate with your group members about what to make. Therefore, the diagram should be *sufficiently complex* to give you a term's worth of work.
+Simrat
+- Objects package, CollisionDetector, Element, ElementHandler, sound and testing 
 
-Draft due next Lab, final due two labs from now. Submission here, on GitHub. Suggestion is to use a tool like [draw.io](https://app.diagrams.net/) but you may use whatever tool is most useful for you.
-
-## Initial GitHub Issues (group, 1%)
-
-The initial GitHub issues will be the tasks that are assigned to each of your group members at the beginning of the project. Every team member should have at least five issues to start (20-30 total). You will have to decide within your group how granular you want to make these issues. 
-
-Issues will be tracked here, on GitHub.
-
-## Final Project Demo (group, 1%)
-
-The Final Project Demo will be a working version of your project that you will present to your lab section for review. The demo will be in lab, and will include a live demo of the working application, and a short code review. There are no slides required, but you should have practiced your demo to make sure it will run reasonably well. This will be during the last lab of class.
-
-No submission.
-
-## Final README.md (group, 1%)
-
-The Final README.md must give instructions on how to run your program, a list of contributions by each member, and any references/citations for code you may have used from elsewhere. 
-
-Submission is here, on GitHub, in the `README.md` file.
-
-## Final Product (group, 5%)
-
-The Final Product will be evaluated for overall code design and documentation and evaluated on the same design principles as individual contributions. If you are below the 1000 line minimum contribution, your mark will be scaled down for this portion.
-
-Submission is here, on GitHub.
-
-## Code Contributions (individual, 15%)
-
-You will be expected to take on a significant individual contribution to the group project (at least 1000 lines of non-trivial code). It may be in a number of forms, but here are some examples:
-
-**Architect**: you are in charge of the high-level code structuring and organizing.
-
-**Test maker**: you are in charge of test coverage that supports other group members.
-
-**UI/UX lead**: you design and implement the user interface.
-
-**Backend**: you design and implement the data structures.
-
-**…??**: Make up your own depending on your use case, i.e., collision system designer, animation architect, async code wrangler.
-
-Contributions must be for functional, working Java code and must be continuous throughout the term. You may not, for example, push all of your changes at the end of term. Code will be marked on following good design principles, i.e., SOLID, design patterns, etc. You are encouraged to work together and use pair programming for components, but you will be marked on your contribution to your own modules individually.
-
-## Documentation Contributions (individual, 5%)
-
-Your code must be well-documented with fully-formed method signatures, comments, and necessary README or Wiki pages. This is further broken down into the following.
-
-### Initial individual pitch (1%)
-A description of your individual feature that you plan to implement. 
-
-Due date TBD.
-
-### Initial individual UML Diagrams (1%)
-Any combination of sequence, communcation, or class diagrams that describe your feature's initial planned abilities. 
-
-Due date TBD.
-
-### Documentation contributions (3%)
-Your personal feature documentation, wherever it happens to show up in the final documentation.
-
-Due with final submission.
-
-## Issues and Pull Request Contributions (individual, 5%)
-You must track your own work in the form of creating and closing GitHub issues, creating and reviewing pull requests, responding to issues that have been assigned to you, and creating issues that you assign to others (all within reason).
-
-# Errata
-The project MUST be managed here, in this GitHub repo. Nothing that happens outside of this GitHub repo will be trackable by me, therefore, it will not be marked or considered for marking.
-
-You must use the following branching structures:
-- `main` branch must always be working, tested, debugged, human-readable code.
-- `<initals>_<issue #>_<optional description>` is the format for each ISSUE that you're working on. It should always be a branch off of `main`.
-- Every individual branch must regularly merge `main`, and it should be no more than a few days before your branch is either merged into `main` or deleted.
-
-You must use pull requests to manage your code integration:
-- make your branch from `main`, e.g., `git checkout -b pb_71_demo`
-- make your commits, e.g., `git add .` and `git commit -m "fixed issue 71 by reloading gradle for the 100th time"` and `git push origin pb_71_demo`.
-- merge `main` into your branch, and NOT the other way around. E.g., `git merge main`. YOU fix all the merge conflicts or problems that arise. Commit and push again.
-- go to GitHub.com and make a pull request
-- one other person (NOT YOU) needs to review the code and either approve or reject your changes with detailed line-by-line comments.
-- If needed, make the requested fixes and commit and push again.
-- the other person (NOT YOU) will merge your PR into `main`
-- the other person (NOT YOU) will delete your branch
+Greg Song
+- GameLauncher, SaveState, SaveStateHandler, Menu package
 
 
